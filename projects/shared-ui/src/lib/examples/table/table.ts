@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 
 export type PeriodicElement = {
   name: string;
@@ -12,12 +15,15 @@ export type PeriodicElement = {
   selector: 'org-example-table',
   imports: [
     MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+    MatMenuModule,
   ],
   templateUrl: './table.html',
   styleUrl: './table.scss',
 })
 export class Table {
-  public displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
+  public displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'actions'];
   public dataSource: PeriodicElement[] = [
     {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
     {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
@@ -30,4 +36,14 @@ export class Table {
     {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
     {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
   ];
+
+  public onEdit(element: PeriodicElement): void {
+    console.log('Edit element:', element);
+    // Implement your edit logic here
+  }
+
+  public onDelete(element: PeriodicElement): void {
+    console.log('Delete element:', element);
+    // Implement your delete logic here
+  }
 }

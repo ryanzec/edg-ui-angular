@@ -21,6 +21,11 @@
     --mat-form-field-outlined-label-text-size: var(--mat-sys-body-medium-size);
     --mat-form-field-container-text-size: var(--mat-sys-body-medium-size);
 
+    // menu
+    --mat-menu-item-with-icon-leading-spacing: 8px;
+    --mat-menu-item-spacing: 8px;
+    --mat-menu-item-icon-size: 18px;
+
     // paginator
     --mat-paginator-form-field-container-height: var(--mat-form-field-container-height);
     --mat-paginator-form-field-container-vertical-padding: var(
@@ -102,6 +107,10 @@
 
     .mdc-data-table__cell, .mdc-data-table__header-cell {
       padding: 0 8px;
+    }
+
+    .mat-mdc-menu-item .mat-icon {
+      font-size: var(--mat-menu-item-icon-size);
     }
   }
 

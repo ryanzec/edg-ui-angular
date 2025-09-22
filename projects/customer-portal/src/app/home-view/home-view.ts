@@ -10,7 +10,4 @@ import { ComponentColorDirective } from '@organization/shared-ui';
   styleUrl: './home-view.scss',
 })
 export class HomeView {
-  protected setTotalItems(total: number) {
-    console.log('setTotalItems', total);
-  }
 }

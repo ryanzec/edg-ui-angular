@@ -13,9 +13,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MatTimepickerModule } from '@angular/material/timepicker';
 
 @Component({
-  selector: 'org-material-showcase',
+  selector: 'org-example-basic-inputs',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     MatInputModule,
@@ -31,6 +32,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
     MatCardModule,
     ReactiveFormsModule,
     MatIconModule,
+    MatTimepickerModule,
   ],
   templateUrl: './basic-inputs.html',
 })
@@ -58,6 +60,7 @@ export class BasicInputsComponent {
     gender: new FormControl(''),
     birthDate: new FormControl(''),
     description: new FormControl(''),
+    time: new FormControl(''),
   });
 
   private autoCompleteValue = toSignal(this.demoForm.get('autocomplete')!.valueChanges, {

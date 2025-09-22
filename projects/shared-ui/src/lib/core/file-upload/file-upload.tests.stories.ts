@@ -5,9 +5,6 @@ import { within, expect, fn, fireEvent } from 'storybook/test';
 const meta: Meta<FileUploadComponent> = {
   title: 'Shared UI/File Upload/Tests',
   component: FileUploadComponent,
-  parameters: {
-    layout: 'centered',
-  },
   argTypes: {
     fileTypes: {
       control: 'object',

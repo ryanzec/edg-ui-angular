@@ -44,8 +44,8 @@
     }
 
     .mdc-text-field--outlined {
-      padding-left: 10px;
-      padding-right: 10px;
+      padding-left: 8px;
+      padding-right: 8px;
     }
 
     .mat-mdc-form-field-icon-prefix > .mat-icon,
@@ -102,68 +102,68 @@
   }
 
   body.dark-theme {
-    .mat-primary {
+    .org-primary {
       @include mat.theme-overrides(theme-overrides.$primary-palette-dark);
     }
 
-    .mat-secondary {
+    .org-secondary {
       @include mat.theme-overrides(theme-overrides.$secondary-palette-dark);
     }
 
-    .mat-neutral {
+    .org-neutral {
       @include mat.theme-overrides(theme-overrides.$neutral-palette-dark);
     }
 
-    .mat-success {
+    .org-success {
       @include mat.theme-overrides(theme-overrides.$success-palette-dark);
     }
 
-    .mat-info {
+    .org-info {
       @include mat.theme-overrides(theme-overrides.$info-palette-dark);
     }
 
-    .mat-caution {
+    .org-caution {
       @include mat.theme-overrides(theme-overrides.$caution-palette-dark);
     }
 
-    .mat-warning {
+    .org-warning {
       @include mat.theme-overrides(theme-overrides.$warning-palette-dark);
     }
 
-    .mat-danger {
+    .org-danger {
       @include mat.theme-overrides(theme-overrides.$danger-palette-dark);
     }
   }
 
-  .mat-primary {
+  .org-primary {
     @include mat.theme-overrides(theme-overrides.$primary-palette);
   }
 
-  .mat-secondary {
+  .org-secondary {
     @include mat.theme-overrides(theme-overrides.$secondary-palette);
   }
 
-  .mat-neutral {
+  .org-neutral {
     @include mat.theme-overrides(theme-overrides.$neutral-palette);
   }
 
-  .mat-success {
+  .org-success {
     @include mat.theme-overrides(theme-overrides.$success-palette);
   }
 
-  .mat-info {
+  .org-info {
     @include mat.theme-overrides(theme-overrides.$info-palette);
   }
 
-  .mat-caution {
+  .org-caution {
     @include mat.theme-overrides(theme-overrides.$caution-palette);
   }
 
-  .mat-warning {
+  .org-warning {
     @include mat.theme-overrides(theme-overrides.$warning-palette);
   }
 
-  .mat-danger {
+  .org-danger {
     @include mat.theme-overrides(theme-overrides.$danger-palette);
   }
 

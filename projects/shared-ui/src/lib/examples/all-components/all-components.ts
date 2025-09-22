@@ -53,7 +53,7 @@ type DemoDialogData = {
 };
 
 @Component({
-  selector: 'org-demo-dialog',
+  selector: 'org-example-all-components-demo-dialog',
   template: `
     <h2 mat-dialog-title>{{ data.title }}</h2>
     <mat-dialog-content>
@@ -75,7 +75,7 @@ export class DemoDialogComponent {
 }
 
 @Component({
-  selector: 'org-material-showcase',
+  selector: 'org-example-all-components',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,

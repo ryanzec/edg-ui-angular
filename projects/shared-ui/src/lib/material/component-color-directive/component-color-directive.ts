@@ -1,5 +1,18 @@
 import { Directive, ElementRef, Renderer2, input, effect, inject } from '@angular/core';
 
+const colors = [
+  'primary',
+  'secondary',
+  'neutral',
+  'success',
+  'info',
+  'caution',
+  'warning',
+  'danger',
+] as const;
+
+type Color = (typeof colors)[number];
+
 @Directive({
   selector: '[orgColor]',
 })
@@ -7,17 +20,7 @@ export class ComponentColorDirective {
   private el = inject(ElementRef);
   private renderer = inject(Renderer2);
 
-  orgColor = input<
-    | 'primary'
-    | 'secondary'
-    | 'neutral'
-    | 'success'
-    | 'info'
-    | 'caution'
-    | 'warning'
-    | 'danger'
-    | null
-  >(null);
+  public orgColor = input<Color | null>(null);
 
   constructor() {
     effect(() => {
@@ -25,15 +28,19 @@ export class ComponentColorDirective {
 
       const variant = this.orgColor();
 
-      if (variant) {
-        this.renderer.addClass(this.el.nativeElement, `mat-${variant}`);
+      if (variant === null) {
+        this.clearClasses();
+
+        return;
       }
+
+      this.renderer.addClass(this.el.nativeElement, `org-${variant}`);
     });
   }
 
   private clearClasses(): void {
-    ['success', 'info', 'warning', 'danger'].forEach((cssClass) => {
-      this.renderer.removeClass(this.el.nativeElement, `mat-${cssClass}`);
+    colors.forEach((cssClass) => {
+      this.renderer.removeClass(this.el.nativeElement, `org-${cssClass}`);
     });
   }
 }

@@ -1,0 +1,248 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "cli": {
+    "packageManager": "pnpm",
+    "schematicCollections": ["angular-eslint"],
+    "analytics": false
+  },
+  "newProjectRoot": "projects",
+  "projects": {
+    "customer-portal": {
+      "projectType": "application",
+      "root": "projects/customer-portal",
+      "sourceRoot": "projects/customer-portal/src",
+      "prefix": "cp",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/customer-portal/src/main.ts",
+            "tsConfig": "projects/customer-portal/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/customer-portal/public"
+              }
+            ],
+            "styles": [
+              "projects/shared-ui/src/lib/uno.css",
+              "projects/shared-ui/src/lib/styles.scss"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "customer-portal:build:production"
+            },
+            "development": {
+              "buildTarget": "customer-portal:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/customer-portal/tsconfig.spec.json",
+            "buildTarget": "customer-portal:build:development",
+            "runner": "vitest",
+            "providersFile": "projects/customer-portal/src/test-providers.ts"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/customer-portal/src/**/*.ts",
+              "projects/customer-portal/src/**/*.html"
+            ],
+            "eslintConfig": "projects/customer-portal/eslint.config.cjs"
+          }
+        }
+      }
+    },
+    "internal-portal": {
+      "projectType": "application",
+      "root": "projects/internal-portal",
+      "sourceRoot": "projects/internal-portal/src",
+      "prefix": "ip",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/internal-portal/src/main.ts",
+            "tsConfig": "projects/internal-portal/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/internal-portal/public"
+              }
+            ],
+            "styles": [
+              "projects/shared-ui/src/lib/uno.css",
+              "projects/shared-ui/src/lib/styles.scss"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "internal-portal:build:production"
+            },
+            "development": {
+              "buildTarget": "internal-portal:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/internal-portal/tsconfig.spec.json",
+            "buildTarget": "internal-portal:build:development",
+            "runner": "vitest",
+            "providersFile": "projects/internal-portal/src/test-providers.ts"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/internal-portal/src/**/*.ts",
+              "projects/internal-portal/src/**/*.html"
+            ],
+            "eslintConfig": "projects/internal-portal/eslint.config.cjs"
+          }
+        }
+      }
+    },
+    "shared-ui": {
+      "projectType": "library",
+      "root": "projects/shared-ui",
+      "sourceRoot": "projects/shared-ui/src",
+      "prefix": "org",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:ng-packagr",
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/shared-ui/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/shared-ui/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "projects/shared-ui/tsconfig.spec.json",
+            "buildTarget": "shared-ui:build:development",
+            "runner": "vitest",
+            "providersFile": "projects/shared-ui/src/test-providers.ts"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["projects/shared-ui/**/*.ts", "projects/shared-ui/**/*.html"],
+            "eslintConfig": "projects/shared-ui/eslint.config.cjs"
+          }
+        }
+      }
+    },
+    "storybook-host": {
+      "projectType": "application",
+      "root": ".",
+      "sourceRoot": ".storybook",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/storybook-host",
+            "index": ".storybook/index.html",
+            "main": ".storybook/main.ts",
+            "tsConfig": "tsconfig.json",
+            "styles": [
+              "projects/shared-ui/src/lib/uno.css",
+              "projects/shared-ui/src/lib/styles.scss"
+            ]
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "browserTarget": "storybook-host:build",
+            "compodoc": false,
+            "configDir": ".storybook"
+          }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "browserTarget": "storybook-host:build",
+            "compodoc": false,
+            "configDir": ".storybook"
+          }
+        }
+      }
+    }
+  }
+}

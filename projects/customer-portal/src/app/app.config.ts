@@ -1,0 +1,25 @@
+import { ApplicationConfig } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
+import { MAT_BUTTON_CONFIG, MAT_FAB_DEFAULT_OPTIONS } from '@angular/material/button';
+import { MAT_CARD_CONFIG } from '@angular/material/card';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+
+// Zoneless configuration (Developer Preview)
+import { provideZonelessChangeDetection, provideBrowserGlobalErrorListeners } from '@angular/core';
+
+import { routes } from './app.routes';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    // NOTE: remember to async changes here to storybook for the ones the matter in the context of storybook
+    provideZonelessChangeDetection(),
+    provideBrowserGlobalErrorListeners(),
+    provideRouter(routes),
+    provideHttpClient(withFetch(), withInterceptorsFromDi()),
+    { provide: MAT_BUTTON_CONFIG, useValue: { defaultAppearance: 'tonal' } },
+    { provide: MAT_FAB_DEFAULT_OPTIONS, useValue: { defaultAppearance: 'tonal' } },
+    { provide: MAT_CARD_CONFIG, useValue: { appearance: 'outlined' } },
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } },
+  ],
+};

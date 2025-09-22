@@ -1,0 +1,183 @@
+@use '@angular/material' as mat;
+@use './_color-palettes' as color-palettes;
+@use './_theme-overrides' as theme-overrides;
+
+@mixin material-customization() {
+  :root {
+    // buttons
+    --mat-button-elevated-horizontal-padding: 12px;
+    --mat-button-filled-horizontal-padding: 12px;
+    --mat-button-outlined-horizontal-padding: 12px;
+    --mat-button-text-horizontal-padding: 12px;
+    --mat-button-tonal-horizontal-padding: 12px;
+
+    // inputs
+    --mat-form-field-filled-with-label-container-padding-top: 4px;
+    --mat-form-field-filled-with-label-container-padding-bottom: 4px;
+
+    // form fields
+    --mat-form-field-container-height: 40px;
+    --mat-form-field-container-vertical-padding: 6px;
+    --mat-form-field-outlined-label-text-size: var(--mat-sys-body-medium-size);
+    --mat-form-field-container-text-size: var(--mat-sys-body-medium-size);
+
+    // paginator
+    --mat-paginator-form-field-container-height: var(--mat-form-field-container-height);
+    --mat-paginator-form-field-container-vertical-padding: var(
+      --mat-form-field-container-vertical-padding
+    );
+
+    // select
+    --mat-select-trigger-text-size: var(--mat-sys-body-medium-size);
+
+    // tabs
+    --mat-tab-container-height: 32px;
+  }
+
+  html {
+    .mdc-text-field {
+      padding: 0 8px;
+    }
+
+    .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading {
+      width: 6px;
+    }
+
+    .mdc-text-field--outlined {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    .mat-mdc-form-field-icon-prefix > .mat-icon,
+    .mat-mdc-form-field-icon-suffix > .mat-icon {
+      padding: 0 8px;
+    }
+
+    .mdc-tab {
+      padding: 0 12px;
+    }
+
+    .mat-expansion-panel-header {
+      padding: 0 12px;
+    }
+
+    .mat-mdc-option {
+      min-height: 32px;
+      padding: 0 6px;
+    }
+
+    .mat-mdc-text-field-wrapper
+      .mat-mdc-form-field-flex
+      .mat-mdc-floating-label:not(.mdc-floating-label--float-above) {
+      top: calc(
+        var(--mat-form-field-container-height) /
+          2 - calc(var(--mat-form-field-outlined-label-text-size) / 4)
+      );
+    }
+
+    .mat-mdc-form-field-hint-wrapper,
+    .mat-mdc-form-field-error-wrapper {
+      padding: 0 10px;
+    }
+
+    .mdc-text-field--outlined .mat-mdc-form-field-infix,
+    .mdc-text-field--no-label .mat-mdc-form-field-infix,
+    .mat-mdc-select {
+      display: flex;
+    }
+
+    :not(.mat-mdc-slide-toggle) > .mat-internal-form-field > label {
+      padding: 0;
+    }
+
+    .mat-mdc-select-arrow-wrapper {
+      width: 24px;
+      justify-content: center;
+    }
+
+    .mat-mdc-form-field-icon-suffix:has(.mat-datepicker-toggle),
+    [dir='rtl'] .mat-mdc-form-field-icon-prefix:has(.mat-datepicker-toggle) {
+      padding: 0 4px;
+    }
+  }
+
+  body.dark-theme {
+    .mat-primary {
+      @include mat.theme-overrides(theme-overrides.$primary-palette-dark);
+    }
+
+    .mat-secondary {
+      @include mat.theme-overrides(theme-overrides.$secondary-palette-dark);
+    }
+
+    .mat-neutral {
+      @include mat.theme-overrides(theme-overrides.$neutral-palette-dark);
+    }
+
+    .mat-success {
+      @include mat.theme-overrides(theme-overrides.$success-palette-dark);
+    }
+
+    .mat-info {
+      @include mat.theme-overrides(theme-overrides.$info-palette-dark);
+    }
+
+    .mat-caution {
+      @include mat.theme-overrides(theme-overrides.$caution-palette-dark);
+    }
+
+    .mat-warning {
+      @include mat.theme-overrides(theme-overrides.$warning-palette-dark);
+    }
+
+    .mat-danger {
+      @include mat.theme-overrides(theme-overrides.$danger-palette-dark);
+    }
+  }
+
+  .mat-primary {
+    @include mat.theme-overrides(theme-overrides.$primary-palette);
+  }
+
+  .mat-secondary {
+    @include mat.theme-overrides(theme-overrides.$secondary-palette);
+  }
+
+  .mat-neutral {
+    @include mat.theme-overrides(theme-overrides.$neutral-palette);
+  }
+
+  .mat-success {
+    @include mat.theme-overrides(theme-overrides.$success-palette);
+  }
+
+  .mat-info {
+    @include mat.theme-overrides(theme-overrides.$info-palette);
+  }
+
+  .mat-caution {
+    @include mat.theme-overrides(theme-overrides.$caution-palette);
+  }
+
+  .mat-warning {
+    @include mat.theme-overrides(theme-overrides.$warning-palette);
+  }
+
+  .mat-danger {
+    @include mat.theme-overrides(theme-overrides.$danger-palette);
+  }
+
+  html {
+    @include mat.theme(
+      (
+        color: (
+          primary: color-palettes.$primary-palette,
+          secondary: color-palettes.$secondary-palette,
+          theme-type: color-scheme,
+        ),
+        typography: Roboto,
+        density: -2,
+      )
+    );
+  }
+}

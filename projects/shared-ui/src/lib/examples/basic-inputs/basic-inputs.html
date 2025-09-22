@@ -1,0 +1,127 @@
+<div>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Form Controls</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="demoForm" class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Input Fields -->
+          <mat-form-field class="w-full">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" placeholder="Enter your name" />
+            <mat-icon matSuffix>person</mat-icon>
+            @if (demoForm.get('name')?.hasError('required')) {
+            <mat-error>Name is required</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" placeholder="Enter your email" />
+            <mat-icon matSuffix>email</mat-icon>
+            @if (demoForm.get('email')?.hasError('email')) {
+            <mat-error>Please enter a valid email</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="category">
+              @for (option of categoryOptions; track option.value) {
+              <mat-option [value]="option.value">{{ option.label }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Technology</mat-label>
+            <input matInput formControlName="autocomplete" [matAutocomplete]="auto" />
+            <mat-autocomplete #auto="matAutocomplete">
+              @for (option of filteredOptions(); track option) {
+              <mat-option [value]="option">{{ option }}</mat-option>
+              }
+            </mat-autocomplete>
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Birth Date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="birthDate" />
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="w-full">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" rows="3"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="space-y-4">
+          <mat-checkbox formControlName="agreement">
+            I agree to the terms and conditions
+          </mat-checkbox>
+
+          <div>
+            <label for="gender" class="block text-sm font-medium mb-2">Gender:</label>
+            <mat-radio-group formControlName="gender">
+              <mat-radio-button value="male">Male</mat-radio-button>
+              <mat-radio-button value="female">Female</mat-radio-button>
+              <mat-radio-button value="other">Other</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div>
+            <label for="slider" class="block text-sm font-medium mb-2">
+              Value: {{ sliderValue() }}
+            </label>
+            <mat-slider min="0" max="100" step="1">
+              <!--
+              (input) is needed to get the immediate value changes
+              (valueChange) is needed to make sure you get teh final updated value
+              -->
+              <input
+                matSliderThumb
+                [value]="sliderValue()"
+                (input)="updateSliderValue($event.target.valueAsNumber)"
+                (valueChange)="updateSliderValue($event)"
+                name="slider"
+              />
+            </mat-slider>
+          </div>
+          <div>
+            <label for="slider" class="block text-sm font-medium mb-2">
+              Value Range: {{ sliderStartValue() }} - {{ sliderEndValue() }}
+            </label>
+            <mat-slider min="0" max="100" step="1">
+              <!--
+              (input) is needed to get the immediate value changes
+              (valueChange) is needed to make sure you get teh final updated value
+              -->
+              <input
+                [value]="sliderStartValue()"
+                (input)="updateSliderStartValue($event.target.valueAsNumber)"
+                (valueChange)="updateSliderStartValue($event)"
+                name="slider"
+                matSliderStartThumb
+              />
+              <input
+                [value]="sliderEndValue()"
+                (input)="updateSliderEndValue($event.target.valueAsNumber)"
+                (valueChange)="updateSliderEndValue($event)"
+                name="slider"
+                matSliderEndThumb
+              />
+            </mat-slider>
+          </div>
+
+          <mat-slide-toggle [checked]="toggleValue()" (change)="updateToggleValue($event)">
+            Enable notifications ({{ toggleValue() ? 'On' : 'Off' }})
+          </mat-slide-toggle>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,15 @@
+@if ((todos() ?? []).length > 0) {
+<h1>Todo List ✅</h1>
+<ul>
+  @for (todo of todos() || []; track todo.id) {
+  <li>
+    {{ todo.id }}: {{ todo.title }}
+    <strong>({{ todo.completed ? 'Completed' : 'Pending' }})</strong>
+  </li>
+  }
+</ul>
+}
+
+<ng-template #loading>
+  <p>Loading todos...</p>
+</ng-template>

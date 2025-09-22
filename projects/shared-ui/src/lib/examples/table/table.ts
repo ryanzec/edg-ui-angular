@@ -14,7 +14,7 @@ export type PeriodicElement = {
     MatTableModule,
   ],
   templateUrl: './table.html',
-  styleUrl: './table.css',
+  styleUrl: './table.scss',
 })
 export class Table {
   public displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];

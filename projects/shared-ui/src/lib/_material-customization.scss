@@ -99,6 +99,10 @@
     [dir='rtl'] .mat-mdc-form-field-icon-prefix:has(.mat-datepicker-toggle) {
       padding: 0 4px;
     }
+
+    .mdc-data-table__cell, .mdc-data-table__header-cell {
+      padding: 0 8px;
+    }
   }
 
   body.dark-theme {

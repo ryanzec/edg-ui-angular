@@ -13,6 +13,11 @@
       "root": "projects/customer-portal",
       "sourceRoot": "projects/customer-portal/src",
       "prefix": "cp",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular/build:application",
@@ -95,6 +100,11 @@
       "root": "projects/internal-portal",
       "sourceRoot": "projects/internal-portal/src",
       "prefix": "ip",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular/build:application",
@@ -177,6 +187,11 @@
       "root": "projects/shared-ui",
       "sourceRoot": "projects/shared-ui/src",
       "prefix": "org",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",

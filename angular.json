@@ -31,7 +31,6 @@
               }
             ],
             "styles": [
-              "projects/shared-ui/src/lib/uno.css",
               "projects/shared-ui/src/lib/styles.scss"
             ]
           },
@@ -118,7 +117,6 @@
               }
             ],
             "styles": [
-              "projects/shared-ui/src/lib/uno.css",
               "projects/shared-ui/src/lib/styles.scss"
             ]
           },
@@ -236,7 +234,6 @@
             "main": ".storybook/main.ts",
             "tsConfig": "tsconfig.json",
             "styles": [
-              "projects/shared-ui/src/lib/uno.css",
               "projects/shared-ui/src/lib/styles.scss"
             ]
           }

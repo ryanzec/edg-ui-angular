@@ -21,8 +21,6 @@ tasks:
 
   storybook:
     command: '$workspaceRoot/node_modules/.bin/ng run storybook-host:storybook'
-    deps:
-      - shared-ui:build-css
     inputs:
       - '/projects/**/*'
     env:

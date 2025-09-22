@@ -11,11 +11,9 @@
     --mat-button-text-horizontal-padding: 12px;
     --mat-button-tonal-horizontal-padding: 12px;
 
-    // inputs
+    // form fields
     --mat-form-field-filled-with-label-container-padding-top: 4px;
     --mat-form-field-filled-with-label-container-padding-bottom: 4px;
-
-    // form fields
     --mat-form-field-container-height: 40px;
     --mat-form-field-container-vertical-padding: 6px;
     --mat-form-field-outlined-label-text-size: var(--mat-sys-body-medium-size);
@@ -40,17 +38,16 @@
   }
 
   html {
-    .mdc-text-field {
-      padding: 0 8px;
+    // date picker
+    .mat-mdc-form-field-icon-suffix:has(.mat-datepicker-toggle),
+    [dir='rtl'] .mat-mdc-form-field-icon-prefix:has(.mat-datepicker-toggle) {
+      padding: 0 4px;
     }
 
-    .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading {
-      width: 6px;
-    }
-
-    .mdc-text-field--outlined {
-      padding-left: 8px;
-      padding-right: 8px;
+    // form field
+    .mat-mdc-form-field-hint-wrapper,
+    .mat-mdc-form-field-error-wrapper {
+      padding: 0 10px;
     }
 
     .mat-mdc-form-field-icon-prefix > .mat-icon,
@@ -58,6 +55,43 @@
       padding: 0 8px;
     }
 
+    .mdc-text-field--outlined .mat-mdc-form-field-infix,
+    .mdc-text-field--no-label .mat-mdc-form-field-infix,
+    .mat-mdc-select {
+      display: flex;
+    }
+
+    .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading {
+      width: 6px;
+    }
+
+    // menu
+    .mat-mdc-menu-item .mat-icon {
+      font-size: var(--mat-menu-item-icon-size);
+    }
+
+    .mat-mdc-menu-item {
+      min-height: 32px;
+    }
+
+    // select
+    .mat-mdc-select-arrow-wrapper {
+      width: 24px;
+      justify-content: center;
+    }
+
+    // slide toggle
+    :not(.mat-mdc-slide-toggle) > .mat-internal-form-field > label {
+      padding: 0;
+    }
+
+    // table
+    .mdc-data-table__cell,
+    .mdc-data-table__header-cell {
+      padding: 0 8px;
+    }
+
+    // tab
     .mdc-tab {
       padding: 0 12px;
     }
@@ -71,6 +105,7 @@
       padding: 0 6px;
     }
 
+    // text field
     .mat-mdc-text-field-wrapper
       .mat-mdc-form-field-flex
       .mat-mdc-floating-label:not(.mdc-floating-label--float-above) {
@@ -80,37 +115,13 @@
       );
     }
 
-    .mat-mdc-form-field-hint-wrapper,
-    .mat-mdc-form-field-error-wrapper {
-      padding: 0 10px;
-    }
-
-    .mdc-text-field--outlined .mat-mdc-form-field-infix,
-    .mdc-text-field--no-label .mat-mdc-form-field-infix,
-    .mat-mdc-select {
-      display: flex;
-    }
-
-    :not(.mat-mdc-slide-toggle) > .mat-internal-form-field > label {
-      padding: 0;
-    }
-
-    .mat-mdc-select-arrow-wrapper {
-      width: 24px;
-      justify-content: center;
-    }
-
-    .mat-mdc-form-field-icon-suffix:has(.mat-datepicker-toggle),
-    [dir='rtl'] .mat-mdc-form-field-icon-prefix:has(.mat-datepicker-toggle) {
-      padding: 0 4px;
-    }
-
-    .mdc-data-table__cell, .mdc-data-table__header-cell {
+    .mdc-text-field {
       padding: 0 8px;
     }
 
-    .mat-mdc-menu-item .mat-icon {
-      font-size: var(--mat-menu-item-icon-size);
+    .mdc-text-field--outlined {
+      padding-left: 8px;
+      padding-right: 8px;
     }
   }
 

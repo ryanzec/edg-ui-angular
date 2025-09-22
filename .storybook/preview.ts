@@ -7,6 +7,8 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { withInterceptorsFromDi } from '@angular/common/http';
 import { withFetch } from '@angular/common/http';
+import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
+import { MAT_LUXON_DATE_ADAPTER_OPTIONS } from '@angular/material-luxon-adapter';
 
 export const globalTypes = {
   theme: {
@@ -48,6 +50,8 @@ const preview: Preview = {
         provideZonelessChangeDetection(),
         provideBrowserGlobalErrorListeners(),
         provideHttpClient(withFetch(), withInterceptorsFromDi()),
+        provideLuxonDateAdapter(),
+        { provide: MAT_LUXON_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
         { provide: MAT_BUTTON_CONFIG, useValue: { defaultAppearance: 'tonal' } },
         { provide: MAT_FAB_DEFAULT_OPTIONS, useValue: { defaultAppearance: 'tonal' } },
         { provide: MAT_CARD_CONFIG, useValue: { appearance: 'outlined' } },

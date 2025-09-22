@@ -8,8 +8,6 @@ tasks:
   # commenting out for now
   # build:
   #   command: '$workspaceRoot/node_modules/.bin/ng build shared-ui'
-  #   deps:
-  #     - shared-ui:build-css
   #   inputs:
   #     - '**/*'
   #     - '/projects/shared-types/src/**/*'
@@ -30,29 +28,3 @@ tasks:
       NODE_ENV: 'development'
     options:
       runFromWorkspaceRoot: false
-
-  build-css:
-    command: '$workspaceRoot/node_modules/.bin/unocss --config $workspaceRoot/unocss.config.js --out-file $workspaceRoot/projects/shared-ui/src/lib/uno.css "$workspaceRoot/projects/**/*.{html,ts}"'
-    inputs:
-      - /unocss.config.js
-      - '/projects/customer-portal/**/*.html'
-      - '/projects/customer-portal/**/*.ts'
-      - '/projects/internal-portal/**/*.html'
-      - '/projects/internal-portal/**/*.ts'
-      - '/projects/shared-ui/**/*.html'
-      - '/projects/shared-ui/**/*.ts'
-    env:
-      NODE_ENV: 'development'
-    options:
-      runFromWorkspaceRoot: true
-
-  build-css-watch:
-    # I don't know if it is possible to prevent moonrepo from expanding glob patterns but since this is a watch
-    # task and we need to be able to detect new files, we proxy this through a package.json script which properly
-    # handle the glob as needed
-    command: 'pnpm build-css-watch'
-    local: true
-    env:
-      NODE_ENV: 'development'
-    options:
-      runFromWorkspaceRoot: true

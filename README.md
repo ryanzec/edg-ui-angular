@@ -38,7 +38,18 @@ Generic typescript
 - `moon :deps`
 - `moon sync hooks`
 
+# Tooling
+
+- Angular
+- Angualr 20
+- Vitest
+- Storybook
+- Eslint / Prettier
+- Luxon
+
 # Todo examples
+
+## Components
 
 - [x] autocomplete (local)
 - [ ] autocomplete (remote)
@@ -82,3 +93,7 @@ Generic typescript
 - [ ] toolbar
 - [ ] tooltip
 - [ ] tree
+
+## Patterns
+
+- [x] component based store (a.k.a context provider)

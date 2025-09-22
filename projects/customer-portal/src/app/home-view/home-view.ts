@@ -9,5 +9,4 @@ import { ComponentColorDirective } from '@organization/shared-ui';
   templateUrl: './home-view.html',
   styleUrl: './home-view.scss',
 })
-export class HomeView {
-}
+export class HomeView {}

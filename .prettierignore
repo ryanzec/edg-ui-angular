@@ -23,4 +23,3 @@ pnpm-lock.yaml
 storybook-static
 
 projects/shared-ui/src/lib/styles.scss
-projects/shared-ui/src/lib/uno.scss

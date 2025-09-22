@@ -71,6 +71,7 @@ make more specific to avoid confusion on if something is a service vs component
 - `*-api`: API services (ex. `users-api`)
 - `*-manager`: Management of a particular feature that lacks associated internal state (ex. `logger-manager`)
 - `*-store`: Management of a pariticular feature or instance of a feature that has state associated (ex. )
+  - `[COMPONENT_NAME]-store`: for components that need a context it needs to follow this pattern (ex. for component `ChatWindow`, the service would be named `ChatWindowStore`)
 
 ## Pipes
 
@@ -113,14 +114,13 @@ NOTES:
 - using a root only package.json files is generally no recommended but the easiest option that I know works
 - does not have https in local development (will leave as is until it is an issue)
 - pnpm usage is weird (in order to make sure it uses the moonrepo version)
-- have to use unocss instead of tailwind and tailwind working with a modern monorepo angular 20 application seems a bit hard to do
 - still need to figure out node version with moon tasks
 - moon task seem to be running for everything instead of just the project named (moon shared-ui:lint show message for cusotmer-portal)
 - making sure all ng command are represented in moon (for ng is accessing correct version of moon toolchain)
 - added component with ng generate --module does not update the module automatically
 - a little weirdness with moonrepo and angular also providing it own level on moonrepo support
 - need to run moon sync hook
-- need to manually refresh storybook to get sass changes
+- need to manually refresh storybook to get style changes sometimes
 - if using web ai client, make sure to pass in ai file as context to the prompt to have it generate better code
 -
 

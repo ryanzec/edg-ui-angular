@@ -10,6 +10,8 @@
 @include mat.core();
 @include material-custom.material-customization();
 
+@import './tailwind.css';
+
 body {
   color-scheme: light;
 

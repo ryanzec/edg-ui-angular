@@ -36,7 +36,7 @@ import { MatTimepickerModule } from '@angular/material/timepicker';
   ],
   templateUrl: './basic-inputs.html',
 })
-export class BasicInputsComponent {
+export class BasicInputs {
   public categoryOptions = [
     { value: 'option1', label: 'First Option' },
     { value: 'option2', label: 'Second Option' },

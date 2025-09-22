@@ -5,6 +5,7 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Use strict type checking
 - Prefer type inference when the type is obvious
 - Avoid the `any` type; use `unknown` when type is uncertain
+- Prefer self comment code and avoid useless comment that just describe what the code is doing
 
 ## Angular Best Practices
 
@@ -49,4 +50,8 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 
 ## Storybook
 
-- don't overide the default storybook lauyout, just let it use the default
+- Don't overide the default storybook lauyout, just let it use the default
+
+## Unit Test
+
+- Use vitest for all unit testing needs, don't use karma

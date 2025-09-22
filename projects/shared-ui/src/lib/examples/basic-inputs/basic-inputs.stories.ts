@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { BasicInputsComponent } from './basic-inputs';
+import { BasicInputs } from './basic-inputs';
 
-const meta: Meta<BasicInputsComponent> = {
+const meta: Meta<BasicInputs> = {
   title: 'Shared UI/Examples/Basic Inputs',
-  component: BasicInputsComponent,
+  component: BasicInputs,
 };
 
 export default meta;
-type Story = StoryObj<BasicInputsComponent>;
+type Story = StoryObj<BasicInputs>;
 
 export const Default: Story = {
   args: {

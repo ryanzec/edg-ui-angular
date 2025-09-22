@@ -11,7 +11,7 @@ const colors = [
   'danger',
 ] as const;
 
-type Color = (typeof colors)[number];
+export type ComponentColor = (typeof colors)[number];
 
 @Directive({
   selector: '[orgColor]',
@@ -20,7 +20,7 @@ export class ComponentColorDirective {
   private el = inject(ElementRef);
   private renderer = inject(Renderer2);
 
-  public orgColor = input<Color | null>(null);
+  public orgColor = input<ComponentColor | null>(null);
 
   constructor() {
     effect(() => {

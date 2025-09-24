@@ -8,7 +8,7 @@ import { ComponentColorDirective } from '@organization/shared-ui';
   templateUrl: './button.html',
   styleUrl: './button.scss',
 })
-export class Button {
+export class EXAMPLEButton {
   protected setTotalItems(total: number) {
     console.log('setTotalItems', total);
   }

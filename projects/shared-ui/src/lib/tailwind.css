@@ -52,3 +52,10 @@
   --color-transparent: transparent;
   --color-current: currentColor;
 }
+
+html {
+  /* including tailwind causes a weird issue so this resolved */
+  .mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field .mdc-notched-outline__notch {
+    border-right: 1px solid rgba(0, 0, 0, 0);
+  }
+}

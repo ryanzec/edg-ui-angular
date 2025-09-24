@@ -1,5 +1,4 @@
 @use '@angular/material' as mat;
-@use './_color-palettes' as color-palettes;
 @use './_theme-overrides' as theme-overrides;
 
 @mixin material-customization() {
@@ -32,6 +31,22 @@
 
     // select
     --mat-select-trigger-text-size: var(--mat-sys-body-medium-size);
+
+    // slide toggle
+    --mat-slide-toggle-track-width: 40px;
+    --mat-slide-toggle-touch-target-size: 32px;
+    --mat-slide-toggle-track-height: 24px;
+    --mat-slide-toggle-state-layer-size: 16px;
+    --mat-slide-toggle-with-icon-handle-size: 16px;
+    --mat-slide-toggle-pressed-handle-size: 16px;
+    --mat-slide-toggle-unselected-with-icon-handle-horizontal-margin: 0 4px;
+    --mat-slide-toggle-unselected-pressed-handle-horizontal-margin: 0 4px;
+    --mat-slide-toggle-selected-with-icon-handle-horizontal-margin: 0 20px;
+    --mat-slide-toggle-selected-pressed-handle-horizontal-margin: 0 20px;
+
+    // slider
+    --mat-slider-handle-width: 14px;
+    --mat-slider-handle-height: 14px;
 
     // tabs
     --mat-tab-container-height: 32px;
@@ -80,9 +95,24 @@
       justify-content: center;
     }
 
-    // slide toggle
+    // slider
     :not(.mat-mdc-slide-toggle) > .mat-internal-form-field > label {
       padding: 0;
+    }
+
+    .mat-mdc-slider {
+      height: 32px;
+    }
+
+    .mdc-slider__input,
+    .mdc-slider__thumb {
+      height: 32px;
+    }
+
+    // NOTE: since there is no global configuration for this just going to disable as I can get the smaller style
+    // NOTE: implement to work well with the ripple
+    .mat-mdc-slider-visual-thumb .mat-ripple {
+      visibility: hidden;
     }
 
     // table
@@ -189,19 +219,5 @@
 
   .org-danger {
     @include mat.theme-overrides(theme-overrides.$danger-palette);
-  }
-
-  html {
-    @include mat.theme(
-      (
-        color: (
-          primary: color-palettes.$primary-palette,
-          secondary: color-palettes.$secondary-palette,
-          theme-type: color-scheme,
-        ),
-        typography: Roboto,
-        density: -2,
-      )
-    );
   }
 }

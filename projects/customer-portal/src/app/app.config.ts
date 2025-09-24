@@ -1,4 +1,4 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, inject, provideAppInitializer } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { MAT_BUTTON_CONFIG, MAT_FAB_DEFAULT_OPTIONS } from '@angular/material/button';
@@ -8,6 +8,7 @@ import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { MAT_LUXON_DATE_ADAPTER_OPTIONS } from '@angular/material-luxon-adapter';
 import { provideZonelessChangeDetection, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { routes } from './app.routes';
+// import { FeatureFlagStore } from '@organization/shared-ui';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,5 +23,9 @@ export const appConfig: ApplicationConfig = {
     { provide: MAT_FAB_DEFAULT_OPTIONS, useValue: { defaultAppearance: 'tonal' } },
     { provide: MAT_CARD_CONFIG, useValue: { appearance: 'outlined' } },
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline' } },
+    // provideAppInitializer(() => {
+    //   const globalService = inject(FeatureFlagStore);
+    //   return globalService.initialize(LAUNCH_DARKLY_CLIENT_ID, LAUNCH_DARKLY_CONTEXT, LAUNCH_DARKLY_HASH);
+    // }),
   ],
 };

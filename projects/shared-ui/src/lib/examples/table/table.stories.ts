@@ -1,13 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { Table } from './table';
+import { EXAMPLETable } from './table';
 
-const meta: Meta<Table> = {
+const meta: Meta<EXAMPLETable> = {
   title: 'Shared UI/Examples/Table',
-  component: Table,
+  component: EXAMPLETable,
 };
 
 export default meta;
-type Story = StoryObj<Table>;
+type Story = StoryObj<EXAMPLETable>;
 
 export const Default: Story = {
   args: {

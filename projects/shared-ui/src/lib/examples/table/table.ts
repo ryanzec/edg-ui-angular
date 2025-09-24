@@ -17,7 +17,7 @@ export type PeriodicElement = {
   templateUrl: './table.html',
   styleUrl: './table.scss',
 })
-export class Table {
+export class EXAMPLETable {
   public displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'actions'];
   public dataSource: PeriodicElement[] = [
     { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },

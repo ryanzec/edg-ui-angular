@@ -48,15 +48,40 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "projects/customer-portal/src/environments/environment.ts",
+                  "with": "projects/customer-portal/src/environments/environment.production.ts"
+                }
+              ]
+            },
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/customer-portal/src/environments/environment.ts",
+                  "with": "projects/customer-portal/src/environments/environment.staging.ts"
+                }
+              ]
             },
             "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/customer-portal/src/environments/environment.ts",
+                  "with": "projects/customer-portal/src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "local": {
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "development"
         },
         "serve": {
           "builder": "@angular/build:dev-server",
@@ -64,11 +89,17 @@
             "production": {
               "buildTarget": "customer-portal:build:production"
             },
+            "staging": {
+              "buildTarget": "customer-portal:build:staging"
+            },
             "development": {
               "buildTarget": "customer-portal:build:development"
+            },
+            "local": {
+              "buildTarget": "customer-portal:build:local"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "local"
         },
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n"
@@ -134,27 +165,58 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "projects/internal-portal/src/environments/environment.ts",
+                  "with": "projects/internal-portal/src/environments/environment.production.ts"
+                }
+              ]
+            },
+            "staging": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/internal-portal/src/environments/environment.ts",
+                  "with": "projects/internal-portal/src/environments/environment.staging.ts"
+                }
+              ]
             },
             "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "projects/internal-portal/src/environments/environment.ts",
+                  "with": "projects/internal-portal/src/environments/environment.development.ts"
+                }
+              ]
+            },
+            "local": {
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "development"
         },
         "serve": {
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "internal-portal:build:production"
+              "buildTarget": "customer-portal:build:production"
+            },
+            "staging": {
+              "buildTarget": "customer-portal:build:staging"
             },
             "development": {
-              "buildTarget": "internal-portal:build:development"
+              "buildTarget": "customer-portal:build:development"
+            },
+            "local": {
+              "buildTarget": "customer-portal:build:local"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "local"
         },
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n"

@@ -5,12 +5,27 @@
 // custom components at https://material.angular.dev/guide/theming
 @use 'sass:map';
 @use '@angular/material' as mat;
+@use './_color-palettes' as color-palettes;
 @use './_material-customization' as material-custom;
 
 @include mat.core();
 @include material-custom.material-customization();
 
 @import './tailwind.css';
+
+html {
+  @include mat.theme(
+    (
+      color: (
+        primary: color-palettes.$primary-palette,
+        secondary: color-palettes.$secondary-palette,
+        theme-type: color-scheme,
+      ),
+      typography: Roboto,
+      density: -2,
+    )
+  );
+}
 
 body {
   color-scheme: light;

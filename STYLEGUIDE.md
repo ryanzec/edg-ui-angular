@@ -87,13 +87,19 @@ Instead of just having one publis-api.ts file, each module should have its own a
 
 # Angular Material
 
-## `kabob-case` directives
+## `camelCase` instead of `kabob-case` directives
 
 While they work on some thing, for angular material directives you need to use `camelCase` instead of `kabob-case` as certain feature will not work (like default options for components).
 
 ## Favor property value over
 
-## Always use
+# Avoid relying on parent for injectable of child provider, use the registry pattern instead
+
+# Storybook example classes should be prefixed with EXAMPLE
+
+This is to make is easy to see if we ware importing these in production code
+
+## TODO: move this into it own project that way it can be made impossible to import into production code
 
 ---
 

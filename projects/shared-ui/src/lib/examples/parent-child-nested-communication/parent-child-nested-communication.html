@@ -1,3 +1,8 @@
+<div>When a parent needs access to a nested child's public logic, we use the registry pattern.</div>
+<ul>
+  <li>We should add the registry provider as low in the tree as needed in order to avoid issues like memory leaks and such that can happen mor easily with root level providers.</li>
+  <li>When a component can be accessed by a registry, we need to make sure the registering itself is done optionally as components should be able to work without a registry aswell.</li>
+</ul>
 <div class="border border-primary p-2">
   parent (store created here)
   <org-example-nested-1 />

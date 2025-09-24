@@ -8,7 +8,7 @@ import { EXAMPLENested2Registry } from '../nested2-registry/nested2-registry';
   imports: [EXAMPLENested2, MatButtonModule],
   templateUrl: './nested1.html',
 })
-export class Nested1 {
+export class EXAMPLENested1 {
   private readonly _nested2Registry = inject(EXAMPLENested2Registry);
 
   protected setValue() {

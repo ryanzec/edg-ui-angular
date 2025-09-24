@@ -1,10 +1,10 @@
 import { Component, inject, AfterViewInit } from '@angular/core';
-import { Nested1 } from './nested1/nested1';
+import { EXAMPLENested1 } from './nested1/nested1';
 import { EXAMPLENested2Registry } from './nested2-registry/nested2-registry';
 
 @Component({
   selector: 'org-example-parent-child-nested-communication',
-  imports: [Nested1],
+  imports: [EXAMPLENested1],
   providers: [EXAMPLENested2Registry],
   templateUrl: './parent-child-nested-communication.html',
   styleUrl: './parent-child-nested-communication.scss',

@@ -10,6 +10,11 @@ import { withFetch } from '@angular/common/http';
 import { provideLuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { MAT_LUXON_DATE_ADAPTER_OPTIONS } from '@angular/material-luxon-adapter';
 
+// @todo(refactor) for some reason the inclusion of the tailwind css in the styles.scss files does not get
+// @todo(refactor) applied to storybook but including it here does so while this feels hack, the hack is in storybook
+// @todo(refactor) code so it is fine for the time being
+import '../projects/shared-ui/src/lib/tailwind.css';
+
 export const globalTypes = {
   theme: {
     name: 'Theme',

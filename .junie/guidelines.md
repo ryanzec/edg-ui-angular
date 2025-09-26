@@ -6,6 +6,7 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Prefer type inference when the type is obvious
 - Avoid the `any` type; use `unknown` when type is uncertain
 - Prefer self comment code and avoid useless comment that just describe what the code is doing
+- Always to early returns instead of nesting continue logic
 
 ## Angular Best Practices
 
@@ -55,3 +56,18 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 ## Unit Test
 
 - Use vitest for all unit testing needs, don't use karma
+
+## Classes
+
+- Always be explicit with defining `public` / `protected` / `private`
+
+## Library Version
+
+- We are using version 20.3 of Angular
+- We are using version 20.2  of Angular Material
+- We are using version 9 of Storybook
+- We are using version 4 of Zod
+
+## UX Pattern
+
+- Button should never be disabled before a form is invalid, there should be allowed to submit and see the errors

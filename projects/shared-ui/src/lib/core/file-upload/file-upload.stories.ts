@@ -4,9 +4,6 @@ import { FileUploadComponent } from './file-upload';
 const meta: Meta<FileUploadComponent> = {
   title: 'Shared UI/File Upload',
   component: FileUploadComponent,
-  parameters: {
-    layout: 'centered',
-  },
   argTypes: {
     fileTypes: {
       control: 'object',
@@ -17,6 +14,13 @@ const meta: Meta<FileUploadComponent> = {
       description: 'Emits the selected file',
     },
   },
+  render: (args) => ({
+    props: args,
+    template: `
+    <div class="w-[400px]">
+      <org-file-upload [fileTypes]="fileTypes" (fileUpload)="fileUpload($event)"></org-file-upload>
+    </div>`,
+  }),
 };
 
 export default meta;

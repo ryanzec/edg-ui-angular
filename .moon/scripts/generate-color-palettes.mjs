@@ -58,7 +58,7 @@ function generateAllPalettes() {
     success: '#247731',
     info: '#2C708E',
     caution: '#B4851A',
-    warning: '#CD5923',
+    warning: '#973c00',
     danger: '#FB0721',
   };
 

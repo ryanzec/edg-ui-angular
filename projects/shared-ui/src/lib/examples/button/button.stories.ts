@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { EXAMPLEButton } from './button';
 
 const meta: Meta<EXAMPLEButton> = {
-  title: 'Shared UI/Examples/Button',
+  title: 'Shared UI/Examples/Styling/Button',
   component: EXAMPLEButton,
 };
 

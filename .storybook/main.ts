@@ -1,4 +1,6 @@
 import type { StorybookConfig } from '@storybook/angular';
+import path from 'path';
+import * as sass from 'sass';
 
 const config: StorybookConfig = {
   stories: ['../projects/**/*.stories.@(js|ts|mdx)'],
@@ -9,52 +11,70 @@ const config: StorybookConfig = {
   },
   // this is required to avoud having to restart stroybook to get sass changes (still need to refresh page)
   webpackFinal: async (config) => {
-    // Find all rules that process SCSS files.
-    const scssRules = config.module?.rules?.filter(
+    // 1. Define the absolute path to your global stylesheet.
+    const globalStylePath = path.resolve(__dirname, '../projects/shared-ui/src/lib/styles.scss');
+
+    // 2. Define our custom rule for the global stylesheet.
+    // This uses the loader chain proven to enable hot-reloading.
+    const globalStyleRule = {
+      test: globalStylePath,
+      use: [
+        'style-loader',
+        {
+          loader: 'css-loader',
+          options: { sourceMap: true },
+        },
+        {
+          loader: 'resolve-url-loader',
+          options: { sourceMap: true },
+        },
+        {
+          loader: 'sass-loader',
+          options: {
+            sourceMap: true,
+            implementation: sass,
+            sassOptions: {
+              includePaths: [path.resolve(__dirname, '..', 'node_modules')],
+            },
+          },
+        },
+      ],
+    };
+
+    // 3. Find the index of the original, problematic SCSS rule.
+    const scssRuleIndex = config.module?.rules?.findIndex(
       // dx code, any is fine here
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (rule): rule is { test: RegExp; use: any[] } =>
-        typeof rule === 'object' &&
-        rule !== null &&
-        'test' in rule &&
-        rule.test instanceof RegExp &&
-        rule.test.toString().includes('scss')
+      (rule: any) => rule.test?.toString().includes('scss')
     );
 
-    scssRules?.forEach((rule) => {
-      // The 'use' property contains the loaders.
-      if (Array.isArray(rule.use)) {
-        // Find and replace any loader that extracts CSS to a file with style-loader.
-        // This is common in Angular builds and breaks hot-reloading.
-        const miniCssExtractIndex = rule.use.findIndex(
-          (loader) =>
-            typeof loader === 'object' &&
-            loader !== null &&
-            'loader' in loader &&
-            typeof loader.loader === 'string' &&
-            loader.loader.includes('mini-css-extract-plugin')
-        );
+    if (scssRuleIndex !== -1 && scssRuleIndex !== undefined && config.module?.rules) {
+      // 4. Remove the original rule from the configuration.
+      const [defaultScssRule] = config.module.rules.splice(scssRuleIndex, 1);
 
-        if (miniCssExtractIndex !== -1) {
-          // Replace the extractor with style-loader.
-          rule.use[miniCssExtractIndex] = { loader: 'style-loader' };
-        } else {
-          // If no extractor is found, ensure style-loader is at the beginning of the chain.
-          const hasStyleLoader = rule.use.some(
-            (loader) =>
-              (typeof loader === 'string' && loader.includes('style-loader')) ||
-              (typeof loader === 'object' &&
-                loader !== null &&
-                'loader' in loader &&
-                typeof loader.loader === 'string' &&
-                loader.loader.includes('style-loader'))
-          );
+      // 5. Create a new "master" rule that uses 'oneOf'.
+      const newMasterRule = {
+        test: /\.scss$/,
+        // 'oneOf' tells Webpack to use the FIRST matching rule and then stop.
+        oneOf: [
+          globalStyleRule, // It will try our custom rule first.
+          // dx code, any is fine here
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          defaultScssRule as any, // If it's not the global file, it will fall back to the default.
+        ],
+      };
 
-          if (!hasStyleLoader) {
-            rule.use.unshift({ loader: 'style-loader' });
-          }
-        }
-      }
+      // 6. Add our new master rule back to the list.
+      // dx code, any is fine here
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      config.module.rules.push(newMasterRule as any);
+    }
+
+    const tailwindCssPath = path.resolve(__dirname, '../projects/shared-ui/src/lib/tailwind.css');
+
+    config.module?.rules?.push({
+      test: tailwindCssPath, // This rule now ONLY applies to your specific tailwind.css file.
+      use: ['style-loader', 'css-loader', 'postcss-loader'],
     });
 
     return config;

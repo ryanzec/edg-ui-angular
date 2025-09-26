@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { EXAMPLETable } from './table';
 
 const meta: Meta<EXAMPLETable> = {
-  title: 'Shared UI/Examples/Table',
+  title: 'Shared UI/Examples/Styling/Table',
   component: EXAMPLETable,
 };
 

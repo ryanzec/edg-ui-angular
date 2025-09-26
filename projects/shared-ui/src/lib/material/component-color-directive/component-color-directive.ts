@@ -1,15 +1,6 @@
 import { Directive, ElementRef, Renderer2, input, effect, inject } from '@angular/core';
 
-const colors = [
-  'primary',
-  'secondary',
-  'neutral',
-  'success',
-  'info',
-  'caution',
-  'warning',
-  'danger',
-] as const;
+const colors = ['primary', 'secondary', 'neutral', 'success', 'info', 'caution', 'warning', 'danger'] as const;
 
 export type ComponentColor = (typeof colors)[number];
 

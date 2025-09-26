@@ -30,9 +30,7 @@
                 "input": "projects/customer-portal/public"
               }
             ],
-            "styles": [
-              "projects/shared-ui/src/lib/styles.scss"
-            ]
+            "styles": ["projects/shared-ui/src/lib/styles.scss"]
           },
           "configurations": {
             "production": {
@@ -116,10 +114,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/customer-portal/src/**/*.ts",
-              "projects/customer-portal/src/**/*.html"
-            ],
+            "lintFilePatterns": ["projects/customer-portal/src/**/*.ts", "projects/customer-portal/src/**/*.html"],
             "eslintConfig": "projects/customer-portal/eslint.config.cjs"
           }
         }
@@ -147,9 +142,7 @@
                 "input": "projects/internal-portal/public"
               }
             ],
-            "styles": [
-              "projects/shared-ui/src/lib/styles.scss"
-            ]
+            "styles": ["projects/shared-ui/src/lib/styles.scss"]
           },
           "configurations": {
             "production": {
@@ -233,10 +226,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "projects/internal-portal/src/**/*.ts",
-              "projects/internal-portal/src/**/*.html"
-            ],
+            "lintFilePatterns": ["projects/internal-portal/src/**/*.ts", "projects/internal-portal/src/**/*.html"],
             "eslintConfig": "projects/internal-portal/eslint.config.cjs"
           }
         }
@@ -295,9 +285,7 @@
             "index": ".storybook/index.html",
             "main": ".storybook/main.ts",
             "tsConfig": "tsconfig.json",
-            "styles": [
-              "projects/shared-ui/src/lib/styles.scss"
-            ]
+            "styles": ["projects/shared-ui/src/lib/styles.scss"]
           }
         },
         "build-storybook": {

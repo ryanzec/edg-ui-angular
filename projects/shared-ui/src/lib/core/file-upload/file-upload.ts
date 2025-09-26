@@ -86,13 +86,12 @@ export class FileUploadComponent {
 
   protected openFileSelector(): void {
     if (this.isUploading()) return;
+
     this.input.nativeElement.click();
   }
 
   private isFileValid(file: File): boolean {
-    return (
-      this.fileTypes().length === 0 || this.fileTypes().some((type) => file.type.startsWith(type))
-    );
+    return this.fileTypes().length === 0 || this.fileTypes().some((type) => file.type.startsWith(type));
   }
 
   private handleFile(file: File | undefined): void {

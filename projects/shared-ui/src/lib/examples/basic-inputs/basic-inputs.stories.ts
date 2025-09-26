@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { EXAMPLEBasicInputs } from './basic-inputs';
 
 const meta: Meta<EXAMPLEBasicInputs> = {
-  title: 'Shared UI/Examples/Basic Inputs',
+  title: 'Shared UI/Examples/Styling/Basic Inputs',
   component: EXAMPLEBasicInputs,
 };
 

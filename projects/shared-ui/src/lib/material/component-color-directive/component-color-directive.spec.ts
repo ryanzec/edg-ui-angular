@@ -47,16 +47,7 @@ describe('ComponentColorDirective', () => {
   });
 
   describe('Color application', () => {
-    const colors = [
-      'primary',
-      'secondary',
-      'neutral',
-      'success',
-      'info',
-      'caution',
-      'warning',
-      'danger',
-    ];
+    const colors = ['primary', 'secondary', 'neutral', 'success', 'info', 'caution', 'warning', 'danger'];
 
     colors.forEach((color) => {
       it(`should add org-${color} class when orgColor is set to ${color}`, () => {
@@ -69,16 +60,7 @@ describe('ComponentColorDirective', () => {
   });
 
   it('should clear all color classes before applying new color', () => {
-    const colors = [
-      'primary',
-      'secondary',
-      'neutral',
-      'success',
-      'info',
-      'caution',
-      'warning',
-      'danger',
-    ];
+    const colors = ['primary', 'secondary', 'neutral', 'success', 'info', 'caution', 'warning', 'danger'];
 
     component.color.set('primary');
     fixture.detectChanges();
@@ -107,16 +89,7 @@ describe('ComponentColorDirective', () => {
   });
 
   it('should remove all color classes when color is set to null', () => {
-    const colors = [
-      'primary',
-      'secondary',
-      'neutral',
-      'success',
-      'info',
-      'caution',
-      'warning',
-      'danger',
-    ];
+    const colors = ['primary', 'secondary', 'neutral', 'success', 'info', 'caution', 'warning', 'danger'];
 
     component.color.set('primary');
     fixture.detectChanges();

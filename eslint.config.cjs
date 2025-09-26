@@ -3,6 +3,7 @@ const eslint = require('@eslint/js');
 const tseslint = require('typescript-eslint');
 const angular = require('angular-eslint');
 const prettierPlugin = require('eslint-plugin-prettier');
+const stylistic = require('@stylistic/eslint-plugin');
 
 module.exports = tseslint.config(
   {
@@ -29,12 +30,21 @@ module.exports = tseslint.config(
       ...tseslint.configs.recommended,
       ...tseslint.configs.stylistic,
       ...angular.configs.tsRecommended,
+      // @ts-expect-error - configs property exists at runtime but not in type definitions
+      stylistic.configs['disable-legacy'],
     ],
     plugins: {
       prettier: prettierPlugin,
+      // @ts-expect-error - stylistic plugin compatibility issue with ESLint 9
+      '@stylistic': stylistic,
     },
     processor: angular.processInlineTemplates,
     rules: {
+      '@stylistic/padding-line-between-statements': [
+        'error',
+        { blankLine: 'always', prev: 'block-like', next: '*' },
+        { blankLine: 'always', prev: '*', next: 'block-like' },
+      ],
       'prettier/prettier': 'error',
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       // these should be configured at the project level so using zzz to make sure they are configured and overridden
@@ -54,6 +64,12 @@ module.exports = tseslint.config(
           style: 'kebab-case',
         },
       ],
+    },
+  },
+  {
+    files: ['**/*.stories.ts'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
   {

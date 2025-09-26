@@ -9,7 +9,6 @@ import { EXAMPLENested2Registry } from './nested2-registry/nested2-registry';
   templateUrl: './parent-child-nested-communication.html',
   styleUrl: './parent-child-nested-communication.scss',
 })
-// NOTE: only using Component suffix for the context of this example
 export class EXAMPLEParentChildNestedCommunication implements AfterViewInit {
   private readonly _nested2Registry = inject(EXAMPLENested2Registry);
 

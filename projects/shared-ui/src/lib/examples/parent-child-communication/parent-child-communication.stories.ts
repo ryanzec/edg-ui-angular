@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { EXAMPLEParentChildCommunication } from './parent-child-communication';
 
 const meta: Meta<EXAMPLEParentChildCommunication> = {
-  title: 'Shared UI/Examples/Parent <-> Child Communication',
+  title: 'Shared UI/Examples/Patterns/Parent -> Child Communication',
   component: EXAMPLEParentChildCommunication,
 };
 

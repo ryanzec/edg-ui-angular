@@ -7,7 +7,6 @@ import { EXAMPLENested1 } from './nested1/nested1';
   templateUrl: './parent-child-communication.html',
   styleUrl: './parent-child-communication.scss',
 })
-// NOTE: only using Component suffix for the context of this example
 export class EXAMPLEParentChildCommunication implements AfterViewInit {
   @ViewChild('child1')
   private readonly child1Ref!: EXAMPLENested1;

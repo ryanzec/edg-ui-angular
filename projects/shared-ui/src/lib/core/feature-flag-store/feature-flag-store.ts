@@ -10,7 +10,7 @@ export const FeatureFlag = {
 export type FeatureFlag = (typeof FeatureFlag)[keyof typeof FeatureFlag];
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FeatureFlagStore {
   private readonly logManager = inject(LogManager);

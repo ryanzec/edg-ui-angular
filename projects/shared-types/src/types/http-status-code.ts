@@ -17,4 +17,3 @@ export const httpStatusCodeMessage: Record<HttpStatusCode, string> = {
   [HttpStatusCode.RATE_LIMITED]: 'Too Many Requests',
   [HttpStatusCode.INTERNAL_ERROR]: 'Unknown Error Occurred',
 };
-

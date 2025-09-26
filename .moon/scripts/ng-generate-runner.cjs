@@ -6,6 +6,12 @@ const readline = require('readline').createInterface({
 
 const args = process.argv.slice(2).join(' ');
 
+const validProjects = [
+  'customer-portal',
+  'internal-portal',
+  'shared-ui',
+];
+
 const validGenerateTypes = [
   'application',
   'class',
@@ -118,6 +124,19 @@ const main = async () => {
     command += ' --skip-install';
   }
 
+  if (forceProjectSelectionTypes.includes(generateType)) {
+    const projectName = await question(`Enter project name: `);
+
+    if (validProjects.includes(projectName) === false) {
+      console.error(`Invalid project: ${projectName}`);
+      console.error(`Valid projects: ${validProjects.join(', ')}`);
+
+      process.exit(1);
+    }
+
+    command += ` --project ${projectName}`;
+  }
+
   let moduleName = '';
 
   if (forceModuleSelectionTypes.includes(generateType)) {
@@ -128,12 +147,6 @@ const main = async () => {
 
       process.exit(1);
     }
-  }
-
-  if (forceProjectSelectionTypes.includes(generateType)) {
-    const projectName = await question(`Enter project name: `);
-
-    command += ` --project ${projectName}`;
   }
 
   let itemName = await question(`Enter ${generateType} name: `);

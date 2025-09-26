@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { beforeEach, describe, it, expect } from 'vitest';
 
 import { LogManager } from './log-manager';
 

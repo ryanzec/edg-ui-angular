@@ -1,0 +1,9 @@
+<div>
+  While the `&#64;Output EventEmitter` pattern has been the popular way to communicate events to a parent component, the
+  new stable pattern is to use the signal-base output() which follows a very similar api.
+</div>
+<div class="border border-primary p-2">
+  <div>parent (store created here)</div>
+  <div>message value: {{ message() }}</div>
+  <org-example-nested-1 (messageEvent)="receiveMessage($event)" />
+</div>

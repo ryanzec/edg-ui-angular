@@ -13,7 +13,7 @@ type ErrorMessageOptions = {
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LogManager {
   private _loggingMode = signal<LogMode>(LogMode.DEVELOPMENT);

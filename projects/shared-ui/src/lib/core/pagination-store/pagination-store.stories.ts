@@ -11,14 +11,7 @@ import { ComponentColorDirective } from '../../material/public-api';
 @Component({
   selector: 'org-pagination-story',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatPaginatorModule,
-    MatCardModule,
-    MatButtonModule,
-    MatChipsModule,
-    ComponentColorDirective,
-  ],
+  imports: [CommonModule, MatPaginatorModule, MatCardModule, MatButtonModule, MatChipsModule, ComponentColorDirective],
   providers: [PaginationStore],
   template: `
     <div class="flex flex-col gap-3">
@@ -65,23 +58,13 @@ import { ComponentColorDirective } from '../../material/public-api';
             >
               Previous
             </button>
-            <button
-              matButton="elevated"
-              (click)="paginationStore.nextPage()"
-              [disabled]="!paginationStore.hasNext()"
-            >
+            <button matButton="elevated" (click)="paginationStore.nextPage()" [disabled]="!paginationStore.hasNext()">
               Next
             </button>
-            <button
-              matButton="elevated"
-              (click)="paginationStore.lastPage()"
-              [disabled]="!paginationStore.hasNext()"
-            >
+            <button matButton="elevated" (click)="paginationStore.lastPage()" [disabled]="!paginationStore.hasNext()">
               Last Page
             </button>
-            <button matButton="elevated" orgColor="warning" (click)="paginationStore.reset()">
-              Reset
-            </button>
+            <button matButton="elevated" orgColor="warning" (click)="paginationStore.reset()">Reset</button>
           </div>
 
           <div class="flex flex-wrap gap-2 mt-4">
@@ -128,15 +111,6 @@ import { ComponentColorDirective } from '../../material/public-api';
       </mat-card>
     </div>
   `,
-  styles: [
-    `
-      :host {
-        display: block;
-        max-width: 800px;
-        margin: 0 auto;
-      }
-    `,
-  ],
 })
 class PaginationStoryComponent implements OnInit {
   public paginationStore = inject(PaginationStore);
@@ -148,6 +122,7 @@ class PaginationStoryComponent implements OnInit {
 
   onPageChange(event: PageEvent): void {
     this.paginationStore.setCurrentPage(event.pageIndex + 1);
+
     if (event.pageSize !== this.paginationStore.pageSize()) {
       this.paginationStore.setPageSize(event.pageSize);
     }
@@ -177,7 +152,7 @@ const meta: Meta<PaginationStoryComponent> = {
   title: 'Shared UI/Core/Pagination Store',
   component: PaginationStoryComponent,
   parameters: {
-    layout: 'fullscreen',
+    // layout: 'fullscreen',
     docs: {
       description: {
         component: `
@@ -245,7 +220,6 @@ type Story = StoryObj<PaginationStoryComponent>;
 export const Default: Story = {
   args: {},
   play: async ({ canvasElement }) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const component = canvasElement.querySelector('pagination-story') as any;
 
     if (component) {
@@ -257,7 +231,6 @@ export const Default: Story = {
 export const LargeDataset: Story = {
   args: {},
   play: async ({ canvasElement }) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const component = canvasElement.querySelector('pagination-story') as any;
 
     if (component) {
@@ -274,7 +247,6 @@ export const LargeDataset: Story = {
 export const SmallPageSize: Story = {
   args: {},
   play: async ({ canvasElement }) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const component = canvasElement.querySelector('pagination-story') as any;
 
     if (component) {
@@ -292,7 +264,6 @@ export const SmallPageSize: Story = {
 export const MinimalConfiguration: Story = {
   args: {},
   play: async ({ canvasElement }) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const component = canvasElement.querySelector('pagination-story') as any;
 
     if (component) {
@@ -309,7 +280,6 @@ export const MinimalConfiguration: Story = {
 export const SinglePage: Story = {
   args: {},
   play: async ({ canvasElement }) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const component = canvasElement.querySelector('pagination-story') as any;
 
     if (component) {

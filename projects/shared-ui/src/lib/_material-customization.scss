@@ -1,14 +1,37 @@
 @use '@angular/material' as mat;
 @use './_theme-overrides' as theme-overrides;
 
+// since this need to be applied in all the locations where we override the theme, we make this a reusable mixin
+@mixin button-tonal-container() {
+  --mat-button-tonal-container-color: var(--mat-sys-primary-container);
+}
+
 @mixin material-customization() {
   :root {
     // buttons
+    --mat-button-protected-horizontal-padding: 12px;
     --mat-button-elevated-horizontal-padding: 12px;
     --mat-button-filled-horizontal-padding: 12px;
     --mat-button-outlined-horizontal-padding: 12px;
     --mat-button-text-horizontal-padding: 12px;
     --mat-button-tonal-horizontal-padding: 12px;
+    --mat-icon-button-state-layer-size: 24px;
+    --mat-button-tonal-container-shape: 5px;
+    --mat-button-protected-container-shape: 5px;
+    --mat-button-outlined-container-shape: 5px;
+    --mat-button-filled-container-shape: 5px;
+    --mat-button-text-container-shape: 5px;
+    --mat-button-protected-container-height: 28px;
+    --mat-button-tonal-container-height: 28px;
+    --mat-button-outlined-container-height: 28px;
+    --mat-button-filled-container-height: 28px;
+
+    @include button-tonal-container();
+
+    // card
+    --mat-card-outlined-container-shape: 5px;
+    --mat-card-subtitle-text-size: var(--mat-sys-body-medium-size);
+    --mat-card-subtitle-text-color: var(--mat-sys-on-surface-variant);
 
     // form fields
     --mat-form-field-filled-with-label-container-padding-top: 4px;
@@ -18,6 +41,12 @@
     --mat-form-field-outlined-label-text-size: var(--mat-sys-body-medium-size);
     --mat-form-field-container-text-size: var(--mat-sys-body-medium-size);
 
+    // list
+    --mat-list-list-item-one-line-container-height: 24px;
+    --mat-list-list-item-label-text-size: var(--mat-sys-body-medium-size);
+    --mat-list-list-item-two-line-container-height: 48px;
+    --mat-list-list-item-three-line-container-height: 72px;
+
     // menu
     --mat-menu-item-with-icon-leading-spacing: 8px;
     --mat-menu-item-spacing: 8px;
@@ -25,9 +54,7 @@
 
     // paginator
     --mat-paginator-form-field-container-height: var(--mat-form-field-container-height);
-    --mat-paginator-form-field-container-vertical-padding: var(
-      --mat-form-field-container-vertical-padding
-    );
+    --mat-paginator-form-field-container-vertical-padding: var(--mat-form-field-container-vertical-padding);
 
     // select
     --mat-select-trigger-text-size: var(--mat-sys-body-medium-size);
@@ -48,11 +75,79 @@
     --mat-slider-handle-width: 14px;
     --mat-slider-handle-height: 14px;
 
+    // table
+    --mat-table-row-item-container-height: 32px;
+
     // tabs
     --mat-tab-container-height: 32px;
   }
 
   html {
+    // button
+    .mat-mdc-fab-base {
+      width: 44px;
+      height: 44px;
+    }
+
+    .mat-mdc-mini-fab {
+      width: 32px;
+      height: 32px;
+    }
+
+    .mat-mdc-mini-fab .mat-icon {
+      font-size: 18px;
+      height: 18px;
+      width: 18px;
+    }
+
+    .mat-mdc-extended-fab {
+      width: auto;
+    }
+
+    // card
+    --org-card-header-spacing: 12px;
+
+    .mat-mdc-card-header {
+      padding: var(--org-card-header-spacing) var(--org-card-header-spacing) 0;
+    }
+
+    .mat-mdc-card-content {
+      padding: 0 var(--org-card-header-spacing);
+    }
+
+    .mat-mdc-card-header + .mdc-card__media,
+    .mat-mdc-card-header + .mat-mdc-card-content,
+    .mdc-card__media + .mat-mdc-card-content,
+    .mat-mdc-card-actions {
+      margin-top: var(--org-card-header-spacing);
+    }
+
+    .mat-mdc-card-actions {
+      min-height: auto;
+    }
+
+    .mat-mdc-card-avatar ~ .mat-mdc-card-header-text .mat-mdc-card-title,
+    .mat-mdc-card-avatar ~ .mat-mdc-card-header-text .mat-mdc-card-subtitle {
+      padding: var(--org-card-header-spacing) var(--org-card-header-spacing) 0;
+    }
+
+    .mat-mdc-card-subtitle ~ .mat-mdc-card-title,
+    .mat-mdc-card-title ~ .mat-mdc-card-subtitle,
+    .mat-mdc-card-header .mat-mdc-card-header-text .mat-mdc-card-title,
+    .mat-mdc-card-header .mat-mdc-card-header-text .mat-mdc-card-subtitle,
+    .mat-mdc-card-title-group .mat-mdc-card-title,
+    .mat-mdc-card-title-group .mat-mdc-card-subtitle {
+      padding-top: 0;
+    }
+
+    .mat-mdc-card-avatar {
+      margin-bottom: 0;
+    }
+
+    .mat-mdc-card-content:last-child {
+      padding-bottom: var(--org-card-header-spacing);
+    }
+
     // date picker
     .mat-mdc-form-field-icon-suffix:has(.mat-datepicker-toggle),
     [dir='rtl'] .mat-mdc-form-field-icon-prefix:has(.mat-datepicker-toggle) {
@@ -78,6 +173,49 @@
 
     .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading {
       width: 6px;
+    }
+
+    // list
+    .mdc-list-item {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+
+    .mdc-list-group__subheader {
+      margin: 8px 0;
+    }
+
+    .mdc-list-item--with-trailing-radio.mdc-list-item,
+    .mdc-list-item--with-trailing-checkbox.mdc-list-item {
+      padding-left: 8px;
+    }
+
+    .mdc-list-item--with-trailing-radio .mdc-list-item__end,
+    .mdc-list-item--with-trailing-checkbox .mdc-list-item__end {
+      margin-right: 0;
+    }
+
+    .mdc-list-item.mdc-list-item--with-two-lines .mdc-list-item__start {
+      margin-top: 0;
+    }
+
+    .mdc-list-item--with-leading-radio.mdc-list-item--with-two-lines .mdc-list-item__primary-text::before,
+    .mdc-list-item--with-leading-checkbox.mdc-list-item--with-two-lines .mdc-list-item__primary-text::before,
+    .mdc-list-item--with-leading-icon.mdc-list-item--with-two-lines .mdc-list-item__primary-text::before,
+    .mdc-list-item--with-leading-avatar.mdc-list-item--with-two-lines .mdc-list-item__primary-text::before {
+      height: 0px;
+    }
+
+    .mdc-list-item--with-two-lines .mdc-list-item__primary-text::before,
+    .mdc-list-item--with-three-lines .mdc-list-item__primary-text::before {
+      height: 8px;
+    }
+
+    // icon
+    .mat-mdc-icon-button .mat-icon {
+      font-size: 18px;
+      height: 18px;
+      width: 18px;
     }
 
     // menu
@@ -136,13 +274,8 @@
     }
 
     // text field
-    .mat-mdc-text-field-wrapper
-      .mat-mdc-form-field-flex
-      .mat-mdc-floating-label:not(.mdc-floating-label--float-above) {
-      top: calc(
-        var(--mat-form-field-container-height) /
-          2 - calc(var(--mat-form-field-outlined-label-text-size) / 4)
-      );
+    .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label:not(.mdc-floating-label--float-above) {
+      top: calc(var(--mat-form-field-container-height) / 2 - calc(var(--mat-form-field-outlined-label-text-size) / 4));
     }
 
     .mdc-text-field {
@@ -158,66 +291,82 @@
   body.dark-theme {
     .org-primary {
       @include mat.theme-overrides(theme-overrides.$primary-palette-dark);
+      @include button-tonal-container();
     }
 
     .org-secondary {
       @include mat.theme-overrides(theme-overrides.$secondary-palette-dark);
+      @include button-tonal-container();
     }
 
     .org-neutral {
       @include mat.theme-overrides(theme-overrides.$neutral-palette-dark);
+      @include button-tonal-container();
     }
 
     .org-success {
       @include mat.theme-overrides(theme-overrides.$success-palette-dark);
+      @include button-tonal-container();
     }
 
     .org-info {
       @include mat.theme-overrides(theme-overrides.$info-palette-dark);
+      @include button-tonal-container();
     }
 
     .org-caution {
       @include mat.theme-overrides(theme-overrides.$caution-palette-dark);
+      @include button-tonal-container();
     }
 
     .org-warning {
       @include mat.theme-overrides(theme-overrides.$warning-palette-dark);
+      @include button-tonal-container();
     }
 
     .org-danger {
       @include mat.theme-overrides(theme-overrides.$danger-palette-dark);
+      @include button-tonal-container();
     }
   }
 
   .org-primary {
     @include mat.theme-overrides(theme-overrides.$primary-palette);
+    @include button-tonal-container();
   }
 
   .org-secondary {
     @include mat.theme-overrides(theme-overrides.$secondary-palette);
+    @include button-tonal-container();
   }
 
   .org-neutral {
     @include mat.theme-overrides(theme-overrides.$neutral-palette);
+    @include button-tonal-container();
   }
 
   .org-success {
     @include mat.theme-overrides(theme-overrides.$success-palette);
+    @include button-tonal-container();
   }
 
   .org-info {
     @include mat.theme-overrides(theme-overrides.$info-palette);
+    @include button-tonal-container();
   }
 
   .org-caution {
     @include mat.theme-overrides(theme-overrides.$caution-palette);
+    @include button-tonal-container();
   }
 
   .org-warning {
     @include mat.theme-overrides(theme-overrides.$warning-palette);
+    @include button-tonal-container();
   }
 
   .org-danger {
     @include mat.theme-overrides(theme-overrides.$danger-palette);
+    @include button-tonal-container();
   }
 }

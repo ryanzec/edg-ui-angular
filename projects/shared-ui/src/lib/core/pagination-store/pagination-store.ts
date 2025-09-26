@@ -36,9 +36,7 @@ export class PaginationStore {
 
   readonly startIndex = computed(() => (this._currentPage() - 1) * this._pageSize());
 
-  readonly endIndex = computed(() =>
-    Math.min(this.startIndex() + this._pageSize(), this._totalItems())
-  );
+  readonly endIndex = computed(() => Math.min(this.startIndex() + this._pageSize(), this._totalItems()));
 
   readonly hasNext = computed(() => this._currentPage() < this.totalPages());
 

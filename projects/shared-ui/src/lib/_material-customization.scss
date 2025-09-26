@@ -25,6 +25,8 @@
     --mat-button-tonal-container-height: 28px;
     --mat-button-outlined-container-height: 28px;
     --mat-button-filled-container-height: 28px;
+    --mat-button-tonal-icon-spacing: 4px;
+    --mat-button-tonal-icon-offset: 0px;
 
     @include button-tonal-container();
 
@@ -84,6 +86,10 @@
 
   html {
     // button
+    .mdc-button {
+      min-width: auto;
+    }
+
     .mat-mdc-fab-base {
       width: 44px;
       height: 44px;
@@ -148,12 +154,6 @@
       padding-bottom: var(--org-card-header-spacing);
     }
 
-    // date picker
-    .mat-mdc-form-field-icon-suffix:has(.mat-datepicker-toggle),
-    [dir='rtl'] .mat-mdc-form-field-icon-prefix:has(.mat-datepicker-toggle) {
-      padding: 0 4px;
-    }
-
     // form field
     .mat-mdc-form-field-hint-wrapper,
     .mat-mdc-form-field-error-wrapper {
@@ -162,7 +162,23 @@
 
     .mat-mdc-form-field-icon-prefix > .mat-icon,
     .mat-mdc-form-field-icon-suffix > .mat-icon {
-      padding: 0 8px;
+      padding: 0;
+    }
+
+    .mat-mdc-form-field-icon-prefix {
+      padding: 0 6px 0 12px;
+    }
+
+    .mat-mdc-form-field-icon-prefix > .mat-icon {
+      padding-right: 6px;
+    }
+
+    .mat-mdc-form-field-icon-suffix {
+      padding: 0 12px 0 6px;
+    }
+
+    .mat-mdc-form-field-icon-suffix > .mat-icon {
+      padding-left: 6px;
     }
 
     .mdc-text-field--outlined .mat-mdc-form-field-infix,
@@ -172,7 +188,12 @@
     }
 
     .mdc-text-field--outlined .mdc-notched-outline .mdc-notched-outline__leading {
-      width: 6px;
+      width: 12px;
+    }
+
+    .mat-mdc-form-field-icon-prefix,
+    [dir='rtl'] .mat-mdc-form-field-icon-suffix {
+      padding-right: 0;
     }
 
     // list
@@ -275,7 +296,7 @@
 
     // text field
     .mat-mdc-text-field-wrapper .mat-mdc-form-field-flex .mat-mdc-floating-label:not(.mdc-floating-label--float-above) {
-      top: calc(var(--mat-form-field-container-height) / 2 - calc(var(--mat-form-field-outlined-label-text-size) / 4));
+      top: calc(var(--mat-form-field-container-height) / 2 - 2px);
     }
 
     .mdc-text-field {
@@ -283,9 +304,13 @@
     }
 
     .mdc-text-field--outlined {
-      padding-left: 8px;
-      padding-right: 8px;
+      padding-left: 12px;
+      padding-right: 12px;
     }
+
+    // .mat-mdc-form-field .mdc-notched-outline__notch {
+    //   margin-left: -5px;
+    // }
   }
 
   body.dark-theme {

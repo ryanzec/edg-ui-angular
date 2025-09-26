@@ -36,7 +36,7 @@ tasks:
     options:
       runFromWorkspaceRoot: true
 
-  storybook-test:
+  test-storybook:
     command: 'sh -c "$workspaceRoot/node_modules/.bin/ng run storybook-host:build-storybook && $workspaceRoot/.moon/scripts/run-storybook-tests.sh"'
     inputs:
       - '/.storybook/**/*'

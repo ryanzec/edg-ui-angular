@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { FileUploadComponent } from './file-upload';
-import { within, expect, fn, fireEvent } from 'storybook/test';
+import { expect, fn, fireEvent } from 'storybook/test';
 
 const meta: Meta<FileUploadComponent> = {
   title: 'Shared UI/File Upload/Tests',
@@ -25,8 +25,7 @@ export const SimulatedUpload: Story = {
     fileTypes: [],
     fileUpload: fn(),
   },
-  play: async ({ canvasElement, args }) => {
-    const canvas = within(canvasElement);
+  play: async ({ canvas, args }) => {
     const file = new File(['hello'], 'hello.png', { type: 'image/png' });
     const fileInput = canvas.getByTestId('file-upload-input');
 

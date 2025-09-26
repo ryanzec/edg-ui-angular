@@ -304,14 +304,74 @@ Since we are exposing the internal unified store at a grainular level, we gain t
 
 # AI flow for net new code
 
-In order to best get AI to generate working but also good code the flow should be
+In order to best get AI to generate working but also good code the flow should be:
 
 - use `moon :generate` to generate the scalfolding for the component, services, etc
-- after that you can give a detailed prompt to ai passing reference to where code should go and other references, like:
+- after that you can give a detailed prompt to ai passing reference to where code should go and other references , like:
 
 ```
-I would like you to create a login form utilizing Angular material (v20.2) and the native reactive forms in Angular (v20.3) in @login-form/ . this should be using the @authenticationAuthenticateRequestSchema and associated type for form validation and typing. This code should not directly interact with the authentication api / store but instead is should have an `output()` (modern) define that will emit events for login when the form is valid and submitted
+I would like you to create a login form utilizing angular material and the native reactive forms in Angular in @login-form/. this should be using the @authenticationAuthenticateRequestSchema and associated type for form validation and typing. This code should not directly interact with the authentication api / store but instead is should have an `output()` (modern) define that will emit events for login when the form is valid and submitted
 ```
+
+- review the code and refactor as needed
+
+## Enable auto ai rules / guidelines inclusion
+
+Some editors might require you to configure the that that ai files in the repository are added as context when interacting with it so make sure do to do otherwise the generated code will not be upto the standard we want it to be.
+
+# exporting / public for unit test
+
+If something is being exported or made public for the sole purpose of allow better and easier testing, is should have a `TSDoc` block that has at a minimum a @internal line explaining why is it being exported / made public and it should be prefixed with `_` to make it easy to identify in code.
+
+# Directives should be assumed to also be on the element
+
+With how certain feature of Angular and directives work (like `@HostBinding`), when a directive is added to a component, that directive should always be on the component until the component itself is destoried. If the directive need a `off` state, the directive should have a fasely value that can be used to turn it `off` instead of dynamically adding and removing the directive.
+
+# Style based components
+
+When you want to have a styled based component, while in frameworks like React or SolidJS you would create a component that applies the styles, the Angular idomatic way to handle this is instead to create a directive. Not only is this idomatic in Angular, it also has the benifit of avoiding complexity when you want to be able to apply these styles on multiple types of element and this method can be used on any element by default.
+
+## Use `@HostBinding` whenever possible instead of `Renderer2`
+
+When creating these directives, we should always opt for `@HostBinding` instead of `Renderer2`. It automatically handles cleanup of classes and that results in far less boilerplate code and mistakes from being introduced.
+
+```tsx
+// ❌ Not Opitomal 
+import { Directive, ElementRef, OnDestroy, OnInit, Renderer2, inject } from '@angular/core';
+
+@Directive({
+  selector: '[orgFormFields]',
+})
+export class FormFieldsDirective implements OnInit, OnDestroy {
+  private el = inject(ElementRef);
+  private renderer = inject(Renderer2);
+
+  public ngOnInit(): void {
+    this.renderer.addClass(this.el.nativeElement, 'flex');
+    this.renderer.addClass(this.el.nativeElement, 'flex-col');
+    this.renderer.addClass(this.el.nativeElement, 'gap-form-fields');
+  }
+
+  public ngOnDestroy(): void {
+    this.renderer.removeClass(this.el.nativeElement, 'flex');
+    this.renderer.removeClass(this.el.nativeElement, 'flex-col');
+    this.renderer.removeClass(this.el.nativeElement, 'gap-form-fields');
+  }
+}
+
+// ✅ Generally Preferred
+import { Directive, HostBinding } from '@angular/core';
+
+@Directive({
+  selector: '[orgFormFields]',
+  standalone: true, // Modern directives should be standalone
+})
+export class FormFieldsDirective {
+  @HostBinding('class')
+  readonly classes = 'flex flex-col gap-form-fields';
+}
+```
+
 
 ---
 

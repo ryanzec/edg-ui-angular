@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { CommonModule } from '@angular/common';
 import { PaginationStore } from './pagination-store';
-import { ComponentColorDirective } from '../../material/public-api';
+import { ComponentColorDirective } from '../../core/public-api';
 
 @Component({
   selector: 'org-pagination-story',

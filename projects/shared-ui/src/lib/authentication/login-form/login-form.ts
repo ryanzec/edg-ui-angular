@@ -10,11 +10,12 @@ import {
   type AuthenticationAuthenticateRequest,
 } from '@organization/shared-types';
 import { z } from 'zod';
+import { FormFieldsDirective } from '../../core/public-api';
 
 @Component({
   selector: 'org-login-form',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatButtonModule, MatCardModule, MatIconModule],
+  imports: [ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatButtonModule, MatCardModule, MatIconModule, FormFieldsDirective],
   templateUrl: './login-form.html',
 })
 export class LoginForm {
@@ -33,9 +34,9 @@ export class LoginForm {
     }),
   });
 
-  public hidePassword = true;
+  public showPassword = false;
 
-  protected onLogin(): void {
+  public login(): void {
     if (this.loginForm.valid) {
       const formValue = this.loginForm.getRawValue();
 
@@ -60,7 +61,7 @@ export class LoginForm {
   }
 
   public togglePasswordVisibility(): void {
-    this.hidePassword = !this.hidePassword;
+    this.showPassword = !this.showPassword;
   }
 
   public getFieldError(fieldName: keyof typeof this.loginForm.controls): string | null {

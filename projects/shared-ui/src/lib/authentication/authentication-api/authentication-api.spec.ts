@@ -32,8 +32,19 @@ describe('AuthenticationApi', () => {
     };
 
     const mockResponse: AuthenticationAuthenticateResponse = {
-      user: 'testuser',
-      launchDarklyHash: 'hash123',
+      data: {
+        user: {
+          id: 'user-123',
+          organizationId: 'org-456',
+          name: 'Test User',
+          email: 'test@example.com',
+          roles: ['user'],
+          hasPassword: true,
+          createdAt: '2023-01-01T00:00:00Z',
+          updatedAt: '2023-01-01T00:00:00Z',
+        },
+        launchDarklyHash: 'hash123',
+      },
     };
 
     service.authenticate(mockRequest).subscribe((response) => {

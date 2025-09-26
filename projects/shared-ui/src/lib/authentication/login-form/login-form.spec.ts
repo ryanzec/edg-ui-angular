@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { describe, beforeEach, it, expect, vi } from 'vitest';
 
@@ -11,7 +10,7 @@ describe('LoginForm', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LoginForm, NoopAnimationsModule, ReactiveFormsModule],
+      imports: [LoginForm, ReactiveFormsModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginForm);
@@ -60,13 +59,13 @@ describe('LoginForm', () => {
   });
 
   it('should toggle password visibility', () => {
-    expect(component.hidePassword).toBe(true);
+    expect(component.showPassword).toBe(false);
 
     component.togglePasswordVisibility();
-    expect(component.hidePassword).toBe(false);
+    expect(component.showPassword).toBe(true);
 
     component.togglePasswordVisibility();
-    expect(component.hidePassword).toBe(true);
+    expect(component.showPassword).toBe(false);
   });
 
   it('should emit loginSubmit event when form is valid', () => {
@@ -77,7 +76,7 @@ describe('LoginForm', () => {
       password: 'password123',
     });
 
-    component.onLogin();
+    component.login();
 
     expect(component.loginSubmit.emit).toHaveBeenCalledWith({
       email: 'test@example.com',
@@ -93,7 +92,7 @@ describe('LoginForm', () => {
       password: '',
     });
 
-    component.onLogin();
+    component.login();
 
     expect(component.loginSubmit.emit).not.toHaveBeenCalled();
   });
@@ -104,7 +103,7 @@ describe('LoginForm', () => {
       password: '',
     });
 
-    component.onLogin();
+    component.login();
 
     expect(component.loginForm.get('email')?.touched).toBe(true);
     expect(component.loginForm.get('password')?.touched).toBe(true);

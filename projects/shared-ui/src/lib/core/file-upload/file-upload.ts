@@ -5,7 +5,6 @@ import {
   HostListener,
   ViewChild,
   computed,
-  effect,
   signal,
   input,
 } from '@angular/core';
@@ -36,13 +35,6 @@ export class FileUploadComponent {
 
   @ViewChild('fileInput')
   private readonly input!: ElementRef<HTMLInputElement>;
-
-  constructor() {
-    // Example of an effect to react to signal changes
-    effect(() => {
-      console.log(`File name changed to: ${this.fileName()}`);
-    });
-  }
 
   @HostListener('dragover', ['$event'])
   protected onDragOver(event: DragEvent): void {

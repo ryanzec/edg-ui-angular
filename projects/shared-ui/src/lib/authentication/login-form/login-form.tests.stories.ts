@@ -1,6 +1,7 @@
-import { type Meta, type StoryObj, componentWrapperDecorator } from '@storybook/angular';
+import { type Meta, type StoryObj } from '@storybook/angular';
 import { LoginForm } from './login-form';
 import { AuthenticationAuthenticateRequest } from '@organization/shared-types';
+import { expect, userEvent } from 'storybook/test';
 
 const loginSubmit = (requestData: AuthenticationAuthenticateRequest) => {
   console.log(requestData);
@@ -24,47 +25,10 @@ const meta: Meta<LoginForm> = {
       description: 'Emits when the form is successfully submitted with valid credentials',
     },
   },
-  decorators: [
-    componentWrapperDecorator(
-      (
-        story
-      ) => `<div style="padding: 20px; background-color: var(--mat-app-background-color, #fafafa); min-height: 100vh;">
-          ${story}
-        </div>`
-    ),
-  ],
 };
 
 export default meta;
 type Story = StoryObj<LoginForm>;
-
-export const Default: Story = {
-  args: {
-    loginSubmit: loginSubmit,
-  },
-};
-
-export const WithPrefilledEmail: Story = {
-  args: {
-    loginSubmit: loginSubmit,
-  },
-  render: (args) => ({
-    props: args,
-    template: `<org-login-form (loginSubmit)="loginSubmit($event)"></org-login-form>`,
-    moduleMetadata: {
-      imports: [LoginForm],
-    },
-  }),
-  play: async ({ canvasElement }) => {
-    const loginForm = canvasElement.querySelector('org-login-form') as any;
-
-    if (loginForm?.loginForm) {
-      loginForm.loginForm.patchValue({
-        email: 'user@example.com',
-      });
-    }
-  },
-};
 
 export const WithValidationErrors: Story = {
   args: {
@@ -77,17 +41,44 @@ export const WithValidationErrors: Story = {
       imports: [LoginForm],
     },
   }),
-  play: async ({ canvasElement }) => {
-    const loginForm = canvasElement.querySelector('org-login-form') as any;
+  play: async ({ canvas }) => {
+    const user = userEvent.setup();
+    const submitButton = canvas.getByTestId('submit-button') as HTMLButtonElement;
 
-    if (loginForm?.loginForm) {
-      // Set invalid email and trigger validation
-      loginForm.loginForm.patchValue({
-        email: 'invalid-email',
-        password: '',
-      });
-      loginForm.loginForm.markAllAsTouched();
-    }
+    await user.click(submitButton);
+
+    await new Promise((resolve) => setTimeout(resolve, 25));
+
+    const emailError = canvas.getByText(/email is required/i);
+    const passwordError = canvas.getByText(/password is required/i);
+
+    await expect(emailError).toBeTruthy();
+    await expect(passwordError).toBeTruthy();
+  },
+};
+
+export const PasswordNotVisible: Story = {
+  args: {
+    loginSubmit: loginSubmit,
+  },
+  render: (args) => ({
+    props: args,
+    template: `<org-login-form (loginSubmit)="loginSubmit($event)"></org-login-form>`,
+    moduleMetadata: {
+      imports: [LoginForm],
+    },
+  }),
+  play: async ({ canvas }) => {
+    const user = userEvent.setup();
+    const emailInput = canvas.getByTestId('email-input') as HTMLInputElement;
+    const passwordInput = canvas.getByTestId('password-input') as HTMLInputElement;
+
+    await user.type(emailInput, 'user@example.com');
+    await user.type(passwordInput, 'mypassword123');
+
+    await new Promise((resolve) => setTimeout(resolve, 25));
+
+    await expect(passwordInput.type).toBe('password');
   },
 };
 
@@ -102,38 +93,18 @@ export const PasswordVisible: Story = {
       imports: [LoginForm],
     },
   }),
-  play: async ({ canvasElement }) => {
-    const loginForm = canvasElement.querySelector('org-login-form') as any;
+  play: async ({ canvas }) => {
+    const user = userEvent.setup();
+    const emailInput = canvas.getByTestId('email-input') as HTMLInputElement;
+    const passwordToggleButton = canvas.getByTestId('password-toggle-button') as HTMLButtonElement;
+    const passwordInput = canvas.getByTestId('password-input') as HTMLInputElement;
 
-    if (loginForm) {
-      loginForm.loginForm.patchValue({
-        email: 'user@example.com',
-        password: 'mypassword123',
-      });
-      loginForm.hidePassword = false;
-    }
-  },
-};
+    await user.type(emailInput, 'user@example.com');
+    await user.type(passwordInput, 'mypassword123');
+    await user.click(passwordToggleButton);
 
-export const ReadyToSubmit: Story = {
-  args: {
-    loginSubmit: loginSubmit,
-  },
-  render: (args) => ({
-    props: args,
-    template: `<org-login-form (loginSubmit)="loginSubmit($event)"></org-login-form>`,
-    moduleMetadata: {
-      imports: [LoginForm],
-    },
-  }),
-  play: async ({ canvasElement }) => {
-    const loginForm = canvasElement.querySelector('org-login-form') as any;
+    await new Promise((resolve) => setTimeout(resolve, 25));
 
-    if (loginForm?.loginForm) {
-      loginForm.loginForm.patchValue({
-        email: 'user@example.com',
-        password: 'validpassword123',
-      });
-    }
+    await expect(passwordInput.type).toBe('text');
   },
 };

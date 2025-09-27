@@ -4,3 +4,4 @@ Guideline:
 - You must use vitest for all testing functionality (NOT karma / jasmine)
 - Make sure to properly group related test in nested describes when warranted
 - Make sure the code is self explaingin and ONLY comment when the complexity of the code requires it
+- Make sure to follow all guidelines in `./common-command-guidelines.md` (relative from this path)

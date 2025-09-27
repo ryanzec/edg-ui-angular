@@ -27,10 +27,8 @@ import { FormFieldsDirective } from '../../core/public-api';
   templateUrl: './login-form.html',
 })
 export class LoginForm {
-  // Modern Angular output event emitter
   public readonly loginSubmit = output<AuthenticationAuthenticateRequest>();
 
-  // Reactive form with validation
   public readonly loginForm = new FormGroup({
     email: new FormControl('', {
       nonNullable: true,

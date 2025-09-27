@@ -44,3 +44,4 @@ Thumbs.db
 .moon/cache
 .moon/docker
 .moon/hooks
+*.pem

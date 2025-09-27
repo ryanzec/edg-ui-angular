@@ -154,6 +154,7 @@ tasks:
         rm -rf $workspaceRoot/out-tsc && \
         rm -rf $workspaceRoot/storybook-static && \
         $(moon bin pnpm) store prune
+        moon :deps
       "
     local: true
     env:

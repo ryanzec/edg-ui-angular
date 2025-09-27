@@ -1,0 +1,12 @@
+Guideline for all code:
+- whenever you are less than 80% sure of the direction to take, ask clarifying questions
+- explicitly use `public`, `protected`, and `private` keywords in classes
+- If you need to execute a command, you can only use commands available through moonrepo (check `moon.yml` files for available commands)
+- Make sure the code is self explaining and ONLY comment when the complexity of the code requires it
+- Avoid abbreviations as much as possible, the ONLY allowed abbreviations are: id, utils
+- While abbreviations are not allowed, initialisms are however don't capatilze initialisms, use normal case such as `uiThemeManager` or `setUiTheme`
+- Always use vitest for unit testing, NOT karma or jasmine
+- Unit tests don't need any animation mocking (`provideNoopAnimations`, `NoopAnimationsModule`, etc.)
+- Avoid using `debugElement` whenever possible in unit tests
+- When exposing an `export` or `public` property of a class specifically for testing purposes, add a TSDoc block with an `@internal` noting it is public for testing along with prefixing the name with `_`
+- Dont write unit test that are just a combination of multiple other unit tests (ie. integration tests) in the unit test files (`*.spec`)

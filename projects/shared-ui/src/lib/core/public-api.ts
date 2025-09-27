@@ -6,3 +6,4 @@ export * from './grouped-elements-directive/grouped-elements-directive';
 export * from './log-manager/log-manager';
 export * from './pagination-store/pagination-store';
 export * from './types/public-api';
+export * from './utils';

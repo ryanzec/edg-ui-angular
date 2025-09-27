@@ -22,6 +22,7 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Use `NgOptimizedImage` for all static images.
   - `NgOptimizedImage` does not work for inline base64 images.
 - Always use the best practices and guidelines for modern Angular 20, don't use older patterns that are no longer favored
+- ALWAYS use `patch` for http upate requests, NEVER use `put`
 
 ## RxJS
 

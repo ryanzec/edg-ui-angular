@@ -109,7 +109,8 @@ make more specific to avoid confusion on if something is a service vs component
   - This code should be located in the application that is using it to avoid is being mistakenly imported other applications
 - `*-manager`: Management of a particular feature that lacks associated internal state (ex. `logger-manager`)
 - `*-store`: Management of a pariticular feature or instance of a feature that has state associated (ex. `authentication-store`)
-  - `[COMPONENT_NAME]-store`: This should be used as a last re
+  - `[COMPONENT_NAME]-store`: This should be used as a last resort.
+- `*data-store`: Management of api related data.
 - `*-registry`: A registry component used for component to register themselves that allow for parent multiple levels up the tree to access those child component's public apis.
 
 ## Pipes
@@ -426,7 +427,52 @@ export class FormFieldsDirective {
 
 - When though ai it told to use Angular material and avoid unneeded custom css, it will often add tailwind padding for things like padding on angualr material components that already have padding (often in nested elements) create extra padding
 
----
+# Pattern Examples
+
+There are a nubmer of pattern example in the `shared-ui` examples module (usually in a storybook file).
+
+More compllex example can be referenced:
+
+- Search the codebase for `BASE_API_URL` to be a pattern for adding configuable options for a root provided service
+
+# Typing data models
+
+When typing data model (often ones from an api), we should should generate a zod schema for it and then the type can be inferred from the schema with `z.infer<typeof [SCHEMA_VARIABLE_NAME]>`. This allow us to get validation and typing for the data model.
+
+## Multiple schemas / type per based data model
+
+Often there will be case where you need multiple schemas / types for the same base data model. In those cases, you should create the full base data model schema (for example `userSchema`) and then derived other model picking from that one instead of omit, for example:
+
+```ts
+export const userSchema = z.object({
+  id: z.string(),
+  organizationId: z.string(),
+  name: z.string(),
+  email: z.email(),
+  roles: z.array(z.enum(['admin', 'user'])),
+  hasPassword: z.boolean(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+
+// ❌ bad
+export const createUserSchema = userSchema.omit({
+  id: true,
+  organizationId: true,
+  hasPassword: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+// ✅ good
+export const createUserSchema = userSchema.pick({
+  name: true,
+  email: true,
+  roles: true,
+});
+```
+
+## This make the schemas / types more explicit as it would be harder to accidently add a properly that should not be there and is make that type easier to read as the omit pattern does not really tell you what is there, just want it not.
 
 ---
 

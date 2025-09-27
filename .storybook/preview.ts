@@ -65,6 +65,9 @@ const preview: Preview = {
     }),
   ],
   parameters: {
+    controls: {
+      disableSaveFromUI: true,
+    },
     options: {
       storySort: {
         method: 'alphabetical',

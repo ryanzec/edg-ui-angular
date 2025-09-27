@@ -9,6 +9,8 @@ Guidelines:
 - Always use modern signal-based output() instead of the older EventEmitter pattern
 - The compoent should never directly make calls from
 - Alway prefer tailwind styling over sass whenever possible
+- Always create a storybook files in the same folder as the component with stories for all the unique state, DO NOT create and play / test related stories
+- Always present the planned approach in detial for the implementation and get validation from me to continue before you start coding
 - Make sure to follow all guidelines in `./common-command-guidelines.md` (relative from this path)
 
 

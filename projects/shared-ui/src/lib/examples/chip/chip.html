@@ -1,0 +1,204 @@
+<div class="p-4 space-y-6">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Angular Material Chip Variations</mat-card-title>
+      <mat-card-subtitle>Complete showcase of all chip component variations</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="flex flex-col gap-4">
+        <div>
+          <h3>Static Chips</h3>
+          <mat-chip-set aria-label="Static chip set">
+            @for (chip of staticChips; track chip) {
+              <mat-chip>{{ chip }}</mat-chip>
+            }
+          </mat-chip-set>
+        </div>
+        <mat-divider />
+        <div>
+          <h3>Selection Chips (Single Selection)</h3>
+          <mat-chip-listbox (change)="onSingleSelectionChange($event)" aria-label="Single selection chip list">
+            @for (chip of selectionChips(); track chip.name; let index = $index) {
+              <mat-chip-option [selected]="selectedSelectionChips().includes(chip.name)">
+                {{ chip.name }}
+              </mat-chip-option>
+            }
+          </mat-chip-listbox>
+        </div>
+        <mat-divider />
+        <div>
+          <h3>Selection Chips (Multi Selection)</h3>
+          <mat-chip-listbox (change)="onMultiSelectionChange($event)" multiple aria-label="Multi selection chip list">
+            @for (chip of multiSelectionChips(); track chip.name; let index = $index) {
+              <mat-chip-option [selected]="chip.selected">
+                {{ chip.name }}
+              </mat-chip-option>
+            }
+          </mat-chip-listbox>
+        </div>
+        <mat-divider />
+        <div>
+          <h3>Dynamic Chips with Input</h3>
+          <mat-form-field class="w-full">
+            <mat-label>Add technologies</mat-label>
+            <mat-chip-grid #chipGrid aria-label="Technology selection">
+              @for (chip of dynamicChips(); track chip; let index = $index) {
+                <mat-chip-row (removed)="removeChip(index)">
+                  {{ chip }}
+                  <button matChipRemove aria-label="Remove chip">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip-row>
+              }
+              <input
+                placeholder="Add technology..."
+                [matChipInputFor]="chipGrid"
+                [matChipInputSeparatorKeyCodes]="[13, 188]"
+                [matChipInputAddOnBlur]="true"
+                (matChipInputTokenEnd)="addChip($event)"
+              />
+            </mat-chip-grid>
+          </mat-form-field>
+        </div>
+        <mat-divider class="my-2" />
+        <div>
+          <h3>Chips with Icons</h3>
+          <div>
+            <div>
+              <h4>Avatar Chips</h4>
+              <mat-chip-set aria-label="Avatar chip set">
+                @for (chip of iconChips; track chip.name; let index = $index) {
+                  <mat-chip [removable]="chip.removable" (removed)="removeIconChip(index)">
+                    <mat-icon matChipAvatar>{{ chip.icon }}</mat-icon>
+                    {{ chip.name }}
+                    @if (chip.removable) {
+                      <button matChipRemove aria-label="Remove chip">
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                    }
+                  </mat-chip>
+                }
+              </mat-chip-set>
+            </div>
+            <div>
+              <h4>Trailing Icon Chips</h4>
+              <mat-chip-set aria-label="Trailing icon chip set">
+                <mat-chip>
+                  Verified Account
+                  <mat-icon matChipTrailingIcon>verified</mat-icon>
+                </mat-chip>
+                <mat-chip>
+                  Favorite
+                  <mat-icon matChipTrailingIcon>favorite</mat-icon>
+                </mat-chip>
+                <mat-chip>
+                  Star Rating
+                  <mat-icon matChipTrailingIcon>star</mat-icon>
+                </mat-chip>
+              </mat-chip-set>
+            </div>
+          </div>
+        </div>
+        <mat-divider />
+        <div>
+          <h3>Themed Chips</h3>
+          <div>
+            <div>
+              <h4>Primary Theme</h4>
+              <mat-chip-set aria-label="Primary themed chip set">
+                <mat-chip orgColor="primary">Primary Chip</mat-chip>
+                <mat-chip orgColor="primary" disabled>Disabled Primary</mat-chip>
+              </mat-chip-set>
+            </div>
+            <div>
+              <h4>Secondary Theme</h4>
+              <mat-chip-set aria-label="Secondary themed chip set">
+                <mat-chip orgColor="secondary">Secondary Chip</mat-chip>
+                <mat-chip orgColor="secondary" disabled>Disabled Secondary</mat-chip>
+              </mat-chip-set>
+            </div>
+            <div>
+              <h4>Neutral Theme</h4>
+              <mat-chip-set aria-label="Neutral themed chip set">
+                <mat-chip orgColor="neutral">Neutral Chip</mat-chip>
+                <mat-chip orgColor="neutral" disabled>Disabled Neutral</mat-chip>
+              </mat-chip-set>
+            </div>
+            <div>
+              <h4>Success Theme</h4>
+              <mat-chip-set aria-label="Success themed chip set">
+                <mat-chip orgColor="success">Success Chip</mat-chip>
+                <mat-chip orgColor="success" disabled>Disabled Success</mat-chip>
+              </mat-chip-set>
+            </div>
+            <div>
+              <h4>Info Theme</h4>
+              <mat-chip-set aria-label="Info themed chip set">
+                <mat-chip orgColor="info">Info Chip</mat-chip>
+                <mat-chip orgColor="info" disabled>Disabled Info</mat-chip>
+              </mat-chip-set>
+            </div>
+            <div>
+              <h4>Caution Theme</h4>
+              <mat-chip-set aria-label="Caution themed chip set">
+                <mat-chip orgColor="caution">Caution Chip</mat-chip>
+                <mat-chip orgColor="caution" disabled>Disabled Caution</mat-chip>
+              </mat-chip-set>
+            </div>
+            <div>
+              <h4>Warning Theme</h4>
+              <mat-chip-set aria-label="Warning themed chip set">
+                <mat-chip orgColor="warning">Warning Chip</mat-chip>
+                <mat-chip orgColor="warning" disabled>Disabled Warning</mat-chip>
+              </mat-chip-set>
+            </div>
+            <div>
+              <h4>Danger Theme</h4>
+              <mat-chip-set aria-label="Danger themed chip set">
+                <mat-chip orgColor="danger">Danger Chip</mat-chip>
+                <mat-chip orgColor="danger" disabled>Disabled Danger</mat-chip>
+              </mat-chip-set>
+            </div>
+          </div>
+        </div>
+        <mat-divider />
+        <div>
+          <h3>Disabled Chips</h3>
+          <mat-chip-set aria-label="Disabled chip set">
+            <mat-chip disabled>Disabled Chip 1</mat-chip>
+            <mat-chip disabled>Disabled Chip 2</mat-chip>
+            <mat-chip disabled>
+              <mat-icon matChipAvatar>person</mat-icon>
+              Disabled with Avatar
+            </mat-chip>
+          </mat-chip-set>
+        </div>
+        <mat-divider />
+        <div>
+          <h3>Vertical Orientation</h3>
+          <mat-chip-set class="mat-mdc-chip-set-stacked" aria-label="Vertical chip set">
+            <mat-chip>Vertical Chip 1</mat-chip>
+            <mat-chip>Vertical Chip 2</mat-chip>
+            <mat-chip>Vertical Chip 3</mat-chip>
+            <mat-chip color="primary">Vertical Primary</mat-chip>
+            <mat-chip color="accent">Vertical Accent</mat-chip>
+          </mat-chip-set>
+        </div>
+        <mat-divider />
+        <div>
+          <h3>Size Variations</h3>
+          <div>
+            <div>
+              <h4>Default Size</h4>
+              <mat-chip-set aria-label="Default size chip set">
+                <mat-chip>Default Size</mat-chip>
+                <mat-chip color="primary">Primary Default</mat-chip>
+              </mat-chip-set>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

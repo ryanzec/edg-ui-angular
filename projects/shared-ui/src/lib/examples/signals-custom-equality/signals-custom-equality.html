@@ -1,0 +1,37 @@
+<div class="flex gap-2">
+  <mat-card class="w-[400px] h-full">
+    <mat-card-header>
+      <mat-card-title>Signal without custom equality</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="flex flex-col gap-2">
+        <div>
+          By default, update a store that tracks a non-scalar value will trigger an effect to be called even if the
+          values is effective the same (like setting and array to a new array of the same value)
+        </div>
+        <div class="flex gap-2">
+          <button matButton (click)="updateSignalWithValue1()">Update Signal Value1</button>
+          <button matButton (click)="updateSignalWithValue2()">Update Signal Value2</button>
+        </div>
+        <div>{{ signalTriggeredCount() }}</div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card class="w-[400px]">
+    <mat-card-header>
+      <mat-card-title>Signal with custom equality</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="h-full">
+      <div class="flex flex-col gap-2 h-full">
+        <div>You can provide a custom equal function when creating the signal to avoid this issue.</div>
+        <div class="flex flex-col gap-2 mt-auto">
+          <div class="flex gap-2">
+            <button matButton (click)="updateSignalWithValue1CustomEquality()">Update Signal Value1</button
+            ><button matButton (click)="updateSignalWithValue2CustomEquality()">Update Signal Value2</button>
+          </div>
+          <div>{{ signalTriggeredCustomEqualityCount() }}</div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -40,12 +40,13 @@ Generic typescript
 
 # Tooling
 
-- Angular
-- Angualr 20
+- Angular 20
 - Vitest
 - Storybook
 - Eslint / Prettier
+- Angular Material 20
 - Luxon
+- es-toolkit
 
 # Todo examples
 

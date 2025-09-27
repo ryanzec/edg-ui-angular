@@ -2,12 +2,23 @@
 @use './_theme-overrides' as theme-overrides;
 
 // since this need to be applied in all the locations where we override the theme, we make this a reusable mixin
-@mixin button-tonal-container() {
+@mixin override-theme-component-variables() {
+  // button
   --mat-button-tonal-container-color: var(--mat-sys-primary-container);
+
+  // chip
+  --mat-chip-elevated-container-color: var(--mat-sys-secondary-container);
+  --mat-chip-label-text-color: var(--mat-sys-on-secondary-container);
+  --mat-chip-with-icon-icon-color: var(--mat-sys-on-secondary-container);
+  --mat-chip-with-trailing-icon-trailing-icon-color: var(--mat-sys-on-secondary-container);
+  --mat-chip-elevated-selected-container-color: var(--mat-sys-primary-container);
+  --mat-chip-selected-label-text-color: var(--mat-sys-on-primary-container);
 }
 
 @mixin material-customization() {
   :root {
+    @include override-theme-component-variables();
+
     // buttons
     --mat-button-protected-horizontal-padding: 12px;
     --mat-button-elevated-horizontal-padding: 12px;
@@ -28,12 +39,13 @@
     --mat-button-tonal-icon-spacing: 4px;
     --mat-button-tonal-icon-offset: 0px;
 
-    @include button-tonal-container();
-
     // card
     --mat-card-outlined-container-shape: 5px;
     --mat-card-subtitle-text-size: var(--mat-sys-body-medium-size);
     --mat-card-subtitle-text-color: var(--mat-sys-on-surface-variant);
+
+    // chip
+    --mat-chip-container-shape-radius: 5px;
 
     // form fields
     --mat-form-field-filled-with-label-container-padding-top: 4px;
@@ -79,6 +91,7 @@
 
     // table
     --mat-table-row-item-container-height: 32px;
+    --mat-table-header-container-height: 32px;
 
     // tabs
     --mat-tab-container-height: 32px;
@@ -152,6 +165,33 @@
 
     .mat-mdc-card-content:last-child {
       padding-bottom: var(--org-card-header-spacing);
+    }
+
+    // chip
+    --org-chip-horizontal-padding: 8px;
+
+    .mat-mdc-standard-chip .mdc-evolution-chip__action--primary {
+      padding-left: var(--org-chip-horizontal-padding);
+      padding-right: var(--org-chip-horizontal-padding);
+    }
+
+    .mat-mdc-standard-chip.mdc-evolution-chip--with-primary-graphic .mdc-evolution-chip__action--primary {
+      padding-right: var(--org-chip-horizontal-padding);
+    }
+
+    .mdc-evolution-chip--selectable:not(.mdc-evolution-chip--selected):not(.mdc-evolution-chip--with-primary-icon)
+      .mdc-evolution-chip__graphic,
+    .mat-mdc-standard-chip.mdc-evolution-chip--with-primary-graphic .mdc-evolution-chip__graphic {
+      padding-left: calc(var(--org-chip-horizontal-padding) / 2);
+      padding-right: calc(var(--org-chip-horizontal-padding) / 2);
+    }
+
+    .mat-mdc-chip-set .mdc-evolution-chip {
+      margin-left: 4px;
+    }
+
+    .mat-mdc-chip-set .mdc-evolution-chip-set__chips {
+      margin-left: -4px;
     }
 
     // form field
@@ -316,82 +356,82 @@
   body.dark-theme {
     .org-primary {
       @include mat.theme-overrides(theme-overrides.$primary-palette-dark);
-      @include button-tonal-container();
+      @include override-theme-component-variables();
     }
 
     .org-secondary {
       @include mat.theme-overrides(theme-overrides.$secondary-palette-dark);
-      @include button-tonal-container();
+      @include override-theme-component-variables();
     }
 
     .org-neutral {
       @include mat.theme-overrides(theme-overrides.$neutral-palette-dark);
-      @include button-tonal-container();
+      @include override-theme-component-variables();
     }
 
     .org-success {
       @include mat.theme-overrides(theme-overrides.$success-palette-dark);
-      @include button-tonal-container();
+      @include override-theme-component-variables();
     }
 
     .org-info {
       @include mat.theme-overrides(theme-overrides.$info-palette-dark);
-      @include button-tonal-container();
+      @include override-theme-component-variables();
     }
 
     .org-caution {
       @include mat.theme-overrides(theme-overrides.$caution-palette-dark);
-      @include button-tonal-container();
+      @include override-theme-component-variables();
     }
 
     .org-warning {
       @include mat.theme-overrides(theme-overrides.$warning-palette-dark);
-      @include button-tonal-container();
+      @include override-theme-component-variables();
     }
 
     .org-danger {
       @include mat.theme-overrides(theme-overrides.$danger-palette-dark);
-      @include button-tonal-container();
+      @include override-theme-component-variables();
     }
   }
 
   .org-primary {
     @include mat.theme-overrides(theme-overrides.$primary-palette);
-    @include button-tonal-container();
+    @include override-theme-component-variables();
   }
 
   .org-secondary {
     @include mat.theme-overrides(theme-overrides.$secondary-palette);
-    @include button-tonal-container();
+    @include override-theme-component-variables();
   }
 
   .org-neutral {
     @include mat.theme-overrides(theme-overrides.$neutral-palette);
-    @include button-tonal-container();
+    @include override-theme-component-variables();
   }
 
   .org-success {
     @include mat.theme-overrides(theme-overrides.$success-palette);
-    @include button-tonal-container();
+    @include override-theme-component-variables();
   }
 
   .org-info {
     @include mat.theme-overrides(theme-overrides.$info-palette);
-    @include button-tonal-container();
+    @include override-theme-component-variables();
   }
 
   .org-caution {
     @include mat.theme-overrides(theme-overrides.$caution-palette);
-    @include button-tonal-container();
+    @include override-theme-component-variables();
   }
 
   .org-warning {
     @include mat.theme-overrides(theme-overrides.$warning-palette);
-    @include button-tonal-container();
+    @include override-theme-component-variables();
   }
 
   .org-danger {
     @include mat.theme-overrides(theme-overrides.$danger-palette);
-    @include button-tonal-container();
+    @include override-theme-component-variables();
   }
 }

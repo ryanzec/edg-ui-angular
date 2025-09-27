@@ -12,6 +12,7 @@
     "@angular/material-luxon-adapter": "20.2.4",
     "@angular/platform-browser": "20.3.1",
     "@angular/router": "20.3.1",
+    "es-toolkit": "1.39.10",
     "launchdarkly-js-client-sdk": "3.9.0",
     "luxon": "3.7.2",
     "rxjs": "7.8.2",

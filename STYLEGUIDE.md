@@ -120,6 +120,12 @@ make more specific to avoid confusion on if something is a service vs component
 
 `*-guard`
 
+## Directives
+
+- ✅ automatically handling in tooling
+
+- `*-directive`
+
 # Observable `$` suffix
 
 It is widely adopted (in both RxJS and Angualt) to have a $ suffix in the name of observables and so shall we.
@@ -413,6 +419,12 @@ export class FormFieldsDirective {
   readonly classes = 'flex flex-col gap-form-fields';
 }
 ```
+
+# AI
+
+## Thing to watch out for
+
+- When though ai it told to use Angular material and avoid unneeded custom css, it will often add tailwind padding for things like padding on angualr material components that already have padding (often in nested elements) create extra padding
 
 ---
 

@@ -23,6 +23,10 @@ You are an expert in TypeScript, Angular, and scalable web application developme
   - `NgOptimizedImage` does not work for inline base64 images.
 - Always use the best practices and guidelines for modern Angular 20, don't use older patterns that are no longer favored
 
+## RxJS
+
+- always use built-in functionality over creating custom when available
+
 ## Components
 
 - Keep components small and focused on a single responsibility

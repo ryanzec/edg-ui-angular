@@ -3,21 +3,21 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { describe, beforeEach, it, expect } from 'vitest';
 
-import { TodoListComponent } from './todo-list';
+import { TodoList } from './todo-list';
 import { TodoApiService } from '../todo-api/todo-api';
 
 describe('TodoListComponent', () => {
-  let component: TodoListComponent;
+  let component: TodoList;
 
-  let fixture: ComponentFixture<TodoListComponent>;
+  let fixture: ComponentFixture<TodoList>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TodoListComponent],
+      imports: [TodoList],
       providers: [provideHttpClient(), provideHttpClientTesting(), TodoApiService],
     });
 
-    fixture = TestBed.createComponent(TodoListComponent);
+    fixture = TestBed.createComponent(TodoList);
     component = fixture.componentInstance;
 
     // Set required input before detecting changes

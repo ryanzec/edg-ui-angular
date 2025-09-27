@@ -69,6 +69,7 @@ const duplicateNameAsDirectory = [
   'pipe',
   'service',
   'directive',
+  'guard',
 ];
 
 const typeSuffixMap = {

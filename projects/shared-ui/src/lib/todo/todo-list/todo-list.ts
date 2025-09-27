@@ -9,6 +9,6 @@ import { Todo } from '@organization/shared-types';
   templateUrl: './todo-list.html',
   styleUrl: './todo-list.scss',
 })
-export class TodoListComponent {
+export class TodoList {
   public todos: InputSignal<Todo[] | undefined> = input.required();
 }

@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 import { HomeView } from './home-view/home-view';
-import { UsersList } from '@organization/shared-ui';
 import { NotFoundView } from './not-found-view/not-found-view';
+import { loggedInGuard, TodoList } from '@organization/shared-ui';
 
 export const routes: Routes = [
   { path: 'home', component: HomeView },
-  { path: 'users', component: UsersList },
+  { path: 'todo', component: TodoList, canActivate: [loggedInGuard] },
 
   // default
   { path: '', redirectTo: '/home', pathMatch: 'full' },

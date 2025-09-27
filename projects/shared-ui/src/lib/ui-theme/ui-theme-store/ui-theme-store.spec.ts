@@ -15,14 +15,10 @@ describe('UiThemeStoreService', () => {
         add: vi.fn(),
         remove: vi.fn(),
       },
-      // needed because angular does not export this type
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any;
 
     mockDocument = {
       body: mockBody,
-      // needed because angular does not export this type
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } as any;
 
     TestBed.configureTestingModule({

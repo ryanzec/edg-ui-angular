@@ -15,7 +15,15 @@ import { FormFieldsDirective } from '../../core/public-api';
 @Component({
   selector: 'org-login-form',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatButtonModule, MatCardModule, MatIconModule, FormFieldsDirective],
+  imports: [
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    FormFieldsDirective,
+  ],
   templateUrl: './login-form.html',
 })
 export class LoginForm {

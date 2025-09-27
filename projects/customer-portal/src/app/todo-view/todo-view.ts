@@ -1,12 +1,12 @@
 import { Component, inject, Signal, signal } from '@angular/core';
-import { TodoListComponent, TodoApiService } from '@organization/shared-ui';
+import { TodoList, TodoApiService } from '@organization/shared-ui';
 import { Observable } from 'rxjs';
 import { Todo } from '@organization/shared-types';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'cp-todo-view',
-  imports: [TodoListComponent],
+  imports: [TodoList],
   templateUrl: './todo-view.html',
   styleUrl: './todo-view.css',
 })

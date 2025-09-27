@@ -6,7 +6,7 @@ import { describe, beforeEach, it, expect } from 'vitest';
 import { FormFieldsDirective } from './form-fields-directive';
 
 @Component({
-  template: `<div orgFormFields data-testid="form-fields-container"></div>`,
+  template: `<div orgFormFields data-testid="2-container"></div>`,
   imports: [FormFieldsDirective],
 })
 class TestComponent {}
@@ -35,7 +35,7 @@ describe('FormFieldsDirective', () => {
     // Initially classes should not be present
     expect(domElement.classList.contains('flex')).toBe(false);
     expect(domElement.classList.contains('flex-col')).toBe(false);
-    expect(domElement.classList.contains('gap-form-fields')).toBe(false);
+    expect(domElement.classList.contains('gap-2')).toBe(false);
 
     // Trigger ngOnInit
     fixture.detectChanges();
@@ -43,13 +43,13 @@ describe('FormFieldsDirective', () => {
     // Classes should now be present
     expect(domElement.classList.contains('flex')).toBe(true);
     expect(domElement.classList.contains('flex-col')).toBe(true);
-    expect(domElement.classList.contains('gap-form-fields')).toBe(true);
+    expect(domElement.classList.contains('gap-2')).toBe(true);
   });
 
   it('should apply directive to the correct element', () => {
     fixture.detectChanges();
 
-    const elementWithDirective = fixture.debugElement.query(By.css('[data-testid="form-fields-container"]'));
+    const elementWithDirective = fixture.debugElement.query(By.css('[data-testid="2-container"]'));
     expect(elementWithDirective.nativeElement).toBe(domElement);
   });
 });

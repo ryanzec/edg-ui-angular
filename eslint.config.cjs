@@ -47,6 +47,18 @@ module.exports = tseslint.config(
       ],
       'prettier/prettier': 'error',
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          args: 'all',
+          argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          caughtErrorsIgnorePattern: '^_',
+          destructuredArrayIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          ignoreRestSiblings: true,
+        },
+      ],
       // these should be configured at the project level so using zzz to make sure they are configured and overridden
       '@angular-eslint/directive-selector': [
         'error',
@@ -68,6 +80,12 @@ module.exports = tseslint.config(
   },
   {
     files: ['**/*.stories.ts'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
+  {
+    files: ['**/*.spec.ts'],
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
     },

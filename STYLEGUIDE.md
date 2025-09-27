@@ -4,17 +4,36 @@ The official Angular style guide : https://angular.dev/style-guide#project-struc
 
 Some of the points here are the same as the official documentation but also provide explicit examples to help better convey the idea.
 
-# Use SASS for styling
+# Styling
 
-Since angualr material heavily uses SASS, we should do the same to be consistent and enable better integration / configurability with angular material components.
+## Overriding angular material
 
-# Always use --skip-install for `ng generate` when available (tooling handle this)
+In general, the internal parts of angular material component should only be overriden at the global level, we want to avoud one off overrides in order to keep the styling consistent within the application.
 
-Requires as having the angular command line use the moonrepo version of the package manager is not easy to do (if possible at all) so skipping install will be the next time a moonrepo is exexuted, the package will be installed through the moon toolchain.
+## Tailwind
 
-# Component inline templates / styles for very small components only
+Tailwind has been configured can can be used to add inline styles. This should be the primary method for styling custom component. Tailwind's color palette has been removed and replaced with the color palette from angular material.
 
-If either the template or styles for a component exceed 15-20 lines, it should be move into is own file for readability and maintainability.
+## SASS over CSS
+
+While tailwind should be able to handle most cases of customer component styling, if we need something more powerful, we should use SASS. Angular material still heavily uses SASS so it will probably just make things easier to also use SASS when needed.
+
+# Package management / tooling
+
+# Always use --skip-install for `ng generate` when available
+
+- ✅ `moon :generate` handles this automatically
+
+Some `ng generate` commands will attempt to install packages however there are two issue with that isn the current setup:
+
+- It makes assumptions as to where they should be installed
+- Running the command manually would not use moon's version of pnpm
+
+Since we have only a root level `package.json` file, we need to skip the install and manually add them through `moon :pnpm -- add ...` to avoid both of those issue.
+
+# Avoid component inline templates / styles
+
+Ideally we should never use inline templates / styles but it is ok if the component is trivial (like no more than 10 lines of inline code) however if the component is that simple, you should think if a directive could be used.
 
 ## Storybook exception
 
@@ -22,24 +41,22 @@ For storybook this standard does not apply for ease of development of DX code.
 
 # Avoid modules whenever possible (tooling handles this)
 
-Modules are more or less a legacy system that is not longer needed and whenever possible should be avoided.
+- ✅ `moon :generate` handles this automatically
 
-# Use previous file type suffixing (configuration handles this)
+Modules are more or less a legacy system that is not longer needed and whenever possible should be avoided. Component should be create as standalone and services that are truly global can be created with `providedIn: 'root'`.
 
-To make files read-ability easy we use the previous version of angular file type suffixing (which is automatically handle through confgiuration and tooling).
+# Split out development stories from testing stories
 
-# Split out development / manual test stories from automated testing stories into separate file
+Splitting out the testing stories from the development stories provides 2 benefits:
 
-Splitout out the testing stories from the regular / development on provides 2 benefits:
-
-- it help clean the storybook interface clean as all test stories will be in their own nested group
-- it optomizes (at least a little) the storybook test runner so that it only have to worry about the files that actually have tests.
+- It helps keep the storybook interface clean as all test stories will be in their own nested group (that should only be needed with the storybook cli tests fail)
+- It optomizes (at least a little) the storybook test runner so that it only have to worry about the files that actually have tests.
 
 # Prefer signal over rxjs when possible
 
-Signal have been around for years and is not stable in Angular 20 and generally is a simplier and more optimized solution for state management (especially for component state / prperties) and should be preferred over rxjs.
+Signal have been around for years and is now stable in Angular 20 and generally is a simplier and more optimized solution for state management (especially for component state / properties) and should be preferred over rxjs.
 
-Rxjs should only be used when the complexity of the situation requires it.
+Rxjs should only be used for things like api request and when the complexity of the situation requires it.
 
 # Single responsibility
 
@@ -55,7 +72,27 @@ Types are generally more flexible and avoid "magic" merging issues so always use
 
 While we need to use classes for Angular specific code, for our own data, we should always prefer using types and then create utility Angular services to be able to perform actions on those types. This just make the code more flexible when apis that return the same resource might have different structure depending on the context of the request.
 
-# Service naming (files)
+# Component state
+
+In almost al use cases we should be able to store component state on the component class itself.
+
+Int he rare case where that does not work, you can create a store service for it however this is a last resort and class state is preferred and should work in nearly all use cases.
+
+## Exposing component state to parent
+
+When a parent needs access to a child's component state, there are 2 main pattern for this.
+
+### Direct child
+
+When the child is directly in the parent component, you can use the `@ViewChild` decorator since this is the simplest and mmost performant pattern.
+
+### Nested chid
+
+When the child is nested at least one from the parent, you need to use a registry pattern where the child component registers itself (and a registry services is available) and the parent who needs the access provides the registry service
+
+# File naming
+
+With the recent version(s) of angular, they have moved away from certain patterns for some thing (like removing `.component` and `.service` in generated file name) but kept other patterns (like guard files automatically having `-guard` in it) so these are some patterns to help make it easier to know what something is just by the file name.
 
 ## Components
 
@@ -67,15 +104,21 @@ In general component should be named as what they are but some special cases are
 
 make more specific to avoid confusion on if something is a service vs component
 
-- `*-admin-api`: API services design for only internal usage (ex. `users-admin-api`)
 - `*-api`: API services (ex. `users-api`)
+- `*-admin-api`: API services design for only internal usage (ex. `users-admin-api`)
+  - This code should be located in the application that is using it to avoid is being mistakenly imported other applications
 - `*-manager`: Management of a particular feature that lacks associated internal state (ex. `logger-manager`)
 - `*-store`: Management of a pariticular feature or instance of a feature that has state associated (ex. `authentication-store`)
-  - `[COMPONENT_NAME]-store`: for components that need a context it needs to follow this pattern (ex. for component `ChatWindow`, the service would be named `ChatWindowStore`)
+  - `[COMPONENT_NAME]-store`: This should be used as a last re
+- `*-registry`: A registry component used for component to register themselves that allow for parent multiple levels up the tree to access those child component's public apis.
 
 ## Pipes
 
 `*-tranformer`
+
+## Guard
+
+`*-guard`
 
 # Observable `$` suffix
 
@@ -111,7 +154,7 @@ This make it easy to identify private data and make it easy in naming if there a
 
 Data on a component should be made private and prefix with `_` and then if it needs to be exposed, use a public or protected field that maps to a readonly version (signals have a helper method for this) that way modification of this data can be better controlled.
 
-# use types over interfaces whenever possible
+# Types over interfaces whenever possible
 
 - ✅ error in linting
 
@@ -159,9 +202,7 @@ The one thing the interfaces can do the types can't is add to an existing interf
 
 If a 3rd aprt requires you to add to an interface, that is fine, but that should be the only use case for using interfaces
 
-# use const + derived types instead of enums
-
--
+# Const + derived type over enums
 
 Instead of using typescripts `enum`, we should be using a const + a derived type. The reasoning for this is:
 
@@ -173,7 +214,7 @@ Instead of using typescripts `enum`, we should be using a const + a derived type
 For `enum`:
 
 ```ts
-// typescript code
+//
 enum UserRole {
   ADMIN,
   USER,
@@ -192,7 +233,7 @@ var UserRole;
 For const + dervied type:
 
 ```ts
-// typescript code
+// ❌ not ideal
 export const UserRoleName = {
   ADMIN: 'admin',
   USER: 'user',
@@ -200,7 +241,7 @@ export const UserRoleName = {
 
 export type UserRoleName = (typeof UserRoleName)[keyof typeof UserRoleName];
 
-// generated javascript code
+// Results in:
 export const UserRoleName = {
   ADMIN: 'admin',
   USER: 'user',
@@ -212,6 +253,7 @@ export const UserRoleName = {
 For `enum`:
 
 ```ts
+// ✅ good
 enum UserRole {
   ADMIN,
   USER,
@@ -266,7 +308,7 @@ myRole = 'super-admin'; // errors as it should
 Instead of doing something like this in a class:
 
 ```tsx
-// ❌ Bad
+// ❌ bad
 class AuthenticationServices {
   private _user = signal<User | null>(null);
   private _isLoading = signal<boolean>(false);
@@ -282,7 +324,7 @@ class AuthenticationServices {
 you want to do this:
 
 ```tsx
-// ✅ Good
+// ✅ good
 class AuthenticationServices {
   private readonly _state = signal<AuthenticationState>({
     user: null,
@@ -329,14 +371,14 @@ With how certain feature of Angular and directives work (like `@HostBinding`), w
 
 # Style based components
 
-When you want to have a styled based component, while in frameworks like React or SolidJS you would create a component that applies the styles, the Angular idomatic way to handle this is instead to create a directive. Not only is this idomatic in Angular, it also has the benifit of avoiding complexity when you want to be able to apply these styles on multiple types of element and this method can be used on any element by default.
+When you want to have a styled based component, while in frameworks like React or SolidJS you would create a component that applies the styles and re-use that component, the Angular idomatic way to handle this is instead to create a directive. Not only is this idomatic in Angular, it also has the benifit of avoiding complexity when you want to be able to apply these styles on multiple types of elements and this method can be used on any element by default.
 
 ## Use `@HostBinding` whenever possible instead of `Renderer2`
 
 When creating these directives, we should always opt for `@HostBinding` instead of `Renderer2`. It automatically handles cleanup of classes and that results in far less boilerplate code and mistakes from being introduced.
 
 ```tsx
-// ❌ Not Opitomal 
+// ❌ not opitomal
 import { Directive, ElementRef, OnDestroy, OnInit, Renderer2, inject } from '@angular/core';
 
 @Directive({
@@ -359,7 +401,7 @@ export class FormFieldsDirective implements OnInit, OnDestroy {
   }
 }
 
-// ✅ Generally Preferred
+// ✅ generally preferred
 import { Directive, HostBinding } from '@angular/core';
 
 @Directive({
@@ -372,7 +414,6 @@ export class FormFieldsDirective {
 }
 ```
 
-
 ---
 
 ---
@@ -381,7 +422,6 @@ export class FormFieldsDirective {
 
 Patterns to implement:
 
-- http requests
 - loading state for table views
 
 NOTES:
@@ -409,3 +449,11 @@ NOTES:
 # To Look Into
 
 - storybook autodocs
+
+# Good bad code example template
+
+```ts
+// ❌ bad
+
+// ✅ good
+```

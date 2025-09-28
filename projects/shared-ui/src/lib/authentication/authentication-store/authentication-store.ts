@@ -4,6 +4,7 @@ import { AuthenticationAuthenticateRequest, ErrorMessage, User } from '@organiza
 import { catchError, of, tap, map, Observable, delay } from 'rxjs';
 import { FeatureFlagStore, LogManager } from '@organization/shared-ui';
 import { LocalStorageManager } from '../../core/local-storage-manager/local-storage-manager';
+import { CookieService } from 'ngx-cookie-service';
 
 type AuthenticationState = {
   user: User | null;
@@ -20,7 +21,9 @@ export class AuthenticationStore {
   private readonly _localStorageManager = inject(LocalStorageManager);
   private readonly _authenticationApi = inject(AuthenticationApi);
   private readonly _featureFlagStore = inject(FeatureFlagStore);
+  private readonly _cookieService = inject(CookieService);
 
+  // @todo tokenize this
   private readonly _sessionUserKey = 'sessionUser';
 
   private readonly _state = signal<AuthenticationState>({
@@ -41,15 +44,16 @@ export class AuthenticationStore {
   }
 
   public checkAsync(): Observable<boolean> {
-    this._state.update((state) => ({ ...state, isLoading: true, error: null }));
-
     const user = this._localStorageManager.get<User>(this._sessionUserKey);
 
     if (!user) {
+      // if the user is not locally stored we assume this is not previous logged in session so no error messaged nedded
       this._deauthenticateUser();
 
       return of(false);
     }
+
+    this._state.update((state) => ({ ...state, isLoading: true, error: null }));
 
     return this._authenticationApi.check().pipe(
       delay(2000),
@@ -120,8 +124,8 @@ export class AuthenticationStore {
   }
 
   private _authenticateUser(user: User): void {
-    this._state.update((state) => ({ ...state, user, isLoading: false, hasInitialized: true, error: null }));
     this._localStorageManager.set<User>(this._sessionUserKey, user);
+    this._state.update((state) => ({ ...state, user, isLoading: false, hasInitialized: true, error: null }));
   }
 
   private _deauthenticateUser(error?: string): void {
@@ -133,5 +137,9 @@ export class AuthenticationStore {
       error: error || null,
     }));
     this._localStorageManager.remove(this._sessionUserKey);
+    // @todo tokenize this
+    // @todo(research) can't seem to delete the cookie but it does not really need to be deleted anyways so leave it
+    // @todo(research) for later
+    // this._cookieService.delete('jwt');
   }
 }

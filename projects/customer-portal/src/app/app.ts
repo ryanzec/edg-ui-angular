@@ -5,8 +5,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'cp-root',
-  imports: [RouterOutlet, RouterLink, UiThemeSwitcher],
-  providers: [AuthenticationStore, CommonModule],
+  imports: [RouterOutlet, RouterLink, UiThemeSwitcher, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

@@ -10,6 +10,7 @@ import { provideZonelessChangeDetection, provideBrowserGlobalErrorListeners } fr
 import { routes } from './app.routes';
 import { environment } from '../environments/environment';
 import { BASE_API_URL, httpWithCredentialsInterceptor, unauthorizedInterceptor } from '@organization/shared-ui';
+import { CookieService } from 'ngx-cookie-service';
 // import { FeatureFlagStore } from '@organization/shared-ui';
 
 export const appConfig: ApplicationConfig = {
@@ -24,6 +25,7 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([httpWithCredentialsInterceptor, unauthorizedInterceptor])
     ),
     provideLuxonDateAdapter(),
+    CookieService,
     { provide: MAT_LUXON_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
     { provide: MAT_BUTTON_CONFIG, useValue: { defaultAppearance: 'tonal' } },
     { provide: MAT_FAB_DEFAULT_OPTIONS, useValue: { defaultAppearance: 'tonal' } },

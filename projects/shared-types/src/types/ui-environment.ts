@@ -18,4 +18,5 @@ export type UiEnvironment = {
   mode: EnvironmentMode;
   applicationName: ApplicationName;
   apiUrl: string;
+  jetCookieName: string;
 };

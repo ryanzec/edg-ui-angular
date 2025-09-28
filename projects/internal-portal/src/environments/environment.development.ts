@@ -4,4 +4,5 @@ export const environment: UiEnvironment = {
   mode: EnvironmentMode.DEVELOPMENT,
   applicationName: ApplicationName.INTERNAL_PORTAL,
   apiUrl: 'https://localhost:3000',
+  jetCookieName: 'internal-jwt',
 };

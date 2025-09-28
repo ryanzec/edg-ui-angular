@@ -28,7 +28,6 @@ describe('App', () => {
     const anchorElementTexts = Array.from(anchorElements).map((element) => element.textContent);
 
     expect(anchorElementTexts).toContain('Home');
-    expect(anchorElementTexts).toContain('Todo');
     expect(anchorElementTexts).toContain('Bad Link');
   });
 });

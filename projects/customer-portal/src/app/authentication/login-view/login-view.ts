@@ -19,7 +19,7 @@ export class LoginView {
   constructor() {
     effect(() => {
       if (this.authenticationStore.isAuthenticated()) {
-        this.router.navigate(['/todo']);
+        this.router.navigate(['/home']);
       }
     });
 

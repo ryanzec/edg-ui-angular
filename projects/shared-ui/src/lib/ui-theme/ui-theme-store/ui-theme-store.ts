@@ -11,18 +11,27 @@ export class UiThemeStoreService {
   readonly isDarkMode = signal<boolean>(false);
 
   constructor() {
-    effect(() => {
-      const bodyElement = this.document.body;
+    const isOSDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-      if (this.isDarkMode()) {
-        bodyElement.classList.add('dark-theme');
-      } else {
-        bodyElement.classList.remove('dark-theme');
-      }
+    this.setDarkMode(isOSDarkMode);
+    this.updateDisplay(this.isDarkMode());
+
+    effect(() => {
+      this.updateDisplay(this.isDarkMode());
     });
   }
 
-  setDarkMode(isDark: boolean): void {
+  public setDarkMode(isDark: boolean): void {
     this.isDarkMode.set(isDark);
+  }
+
+  private updateDisplay(isDarkMode: boolean): void {
+    const bodyElement = this.document.body;
+
+    if (isDarkMode) {
+      bodyElement.classList.add('dark-theme');
+    } else {
+      bodyElement.classList.remove('dark-theme');
+    }
   }
 }

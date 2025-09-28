@@ -28,7 +28,7 @@ describe('LoginView', () => {
     await TestBed.configureTestingModule({
       imports: [LoginView],
       providers: [
-        provideRouter([{ path: 'todo', component: class {} }]),
+        provideRouter([{ path: 'home', component: class {} }]),
         provideHttpClient(),
         provideHttpClientTesting(),
         { provide: AuthenticationStore, useValue: mockAuthenticationStore },
@@ -64,13 +64,13 @@ describe('LoginView', () => {
   });
 
   describe('Authentication Effects', () => {
-    it('should navigate to todo when user becomes authenticated', () => {
+    it('should navigate to home when user becomes authenticated', () => {
       fixture.detectChanges();
 
       mockAuthenticationStore.isAuthenticated.set(true);
       fixture.detectChanges();
 
-      expect(router.navigate).toHaveBeenCalledWith(['/todo']);
+      expect(router.navigate).toHaveBeenCalledWith(['/home']);
     });
 
     it('should not navigate when user is not authenticated', () => {

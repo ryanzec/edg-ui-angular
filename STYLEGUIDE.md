@@ -90,9 +90,26 @@ When the child is directly in the parent component, you can use the `@ViewChild`
 
 When the child is nested at least one from the parent, you need to use a registry pattern where the child component registers itself (and a registry services is available) and the parent who needs the access provides the registry service
 
-# File naming
+# Naming
+
+## Files
 
 With the recent version(s) of angular, they have moved away from certain patterns for some thing (like removing `.component` and `.service` in generated file name) but kept other patterns (like guard files automatically having `-guard` in it) so these are some patterns to help make it easier to know what something is just by the file name.
+
+## Modules directories
+
+While we don't use angualr modules (as the are effective deprecated), we use modules in the context of directories so modules should be singular in nature.
+
+```
+❌ bad
+
+projects/shared-ui/src/lib/users
+projects/shared-ui/src/lib/projects
+
+projects/customer-portal/src/app/dashboards
+
+✅ good
+```
 
 ## Components
 

@@ -1,7 +1,7 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { AuthenticationApi } from '../authentication-api/authentication-api';
 import { AuthenticationAuthenticateRequest, ErrorMessage, User } from '@organization/shared-types';
-import { catchError, finalize, of, tap, map, Observable } from 'rxjs';
+import { catchError, finalize, of, tap, map, Observable, delay } from 'rxjs';
 import { LogManager } from '@organization/shared-ui';
 import { LocalStorageManager } from '../../core/local-storage-manager/local-storage-manager';
 
@@ -9,6 +9,7 @@ type AuthenticationState = {
   user: User | null;
   isLoading: boolean;
   error: string | null;
+  hasInitialized: boolean;
 };
 
 @Injectable({
@@ -22,8 +23,9 @@ export class AuthenticationStore {
   private readonly _sessionUserKey = 'sessionUser';
 
   private readonly _state = signal<AuthenticationState>({
-    user: null,
     isLoading: false,
+    hasInitialized: false,
+    user: null,
     error: null,
   });
 
@@ -31,6 +33,7 @@ export class AuthenticationStore {
   public readonly isLoading = computed(() => this._state().isLoading);
   public readonly error = computed(() => this._state().error);
   public readonly isAuthenticated = computed(() => !!this._state().user);
+  public readonly hasInitialized = computed(() => this._state().hasInitialized);
 
   public check(): void {
     this.checkAsync().subscribe();
@@ -40,6 +43,7 @@ export class AuthenticationStore {
     this._state.update((state) => ({ ...state, isLoading: true, error: null }));
 
     return this._authenticationApi.check().pipe(
+      delay(2000),
       map((response) => {
         const { data } = response ?? {};
 
@@ -52,7 +56,6 @@ export class AuthenticationStore {
 
           this._state.update((state) => ({
             ...state,
-            isLoading: false,
             error: 'Not authenticated',
           }));
 
@@ -64,14 +67,14 @@ export class AuthenticationStore {
         if (!user) {
           this._state.update((state) => ({
             ...state,
-            isLoading: false,
             error: ErrorMessage.UNAUTHENTICATED,
           }));
 
           return false;
         }
 
-        this._state.update((state) => ({ ...state, isLoading: false, user }));
+        this._state.update((state) => ({ ...state, user }));
+
         return true;
       }),
       catchError((error) => {
@@ -83,11 +86,13 @@ export class AuthenticationStore {
 
         this._state.update((state) => ({
           ...state,
-          isLoading: false,
           error: ErrorMessage.UNKNOWN,
         }));
 
         return of(false);
+      }),
+      finalize(() => {
+        this._state.update((state) => ({ ...state, isLoading: false, hasInitialized: true }));
       })
     );
   }
@@ -122,7 +127,7 @@ export class AuthenticationStore {
           return of(null);
         }),
         finalize(() => {
-          this._state.update((state) => ({ ...state, isLoading: false }));
+          this._state.update((state) => ({ ...state, isLoading: false, hasInitialized: true }));
         })
       )
       .subscribe();
@@ -130,9 +135,5 @@ export class AuthenticationStore {
 
   public logout(): void {
     this._state.update((state) => ({ ...state, user: null, error: null }));
-  }
-
-  public clearError(): void {
-    this._state.update((state) => ({ ...state, error: null }));
   }
 }

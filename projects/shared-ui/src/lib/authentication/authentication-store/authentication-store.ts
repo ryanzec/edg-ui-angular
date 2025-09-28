@@ -1,8 +1,8 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { AuthenticationApi } from '../authentication-api/authentication-api';
 import { AuthenticationAuthenticateRequest, ErrorMessage, User } from '@organization/shared-types';
-import { catchError, finalize, of, tap, map, Observable, delay } from 'rxjs';
-import { LogManager } from '@organization/shared-ui';
+import { catchError, of, tap, map, Observable, delay } from 'rxjs';
+import { FeatureFlagStore, LogManager } from '@organization/shared-ui';
 import { LocalStorageManager } from '../../core/local-storage-manager/local-storage-manager';
 
 type AuthenticationState = {
@@ -19,6 +19,7 @@ export class AuthenticationStore {
   private readonly _logManager = inject(LogManager);
   private readonly _localStorageManager = inject(LocalStorageManager);
   private readonly _authenticationApi = inject(AuthenticationApi);
+  private readonly _featureFlagStore = inject(FeatureFlagStore);
 
   private readonly _sessionUserKey = 'sessionUser';
 
@@ -45,11 +46,7 @@ export class AuthenticationStore {
     const user = this._localStorageManager.get<User>(this._sessionUserKey);
 
     if (!user) {
-      this._state.update((state) => ({
-        ...state,
-        isLoading: false,
-        hasInitialized: true,
-      }));
+      this._deauthenticateUser();
 
       return of(false);
     }
@@ -70,7 +67,7 @@ export class AuthenticationStore {
           throw new Error(ErrorMessage.UNKNOWN);
         }
 
-        this._state.update((state) => ({ ...state, user }));
+        this._authenticateUser(user);
 
         return true;
       }),
@@ -81,15 +78,9 @@ export class AuthenticationStore {
           error,
         });
 
-        this._state.update((state) => ({
-          ...state,
-          error: ErrorMessage.UNKNOWN,
-        }));
+        this._deauthenticateUser(error.message || ErrorMessage.UNKNOWN);
 
         return of(false);
-      }),
-      finalize(() => {
-        this._state.update((state) => ({ ...state, isLoading: false, hasInitialized: true }));
       })
     );
   }
@@ -110,28 +101,37 @@ export class AuthenticationStore {
               error: response,
             });
 
-            this._state.update((state) => ({ ...state, error: ErrorMessage.UNKNOWN }));
-
-            return;
+            throw new Error(ErrorMessage.UNKNOWN);
           }
 
-          this._state.update((state) => ({ ...state, user: data.user }));
-          this._localStorageManager.set<User>(this._sessionUserKey, data.user);
+          this._authenticateUser(data.user);
         }),
         catchError((error) => {
-          const errorMessage = error.message || ErrorMessage.UNKNOWN;
-          this._state.update((state) => ({ ...state, error: errorMessage }));
+          this._deauthenticateUser(error.message || ErrorMessage.UNKNOWN);
+
           return of(null);
-        }),
-        finalize(() => {
-          this._state.update((state) => ({ ...state, isLoading: false, hasInitialized: true }));
         })
       )
       .subscribe();
   }
 
   public logout(): void {
-    this._state.update((state) => ({ ...state, isLoading: false, hasInitialized: true, user: null, error: null }));
+    this._deauthenticateUser();
+  }
+
+  private _authenticateUser(user: User): void {
+    this._state.update((state) => ({ ...state, user, isLoading: false, hasInitialized: true, error: null }));
+    this._localStorageManager.set<User>(this._sessionUserKey, user);
+  }
+
+  private _deauthenticateUser(error?: string): void {
+    this._state.update((state) => ({
+      ...state,
+      isLoading: false,
+      hasInitialized: true,
+      user: null,
+      error: error || null,
+    }));
     this._localStorageManager.remove(this._sessionUserKey);
   }
 }

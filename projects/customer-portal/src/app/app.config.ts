@@ -9,7 +9,7 @@ import { MAT_LUXON_DATE_ADAPTER_OPTIONS } from '@angular/material-luxon-adapter'
 import { provideZonelessChangeDetection, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { routes } from './app.routes';
 import { environment } from '../environments/environment';
-import { BASE_API_URL, httpWithCredentialsInterceptor } from '@organization/shared-ui';
+import { BASE_API_URL, httpWithCredentialsInterceptor, unauthorizedInterceptor } from '@organization/shared-ui';
 // import { FeatureFlagStore } from '@organization/shared-ui';
 
 export const appConfig: ApplicationConfig = {
@@ -18,7 +18,11 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    provideHttpClient(withFetch(), withInterceptorsFromDi(), withInterceptors([httpWithCredentialsInterceptor])),
+    provideHttpClient(
+      withFetch(),
+      withInterceptorsFromDi(),
+      withInterceptors([httpWithCredentialsInterceptor, unauthorizedInterceptor])
+    ),
     provideLuxonDateAdapter(),
     { provide: MAT_LUXON_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
     { provide: MAT_BUTTON_CONFIG, useValue: { defaultAppearance: 'tonal' } },

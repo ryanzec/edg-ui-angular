@@ -42,6 +42,18 @@ export class AuthenticationStore {
   public checkAsync(): Observable<boolean> {
     this._state.update((state) => ({ ...state, isLoading: true, error: null }));
 
+    const user = this._localStorageManager.get<User>(this._sessionUserKey);
+
+    if (!user) {
+      this._state.update((state) => ({
+        ...state,
+        isLoading: false,
+        hasInitialized: true,
+      }));
+
+      return of(false);
+    }
+
     return this._authenticationApi.check().pipe(
       delay(2000),
       map((response) => {
@@ -51,26 +63,11 @@ export class AuthenticationStore {
           this._logManager.error({
             type: 'authentication-check-error',
             message: 'authentication check responded with a success but not ok status',
-            error: response,
+            response,
           });
 
-          this._state.update((state) => ({
-            ...state,
-            error: 'Not authenticated',
-          }));
-
-          return false;
-        }
-
-        const user = this._localStorageManager.get<User>(this._sessionUserKey);
-
-        if (!user) {
-          this._state.update((state) => ({
-            ...state,
-            error: ErrorMessage.UNAUTHENTICATED,
-          }));
-
-          return false;
+          // @todo refactor this
+          throw new Error(ErrorMessage.UNKNOWN);
         }
 
         this._state.update((state) => ({ ...state, user }));
@@ -134,6 +131,7 @@ export class AuthenticationStore {
   }
 
   public logout(): void {
-    this._state.update((state) => ({ ...state, user: null, error: null }));
+    this._state.update((state) => ({ ...state, isLoading: false, hasInitialized: true, user: null, error: null }));
+    this._localStorageManager.remove(this._sessionUserKey);
   }
 }

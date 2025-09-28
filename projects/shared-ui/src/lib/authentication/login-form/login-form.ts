@@ -33,10 +33,12 @@ export class LoginForm {
     email: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required, Validators.email],
+      updateOn: 'submit',
     }),
     password: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required],
+      updateOn: 'submit',
     }),
   });
 

@@ -1,17 +1,26 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthenticationAuthenticateRequest, AuthenticationAuthenticateResponse } from '@organization/shared-types';
+import {
+  AuthenticationAuthenticateRequest,
+  AuthenticationAuthenticateResponse,
+  AuthenticationCheckResponse,
+} from '@organization/shared-types';
+import { BASE_API_URL } from '@organization/shared-ui';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationApi {
-  private readonly baseUrl = 'https://localhost:3000';
+  private readonly _baseUrl = inject(BASE_API_URL);
 
   private http = inject(HttpClient);
 
-  authenticate(request: AuthenticationAuthenticateRequest): Observable<AuthenticationAuthenticateResponse> {
-    return this.http.post<AuthenticationAuthenticateResponse>(`${this.baseUrl}/authentication/authenticate`, request);
+  public authenticate(request: AuthenticationAuthenticateRequest): Observable<AuthenticationAuthenticateResponse> {
+    return this.http.post<AuthenticationAuthenticateResponse>(`${this._baseUrl}/authentication/authenticate`, request);
+  }
+
+  public check() {
+    return this.http.get<AuthenticationCheckResponse>(`${this._baseUrl}/authentication/check`);
   }
 }

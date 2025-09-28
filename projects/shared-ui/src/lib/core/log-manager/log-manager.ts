@@ -20,7 +20,7 @@ export class LogManager {
 
   // match native api
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  log(...args: any) {
+  public log(...args: any) {
     if (this._loggingMode() !== LogMode.PRODUCTION) {
       console.log(...args);
     }
@@ -28,7 +28,7 @@ export class LogManager {
 
   // match native api
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  warn(...args: any) {
+  public warn(...args: any) {
     // posthog.capture('$exception', {
     //   $exception_type: 'console_warning',
     //   $exception_message: 'Something went wrong',
@@ -41,7 +41,7 @@ export class LogManager {
 
   // match native api
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  error(...args: any) {
+  public error(...args: any) {
     // posthog.capture('$exception', {
     //   $exception_type: 'console_error',
     //   $exception_message: 'Something went wrong',

@@ -3,7 +3,7 @@ import { Router, UrlTree } from '@angular/router';
 import { beforeEach, describe, it, expect, vi } from 'vitest';
 import { signal } from '@angular/core';
 
-import { loggedInGuard } from './logged-in-guard';
+import { loggedInGuard } from './authenticated-guard';
 import { AuthenticationStore } from '../authentication-store/authentication-store';
 import { LogManager } from '../../core/log-manager/log-manager';
 

@@ -1,6 +1,7 @@
 import { inject, Injectable, signal, computed } from '@angular/core';
 import { User } from '@organization/shared-types';
 import { UsersApi } from '../users-api/users-api';
+import { LogManager } from '@organization/shared-ui';
 
 type UsersState = {
   users: User[];
@@ -10,7 +11,8 @@ type UsersState = {
 
 @Injectable()
 export class UsersDataStore {
-  private readonly usersApi = inject(UsersApi);
+  private readonly _logManager = inject(LogManager);
+  private readonly _usersApi = inject(UsersApi);
 
   private readonly state = signal<UsersState>({
     users: [],
@@ -29,8 +31,26 @@ export class UsersDataStore {
   loadUsers() {
     this.state.update((currentState) => ({ ...currentState, loading: true }));
 
-    this.usersApi.getUsers().subscribe({
-      next: (users) => this.state.set({ users, loading: false, error: null }),
+    this._usersApi.getUsers().subscribe({
+      next: (response) => {
+        const { data, meta } = response ?? {};
+
+        if (!data) {
+          this._logManager.error({
+            type: 'users-data-store-error',
+            message: 'Users api response successfully but no data returned',
+            error: response,
+          });
+
+          this.state.update((state) => ({ ...state, error: 'No data returned from the server' }));
+        }
+
+        if (meta?.error) {
+          this.state.update((state) => ({ ...state, error: meta.error.message }));
+        }
+
+        this.state.set({ users: response.data ?? [], loading: false, error: null });
+      },
       error: (err) => this.state.update((currentState) => ({ ...currentState, loading: false, error: err.message })),
     });
   }

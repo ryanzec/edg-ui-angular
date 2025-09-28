@@ -4,7 +4,7 @@ import { Directive, HostBinding, input } from '@angular/core';
   selector: '[orgGroupedElements]',
 })
 export class GroupedElementsDirective {
-  public readonly orgGroupedElements = input<boolean | null>(true);
+  public readonly orgGroupedElements = input<boolean | '' | null>(true);
 
   @HostBinding('class.flex')
   public get flexClass(): boolean {
@@ -17,6 +17,19 @@ export class GroupedElementsDirective {
   }
 
   private enabled(): boolean {
-    return this.orgGroupedElements() === true;
+    const value = this.orgGroupedElements();
+
+    // Handle empty string (attribute without value) as true
+    if (value === '' || value === true) {
+      return true;
+    }
+
+    // Handle string 'false' as false
+    if (value === false) {
+      return false;
+    }
+
+    // Handle null as false
+    return false;
   }
 }

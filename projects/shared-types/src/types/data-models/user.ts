@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { ResponseStructure } from '../utils';
 
 export const UserRoleName = {
   ADMIN: 'admin',
@@ -44,3 +45,13 @@ export const updateUserSchema = userSchema
   });
 
 export type UpdateUser = z.infer<typeof updateUserSchema>;
+
+export type GetUsersResponse = ResponseStructure<User[]>;
+
+export type GetUserResponse = ResponseStructure<User>;
+
+export type CreateUserResponse = ResponseStructure<User>;
+
+export type UpdateUserResponse = ResponseStructure<User>;
+
+export type DeleteUserResponse = ResponseStructure<User>;

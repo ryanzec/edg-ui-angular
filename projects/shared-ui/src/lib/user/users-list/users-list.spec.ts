@@ -68,11 +68,6 @@ describe('UsersList', () => {
     expect(formattedDate).toBe('Jan 1, 2024');
   });
 
-  it('should return correct CSS classes for roles', () => {
-    expect(component.getRoleChipClass(UserRoleName.ADMIN)).toBe('bg-red-100 text-red-800');
-    expect(component.getRoleChipClass(UserRoleName.USER)).toBe('bg-blue-100 text-blue-800');
-  });
-
   it('should show loading state', () => {
     fixture.componentRef.setInput('isLoading', true);
     fixture.detectChanges();

@@ -45,6 +45,7 @@ Generic typescript
 - Storybook
 - Eslint / Prettier
 - Angular Material 20
+- Tailwind
 - Luxon
 - es-toolkit
 

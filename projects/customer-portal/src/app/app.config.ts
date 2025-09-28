@@ -1,6 +1,6 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptorsFromDi, withInterceptors } from '@angular/common/http';
 import { MAT_BUTTON_CONFIG, MAT_FAB_DEFAULT_OPTIONS } from '@angular/material/button';
 import { MAT_CARD_CONFIG } from '@angular/material/card';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
@@ -9,7 +9,7 @@ import { MAT_LUXON_DATE_ADAPTER_OPTIONS } from '@angular/material-luxon-adapter'
 import { provideZonelessChangeDetection, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { routes } from './app.routes';
 import { environment } from '../environments/environment';
-import { BASE_API_URL } from '@organization/shared-ui';
+import { BASE_API_URL, httpWithCredentialsInterceptor } from '@organization/shared-ui';
 // import { FeatureFlagStore } from '@organization/shared-ui';
 
 export const appConfig: ApplicationConfig = {
@@ -18,7 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    provideHttpClient(withFetch(), withInterceptorsFromDi()),
+    provideHttpClient(withFetch(), withInterceptorsFromDi(), withInterceptors([httpWithCredentialsInterceptor])),
     provideLuxonDateAdapter(),
     { provide: MAT_LUXON_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
     { provide: MAT_BUTTON_CONFIG, useValue: { defaultAppearance: 'tonal' } },

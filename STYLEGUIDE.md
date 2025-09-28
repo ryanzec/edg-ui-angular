@@ -435,13 +435,15 @@ More compllex example can be referenced:
 
 - Search the codebase for `BASE_API_URL` to be a pattern for adding configuable options for a root provided service
 
-# Typing data models
+# Typing
 
-When typing data model (often ones from an api), we should should generate a zod schema for it and then the type can be inferred from the schema with `z.infer<typeof [SCHEMA_VARIABLE_NAME]>`. This allow us to get validation and typing for the data model.
+## Zod
 
-## Multiple schemas / type per based data model
+When we are going to what to be able to validate a type, instead of creating the type manually, we should should generate a zod schema for it and then the type can be inferred from the schema with `z.infer<typeof [SCHEMA_VARIABLE_NAME]>`. This allow us to get validation and typing for the type that better automatically syncs.
 
-Often there will be case where you need multiple schemas / types for the same base data model. In those cases, you should create the full base data model schema (for example `userSchema`) and then derived other model picking from that one instead of omit, for example:
+## Multiple schemas / types
+
+Often there will be case where you need multiple schemas / types for the same base type. In those cases, you should create the full base schema (for example `userSchema`) and then derived other schema by picking from that one instead of omit, for example:
 
 ```ts
 export const userSchema = z.object({

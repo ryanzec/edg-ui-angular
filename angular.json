@@ -30,7 +30,13 @@
                 "input": "projects/customer-portal/public"
               }
             ],
-            "styles": ["projects/shared-ui/src/lib/styles.scss"]
+            "styles": [
+              "projects/shared-ui/src/lib/styles.scss",
+              {
+                "input": "projects/shared-ui/src/lib/tailwind.css",
+                "bundleName": "tailwind"
+              }
+            ]
           },
           "configurations": {
             "production": {
@@ -147,7 +153,13 @@
                 "input": "projects/internal-portal/public"
               }
             ],
-            "styles": ["projects/shared-ui/src/lib/styles.scss"]
+            "styles": [
+              "projects/shared-ui/src/lib/styles.scss",
+              {
+                "input": "projects/shared-ui/src/lib/tailwind.css",
+                "bundleName": "tailwind"
+              }
+            ]
           },
           "configurations": {
             "production": {

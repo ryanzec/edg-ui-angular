@@ -10,7 +10,7 @@ import {
   type AuthenticationAuthenticateRequest,
 } from '@organization/shared-types';
 import { z } from 'zod';
-import { FormFieldsDirective } from '../../core/public-api';
+import { GroupedElementsDirective } from '../../core/public-api';
 
 @Component({
   selector: 'org-login-form',
@@ -22,7 +22,7 @@ import { FormFieldsDirective } from '../../core/public-api';
     MatButtonModule,
     MatCardModule,
     MatIconModule,
-    FormFieldsDirective,
+    GroupedElementsDirective,
   ],
   templateUrl: './login-form.html',
 })

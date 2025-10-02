@@ -9,7 +9,8 @@ import {
   UpdateUserResponse,
   User,
 } from '@organization/shared-types';
-import { BASE_API_URL, LogManager } from '@organization/shared-ui';
+import { BASE_API_URL } from '../../core/utils';
+import { LogManager } from '../../core/log-manager/log-manager';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';

@@ -15,7 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatTimepickerModule } from '@angular/material/timepicker';
 import { MatButtonModule } from '@angular/material/button';
-import { FormFieldsDirective } from '../../core/public-api';
+import { GroupedElementsDirective } from '../../core/public-api';
 
 @Component({
   selector: 'org-example-basic-inputs',
@@ -36,7 +36,7 @@ import { FormFieldsDirective } from '../../core/public-api';
     MatIconModule,
     MatTimepickerModule,
     MatButtonModule,
-    FormFieldsDirective,
+    GroupedElementsDirective,
   ],
   templateUrl: './basic-inputs.html',
 })

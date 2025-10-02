@@ -1,22 +1,18 @@
-import { Directive, HostBinding, input } from '@angular/core';
+import { Directive, input } from '@angular/core';
 
 @Directive({
   selector: '[orgGroupedElements]',
+  host: {
+    '[class.flex]': 'enabled()',
+    '[class.flex-col]': 'shouldApplyFlexCol()',
+    '[class.gap-2]': 'enabled()',
+  },
 })
 export class GroupedElementsDirective {
   public readonly orgGroupedElements = input<boolean | '' | null>(true);
+  public readonly flexDirection = input<'row' | 'col'>('row');
 
-  @HostBinding('class.flex')
-  public get flexClass(): boolean {
-    return this.enabled();
-  }
-
-  @HostBinding('class.gap-1')
-  public get gap2Class(): boolean {
-    return this.enabled();
-  }
-
-  private enabled(): boolean {
+  public enabled(): boolean {
     const value = this.orgGroupedElements();
 
     // Handle empty string (attribute without value) as true
@@ -31,5 +27,9 @@ export class GroupedElementsDirective {
 
     // Handle null as false
     return false;
+  }
+
+  public shouldApplyFlexCol(): boolean {
+    return this.enabled() && this.flexDirection() === 'col';
   }
 }

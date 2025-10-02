@@ -19,4 +19,5 @@ export type UiEnvironment = {
   applicationName: ApplicationName;
   apiUrl: string;
   jetCookieName: string;
+  launchDarklyClientId: string;
 };

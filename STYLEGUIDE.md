@@ -527,10 +527,30 @@ NOTES:
 
 - storybook autodocs
 
+# AI Examples
+
+## Simple
+
+If the example can be expressed relatively easily in the code snippit, just inline the code snipper to the ai file
+
+## Complex
+
+If the example is more complex, just reference a location where it is being used.
+
+When possible, we should create a minimal storybook example that can be used to reference it so that we feed minial context into the ai and also have a manual example we can reference in the future.
+
 # Good bad code example template
 
 ```ts
 // ❌ bad
 
+// 😐 ok
+
 // ✅ good
 ```
+
+# Tips
+
+## `inline-flex` to fix weird extra spacing
+
+## `min-h-0` / `min-w-0` to child overflowing their `flex` based parent

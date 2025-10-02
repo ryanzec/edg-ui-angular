@@ -99,3 +99,7 @@ Generic typescript
 ## Patterns
 
 - [x] component based store (a.k.a context provider)
+
+# Notes
+
+- Storybook can sometimes get struck with hot reload and if that happen, you have to restart storybook completely (usually happen when configurations are being updates, not stories).

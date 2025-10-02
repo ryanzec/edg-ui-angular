@@ -35,6 +35,18 @@
               {
                 "input": "projects/shared-ui/src/lib/tailwind.css",
                 "bundleName": "tailwind"
+              },
+              {
+                "input": "@phosphor-icons/web/regular/style.css",
+                "bundleName": "phosphor-icons"
+              },
+              {
+                "input": "@phosphor-icons/web/bold/style.css",
+                "bundleName": "phosphor-icons"
+              },
+              {
+                "input": "@phosphor-icons/web/fill/style.css",
+                "bundleName": "phosphor-icons"
               }
             ]
           },
@@ -158,6 +170,18 @@
               {
                 "input": "projects/shared-ui/src/lib/tailwind.css",
                 "bundleName": "tailwind"
+              },
+              {
+                "input": "@phosphor-icons/web/regular/style.css",
+                "bundleName": "phosphor-icons"
+              },
+              {
+                "input": "@phosphor-icons/web/bold/style.css",
+                "bundleName": "phosphor-icons"
+              },
+              {
+                "input": "@phosphor-icons/web/fill/style.css",
+                "bundleName": "phosphor-icons"
               }
             ]
           },

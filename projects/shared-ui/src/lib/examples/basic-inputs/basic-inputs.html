@@ -4,7 +4,7 @@
       <mat-card-title>Form Controls</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form orgFormFields [formGroup]="demoForm">
+      <form orgGroupedElements flexDirection="col" [formGroup]="demoForm">
         <mat-form-field class="w-full">
           <mat-label>Name</mat-label>
           <input matInput formControlName="name" placeholder="Enter your name" />

@@ -1,0 +1,58 @@
+<div class="space-y-6 p-6 bg-white rounded-lg shadow-lg max-w-2xl mx-auto">
+  <div class="text-center">
+    <h1 class="text-2xl font-bold text-gray-900 mb-2">Detect Output Event Listeners</h1>
+    <p class="text-gray-600">Using Subject + outputFromObservable() to detect if an event is being listened to</p>
+  </div>
+
+  <!-- Status Display -->
+  <div class="bg-gray-50 p-4 rounded-lg text-center">
+    <div class="text-sm font-medium text-gray-600 mb-1">buttonClicked Event Status</div>
+    <div class="text-xl font-bold" [class.text-green-600]="isListenedTo()" [class.text-red-600]="!isListenedTo()">
+      {{ isListenedTo() ? '✓ Being Listened To' : '✗ Not Being Listened To' }}
+    </div>
+  </div>
+
+  <!-- Interactive Example -->
+  <div class="text-center space-y-4">
+    <div>
+      <p class="text-gray-600 mb-4">
+        Notice how the button changes appearance based on whether someone is listening to the
+        <code class="bg-gray-100 px-1 rounded">buttonClicked</code> output:
+      </p>
+      <button [class]="buttonClasses()" (click)="handleClick()">Click Me! ({{ clickCount() }} clicks)</button>
+    </div>
+
+    <div class="text-sm text-gray-600">
+      <div>🔵 Blue = Event is being listened to</div>
+      <div>⚪ Gray = Event is not being listened to</div>
+    </div>
+  </div>
+
+  <!-- Pattern Explanation -->
+  <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+    <h3 class="font-semibold text-blue-900 mb-3">The Pattern:</h3>
+    <div class="text-blue-800 space-y-2 text-sm font-mono">
+      <div>
+        <span class="text-blue-600">1.</span> <code>private _buttonClicked$ = new Subject&lt;string&gt;()</code>
+      </div>
+      <div>
+        <span class="text-blue-600">2.</span>
+        <code>public buttonClicked = outputFromObservable(this._buttonClicked$)</code>
+      </div>
+      <div>
+        <span class="text-blue-600">3.</span> <code>this._buttonClicked$.observed</code> → true if being listened to
+      </div>
+      <div><span class="text-blue-600">4.</span> <code>this._buttonClicked$.next(value)</code> → emit event</div>
+    </div>
+  </div>
+
+  <!-- Reset Button -->
+  <div class="text-center">
+    <button
+      class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors"
+      (click)="resetCounter()"
+    >
+      Reset Counter
+    </button>
+  </div>
+</div>

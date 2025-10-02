@@ -6,7 +6,7 @@ import {
   AuthenticationAuthenticateResponse,
   AuthenticationCheckResponse,
 } from '@organization/shared-types';
-import { BASE_API_URL } from '@organization/shared-ui';
+import { BASE_API_URL } from '../../core/utils';
 
 @Injectable({
   providedIn: 'root',

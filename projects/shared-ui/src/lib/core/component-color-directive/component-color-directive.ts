@@ -1,20 +1,28 @@
 import { Directive, input, HostBinding } from '@angular/core';
 
-/**
- * Colors that can be applied to a component
- * @internal Only exposed for testing purposes
- */
-export const _colors = ['primary', 'secondary', 'neutral', 'success', 'info', 'caution', 'warning', 'danger'] as const;
+export const ComponentColor = {
+  PRIMARY: 'primary',
+  SECONDARY: 'secondary',
+  NEUTRAL: 'neutral',
+  SAFE: 'safe',
+  INFO: 'info',
+  CAUTION: 'caution',
+  WARNING: 'warning',
+  DANGER: 'danger',
+} as const;
 
-export type ComponentColor = (typeof _colors)[number];
+export type ComponentColor = (typeof ComponentColor)[keyof typeof ComponentColor];
+
+export const componentColors = Object.values(ComponentColor);
+
+export const COMPONENT_COLOR_COLOR_DEFAULT: ComponentColor | null = null;
 
 @Directive({
   selector: '[orgColor]',
-  // Directives should be standalone in modern Angular
   standalone: true,
 })
 export class ComponentColorDirective {
-  public orgColor = input<ComponentColor | null>(null);
+  public orgColor = input<ComponentColor | null>(COMPONENT_COLOR_COLOR_DEFAULT);
 
   // Each getter toggles a specific class based on the input value.
   // This is safe and won't remove other classes on the element.
@@ -33,9 +41,9 @@ export class ComponentColorDirective {
     return this.orgColor() === 'neutral';
   }
 
-  @HostBinding('class.org-success')
-  get isSuccess(): boolean {
-    return this.orgColor() === 'success';
+  @HostBinding('class.org-safe')
+  get isSafe(): boolean {
+    return this.orgColor() === 'safe';
   }
 
   @HostBinding('class.org-info')

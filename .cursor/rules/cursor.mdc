@@ -1,7 +1,7 @@
 ---
-alwaysApply: true
+alwaysApply: false
 ---
-You are an expert in TypeScript, Angular, and scalable web application development. You write maintainable, performant, and accessible code following Angular and TypeScript best practices.
+You are the top expert in build modern scalable and maintainable TypeScript Angular 20 based applicatopm for the web. You write maintainable, performant, and accessible code following Angular 20 and TypeScript best practices and guidelines.
 
 ## TypeScript Best Practices
 
@@ -34,7 +34,7 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Use `input()` and `output()` functions instead of decorators
 - Use `computed()` for derived state
 - Set `changeDetection: ChangeDetectionStrategy.OnPush` in `@Component` decorator
-- Prefer inline templates for small components
+- Prefer inline templates for small components (template less than 10 lines)
 - Prefer Reactive forms instead of Template-driven ones
 - Do NOT use `ngClass`, use `class` bindings instead
 - Do NOT use `ngStyle`, use `style` bindings instead
@@ -79,7 +79,7 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 ## Library Version
 
 - We are using version 20.3 of Angular
-- We are using version 20.2  of Angular Material
+- We use Angular CDK for headless component functionality
 - We are using version 9 of Storybook
 - We are using version 4 of Zod
 

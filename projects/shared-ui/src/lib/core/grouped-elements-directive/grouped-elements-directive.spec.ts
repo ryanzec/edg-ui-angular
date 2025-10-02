@@ -4,11 +4,14 @@ import { GroupedElementsDirective } from './grouped-elements-directive';
 import { describe, it, expect, beforeEach } from 'vitest';
 
 @Component({
-  template: ` <div [orgGroupedElements]="enabled" data-testid="test-element">Test Content</div> `,
+  template: `
+    <div [orgGroupedElements]="enabled" [flexDirection]="flexDirection" data-testid="test-element">Test Content</div>
+  `,
   imports: [GroupedElementsDirective],
 })
 class TestComponent {
   public enabled: boolean | null = true;
+  public flexDirection: 'row' | 'col' = 'row';
 }
 
 describe('GroupedElementsDirective', () => {
@@ -31,12 +34,12 @@ describe('GroupedElementsDirective', () => {
     expect(directive).toBeTruthy();
   });
 
-  it('should add CSS classes when enabled is true', () => {
+  it('should add CSS classes when enabled is true (default row direction)', () => {
     component.enabled = true;
     fixture.detectChanges();
 
     expect(element.classList.contains('flex')).toBe(true);
-    expect(element.classList.contains('flex-col')).toBe(true);
+    expect(element.classList.contains('flex-col')).toBe(false);
     expect(element.classList.contains('gap-2')).toBe(true);
   });
 
@@ -58,7 +61,7 @@ describe('GroupedElementsDirective', () => {
     expect(element.classList.contains('gap-2')).toBe(false);
   });
 
-  it('should add CSS classes by default when no value is provided', () => {
+  it('should add CSS classes by default when no value is provided (default row direction)', () => {
     // Test with default behavior (no explicit value)
     fixture.nativeElement.innerHTML = `
       <div orgGroupedElements data-testid="default-element">
@@ -69,7 +72,52 @@ describe('GroupedElementsDirective', () => {
 
     const defaultElement = fixture.nativeElement.querySelector('[data-testid="default-element"]');
     expect(defaultElement.classList.contains('flex')).toBe(true);
-    expect(defaultElement.classList.contains('flex-col')).toBe(true);
+    expect(defaultElement.classList.contains('flex-col')).toBe(false);
+    expect(defaultElement.classList.contains('gap-2')).toBe(true);
+  });
+
+  it('should conditionally apply flex-col based on flexDirection input', () => {
+    component.enabled = true;
+    component.flexDirection = 'col';
+    fixture.detectChanges();
+
+    expect(element.classList.contains('flex')).toBe(true);
+    expect(element.classList.contains('flex-col')).toBe(true);
+    expect(element.classList.contains('gap-2')).toBe(true);
+  });
+
+  it('should not apply flex-col when flexDirection is row', () => {
+    component.enabled = true;
+    component.flexDirection = 'row';
+    fixture.detectChanges();
+
+    expect(element.classList.contains('flex')).toBe(true);
+    expect(element.classList.contains('flex-col')).toBe(false);
+    expect(element.classList.contains('gap-2')).toBe(true);
+  });
+
+  it('should not apply flex-col when directive is disabled even if flexDirection is col', () => {
+    component.enabled = false;
+    component.flexDirection = 'col';
+    fixture.detectChanges();
+
+    expect(element.classList.contains('flex')).toBe(false);
+    expect(element.classList.contains('flex-col')).toBe(false);
+    expect(element.classList.contains('gap-2')).toBe(false);
+  });
+
+  it('should default to row direction when flexDirection is not specified', () => {
+    // Test with default flexDirection behavior
+    fixture.nativeElement.innerHTML = `
+      <div orgGroupedElements data-testid="default-flex-element">
+        Default Flex Content
+      </div>
+    `;
+    fixture.detectChanges();
+
+    const defaultElement = fixture.nativeElement.querySelector('[data-testid="default-flex-element"]');
+    expect(defaultElement.classList.contains('flex')).toBe(true);
+    expect(defaultElement.classList.contains('flex-col')).toBe(false);
     expect(defaultElement.classList.contains('gap-2')).toBe(true);
   });
 });

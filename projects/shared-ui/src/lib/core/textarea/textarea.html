@@ -1,0 +1,55 @@
+<div [class]="mergeClasses('org-textarea', hostClasses())">
+  <div [class]="containerClasses()">
+    @for (item of inlineItems(); track item.id) {
+      <org-tag
+        orgColor="primary"
+        variant="weak"
+        [removable]="!!(item.removable && !isDisabled() && !isReadonly())"
+        (removed)="handleInlineItemRemove(item)"
+      >
+        {{ item.label }}
+      </org-tag>
+    }
+    @if (hasPreIcon()) {
+      <button
+        type="button"
+        class="inline-flex"
+        [class]="preIconClasses()"
+        (click)="handlePreIconClick()"
+        [disabled]="isDisabled() || isReadonly()"
+        [attr.aria-label]="'Pre icon'"
+      >
+        <org-icon [name]="preIcon()!" size="base" />
+      </button>
+    }
+    <textarea
+      #textareaElement
+      [value]="value()"
+      [placeholder]="placeholder()"
+      [disabled]="isDisabled()"
+      [readonly]="isReadonly()"
+      [rows]="rows()"
+      [class]="textareaClasses()"
+      [attr.aria-invalid]="isInvalid()"
+      [attr.aria-describedby]="hasValidationMessage() ? 'validation-message' : null"
+      [attr.autofocus]="autoFocus() || null"
+      (input)="handleInputChange($event)"
+      (keydown)="handleKeyDown($event)"
+    ></textarea>
+    @if (hasPostIcon()) {
+      <button
+        type="button"
+        class="inline-flex"
+        [class]="postIconClasses()"
+        (click)="handlePostIconClick()"
+        [disabled]="isDisabled() || isReadonly()"
+        [attr.aria-label]="'Post icon'"
+      >
+        <org-icon [name]="postIcon()!" size="base" />
+      </button>
+    }
+  </div>
+  <div id="validation-message" [class]="validationMessageClasses()" role="alert" aria-live="polite">
+    {{ validationMessage() || 'No validation message' }}
+  </div>
+</div>

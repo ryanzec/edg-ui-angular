@@ -14,6 +14,10 @@ import { MAT_LUXON_DATE_ADAPTER_OPTIONS } from '@angular/material-luxon-adapter'
 // @todo(refactor) applied to storybook but including it here does so while this feels hack, the hack is in storybook
 // @todo(refactor) code so it is fine for the time being
 import '../projects/shared-ui/src/lib/tailwind.css';
+import '@phosphor-icons/web/regular/style.css';
+import '@phosphor-icons/web/bold/style.css';
+import '@phosphor-icons/web/fill/style.css';
+import '../.storybook/storybook-styles.css';
 
 export const globalTypes = {
   theme: {

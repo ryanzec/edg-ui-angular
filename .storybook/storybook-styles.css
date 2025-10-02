@@ -1,0 +1,29 @@
+@reference '../projects/shared-ui/src/lib/tailwind.css';
+
+/**
+ * Not sure of a better way to get the storybook generated docs to play well with our dark mode
+ */
+.dark-theme .sbdocs.sbdocs-wrapper {
+  @apply bg-surface text-on-surface;
+
+  .sbdocs-title,
+  .docblock-argstable-head,
+  .docblock-argstable-head th,
+  .docblock-code-toggle,
+  .docblock-argstable-body td,
+  .docblock-argstable-body label,
+  .docblock-argstable-body span,
+  .docblock-argstable-body select,
+  .sbdocs-preview,
+  .sbdocs-content h2,
+  .sbdocs-content .sb-anchor h3,
+  .sb-bar,
+  .docs-story > * {
+    @apply text-on-surface bg-surface border-outline;
+  }
+
+  .docblock-argstable-body input:checked ~ span:last-of-type,
+  .docblock-argstable-body input:not(:checked) ~ span:first-of-type {
+    @apply bg-gray-600;
+  }
+}

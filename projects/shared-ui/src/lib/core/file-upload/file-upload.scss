@@ -1,9 +1,11 @@
-:host {
-  display: block;
-  // Use Material's body font family token
-  font-family: var(--mat-typography-body-medium-font-family);
-  // Optional: Set a default color for text
-  color: var(--mat-text-color-primary);
+@layer components {
+  .org-file-upload {
+    display: block;
+    // Use Material's body font family token
+    font-family: var(--mat-typography-body-medium-font-family);
+    // Optional: Set a default color for text
+    color: var(--mat-text-color-primary);
+  }
 }
 
 .dropzone {

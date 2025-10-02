@@ -11,10 +11,10 @@ const config: StorybookConfig = {
   },
   // this is required to avoud having to restart stroybook to get sass changes (still need to refresh page)
   webpackFinal: async (config) => {
-    // 1. Define the absolute path to your global stylesheet.
+    // Define the absolute path to your global stylesheet.
     const globalStylePath = path.resolve(__dirname, '../projects/shared-ui/src/lib/styles.scss');
 
-    // 2. Define our custom rule for the global stylesheet.
+    // Define our custom rule for the global stylesheet.
     // This uses the loader chain proven to enable hot-reloading.
     const globalStyleRule = {
       test: globalStylePath,
@@ -70,11 +70,20 @@ const config: StorybookConfig = {
       config.module.rules.push(newMasterRule as any);
     }
 
-    const tailwindCssPath = path.resolve(__dirname, '../projects/shared-ui/src/lib/tailwind.css');
+    config.module?.rules?.push({
+      test: path.resolve(__dirname, '../projects/shared-ui/src/lib/tailwind.css'),
+      use: ['style-loader', 'css-loader', 'postcss-loader'],
+    });
 
     config.module?.rules?.push({
-      test: tailwindCssPath, // This rule now ONLY applies to your specific tailwind.css file.
+      test: path.resolve(__dirname, '../.storybook/storybook-styles.css'),
+      // test: /storybook-styles\.css$/,
       use: ['style-loader', 'css-loader', 'postcss-loader'],
+    });
+
+    config.module?.rules?.push({
+      test: /@phosphor-icons.*\.css$/,
+      use: ['style-loader', 'css-loader'],
     });
 
     return config;

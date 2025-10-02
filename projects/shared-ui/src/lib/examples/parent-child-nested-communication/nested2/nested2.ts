@@ -1,5 +1,21 @@
-import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { EXAMPLENested2Registry } from '../nested2-registry/nested2-registry';
+import { Component, inject, OnDestroy, OnInit, signal, Injectable } from '@angular/core';
+
+@Injectable()
+export class EXAMPLENested2Registry {
+  private registryData = new Map<string, EXAMPLENested2>();
+
+  get(key: string) {
+    return this.registryData.get(key);
+  }
+
+  register(key: string, nested2: EXAMPLENested2) {
+    this.registryData.set(key, nested2);
+  }
+
+  unregister(key: string) {
+    this.registryData.delete(key);
+  }
+}
 
 @Component({
   selector: 'org-example-nested-2',

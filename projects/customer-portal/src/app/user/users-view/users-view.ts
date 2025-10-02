@@ -1,11 +1,11 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
-import { UsersList, UsersDataStore } from '@organization/shared-ui';
+import { UsersList, UsersDataStore, Icon } from '@organization/shared-ui';
 import { User } from '@organization/shared-types';
 
 @Component({
   selector: 'cp-users-view',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [UsersList],
+  imports: [UsersList, Icon],
   providers: [UsersDataStore],
   templateUrl: './users-view.html',
   styleUrl: './users-view.scss',

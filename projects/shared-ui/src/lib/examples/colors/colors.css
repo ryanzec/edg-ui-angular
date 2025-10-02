@@ -1,0 +1,40 @@
+@reference '../../tailwind.css';
+
+@layer components {
+  /* Border swatch specific styling that can't be achieved with Tailwind alone */
+  .colors-demo__swatch--border::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 2px solid;
+    border-color: inherit;
+    border-radius: 2px;
+  }
+
+  /* Responsive adjustments for mobile */
+  @media (max-width: 768px) {
+    .colors-demo {
+      @apply p-4;
+    }
+
+    .colors-demo h1 {
+      @apply text-3xl;
+    }
+
+    .colors-demo h2 {
+      @apply text-2xl;
+    }
+
+    .colors-demo .grid {
+      @apply grid-cols-1 gap-4;
+    }
+
+    .colors-demo .flex.items-start {
+      @apply p-3;
+    }
+
+    .colors-demo [class*='min-w-[3rem]'] {
+      @apply min-w-[2.5rem] min-h-[2.5rem] text-sm;
+    }
+  }
+}

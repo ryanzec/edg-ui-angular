@@ -1,0 +1,31 @@
+@reference '../../tailwind.css';
+
+@layer components {
+  // Focus-visible styles for better keyboard navigation accessibility
+  .org-input-container {
+    &:focus-within {
+      @apply ring-1 ring-blue-500;
+    }
+  }
+
+  // Custom styles for inline item remove buttons
+  .org-inline-item-remove {
+    &:focus-visible {
+      @apply bg-blue-200;
+    }
+  }
+
+  // Icon button focus styles
+  .org-input-icon-button {
+    &:focus-visible {
+      @apply bg-gray-100 rounded;
+    }
+  }
+
+  // Ensure proper text selection behavior
+  .org-input-element {
+    &::selection {
+      @apply bg-blue-100;
+    }
+  }
+}

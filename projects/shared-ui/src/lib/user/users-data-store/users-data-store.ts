@@ -1,7 +1,7 @@
 import { inject, Injectable, signal, computed } from '@angular/core';
 import { User } from '@organization/shared-types';
 import { UsersApi } from '../users-api/users-api';
-import { LogManager } from '@organization/shared-ui';
+import { LogManager } from '../../core/log-manager/log-manager';
 
 type UsersState = {
   users: User[];

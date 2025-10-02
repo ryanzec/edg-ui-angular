@@ -1,0 +1,82 @@
+@reference '../../tailwind.css';
+
+/* Button color variants using ComponentColorDirective classes */
+:host(.org-primary) button {
+  @apply bg-button-primary text-button-primary-text border border-button-primary;
+
+  &:not(:disabled) {
+    @apply hover:bg-button-primary-hover hover:border-button-primary-hover;
+    @apply focus-visible:bg-button-primary-focus focus-visible:border-button-primary-focus;
+    @apply active:bg-button-primary-active active:border-button-primary-active;
+  }
+}
+
+:host(.org-secondary) button {
+  @apply bg-button-secondary text-button-secondary-text border border-button-secondary-border;
+
+  &:not(:disabled) {
+    @apply hover:bg-button-secondary-hover hover:border-button-secondary-hover-border;
+    @apply focus-visible:bg-button-secondary-focus focus-visible:border-button-secondary-hover-border;
+    @apply active:bg-button-secondary-active active:border-button-secondary-hover-border;
+  }
+}
+
+:host(.org-neutral) button {
+  @apply bg-button-neutral text-button-neutral-text border border-button-neutral;
+
+  &:not(:disabled) {
+    @apply hover:bg-button-neutral-hover hover:border-button-neutral-hover;
+    @apply focus-visible:bg-button-neutral-focus focus-visible:border-button-neutral-focus;
+    @apply active:bg-button-neutral-active active:border-button-neutral-active;
+  }
+}
+
+:host(.org-safe) button {
+  @apply bg-button-safe text-button-safe-text border border-button-safe;
+
+  &:not(:disabled) {
+    @apply hover:bg-button-safe-hover hover:border-button-safe-hover;
+    @apply focus-visible:bg-button-safe-focus focus-visible:border-button-safe-focus;
+    @apply active:bg-button-safe-active active:border-button-safe-active;
+  }
+}
+
+:host(.org-info) button {
+  @apply bg-button-info text-button-info-text border border-button-info;
+
+  &:not(:disabled) {
+    @apply hover:bg-button-info-hover hover:border-button-info-hover;
+    @apply focus-visible:bg-button-info-focus focus-visible:border-button-info-focus;
+    @apply active:bg-button-info-active active:border-button-info-active;
+  }
+}
+
+:host(.org-caution) button {
+  @apply bg-button-caution text-button-caution-text border border-button-caution;
+
+  &:not(:disabled) {
+    @apply hover:bg-button-caution-hover hover:border-button-caution-hover;
+    @apply focus-visible:bg-button-caution-focus focus-visible:border-button-caution-focus;
+    @apply active:bg-button-caution-active active:border-button-caution-active;
+  }
+}
+
+:host(.org-warning) button {
+  @apply bg-button-warning text-button-warning-text border border-button-warning;
+
+  &:not(:disabled) {
+    @apply hover:bg-button-warning-hover hover:border-button-warning-hover;
+    @apply focus-visible:bg-button-warning-focus focus-visible:border-button-warning-focus;
+    @apply active:bg-button-warning-active active:border-button-warning-active;
+  }
+}
+
+:host(.org-danger) button {
+  @apply bg-button-danger text-button-danger-text border border-button-danger;
+
+  &:not(:disabled) {
+    @apply hover:bg-button-danger-hover hover:border-button-danger-hover;
+    @apply focus-visible:bg-button-danger-focus focus-visible:border-button-danger-focus;
+    @apply active:bg-button-danger-active active:border-button-danger-active;
+  }
+}

@@ -75,7 +75,7 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 ## Library Version
 
 - We are using version 20.3 of Angular
-- We are using version 20.2  of Angular Material
+- We use Angular CDK for headless component functionality
 - We are using version 9 of Storybook
 - We are using version 4 of Zod
 

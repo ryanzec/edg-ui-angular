@@ -2,9 +2,11 @@ import { Injectable, signal, computed, inject } from '@angular/core';
 import { AuthenticationApi } from '../authentication-api/authentication-api';
 import { AuthenticationAuthenticateRequest, ErrorMessage, User } from '@organization/shared-types';
 import { catchError, of, tap, map, Observable, delay } from 'rxjs';
-import { FeatureFlagStore, LogManager } from '@organization/shared-ui';
+import { FeatureFlagStore } from '../../core/feature-flag-store/feature-flag-store';
+import { LogManager } from '../../core/log-manager/log-manager';
 import { LocalStorageManager } from '../../core/local-storage-manager/local-storage-manager';
 import { CookieService } from 'ngx-cookie-service';
+import { emailUtils } from '@organization/shared-utils';
 
 type AuthenticationState = {
   user: User | null;
@@ -71,7 +73,7 @@ export class AuthenticationStore {
           throw new Error(ErrorMessage.UNKNOWN);
         }
 
-        this._authenticateUser(user);
+        this._authenticateUser(user, data.launchDarklyHash);
 
         return true;
       }),
@@ -108,7 +110,7 @@ export class AuthenticationStore {
             throw new Error(ErrorMessage.UNKNOWN);
           }
 
-          this._authenticateUser(data.user);
+          this._authenticateUser(data.user, data.launchDarklyHash);
         }),
         catchError((error) => {
           this._deauthenticateUser(error.message || ErrorMessage.UNKNOWN);
@@ -123,8 +125,21 @@ export class AuthenticationStore {
     this._deauthenticateUser();
   }
 
-  private _authenticateUser(user: User): void {
+  private _authenticateUser(user: User, launchDarklyHash: string): void {
+    const launchDarklyContext = {
+      kind: 'multi',
+      user: {
+        key: user.id,
+        emailDomain: emailUtils.getDomain(user.email),
+      },
+      organization: {
+        key: user.organizationId,
+      },
+    };
+
     this._localStorageManager.set<User>(this._sessionUserKey, user);
+    // @todo tokenize this
+    this._featureFlagStore.initialize('688bca950d275b098948a2d0', launchDarklyContext, launchDarklyHash);
     this._state.update((state) => ({ ...state, user, isLoading: false, hasInitialized: true, error: null }));
   }
 

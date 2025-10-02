@@ -1,4 +1,4 @@
-import { ComponentColorDirective, type ComponentColor, _colors } from './component-color-directive';
+import { ComponentColorDirective, type ComponentColor, componentColors } from './component-color-directive';
 import { Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { describe, it, expect, beforeEach } from 'vitest';
@@ -34,7 +34,7 @@ describe('ComponentColorDirective', () => {
     component.color.set(null);
     fixture.detectChanges();
 
-    _colors
+    componentColors
       .map((color) => `org-${color}`)
       .forEach((className) => {
         expect(domElement.classList.contains(className)).toBe(false);
@@ -42,7 +42,7 @@ describe('ComponentColorDirective', () => {
   });
 
   describe('Color application', () => {
-    _colors.forEach((color) => {
+    componentColors.forEach((color) => {
       it(`should add org-${color} class when orgColor is set to ${color}`, () => {
         component.color.set(color as ComponentColor);
         fixture.detectChanges();
@@ -58,7 +58,7 @@ describe('ComponentColorDirective', () => {
 
     // Should only have org-primary class, no other color classes
     expect(domElement.classList.contains('org-primary')).toBe(true);
-    _colors
+    componentColors
       .filter((color) => color !== 'primary')
       .forEach((color) => {
         expect(domElement.classList.contains(`org-${color}`)).toBe(false);
@@ -87,7 +87,7 @@ describe('ComponentColorDirective', () => {
     component.color.set(null);
     fixture.detectChanges();
 
-    _colors.forEach((color) => {
+    componentColors.forEach((color) => {
       expect(domElement.classList.contains(`org-${color}`)).toBe(false);
     });
   });
@@ -102,7 +102,7 @@ describe('ComponentColorDirective', () => {
 
     // Verify final state - should have 'org-success' class and no others
     expect(domElement.classList.contains('org-success')).toBe(true);
-    _colors
+    componentColors
       .filter((color) => color !== 'success')
       .forEach((color) => {
         expect(domElement.classList.contains(`org-${color}`)).toBe(false);
@@ -112,7 +112,7 @@ describe('ComponentColorDirective', () => {
   it('should clear classes on initialization', () => {
     fixture.detectChanges();
 
-    _colors
+    componentColors
       .map((color) => `org-${color}`)
       .forEach((className) => {
         expect(domElement.classList.contains(className)).toBe(false);

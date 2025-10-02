@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { type User, UserRoleName } from '@organization/shared-types';
-import { GroupedElementsDirective } from '@organization/shared-ui';
+import { GroupedElementsDirective } from '../../core/grouped-elements-directive/grouped-elements-directive';
 
 type UsersListState = {
   isLoading: boolean;

@@ -1,0 +1,20 @@
+<div [class]="hostClasses()">
+  <span [class]="tagClasses()">
+    @if (hasPreIcon()) {
+      <button type="button" [class]="preIconClasses()" (click)="handlePreIconClick()" [attr.aria-label]="'Pre icon'">
+        <org-icon [name]="preIcon()!" size="small" />
+      </button>
+    }
+    <ng-content />
+    @if (hasPostIcon()) {
+      <button
+        type="button"
+        [class]="postIconClasses()"
+        (click)="handlePostIconClick()"
+        [attr.aria-label]="removable() ? 'Remove tag' : 'Post icon'"
+      >
+        <org-icon [name]="currentPostIcon()!" size="small" />
+      </button>
+    }
+  </span>
+</div>

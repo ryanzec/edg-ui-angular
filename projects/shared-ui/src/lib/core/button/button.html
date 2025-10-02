@@ -1,0 +1,41 @@
+<button
+  [type]="type()"
+  [disabled]="isDisabled()"
+  [class]="
+    mergeClasses(
+      'org-button',
+      'inline-flex items-center justify-center font-medium rounded-md cursor-pointer',
+      'focus:outline-none',
+      {
+        'px-2 py-1 text-xs gap-1.5': this.isIconOnly() === false && this.size() === 'small',
+        'px-2.5 py-0.5 text-base gap-2': this.isIconOnly() === false && this.size() === 'base',
+        'px-4 py-1 text-xl gap-2': this.isIconOnly() === false && this.size() === 'large',
+        'p-0.5': this.isIconOnly() && (this.size() === 'small' || this.size() === 'base'),
+        'p-1': this.isIconOnly() && this.size() === 'large',
+        'opacity-50 cursor-not-allowed': this.isDisabled(),
+      }
+    )
+  "
+  (click)="handleClick()"
+  (mousedown)="handleMouseDown()"
+  (mouseup)="handleMouseUp()"
+  (mouseleave)="handleMouseLeave()"
+>
+  @if (preIcon() && !isIconOnly() && !isLoading()) {
+    <org-icon [name]="preIcon()!" [size]="size()" />
+  }
+
+  @if (isLoading()) {
+    <org-loading-spinner [size]="size()" />
+  }
+
+  @if (icon()) {
+    <org-icon [name]="icon()!" [size]="size()" />
+  } @else {
+    <ng-content />
+  }
+
+  @if (postIcon() && !isIconOnly() && !isLoading()) {
+    <org-icon [name]="postIcon()!" [size]="size()" />
+  }
+</button>

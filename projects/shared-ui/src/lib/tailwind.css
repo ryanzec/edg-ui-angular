@@ -5,8 +5,6 @@
 @theme {
   --animate-spin: spin 1s linear infinite;
 
-  --color-*: initial;
-
   /* angular material colors */
   --color-primary: var(--mat-sys-primary);
   --color-on-primary: var(--mat-sys-on-primary);
@@ -73,4 +71,19 @@ html {
     .mdc-notched-outline__notch {
     border-right: 0;
   }
+}
+
+@import './variables.css';
+
+body {
+  @apply bg-surface text-on-surface scheme-light;
+
+  font:
+    14px/1.4 'Roboto',
+    sans-serif;
+  margin: 0;
+}
+
+body.dark-theme {
+  @apply scheme-dark;
 }

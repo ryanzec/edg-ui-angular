@@ -1,0 +1,80 @@
+/* Tag color variants using ComponentColorDirective and variant classes */
+@reference '../../tailwind.css';
+
+@layer components {
+  .org-tag {
+    /* Base tag wrapper styles if needed */
+  }
+
+  /* Primary variants */
+  :host(.org-primary) .org-tag .strong {
+    @apply bg-tag-primary-strong-bg text-tag-primary-strong-text border-tag-primary-strong-border;
+  }
+
+  :host(.org-primary) .org-tag .weak {
+    @apply bg-tag-primary-weak-bg text-tag-primary-weak-text border-tag-primary-weak-border;
+  }
+
+  /* Secondary variants */
+  :host(.org-secondary) .org-tag .strong {
+    @apply bg-tag-secondary-strong-bg text-tag-secondary-strong-text border-tag-secondary-strong-border;
+  }
+
+  :host(.org-secondary) .org-tag .weak {
+    @apply bg-tag-secondary-weak-bg text-tag-secondary-weak-text border-tag-secondary-weak-border;
+  }
+
+  /* Neutral variants */
+  :host(.org-neutral) .org-tag .strong {
+    @apply bg-tag-neutral-strong-bg text-tag-neutral-strong-text border-tag-neutral-strong-border;
+  }
+
+  :host(.org-neutral) .org-tag .weak {
+    @apply bg-tag-neutral-weak-bg text-tag-neutral-weak-text border-tag-neutral-weak-border;
+  }
+
+  /* Safe variants */
+  :host(.org-safe) .org-tag .strong {
+    @apply bg-tag-safe-strong-bg text-tag-safe-strong-text border-tag-safe-strong-border;
+  }
+
+  :host(.org-safe) .org-tag .weak {
+    @apply bg-tag-safe-weak-bg text-tag-safe-weak-text border-tag-safe-weak-border;
+  }
+
+  /* Info variants */
+  :host(.org-info) .org-tag .strong {
+    @apply bg-tag-info-strong-bg text-tag-info-strong-text border-tag-info-strong-border;
+  }
+
+  :host(.org-info) .org-tag .weak {
+    @apply bg-tag-info-weak-bg text-tag-info-weak-text border-tag-info-weak-border;
+  }
+
+  /* Caution variants */
+  :host(.org-caution) .org-tag .strong {
+    @apply bg-tag-caution-strong-bg text-tag-caution-strong-text border-tag-caution-strong-border;
+  }
+
+  :host(.org-caution) .org-tag .weak {
+    @apply bg-tag-caution-weak-bg text-tag-caution-weak-text border-tag-caution-weak-border;
+  }
+
+  /* Warning variants */
+  :host(.org-warning) .org-tag .strong {
+    @apply bg-tag-warning-strong-bg text-tag-warning-strong-text border-tag-warning-strong-border;
+  }
+
+  :host(.org-warning) .org-tag .weak {
+    @apply bg-tag-warning-weak-bg text-tag-warning-weak-text border-tag-warning-weak-border;
+  }
+
+  /* Danger variants */
+  :host(.org-danger) .org-tag .strong {
+    @apply bg-tag-danger-strong-bg text-tag-danger-strong-text border-tag-danger-strong-border;
+  }
+
+  :host(.org-danger) .org-tag .weak {
+    @apply bg-tag-danger-weak-bg text-tag-danger-weak-text border-tag-danger-weak-border;
+  }
+}

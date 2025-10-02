@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { AuthenticationStore } from '../authentication-store/authentication-store';
-import { BASE_API_URL } from '@organization/shared-ui';
+import { BASE_API_URL } from '../../core/utils';
 
 export const unauthorizedInterceptor: HttpInterceptorFn = (request, next) => {
   const authenticationStore = inject(AuthenticationStore);

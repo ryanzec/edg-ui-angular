@@ -3,6 +3,7 @@
 /* Import component-specific variable files */
 @import './core/button/button-variables.css';
 @import './core/card/card-variables.css';
+@import './core/file-upload/file-upload-variables.css';
 @import './core/tag/tag-variables.css';
 @import './core/input/input-variables.css';
 @import './core/textarea/textarea-variables.css';
@@ -151,6 +152,7 @@
 
   --color-input-background: var(--color-white);
 
+  /* Brand colors */
   --color-brand-background: var(--color-cyan-600);
   --color-brand-background-hover: var(--color-cyan-700);
   --color-brand-background-pressed: var(--color-cyan-600);
@@ -161,6 +163,7 @@
   --color-brand-background-hover-bold: var(--color-cyan-900);
   --color-brand-background-pressed-bold: var(--color-cyan-800);
 
+  /* Secondary colors */
   --color-secondary-background: var(--color-white);
   --color-secondary-background-hover: var(--color-gray-100);
   --color-secondary-background-pressed: var(--color-white);
@@ -293,6 +296,10 @@
   --color-stone-background-pressed-bold: var(--color-stone-800);
 }
 
+/*
+ * NOTE: this must be kept is sync with the @theme block above tailwinds @theme block generated variables at
+ * compile time
+ */
 body.dark-theme {
   /* Text */
   --color-text: var(--color-neutral-100);

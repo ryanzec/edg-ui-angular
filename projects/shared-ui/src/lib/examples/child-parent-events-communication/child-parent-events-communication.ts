@@ -5,7 +5,6 @@ import { EXAMPLENested1 } from './nested1/nested1';
   selector: 'org-example-child-parent-events-communication',
   imports: [EXAMPLENested1],
   templateUrl: './child-parent-events-communication.html',
-  styleUrl: './child-parent-events-communication.scss',
 })
 export class EXAMPLEChildParentEventsCommunication {
   private _message = signal<string>('');

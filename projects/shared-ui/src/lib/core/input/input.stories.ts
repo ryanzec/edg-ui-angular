@@ -623,34 +623,34 @@ export const AllVariants: Story = {
   render: () => ({
     template: `
       <div class="space-y-6 w-96">
-        <div class="space-y-2">
+        <div class="flex flex-col gap-2">
           <h3 class="text-lg font-semibold">Variants</h3>
-          <div class="space-y-2">
+          <div class="flex flex-col gap-2">
             <org-input variant="bordered" placeholder="Bordered input" />
             <org-input variant="borderless" placeholder="Borderless input" />
           </div>
         </div>
 
 
-        <div class="space-y-2">
+        <div class="flex flex-col gap-2">
           <h3 class="text-lg font-semibold">With Icons</h3>
-          <div class="space-y-2">
+          <div class="flex flex-col gap-2">
             <org-input preIcon="gear" placeholder="Pre icon" />
             <org-input postIcon="arrow-right" placeholder="Post icon" />
             <org-input preIcon="gear" postIcon="arrow-right" placeholder="Both icons" />
           </div>
         </div>
 
-        <div class="space-y-2">
+        <div class="flex flex-col gap-2">
           <h3 class="text-lg font-semibold">Password Toggle</h3>
-          <div class="space-y-2">
+          <div class="flex flex-col gap-2">
             <org-input type="password" [showPasswordToggle]="true" placeholder="Password" value="secret123" />
           </div>
         </div>
 
-        <div class="space-y-2">
+        <div class="flex flex-col gap-2">
           <h3 class="text-lg font-semibold">Inline Items (Tags)</h3>
-          <div class="space-y-2">
+          <div class="flex flex-col gap-2">
             <org-input
               placeholder="Add more tags..."
               [inlineItems]="[
@@ -662,27 +662,27 @@ export const AllVariants: Story = {
           </div>
         </div>
 
-        <div class="space-y-2">
+        <div class="flex flex-col gap-2">
           <h3 class="text-lg font-semibold">States</h3>
-          <div class="space-y-2">
+          <div class="flex flex-col gap-2">
             <org-input placeholder="Normal input" />
             <org-input [disabled]="true" placeholder="Disabled input" value="Disabled" />
             <org-input [readonly]="true" placeholder="Readonly input" value="Read-only" />
           </div>
         </div>
 
-        <div class="space-y-2">
+        <div class="flex flex-col gap-2">
           <h3 class="text-lg font-semibold">Focus Behavior</h3>
-          <div class="space-y-2">
+          <div class="flex flex-col gap-2">
             <org-input [selectAllOnFocus]="true" placeholder="Select all on focus" value="Click to select all" />
             <org-input [autoFocus]="true" placeholder="Auto-focused input" />
             <org-input [autoFocus]="true" [selectAllOnFocus]="true" placeholder="Auto-focus + select all" value="Auto-selected text" />
           </div>
         </div>
 
-        <div class="space-y-2">
+        <div class="flex flex-col gap-2">
           <h3 class="text-lg font-semibold">Input Types</h3>
-          <div class="space-y-2">
+          <div class="flex flex-col gap-2">
             <org-input type="email" placeholder="Email input" />
             <org-input type="number" placeholder="Number input" />
             <org-input type="tel" placeholder="Phone input" />
@@ -690,9 +690,9 @@ export const AllVariants: Story = {
           </div>
         </div>
 
-        <div class="space-y-2">
+        <div class="flex flex-col gap-2">
           <h3 class="text-lg font-semibold">Validation States</h3>
-          <div class="space-y-2">
+          <div class="flex flex-col gap-2">
             <org-input placeholder="Valid input (no error)" />
             <org-input
               placeholder="Invalid input"

@@ -1,11 +1,11 @@
 <div
   [class]="
     mergeClasses(
-      'org-card-footer flex gap-1',
+      'org-card-footer',
       {
-        'justify-start': this.alignment() === 'start',
-        'justify-center': this.alignment() === 'center',
-        'justify-end': this.alignment() === 'end',
+        'align-start': this.alignment() === 'start',
+        'align-center': this.alignment() === 'center',
+        'align-end': this.alignment() === 'end',
       },
       this.class()
     )

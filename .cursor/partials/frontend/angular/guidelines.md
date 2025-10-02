@@ -1,4 +1,4 @@
-Angular 20 Guidelines:
+Angular 20 Hard Requirements:
 - We are using Angular version 20.3
 - Always prefer Angular 20 modern standards and patterns that might be more "popular" but are for older versions of Angular
 - Always prefer signal-based code instead of rxjs whenever possible (api calls and streaming data are 2 example where rxjs is the right tool for the job)

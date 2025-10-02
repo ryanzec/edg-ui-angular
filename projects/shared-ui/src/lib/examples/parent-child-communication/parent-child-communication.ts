@@ -5,7 +5,6 @@ import { EXAMPLENested1 } from './nested1/nested1';
   selector: 'org-example-parent-child-communication',
   imports: [EXAMPLENested1],
   templateUrl: './parent-child-communication.html',
-  styleUrl: './parent-child-communication.scss',
 })
 export class EXAMPLEParentChildCommunication implements AfterViewInit {
   @ViewChild('child1')

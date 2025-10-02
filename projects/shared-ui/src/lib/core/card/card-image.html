@@ -1,9 +1,9 @@
 <span
   [class]="
     mergeClasses(
-      'org-card-image-container overflow-hidden',
+      'org-card-image-container',
       {
-        'first:mt-0 last:mb-0': this.fullWidth(),
+        'full-width': this.fullWidth(),
       },
       class()
     )
@@ -17,8 +17,8 @@
       [height]="height()!"
       [priority]="priority()"
       [class]="
-        mergeClasses('object-cover', {
-          'w-full h-auto': fullWidth(),
+        mergeClasses('org-card-image', {
+          'full-width': fullWidth(),
         })
       "
     />
@@ -27,8 +27,8 @@
       [src]="src()"
       [alt]="alt()"
       [class]="
-        mergeClasses('object-cover', {
-          'w-full h-auto': fullWidth(),
+        mergeClasses('org-card-image', {
+          'full-width': fullWidth(),
         })
       "
     />

@@ -2,24 +2,28 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  HostListener,
   ViewChild,
   computed,
   signal,
   input,
+  output,
 } from '@angular/core';
-import { output } from '@angular/core'; // Use the new output function
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
+import { Icon } from '../icon/icon';
 
 @Component({
   selector: 'org-file-upload',
   standalone: true,
-  imports: [CommonModule, MatProgressBarModule, MatIconModule],
+  imports: [CommonModule, Icon],
   templateUrl: './file-upload.html',
   styleUrl: './file-upload.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '(dragover)': 'onDragOver($event)',
+    '(dragleave)': 'onDragLeave($event)',
+    '(drop)': 'onDrop($event)',
+    '(keydown)': 'keyPress($event)',
+  },
 })
 export class FileUploadComponent {
   public readonly fileUpload = output<File>();
@@ -36,7 +40,6 @@ export class FileUploadComponent {
   @ViewChild('fileInput')
   private readonly input!: ElementRef<HTMLInputElement>;
 
-  @HostListener('dragover', ['$event'])
   protected onDragOver(event: DragEvent): void {
     event.preventDefault();
     event.stopPropagation();
@@ -44,7 +47,6 @@ export class FileUploadComponent {
     this.isHovering.set(true);
   }
 
-  @HostListener('dragleave', ['$event'])
   protected onDragLeave(event: DragEvent): void {
     event.preventDefault();
     event.stopPropagation();
@@ -52,7 +54,6 @@ export class FileUploadComponent {
     this.isHovering.set(false);
   }
 
-  @HostListener('drop', ['$event'])
   protected onDrop(event: DragEvent): void {
     event.preventDefault();
     event.stopPropagation();
@@ -64,7 +65,6 @@ export class FileUploadComponent {
     this.handleFile(file);
   }
 
-  @HostListener('keydown', ['$event'])
   protected keyPress(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
       this.openFileSelector();

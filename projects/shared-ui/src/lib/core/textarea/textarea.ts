@@ -111,111 +111,25 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit {
   public readonly hasInlineItems = computed<boolean>(() => this.inlineItems().length > 0);
   public readonly hasValidationMessage = computed<boolean>(() => !!this.validationMessage().trim());
   public readonly isInvalid = computed<boolean>(() => this.hasValidationMessage());
+  public readonly isPreIconClickable = computed(() => this._preIconClicked$.observed);
+  public readonly isPostIconClickable = computed(() => this._postIconClicked$.observed);
 
   public readonly containerClasses = computed<string>(() => {
-    const baseClasses = ['relative', 'inline-flex', 'w-full', 'transition-all', 'duration-200'];
-
-    const variantClasses = {
-      bordered: [
-        'border',
-        'rounded-md',
-        'bg-textarea-background-default',
-        this.isInvalid() && !this.isFocused()
-          ? 'border-textarea-border-error'
-          : this.isFocused()
-            ? this.isInvalid()
-              ? 'border-textarea-border-error ring-1 ring-textarea-ring-error'
-              : 'border-textarea-border-focused ring-1 ring-textarea-ring-focused'
-            : 'border-textarea-border-default',
-        this.isDisabled() ? 'bg-textarea-background-disabled border-textarea-border-default' : '',
-      ],
-      borderless: [
-        'border-0',
-        'bg-textarea-background-default',
-        this.isFocused() ? (this.isInvalid() ? '' : '') : this.isInvalid() ? 'ring-textarea-ring-error' : '',
-        this.isDisabled() ? 'bg-textarea-background-disabled' : '',
-      ],
-    };
-
-    // the min height is to make sure textareas with icons and without are consistent
-    const defaultClasses = 'px-1.5 py-0.5 gap-1 min-h-[70px] bg-input-background';
-
+    const baseClasses = ['org-textarea-container'];
+    const variantClass = this.variant();
     const stateClasses = [];
 
+    if (this.isInvalid()) {
+      stateClasses.push('invalid');
+    }
+
     if (this.isDisabled()) {
-      stateClasses.push('cursor-not-allowed', 'opacity-50');
+      stateClasses.push('disabled');
     }
 
     return tailwindUtils.merge(
-      [...baseClasses, ...variantClasses[this.variant()], defaultClasses, ...stateClasses, this.containerClass()]
-        .filter(Boolean)
-        .join(' ')
+      [...baseClasses, variantClass, ...stateClasses, this.containerClass()].filter(Boolean).join(' ')
     );
-  });
-
-  public readonly textareaClasses = computed<string>(() => {
-    const baseClasses = [
-      'flex-1',
-      'border-0',
-      'outline-none',
-      'placeholder-textarea-text-placeholder',
-      'text-base',
-      'resize-none',
-    ];
-
-    const stateClasses = [];
-
-    if (this.isDisabled()) {
-      stateClasses.push('cursor-not-allowed');
-    } else if (this.isReadonly()) {
-      stateClasses.push('cursor-default');
-    }
-
-    return tailwindUtils.merge([...baseClasses, ...stateClasses].join(' '));
-  });
-
-  public readonly preIconClasses = computed<string>(() => {
-    const baseClasses = ['flex-shrink-0', 'text-textarea-icon'];
-
-    const alignmentClasses = {
-      start: 'self-start',
-      center: 'self-center',
-      end: 'self-end',
-    };
-
-    const stateClasses = [];
-
-    if (!this.isDisabled() && !this.isReadonly() && this._preIconClicked$.observed) {
-      stateClasses.push('cursor-pointer', 'hover:text-textarea-icon-hover');
-    }
-
-    return tailwindUtils.merge([...baseClasses, alignmentClasses[this.preIconAlignment()], ...stateClasses].join(' '));
-  });
-
-  public readonly postIconClasses = computed<string>(() => {
-    const baseClasses = ['flex-shrink-0', 'text-textarea-icon'];
-
-    const alignmentClasses = {
-      start: 'self-start',
-      center: 'self-center',
-      end: 'self-end',
-    };
-
-    const stateClasses = [];
-
-    if (!this.isDisabled() && !this.isReadonly() && this._postIconClicked$.observed) {
-      stateClasses.push('cursor-pointer', 'hover:text-textarea-icon-hover');
-    }
-
-    return tailwindUtils.merge([...baseClasses, alignmentClasses[this.postIconAlignment()], ...stateClasses].join(' '));
-  });
-
-  public readonly validationMessageClasses = computed<string>(() => {
-    const baseClasses = ['text-textarea-validation-error', 'transition-all', 'duration-200', 'text-sm', 'mt-1.5'];
-
-    const visibilityClass = this.hasValidationMessage() ? 'visible' : 'invisible';
-
-    return tailwindUtils.merge([...baseClasses, visibilityClass].join(' '));
   });
 
   public readonly hostClasses = computed<string>(() => {

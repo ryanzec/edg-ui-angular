@@ -10,7 +10,6 @@ import { Subject } from 'rxjs';
   selector: 'org-detect-if-output-event-is-listened-to',
   imports: [],
   templateUrl: './detect-if-output-event-is-listened-to.html',
-  styleUrl: './detect-if-output-event-is-listened-to.scss',
 })
 export class DetectIfOutputEventIsListenedTo {
   private readonly _clickCount = signal(0);
@@ -41,12 +40,12 @@ export class DetectIfOutputEventIsListenedTo {
 
   // Dynamic styling based on whether the event is being listened to
   public readonly buttonClasses = computed(() => {
-    const baseClasses = ['px-6', 'py-3', 'rounded-lg', 'font-medium', 'transition-all', 'text-lg'];
+    const baseClasses = ['px-6', 'py-3', 'rounded-lg', 'font-medium', 'text-lg'];
 
     if (this.isListenedTo()) {
       return [...baseClasses, 'bg-blue-500', 'text-white', 'hover:bg-blue-600', 'cursor-pointer'].join(' ');
     }
 
-    return [...baseClasses, 'bg-gray-300', 'text-gray-600', 'cursor-default'].join(' ');
+    return [...baseClasses, 'bg-gray-300', 'text-text-color', 'cursor-default'].join(' ');
   });
 }

@@ -111,33 +111,6 @@ export const Fill: Story = {
   }),
 };
 
-// Debug story to test class generation
-export const DebugClasses: Story = {
-  render: () => ({
-    template: `
-      <div class="space-y-4">
-        <div class="p-4 bg-gray-100 rounded">
-          <h4 class="font-semibold mb-2">Debug: Generated Classes</h4>
-          <div class="space-y-2">
-            <div class="flex items-center gap-4">
-              <org-icon name="check" size="base" weight="regular"></org-icon>
-              <span class="text-sm font-mono">Regular check icon</span>
-            </div>
-            <div class="flex items-center gap-4">
-              <i class="ph ph-check text-xl"></i>
-              <span class="text-sm font-mono">Manual: ph ph-check text-xl</span>
-            </div>
-            <div class="flex items-center gap-4">
-              <i class="ph-bold ph-check text-xl"></i>
-              <span class="text-sm font-mono">Manual: ph-bold ph-check text-xl</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    `,
-  }),
-};
-
 // Comprehensive showcase
 export const AllIcons: Story = {
   render: () => ({
@@ -145,106 +118,106 @@ export const AllIcons: Story = {
       <div class="space-y-6">
         <div class="space-y-2">
           <h3 class="text-lg font-semibold">All Available Icons (Phosphor Icons)</h3>
-          <div class="grid grid-cols-6 gap-4 p-4 bg-gray-50 rounded-lg">
+          <div class="grid grid-cols-6 gap-4 p-4 bg-background rounded-lg">
             <div class="flex flex-col items-center space-y-2">
               <org-icon name="caret-right" size="base" weight="regular"></org-icon>
-              <span class="text-xs text-gray-600">caret-right</span>
+              <span class="text-xs text-text-color">caret-right</span>
             </div>
             <div class="flex flex-col items-center space-y-2">
               <org-icon name="caret-left" size="base" weight="regular"></org-icon>
-              <span class="text-xs text-gray-600">caret-left</span>
+              <span class="text-xs text-text-color">caret-left</span>
             </div>
             <div class="flex flex-col items-center space-y-2">
               <org-icon name="plus" size="base" weight="regular"></org-icon>
-              <span class="text-xs text-gray-600">plus</span>
+              <span class="text-xs text-text-color">plus</span>
             </div>
             <div class="flex flex-col items-center space-y-2">
               <org-icon name="check" size="base" weight="regular"></org-icon>
-              <span class="text-xs text-gray-600">check</span>
+              <span class="text-xs text-text-color">check</span>
             </div>
             <div class="flex flex-col items-center space-y-2">
               <org-icon name="x" size="base" weight="regular"></org-icon>
-              <span class="text-xs text-gray-600">x</span>
+              <span class="text-xs text-text-color">x</span>
             </div>
             <div class="flex flex-col items-center space-y-2">
               <org-icon name="arrow-right" size="base" weight="regular"></org-icon>
-              <span class="text-xs text-gray-600">arrow-right</span>
+              <span class="text-xs text-text-color">arrow-right</span>
             </div>
             <div class="flex flex-col items-center space-y-2">
               <org-icon name="arrow-left" size="base" weight="regular"></org-icon>
-              <span class="text-xs text-gray-600">arrow-left</span>
+              <span class="text-xs text-text-color">arrow-left</span>
             </div>
             <div class="flex flex-col items-center space-y-2">
               <org-icon name="download-simple" size="base" weight="regular"></org-icon>
-              <span class="text-xs text-gray-600">download-simple</span>
+              <span class="text-xs text-text-color">download-simple</span>
             </div>
             <div class="flex flex-col items-center space-y-2">
               <org-icon name="upload-simple" size="base" weight="regular"></org-icon>
-              <span class="text-xs text-gray-600">upload-simple</span>
+              <span class="text-xs text-text-color">upload-simple</span>
             </div>
             <div class="flex flex-col items-center space-y-2">
               <org-icon name="trash" size="base" weight="regular"></org-icon>
-              <span class="text-xs text-gray-600">trash</span>
+              <span class="text-xs text-text-color">trash</span>
             </div>
             <div class="flex flex-col items-center space-y-2">
               <org-icon name="pencil-simple" size="base" weight="regular"></org-icon>
-              <span class="text-xs text-gray-600">pencil-simple</span>
+              <span class="text-xs text-text-color">pencil-simple</span>
             </div>
             <div class="flex flex-col items-center space-y-2">
               <org-icon name="gear" size="base" weight="regular"></org-icon>
-              <span class="text-xs text-gray-600">gear</span>
+              <span class="text-xs text-text-color">gear</span>
             </div>
           </div>
         </div>
 
         <div class="space-y-2">
           <h3 class="text-lg font-semibold">Size Comparison</h3>
-          <div class="flex items-center gap-6 p-4 bg-gray-50 rounded-lg">
+          <div class="flex items-center gap-6 p-4 bg-background rounded-lg">
             <div class="flex flex-col items-center space-y-2">
               <org-icon name="check" size="small" weight="regular"></org-icon>
-              <span class="text-xs text-gray-600">Small</span>
+              <span class="text-xs text-text-color">Small</span>
             </div>
             <div class="flex flex-col items-center space-y-2">
               <org-icon name="check" size="base" weight="regular"></org-icon>
-              <span class="text-xs text-gray-600">Base</span>
+              <span class="text-xs text-text-color">Base</span>
             </div>
             <div class="flex flex-col items-center space-y-2">
               <org-icon name="check" size="large" weight="regular"></org-icon>
-              <span class="text-xs text-gray-600">Large</span>
+              <span class="text-xs text-text-color">Large</span>
             </div>
           </div>
         </div>
 
         <div class="space-y-2">
           <h3 class="text-lg font-semibold">Weight Comparison</h3>
-          <div class="flex items-center gap-6 p-4 bg-gray-50 rounded-lg">
+          <div class="flex items-center gap-6 p-4 bg-background rounded-lg">
             <div class="flex flex-col items-center space-y-2">
               <org-icon name="check" size="base" weight="regular"></org-icon>
-              <span class="text-xs text-gray-600">Regular</span>
+              <span class="text-xs text-text-color">Regular</span>
             </div>
             <div class="flex flex-col items-center space-y-2">
               <org-icon name="check" size="base" weight="bold"></org-icon>
-              <span class="text-xs text-gray-600">Bold</span>
+              <span class="text-xs text-text-color">Bold</span>
             </div>
             <div class="flex flex-col items-center space-y-2">
               <org-icon name="check" size="base" weight="fill"></org-icon>
-              <span class="text-xs text-gray-600">Fill</span>
+              <span class="text-xs text-text-color">Fill</span>
             </div>
           </div>
         </div>
 
         <div class="space-y-2">
           <h3 class="text-lg font-semibold">Color Inheritance</h3>
-          <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-lg">
-            <div class="text-blue-500 flex items-center">
+          <div class="flex items-center gap-4 p-4 bg-background rounded-lg">
+            <div class="text-blue-500 flex items-center gap-1">
               <org-icon name="check" size="base" weight="regular"></org-icon>
               <span class="text-sm">Blue text color</span>
             </div>
-            <div class="text-red-500 flex items-center">
+            <div class="text-red-500 flex items-center gap-1">
               <org-icon name="x" size="base" weight="regular"></org-icon>
               <span class="text-sm">Red text color</span>
             </div>
-            <div class="text-green-500 flex items-center">
+            <div class="text-green-500 flex items-center gap-1">
               <org-icon name="plus" size="base" weight="regular"></org-icon>
               <span class="text-sm">Green text color</span>
             </div>

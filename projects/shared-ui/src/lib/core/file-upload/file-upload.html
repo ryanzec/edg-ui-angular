@@ -1,8 +1,8 @@
 <div class="org-file-upload">
   <div
-    class="dropzone"
-    [class.is-hovering]="isHovering()"
-    [class.is-uploading]="isUploading()"
+    class="org-file-upload-container"
+    [class.hovering]="isHovering()"
+    [class.uploading]="isUploading()"
     (click)="openFileSelector()"
     (keydown)="keyPress($event)"
     tabindex="-1"
@@ -11,30 +11,33 @@
       data-testid="file-upload-input"
       type="file"
       #fileInput
-      class="file-input"
+      class="org-file-upload-input"
       [accept]="fileTypes()"
       (change)="onFileSelected($event)"
     />
 
     @if (isUploading()) {
-      <mat-progress-bar mode="determinate" [value]="progress()"></mat-progress-bar>
-      <div class="status-text">Uploading {{ fileName() }}...</div>
+      <!-- Custom progress bar -->
+      <div class="org-file-upload-progress-bar">
+        <div class="org-file-upload-progress-fill" [style.width.%]="progress()"></div>
+      </div>
+      <div class="org-file-upload-uploading-text">Uploading {{ fileName() }}...</div>
     } @else if (fileName()) {
-      <div class="file-info">
-        <mat-icon>check_circle</mat-icon>
-        <span>{{ fileName() }} ready!</span>
-        <small>Click or drag another file to replace.</small>
+      <div class="org-file-upload-content">
+        <org-icon name="check" size="large" class="org-file-upload-success-icon"></org-icon>
+        <span class="org-file-upload-success-text">{{ fileName() }} ready!</span>
+        <small class="org-file-upload-subtitle">Click or drag another file to replace.</small>
       </div>
     } @else {
-      <div class="prompt">
-        <mat-icon>cloud_upload</mat-icon>
-        <span>Drag & Drop your file here</span>
-        <small>or <b>click</b> to select one</small>
+      <div class="org-file-upload-content">
+        <org-icon name="upload-simple" size="large" class="org-file-upload-upload-icon"></org-icon>
+        <span class="org-file-upload-success-text">Drag & Drop your file here</span>
+        <small class="org-file-upload-subtitle">or <b class="org-file-upload-accent">click</b> to select one</small>
       </div>
     }
     @if (error()) {
-      <div class="error-message">
-        <mat-icon>error</mat-icon>
+      <div class="org-file-upload-error">
+        <org-icon name="x" class="org-file-upload-error-icon"></org-icon>
         <span>{{ error() }}</span>
       </div>
     }

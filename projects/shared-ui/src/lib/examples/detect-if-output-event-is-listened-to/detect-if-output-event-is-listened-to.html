@@ -1,12 +1,12 @@
 <div class="space-y-6 p-6 bg-white rounded-lg shadow-lg max-w-2xl mx-auto">
   <div class="text-center">
     <h1 class="text-2xl font-bold text-gray-900 mb-2">Detect Output Event Listeners</h1>
-    <p class="text-gray-600">Using Subject + outputFromObservable() to detect if an event is being listened to</p>
+    <p class="text-text-color">Using Subject + outputFromObservable() to detect if an event is being listened to</p>
   </div>
 
   <!-- Status Display -->
   <div class="bg-gray-50 p-4 rounded-lg text-center">
-    <div class="text-sm font-medium text-gray-600 mb-1">buttonClicked Event Status</div>
+    <div class="text-sm font-medium text-text-color mb-1">buttonClicked Event Status</div>
     <div class="text-xl font-bold" [class.text-green-600]="isListenedTo()" [class.text-red-600]="!isListenedTo()">
       {{ isListenedTo() ? '✓ Being Listened To' : '✗ Not Being Listened To' }}
     </div>
@@ -15,14 +15,14 @@
   <!-- Interactive Example -->
   <div class="text-center space-y-4">
     <div>
-      <p class="text-gray-600 mb-4">
+      <p class="text-text-color mb-4">
         Notice how the button changes appearance based on whether someone is listening to the
-        <code class="bg-gray-100 px-1 rounded">buttonClicked</code> output:
+        <code class="text-background px-1 rounded">buttonClicked</code> output:
       </p>
       <button [class]="buttonClasses()" (click)="handleClick()">Click Me! ({{ clickCount() }} clicks)</button>
     </div>
 
-    <div class="text-sm text-gray-600">
+    <div class="text-sm text-text-color">
       <div>🔵 Blue = Event is being listened to</div>
       <div>⚪ Gray = Event is not being listened to</div>
     </div>
@@ -48,10 +48,7 @@
 
   <!-- Reset Button -->
   <div class="text-center">
-    <button
-      class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors"
-      (click)="resetCounter()"
-    >
+    <button class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600" (click)="resetCounter()">
       Reset Counter
     </button>
   </div>

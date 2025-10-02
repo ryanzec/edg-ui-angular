@@ -1,102 +1,74 @@
+@reference '../../tailwind.css';
+
 @layer components {
+  /* File Upload container styles */
   .org-file-upload {
-    display: block;
-    font-family: var(--mat-typography-body-medium-font-family);
-    color: var(--mat-text-color-primary);
-  }
-}
-
-.dropzone {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 200px;
-  border: 2px dashed var(--mat-form-field-outline-color);
-  border-radius: var(--mat-border-radius-medium);
-  background-color: var(--mat-surface-container-low);
-  color: var(--mat-text-color-secondary);
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  position: relative;
-  overflow: hidden;
-
-  &.is-hovering {
-    border-color: var(--mat-primary-color);
-    background-color: var(--mat-primary-container-color);
+    @apply block font-sans text-file-upload-success-text;
   }
 
-  &.is-uploading {
-    cursor: not-allowed;
-    background-color: var(--mat-surface-container);
-  }
+  .org-file-upload-container {
+    @apply flex flex-col justify-center items-center w-full h-[200px] border-2 border-dashed border-file-upload-border rounded-lg bg-file-upload-background text-file-upload-text cursor-pointer relative overflow-hidden;
 
-  .file-input {
-    display: none;
-  }
-
-  .prompt,
-  .file-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    text-align: center;
-    padding: 16px;
-
-    mat-icon {
-      font-size: 48px;
-      width: 48px;
-      height: 48px;
-      color: var(--mat-primary-color);
+    &.hovering {
+      @apply border-file-upload-hover-border bg-file-upload-hover-background;
     }
 
-    span {
-      font-size: var(--mat-typography-body-large-font-size);
-      font-weight: var(--mat-typography-body-large-font-weight);
-    }
-
-    small {
-      color: var(--mat-text-color-tertiary);
-      font-size: var(--mat-typography-body-small-font-size);
-    }
-
-    b {
-      color: var(--mat-primary-color);
-      font-weight: var(--mat-typography-body-medium-font-weight);
+    &.uploading {
+      @apply cursor-not-allowed bg-file-upload-uploading-background;
     }
   }
 
-  .file-info mat-icon {
-    color: var(--mat-sys-color-success);
+  /* File input styles */
+  .org-file-upload-input {
+    @apply hidden;
   }
 
-  mat-progress-bar {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+  /* Progress bar styles */
+  .org-file-upload-progress-bar {
+    @apply absolute bottom-0 w-full h-1 bg-file-upload-progress-background;
   }
 
-  .status-text {
-    font-weight: var(--mat-typography-body-medium-font-weight);
-    color: var(--mat-primary-color);
+  .org-file-upload-progress-fill {
+    @apply h-full bg-file-upload-progress-fill;
   }
 
-  .error-message {
-    position: absolute;
-    bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--mat-warn-color);
-    font-size: var(--mat-typography-body-small-font-size);
+  /* Content area styles */
+  .org-file-upload-content {
+    @apply flex flex-col items-center gap-2 text-center p-4;
+  }
 
-    mat-icon {
-      font-size: 20px;
-      width: 20px;
-      height: 20px;
-      color: var(--mat-warn-color);
-    }
+  /* Text styles */
+  .org-file-upload-uploading-text {
+    @apply font-medium text-file-upload-uploading-text;
+  }
+
+  .org-file-upload-success-text {
+    @apply text-base font-medium;
+  }
+
+  .org-file-upload-subtitle {
+    @apply text-file-upload-subtle-text text-sm;
+  }
+
+  .org-file-upload-accent {
+    @apply text-file-upload-accent-text font-medium;
+  }
+
+  /* Icon styles */
+  .org-file-upload-success-icon {
+    @apply text-file-upload-success-icon;
+  }
+
+  .org-file-upload-upload-icon {
+    @apply text-file-upload-upload-icon;
+  }
+
+  .org-file-upload-error-icon {
+    @apply text-file-upload-error-icon;
+  }
+
+  /* Error message styles */
+  .org-file-upload-error {
+    @apply absolute bottom-2 flex items-center gap-2 text-file-upload-error-text text-sm;
   }
 }

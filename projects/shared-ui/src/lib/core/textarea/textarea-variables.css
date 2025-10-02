@@ -1,6 +1,3 @@
-@import 'tailwindcss';
-
-/* Textarea component Tailwind theme variables */
 @theme {
   /* Textarea border colors */
   --color-textarea-border-default: var(--color-border);
@@ -9,7 +6,7 @@
 
   /* Textarea background colors */
   --color-textarea-background-default: var(--color-input-background);
-  --color-textarea-background-disabled: var(--color-input-background);
+  --color-textarea-background-disabled: var(--color-input-background-subtle);
   --color-textarea-background-error: var(--color-danger-background-subtle);
 
   /* Textarea ring colors */
@@ -33,15 +30,34 @@
   --color-textarea-selection: var(--color-brand-background-subtle);
 }
 
-/* Dark mode color overrides */
-body.dark-theme {
-  /* Textarea background colors - adjusted for dark mode */
-  --color-textarea-background-disabled: var(--color-secondary-background-subtle);
+.dark-theme {
+  /* Textarea border colors */
+  --color-textarea-border-default: var(--color-border);
+  --color-textarea-border-focused: var(--color-input-border-focused);
+  --color-textarea-border-error: var(--color-danger-border);
+
+  /* Textarea background colors */
+  --color-textarea-background-default: var(--color-input-background);
+  --color-textarea-background-disabled: var(--color-input-background-subtle);
   --color-textarea-background-error: var(--color-danger-background-subtle);
 
-  /* Icon colors - adjusted for dark mode */
+  /* Textarea ring colors */
+  --color-textarea-ring-focused: var(--color-input-border-focused);
+  --color-textarea-ring-error: var(--color-danger-border);
+
+  /* Textarea text colors */
+  --color-textarea-text: var(--color-text);
+  --color-textarea-text-placeholder: var(--color-text-subtle);
+  --color-textarea-text-disabled: var(--color-text-disabled);
+
+  /* Icon colors */
+  --color-textarea-icon: var(--color-text-subtle);
+  --color-textarea-icon-hover: var(--color-text);
   --color-textarea-icon-focus: var(--color-brand-background-subtle);
 
-  /* Selection colors - adjusted for dark mode */
+  /* Validation message colors */
+  --color-textarea-validation-error: var(--color-danger-text);
+
+  /* Selection colors */
   --color-textarea-selection: var(--color-brand-background-subtle);
 }

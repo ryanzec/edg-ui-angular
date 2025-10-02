@@ -1,31 +1,109 @@
 @reference '../../tailwind.css';
 
 @layer components {
-  // Focus-visible styles for better keyboard navigation accessibility
+  /* Base container styles */
   .org-textarea-container {
+    @apply relative inline-flex w-full px-1.5 py-0.5 gap-1 min-h-[70px];
+
     &:focus-within {
       @apply ring-1 ring-textarea-ring-focused;
     }
+
+    /* Bordered variant */
+    &.bordered {
+      @apply border rounded-md bg-textarea-background-default border-textarea-border-default;
+
+      &:focus-within {
+        @apply border-textarea-border-focused ring-1 ring-textarea-ring-focused;
+      }
+
+      &.invalid:not(:focus-within) {
+        @apply border-textarea-border-error;
+      }
+
+      &.invalid:focus-within {
+        @apply border-textarea-border-error ring-1 ring-textarea-ring-error;
+      }
+
+      &.disabled {
+        @apply bg-textarea-background-disabled border-textarea-border-default cursor-not-allowed opacity-50;
+      }
+    }
+
+    /* Borderless variant */
+    &.borderless {
+      @apply border-0 bg-textarea-background-default;
+
+      &.invalid:not(:focus-within) {
+        @apply ring-textarea-ring-error;
+      }
+
+      &.disabled {
+        @apply bg-textarea-background-disabled cursor-not-allowed opacity-50;
+      }
+    }
   }
 
-  // Custom styles for inline item remove buttons
+  /* Textarea element styles */
+  .org-textarea-element {
+    @apply flex-1 border-0 outline-none placeholder-textarea-text-placeholder text-base resize-none bg-transparent;
+
+    &::selection {
+      @apply bg-textarea-selection;
+    }
+
+    &:disabled {
+      @apply cursor-not-allowed;
+    }
+
+    &[readonly] {
+      @apply cursor-default;
+    }
+  }
+
+  /* Icon styles */
+  .org-textarea-icon {
+    @apply flex-shrink-0 text-textarea-icon self-center;
+
+    &.clickable:not(.disabled):not(.readonly) {
+      @apply cursor-pointer hover:text-textarea-icon-hover;
+    }
+
+    &.align-start {
+      @apply self-start;
+    }
+
+    &.align-center {
+      @apply self-center;
+    }
+
+    &.align-end {
+      @apply self-end;
+    }
+  }
+
   .org-inline-item-remove {
     &:focus-visible {
       @apply bg-textarea-icon-focus;
     }
   }
 
-  // Icon button focus styles
   .org-textarea-icon-button {
     &:focus-visible {
       @apply bg-textarea-icon-focus rounded;
     }
   }
 
-  // Ensure proper text selection behavior
-  .org-textarea-element {
-    &::selection {
-      @apply bg-textarea-selection;
+  /* Validation message styles */
+  .org-textarea-validation-message {
+    @apply text-textarea-validation-error text-sm mt-1.5;
+
+    &.hidden {
+      @apply invisible;
+    }
+
+    &.visible {
+      @apply visible;
     }
   }
 }

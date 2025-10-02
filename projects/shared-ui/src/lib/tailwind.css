@@ -76,7 +76,7 @@ html {
 @import './variables.css';
 
 body {
-  @apply bg-surface text-on-surface scheme-light;
+  @apply bg-background text-text scheme-light;
 
   font:
     14px/1.4 'Roboto',

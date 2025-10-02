@@ -129,103 +129,25 @@ export class Input implements OnInit, OnDestroy, AfterViewInit {
   public readonly hasInlineItems = computed(() => this.inlineItems().length > 0);
   public readonly hasValidationMessage = computed(() => !!this.validationMessage().trim());
   public readonly isInvalid = computed(() => this.hasValidationMessage());
+  public readonly isPreIconClickable = computed(() => this._preIconClicked$.observed);
+  public readonly isPostIconClickable = computed(() => this._postIconClicked$.observed);
 
   public readonly containerClasses = computed<string>(() => {
-    const baseClasses = ['relative', 'inline-flex', 'items-center', 'w-full', 'transition-all', 'duration-200'];
-
-    const variantClasses = {
-      bordered: [
-        'border',
-        'rounded-md',
-        'bg-input-background-default',
-        this.isInvalid() && !this.isFocused()
-          ? 'border-input-border-error'
-          : this.isFocused()
-            ? this.isInvalid()
-              ? 'border-input-border-error ring-1 ring-input-ring-error'
-              : 'border-input-border-focused ring-1 ring-input-ring-focused'
-            : 'border-input-border-default',
-        this.isDisabled() ? 'bg-input-background-disabled border-input-border-default' : '',
-      ],
-      borderless: [
-        'border-0',
-        'bg-input-background-default',
-        this.isFocused() ? (this.isInvalid() ? '' : '') : this.isInvalid() ? 'ring-input-ring-error' : '',
-        this.isDisabled() ? 'bg-input-background-disabled' : '',
-      ],
-    };
-
-    // the min height is to make sure inputs with icons and without are consistent
-    const defaultClasses = 'px-1.5 py-0.5 gap-1 min-h-[30px]';
-
+    const baseClasses = ['org-input-container'];
+    const variantClass = this.variant();
     const stateClasses = [];
 
+    if (this.isInvalid()) {
+      stateClasses.push('invalid');
+    }
+
     if (this.isDisabled()) {
-      stateClasses.push('cursor-not-allowed', 'opacity-50');
+      stateClasses.push('disabled');
     }
 
     return tailwindUtils.merge(
-      [...baseClasses, ...variantClasses[this.variant()], defaultClasses, ...stateClasses, this.containerClass()]
-        .filter(Boolean)
-        .join(' ')
+      [...baseClasses, variantClass, ...stateClasses, this.containerClass()].filter(Boolean).join(' ')
     );
-  });
-
-  public readonly inputClasses = computed<string>(() => {
-    const baseClasses = [
-      'flex-1',
-      'bg-transparent',
-      'border-0',
-      'outline-none',
-      'placeholder-input-text-placeholder',
-      'text-base',
-    ];
-
-    const stateClasses = [];
-
-    if (this.isDisabled()) {
-      stateClasses.push('cursor-not-allowed');
-    } else if (this.isReadonly()) {
-      stateClasses.push('cursor-default');
-    }
-
-    return tailwindUtils.merge([...baseClasses, ...stateClasses].join(' '));
-  });
-
-  public readonly preIconClasses = computed<string>(() => {
-    const baseClasses = ['flex-shrink-0', 'text-input-icon'];
-
-    const stateClasses = [];
-
-    if (!this.isDisabled() && !this.isReadonly() && this._preIconClicked$.observed) {
-      stateClasses.push('cursor-pointer', 'hover:text-input-icon-hover');
-    }
-
-    return tailwindUtils.merge([...baseClasses, ...stateClasses].join(' '));
-  });
-
-  public readonly postIconClasses = computed<string>(() => {
-    const baseClasses = ['flex-shrink-0', 'text-input-icon'];
-
-    const stateClasses = [];
-
-    if (this.showPasswordToggle() || (!this.isDisabled() && !this.isReadonly() && this._postIconClicked$.observed)) {
-      stateClasses.push('cursor-pointer', 'hover:text-input-icon-hover');
-    }
-
-    return tailwindUtils.merge([...baseClasses, ...stateClasses].join(' '));
-  });
-
-  public readonly validationMessageClasses = computed(() => {
-    const baseClasses = ['text-input-validation-error', 'transition-all', 'duration-200', 'text-sm', 'mt-1.5'];
-
-    const visibilityClass = this.hasValidationMessage() ? 'visible' : 'invisible';
-
-    return tailwindUtils.merge([...baseClasses, visibilityClass].join(' '));
-  });
-
-  public readonly hostClasses = computed(() => {
-    return tailwindUtils.merge('inline-block w-full');
   });
 
   public mergeClasses = tailwindUtils.merge;

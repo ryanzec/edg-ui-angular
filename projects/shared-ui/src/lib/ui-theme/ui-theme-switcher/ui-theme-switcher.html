@@ -1,3 +1,3 @@
-<mat-slide-toggle [checked]="isChecked" (change)="onToggleChange($event.checked)">
-  {{ isChecked ? 'Dark mode' : 'Light mode' }}
-</mat-slide-toggle>
+<org-button orgColor="brand" (click)="onToggleChange()">
+  {{ isChecked() ? 'Dark mode' : 'Light mode' }}
+</org-button>

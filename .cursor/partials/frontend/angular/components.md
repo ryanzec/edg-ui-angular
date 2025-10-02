@@ -17,7 +17,7 @@ For references in how we implement a multitide of component feature, reference t
 - `projects/shared-ui/src/lib/core/button/button.ts`
 - `projects/shared-ui/src/lib/core/input/input.ts`
 
-Angular 20 Component Guidelines:
+Angular 20 Component Hard Requirements:
 - NEVER EVER use any angular material components, ONLY the CDK
 - Non-view components need to have it data passed to it, it should NEVER make calls to api and non-component stores
 - When component state need to be exposed publicly, make a `public` `readonly` properties that references in `private` internal state
@@ -96,3 +96,25 @@ if (!!this.isAuthenticated()) {
 ```
 <!-- this allows us to avoid every component from having to have a .css file -->
 - Use the `@Component`'s `host` property to style teh component container element
+- Should always have a `class` input (for style customization)
+- wrapper element
+
+
+Always use these patterns:
+- ALWAYS use the `host` property of the `@Component` decorator
+
+NEVER use these patterns:
+- NEVER use the `@HostListener` decorator on component class methods
+```
+// NEVER DO
+@HostListener('keydown', ['$event'])
+protected keyPress(event: KeyboardEvent): void {
+```
+- NEVER create methods in components that output css / tailwind class names
+```
+// NEVER DO
+public containerClasses() {
+  return ['container', 'flex', 'flex-col'];
+}
+```
+

@@ -6,7 +6,7 @@ For a reference of when to split css between inline in the html vs css file, ref
 - `projects/shared-ui/src/lib/core/button/button.css`
 - `projects/shared-ui/src/lib/core/button/button.html`
 
-Styling Guidelines:
+Styling Hard Requirements:
 - When presented with a image to reference for implementation, you want to use it as a rough reference but use the existing code as a real reference for specific value as it relates to spacing, colors, etc.
 - Alway prefer tailwind styling over css whenever possible
 - Components that can have a disabled state should make sure other visual states don't show if they are disabled (hover effects, focus effect, aniamtion, etc.)
@@ -39,5 +39,32 @@ Styling Guidelines:
 - when creating css files for compoment, you must use `@reference` on the `projects/shared-ui/src/lib/tailwind.css` file
 <!-- `space-y-*` using styling techniques that were needed when flexbox was not avilable and with flexbox widely avaialble for year, using that solution is more flexible (for example, if the elements in `space-y-*` are display: inline, the styling does not work) -->
 - Do NOT use tailwind classes like `space-y-*` and instead use modern css flexbox which is a more flexible solution
-- When defining custom css variables, ALWAYS use `var()` over tailwinds `theme()` function
-- When needs to use a color, ALWAYS reference a color defined in `projects/shared-ui/src/lib/variables.css` and NEVER a default tailwind color, leave it up to the user to determine if the best custom design token does not work and a tailwind color is needed or a new design token is needed
+- When defining custom css variables, ALWAYS use `var(), NEVER tailwinds `theme()` function
+- ALWAYS create component design tokens that reference system design components that are defined, availaboe core design taken as in`projects/shared-ui/src/lib/variables.css`, pattern of implementation can be found in `projects/shared-ui/src/lib/core/button/button-variables.css`
+- For color styling, please make sure all colors being usse are using custom design tokens.
+- NEVER USE TAILWIND COLORS WITH CSS CLASSES, ONLY USE WHEN DEFINING OTHER COLOR DESIGN TOKENS
+
+
+
+
+
+
+
+ALWAYS use these patterns:
+- ALWAYS use flexbox over tailwinds `space-*` classes
+```
+// ALWAYS DO
+class="flex flex-col gap-2"
+
+// NEVER DO
+class="space-y-2"
+```
+
+NEVER use these patterns:
+
+
+
+
+
+
+

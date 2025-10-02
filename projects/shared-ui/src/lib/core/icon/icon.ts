@@ -16,6 +16,8 @@ export const IconName = {
   CIRCLE_NOTCH: 'circle-notch',
   EYE: 'eye',
   EYE_SLASH: 'eye-slash',
+  ENVELOPE: 'envelope',
+  LOCK_KEY: 'lock-key',
 } as const;
 
 export type IconName = (typeof IconName)[keyof typeof IconName];

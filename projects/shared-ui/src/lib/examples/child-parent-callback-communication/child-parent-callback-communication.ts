@@ -3,7 +3,6 @@ import { Component, signal } from '@angular/core';
 @Component({
   selector: 'org-example-child-parent-callback-communication',
   templateUrl: './child-parent-callback-communication.html',
-  styleUrl: './child-parent-callback-communication.scss',
 })
 export class EXAMPLEChildParentCallbackCommunication {
   private _message = signal<string>('');

@@ -7,7 +7,6 @@ import { EXAMPLENested2Registry } from './nested2/nested2';
   imports: [EXAMPLENested1],
   providers: [EXAMPLENested2Registry],
   templateUrl: './parent-child-nested-communication.html',
-  styleUrl: './parent-child-nested-communication.scss',
 })
 export class EXAMPLEParentChildNestedCommunication implements AfterViewInit {
   private readonly _nested2Registry = inject(EXAMPLENested2Registry);

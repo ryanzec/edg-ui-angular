@@ -742,26 +742,26 @@ export const AllVariants: Story = {
   render: () => ({
     template: `
       <div class="space-y-6 w-96">
-        <div class="space-y-2">
+        <div class="flex flex-col gap-2">
           <h3 class="text-lg font-semibold">Variants</h3>
-          <div class="space-y-2">
+          <div class="flex flex-col gap-2">
             <org-textarea variant="bordered" placeholder="Bordered textarea" />
             <org-textarea variant="borderless" placeholder="Borderless textarea" />
           </div>
         </div>
 
-        <div class="space-y-2">
+        <div class="flex flex-col gap-2">
           <h3 class="text-lg font-semibold">With Icons</h3>
-          <div class="space-y-2">
+          <div class="flex flex-col gap-2">
             <org-textarea preIcon="gear" placeholder="Pre icon" />
             <org-textarea postIcon="arrow-right" placeholder="Post icon" />
             <org-textarea preIcon="gear" postIcon="arrow-right" placeholder="Both icons" />
           </div>
         </div>
 
-        <div class="space-y-2">
+        <div class="flex flex-col gap-2">
           <h3 class="text-lg font-semibold">Icon Alignment</h3>
-          <div class="space-y-2">
+          <div class="flex flex-col gap-2">
             <org-textarea
               preIcon="gear"
               postIcon="arrow-right"
@@ -792,9 +792,9 @@ export const AllVariants: Story = {
           </div>
         </div>
 
-        <div class="space-y-2">
+        <div class="flex flex-col gap-2">
           <h3 class="text-lg font-semibold">Enter Key Behavior</h3>
-          <div class="space-y-2">
+          <div class="flex flex-col gap-2">
             <div>
               <p class="text-sm text-text-subtle">Normal: Shift+Enter submits, Enter new line</p>
               <org-textarea placeholder="Normal enter behavior" [inverseEnter]="false" />
@@ -806,9 +806,9 @@ export const AllVariants: Story = {
           </div>
         </div>
 
-        <div class="space-y-2">
+        <div class="flex flex-col gap-2">
           <h3 class="text-lg font-semibold">Inline Items (Tags)</h3>
-          <div class="space-y-2">
+          <div class="flex flex-col gap-2">
             <org-textarea
               placeholder="Add more tags..."
               [inlineItems]="[
@@ -820,36 +820,36 @@ export const AllVariants: Story = {
           </div>
         </div>
 
-        <div class="space-y-2">
+        <div class="flex flex-col gap-2">
           <h3 class="text-lg font-semibold">States</h3>
-          <div class="space-y-2">
+          <div class="flex flex-col gap-2">
             <org-textarea placeholder="Normal textarea" />
             <org-textarea [disabled]="true" placeholder="Disabled textarea" value="Disabled content" />
             <org-textarea [readonly]="true" placeholder="Readonly textarea" value="Read-only content" />
           </div>
         </div>
 
-        <div class="space-y-2">
+        <div class="flex flex-col gap-2">
           <h3 class="text-lg font-semibold">Focus Behavior</h3>
-          <div class="space-y-2">
+          <div class="flex flex-col gap-2">
             <org-textarea [selectAllOnFocus]="true" placeholder="Select all on focus" value="Click to select all&#10;across multiple lines" />
             <org-textarea [autoFocus]="true" placeholder="Auto-focused textarea" />
             <org-textarea [autoFocus]="true" [selectAllOnFocus]="true" placeholder="Auto-focus + select all" value="Auto-selected text&#10;across multiple lines" />
           </div>
         </div>
 
-        <div class="space-y-2">
+        <div class="flex flex-col gap-2">
           <h3 class="text-lg font-semibold">Row Sizes</h3>
-          <div class="space-y-2">
+          <div class="flex flex-col gap-2">
             <org-textarea [rows]="2" placeholder="Small (2 rows)" />
             <org-textarea [rows]="3" placeholder="Default (3 rows)" />
             <org-textarea [rows]="6" placeholder="Large (6 rows)" />
           </div>
         </div>
 
-        <div class="space-y-2">
+        <div class="flex flex-col gap-2">
           <h3 class="text-lg font-semibold">Validation States</h3>
-          <div class="space-y-2">
+          <div class="flex flex-col gap-2">
             <org-textarea placeholder="Valid textarea (no error)" />
             <org-textarea
               placeholder="Invalid textarea"

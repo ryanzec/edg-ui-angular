@@ -1,11 +1,8 @@
 import { Component, ChangeDetectionStrategy, input, output, computed, signal } from '@angular/core';
-import { MatTableModule } from '@angular/material/table';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatMenuModule } from '@angular/material/menu';
 import { type User, UserRoleName } from '@organization/shared-types';
 import { GroupedElementsDirective } from '../../core/grouped-elements-directive/grouped-elements-directive';
+import { Icon } from '../../core/icon/icon';
+import { Button } from '../../core/button/button';
 
 type UsersListState = {
   isLoading: boolean;
@@ -15,9 +12,8 @@ type UsersListState = {
 @Component({
   selector: 'org-users-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatTableModule, MatChipsModule, MatIconModule, MatButtonModule, MatMenuModule, GroupedElementsDirective],
+  imports: [Icon, Button, GroupedElementsDirective],
   templateUrl: './users-list.html',
-  styleUrl: './users-list.css',
 })
 export class UsersList {
   public readonly users = input.required<User[]>();

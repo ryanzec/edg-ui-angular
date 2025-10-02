@@ -2,6 +2,48 @@
 
 @layer components {
   .org-pagination {
-    /* Base pagination styles if needed */
+    /* Base pagination container */
+  }
+
+  .org-pagination-container {
+    @apply flex items-center gap-4;
+  }
+
+  /* Result text styles */
+  .org-pagination-result-text {
+    @apply text-sm text-pagination-text whitespace-nowrap;
+  }
+
+  /* Navigation controls */
+  .org-pagination-nav {
+    @apply flex items-center gap-1;
+  }
+
+  /* Ellipsis styles */
+  .org-pagination-ellipsis {
+    @apply px-2 py-1 text-sm text-pagination-text-ellipsis select-none;
+  }
+
+  /* Items per page section */
+  .org-pagination-items-per-page {
+    @apply flex items-center gap-2 text-sm whitespace-nowrap;
+  }
+
+  .org-pagination-items-per-page-label {
+    @apply text-pagination-text;
+  }
+
+  /* Select dropdown styles */
+  .org-pagination-select {
+    @apply px-2 py-1 text-sm border border-pagination-select-border rounded-md bg-pagination-select-background text-pagination-select-text;
+    @apply focus:outline-none focus:ring-2 focus:ring-pagination-select-ring-focused focus:border-pagination-select-border-focused;
+
+    &:disabled {
+      @apply opacity-50 cursor-not-allowed bg-pagination-select-background-disabled;
+    }
+
+    &:not(:disabled) {
+      @apply cursor-pointer;
+    }
   }
 }

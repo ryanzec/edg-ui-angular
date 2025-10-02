@@ -25,6 +25,10 @@ export class UiThemeStoreService {
     this.isDarkMode.set(isDark);
   }
 
+  public toggleMode(): void {
+    this.setDarkMode(!this.isDarkMode());
+  }
+
   private updateDisplay(isDarkMode: boolean): void {
     const bodyElement = this.document.body;
 

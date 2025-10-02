@@ -1,4 +1,4 @@
-Angular 20 Services Guidelines:
+Angular 20 Services Hard Requirements:
 - Design services around a single responsibility and the name of the service CLEARLY indicates what that responsibility is
 - Use the `providedIn: 'root'` option for singleton services
 - Make sure the public API of the service is clean and intuitive for other developers to understand

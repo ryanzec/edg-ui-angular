@@ -12,7 +12,7 @@ const config: StorybookConfig = {
   // this is required to avoud having to restart stroybook to get sass changes (still need to refresh page)
   webpackFinal: async (config) => {
     // Define the absolute path to your global stylesheet.
-    const globalStylePath = path.resolve(__dirname, '../projects/shared-ui/src/lib/styles.scss');
+    const globalStylePath = path.resolve(__dirname, '../projects/shared-ui/src/lib/styles.css');
 
     // Define our custom rule for the global stylesheet.
     // This uses the loader chain proven to enable hot-reloading.

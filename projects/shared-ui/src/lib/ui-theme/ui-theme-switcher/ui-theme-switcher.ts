@@ -1,27 +1,26 @@
-import { Component, inject, OnInit, Input } from '@angular/core';
+import { Component, inject, OnInit, input } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { Button } from '../../core/button/button';
 import { UiThemeStoreService } from '../ui-theme-store/ui-theme-store';
 
 @Component({
   selector: 'org-ui-theme-switcher',
-  imports: [MatSlideToggleModule],
+  imports: [Button],
   templateUrl: './ui-theme-switcher.html',
-  styleUrl: './ui-theme-switcher.scss',
 })
 export class UiThemeSwitcher implements OnInit {
-  readonly themeStoreService = inject(UiThemeStoreService);
+  private readonly themeStoreService = inject(UiThemeStoreService);
 
   private readonly document = inject(DOCUMENT);
 
-  @Input()
-  isChecked = true;
+  // @todo(!) default based on user
+  public isChecked = input<boolean>(true);
 
-  ngOnInit(): void {
-    this.themeStoreService.setDarkMode(this.isChecked);
+  public ngOnInit(): void {
+    this.themeStoreService.setDarkMode(this.isChecked());
   }
 
-  onToggleChange(checked: boolean): void {
-    this.themeStoreService.setDarkMode(checked);
+  public onToggleChange(): void {
+    this.themeStoreService.toggleMode();
   }
 }

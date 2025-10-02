@@ -1,4 +1,4 @@
-<div [class]="mergeClasses('org-input', hostClasses())">
+<div class="org-input inline-block w-full">
   <div [class]="containerClasses()">
     @for (item of inlineItems(); track item.id) {
       <org-tag
@@ -13,8 +13,10 @@
     @if (hasPreIcon()) {
       <button
         type="button"
-        class="inline-flex"
-        [class]="preIconClasses()"
+        class="inline-flex org-input-icon"
+        [class.clickable]="isPreIconClickable()"
+        [class.disabled]="isDisabled()"
+        [class.readonly]="isReadonly()"
         (click)="handlePreIconClick()"
         [disabled]="isDisabled() || isReadonly()"
         [attr.aria-label]="'Pre icon'"
@@ -24,12 +26,12 @@
     }
     <input
       #inputElement
+      class="org-input-element"
       [type]="currentInputType()"
       [value]="value()"
       [placeholder]="placeholder()"
       [disabled]="isDisabled()"
       [readonly]="isReadonly()"
-      [class]="inputClasses()"
       [attr.aria-invalid]="isInvalid()"
       [attr.aria-describedby]="hasValidationMessage() ? 'validation-message' : null"
       [attr.autofocus]="autoFocus() || null"
@@ -38,8 +40,10 @@
     @if (hasPostIcon()) {
       <button
         type="button"
-        class="inline-flex"
-        [class]="postIconClasses()"
+        class="inline-flex org-input-icon"
+        [class.clickable]="showPasswordToggle() || isPostIconClickable()"
+        [class.disabled]="isDisabled()"
+        [class.readonly]="isReadonly()"
         (click)="handlePostIconClick()"
         [disabled]="isDisabled() || isReadonly()"
         [attr.aria-label]="
@@ -54,7 +58,14 @@
       </button>
     }
   </div>
-  <div id="validation-message" [class]="validationMessageClasses()" role="alert" aria-live="polite">
+  <div
+    id="validation-message"
+    class="org-input-validation-message"
+    [class.visible]="hasValidationMessage()"
+    [class.hidden]="!hasValidationMessage()"
+    role="alert"
+    aria-live="polite"
+  >
     {{ validationMessage() || 'No validation message' }}
   </div>
 </div>

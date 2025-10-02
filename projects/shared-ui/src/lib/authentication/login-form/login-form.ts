@@ -1,29 +1,22 @@
 import { Component, ChangeDetectionStrategy, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
 import {
   authenticationAuthenticateRequestSchema,
   type AuthenticationAuthenticateRequest,
 } from '@organization/shared-types';
 import { z } from 'zod';
-import { GroupedElementsDirective } from '../../core/public-api';
+import { Card } from '../../core/card/card';
+import { CardContent } from '../../core/card/card-content';
+import { CardHeader } from '../../core/card/card-header';
+import { GroupedElementsDirective } from '../../core/grouped-elements-directive/grouped-elements-directive';
+import { Icon } from '../../core/icon/icon';
+import { Input } from '../../core/input/input';
+import { Button } from '../../core/button/button';
 
 @Component({
   selector: 'org-login-form',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    ReactiveFormsModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    GroupedElementsDirective,
-  ],
+  imports: [Card, CardContent, CardHeader, Icon, Input, Button, ReactiveFormsModule, GroupedElementsDirective],
   templateUrl: './login-form.html',
 })
 export class LoginForm {

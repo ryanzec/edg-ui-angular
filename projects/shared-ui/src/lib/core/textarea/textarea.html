@@ -13,8 +13,13 @@
     @if (hasPreIcon()) {
       <button
         type="button"
-        class="inline-flex"
-        [class]="preIconClasses()"
+        class="inline-flex org-textarea-icon"
+        [class.clickable]="isPreIconClickable()"
+        [class.disabled]="isDisabled()"
+        [class.readonly]="isReadonly()"
+        [class.align-start]="preIconAlignment() === 'start'"
+        [class.align-center]="preIconAlignment() === 'center'"
+        [class.align-end]="preIconAlignment() === 'end'"
         (click)="handlePreIconClick()"
         [disabled]="isDisabled() || isReadonly()"
         [attr.aria-label]="'Pre icon'"
@@ -24,12 +29,12 @@
     }
     <textarea
       #textareaElement
+      class="org-textarea-element"
       [value]="value()"
       [placeholder]="placeholder()"
       [disabled]="isDisabled()"
       [readonly]="isReadonly()"
       [rows]="rows()"
-      [class]="textareaClasses()"
       [attr.aria-invalid]="isInvalid()"
       [attr.aria-describedby]="hasValidationMessage() ? 'validation-message' : null"
       [attr.autofocus]="autoFocus() || null"
@@ -39,8 +44,13 @@
     @if (hasPostIcon()) {
       <button
         type="button"
-        class="inline-flex"
-        [class]="postIconClasses()"
+        class="inline-flex org-textarea-icon"
+        [class.clickable]="isPostIconClickable()"
+        [class.disabled]="isDisabled()"
+        [class.readonly]="isReadonly()"
+        [class.align-start]="postIconAlignment() === 'start'"
+        [class.align-center]="postIconAlignment() === 'center'"
+        [class.align-end]="postIconAlignment() === 'end'"
         (click)="handlePostIconClick()"
         [disabled]="isDisabled() || isReadonly()"
         [attr.aria-label]="'Post icon'"
@@ -49,7 +59,14 @@
       </button>
     }
   </div>
-  <div id="validation-message" [class]="validationMessageClasses()" role="alert" aria-live="polite">
+  <div
+    id="validation-message"
+    class="org-textarea-validation-message"
+    [class.visible]="hasValidationMessage()"
+    [class.hidden]="!hasValidationMessage()"
+    role="alert"
+    aria-live="polite"
+  >
     {{ validationMessage() || 'No validation message' }}
   </div>
 </div>

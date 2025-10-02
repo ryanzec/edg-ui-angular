@@ -1,4 +1,4 @@
-Angular 20 Directive Guildlines:
+Angular 20 Directive Hard Requirements:
 - Do NOT use the `@HostBinding` and `@HostListener` decorators. Put host bindings inside the `host` object of the `@Component` or `@Directive` decorator instead
 - `Directive` should NEVER be part of the selector for the directive
 - If the affect of the directive should be able to be turned off, have `null` value that basically removes everything

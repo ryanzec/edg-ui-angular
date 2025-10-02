@@ -15,7 +15,7 @@
       "prefix": "cp",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "css"
         }
       },
       "architect": {
@@ -31,7 +31,7 @@
               }
             ],
             "styles": [
-              "projects/shared-ui/src/lib/styles.scss",
+              "projects/shared-ui/src/lib/styles.css",
               {
                 "input": "projects/shared-ui/src/lib/tailwind.css",
                 "bundleName": "tailwind"
@@ -150,7 +150,7 @@
       "prefix": "ip",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "css"
         }
       },
       "architect": {
@@ -166,7 +166,7 @@
               }
             ],
             "styles": [
-              "projects/shared-ui/src/lib/styles.scss",
+              "projects/shared-ui/src/lib/styles.css",
               {
                 "input": "projects/shared-ui/src/lib/tailwind.css",
                 "bundleName": "tailwind"
@@ -285,7 +285,7 @@
       "prefix": "org",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "css"
         }
       },
       "architect": {
@@ -331,7 +331,7 @@
             "index": ".storybook/index.html",
             "main": ".storybook/main.ts",
             "tsConfig": "tsconfig.json",
-            "styles": ["projects/shared-ui/src/lib/styles.scss"]
+            "styles": ["projects/shared-ui/src/lib/styles.css"]
           }
         },
         "build-storybook": {

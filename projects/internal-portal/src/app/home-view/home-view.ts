@@ -4,6 +4,5 @@ import { Component } from '@angular/core';
   selector: 'ip-home-view',
   imports: [],
   templateUrl: './home-view.html',
-  styleUrl: './home-view.scss',
 })
 export class HomeView {}

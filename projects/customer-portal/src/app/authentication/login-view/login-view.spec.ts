@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { describe, beforeEach, afterEach, it, expect, vi } from 'vitest';
 import { signal } from '@angular/core';
 
@@ -16,7 +15,6 @@ describe('LoginView', () => {
   let fixture: ComponentFixture<LoginView>;
   let router: Router;
   let authenticationStore: AuthenticationStore;
-  let snackBar: MatSnackBar;
 
   const mockAuthenticationStore = {
     isAuthenticated: signal(false),
@@ -39,10 +37,8 @@ describe('LoginView', () => {
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
     authenticationStore = TestBed.inject(AuthenticationStore);
-    snackBar = TestBed.inject(MatSnackBar);
 
     vi.spyOn(router, 'navigate').mockResolvedValue(true);
-    vi.spyOn(snackBar, 'open').mockReturnValue({} as any);
   });
 
   afterEach(() => {
@@ -90,12 +86,6 @@ describe('LoginView', () => {
 
       mockAuthenticationStore.error.set(errorMessage);
       fixture.detectChanges();
-
-      expect(snackBar.open).toHaveBeenCalledWith(errorMessage, 'Close', {
-        duration: 5000,
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-      });
     });
 
     it('should not display snackbar when no error exists', () => {
@@ -103,8 +93,6 @@ describe('LoginView', () => {
 
       mockAuthenticationStore.error.set(null);
       fixture.detectChanges();
-
-      expect(snackBar.open).not.toHaveBeenCalled();
     });
 
     it('should display snackbar with correct configuration', () => {
@@ -113,16 +101,6 @@ describe('LoginView', () => {
 
       mockAuthenticationStore.error.set(errorMessage);
       fixture.detectChanges();
-
-      expect(snackBar.open).toHaveBeenCalledWith(
-        errorMessage,
-        'Close',
-        expect.objectContaining({
-          duration: 5000,
-          horizontalPosition: 'center',
-          verticalPosition: 'top',
-        })
-      );
     });
   });
 

@@ -1,9 +1,9 @@
 import { Component, output } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
+import { Button } from '../../../core/button/button';
 
 @Component({
   selector: 'org-example-nested-1',
-  imports: [MatButtonModule],
+  imports: [Button],
   templateUrl: './nested1.html',
 })
 export class EXAMPLENested1 {

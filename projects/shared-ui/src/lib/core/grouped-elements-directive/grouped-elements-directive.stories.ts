@@ -9,7 +9,7 @@ import { GroupedElementsDirective } from './grouped-elements-directive';
       <h3 class="text-lg font-semibold mb-2">Grouped Elements Directive Demo</h3>
 
       <div class="border-2 border-dashed border-gray-300 p-4 rounded-lg">
-        <p class="text-sm text-gray-600 mb-2">
+        <p class="text-sm text-text-color mb-2">
           Directive state: <strong>{{ getDisplayValue() }}</strong> | Flex Direction:
           <strong>{{ getFlexDirectionValue() }}</strong>
         </p>
@@ -24,7 +24,7 @@ import { GroupedElementsDirective } from './grouped-elements-directive';
         </div>
       </div>
 
-      <div class="text-sm text-gray-600">
+      <div class="text-sm text-text-color">
         <p><strong>Expected behavior:</strong></p>
         <ul class="list-disc list-inside mt-1 space-y-1">
           <li>

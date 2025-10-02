@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
   selector: 'cp-root',
   imports: [RouterOutlet, RouterLink, UiThemeSwitcher, CommonModule],
   templateUrl: './app.html',
-  styleUrl: './app.scss',
 })
 export class App {
   public readonly authenticationStore = inject(AuthenticationStore);

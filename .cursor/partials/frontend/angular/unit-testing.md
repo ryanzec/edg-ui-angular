@@ -1,4 +1,4 @@
-Angular 20 Unit Testing Guidelines:
+Angular 20 Unit Testing Hard Requirements:
 - NEVER use `@testing-library`, `karma`, or `jasmine` apis
 - ONLY use `vitest` apis
 - Unit tests don't need any animation mocking (`provideNoopAnimations`, `NoopAnimationsModule`, etc.)

@@ -4,6 +4,5 @@ import { Component } from '@angular/core';
   selector: 'cp-not-found-view',
   imports: [],
   templateUrl: './not-found-view.html',
-  styleUrl: './not-found-view.scss',
 })
 export class NotFoundView {}

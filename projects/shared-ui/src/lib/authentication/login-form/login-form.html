@@ -1,57 +1,55 @@
-<mat-card class="login-card">
-  <mat-card-header>
-    <mat-card-title class="text-center">Sign In</mat-card-title>
-    <mat-card-subtitle class="text-center">Please enter your credentials to continue</mat-card-subtitle>
-  </mat-card-header>
-
-  <mat-card-content>
+<org-card class="login-card">
+  <org-card-header title="Sign In" subtitle="Please enter your credentials to continue" />
+  <org-card-content>
     <form orgGroupedElements flexDirection="col" [formGroup]="loginForm" (ngSubmit)="login()">
-      <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Email</mat-label>
-        <input
+      <!-- @todo(!) create component for this -->
+      <div class="org-label" class="w-full">
+        <!-- @todo(!) create component for this -->
+        <label for="email">Email</label>
+        <org-input
           data-testid="email-input"
-          matInput
           type="email"
           formControlName="email"
           placeholder="Enter your email"
           autocomplete="email"
         />
-        <mat-icon matPrefix>email</mat-icon>
+        <org-icon matPrefix name="envelope" />
         @if (getFieldError('email')) {
-          <mat-error>{{ getFieldError('email') }}</mat-error>
+          <!-- @todo(!) create component for this -->
+          <div>{{ getFieldError('email') }}</div>
         }
-      </mat-form-field>
-      <mat-form-field appearance="outline" class="w-full">
-        <mat-label>Password</mat-label>
-        <input
+      </div>
+      <div class="w-full">
+        <!-- @todo(!) create component for this -->
+        <label for="password">Password</label>
+        <org-input
           data-testid="password-input"
-          matInput
           [type]="showPassword ? 'text' : 'password'"
           formControlName="password"
           placeholder="Enter your password"
           autocomplete="current-password"
         />
-        <mat-icon matPrefix>lock</mat-icon>
-        <button
+        <org-icon name="lock-key" />
+        <org-button
           data-testid="password-toggle-button"
-          mat-icon-button
-          matSuffix
+          orgColor="brand"
           type="button"
           (click)="togglePasswordVisibility()"
           [attr.aria-label]="'Show password'"
           [attr.aria-pressed]="showPassword"
         >
-          <mat-icon>{{ showPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
-        </button>
+          <org-icon [name]="showPassword ? 'eye' : 'eye-slash'" />
+        </org-button>
 
         @if (getFieldError('password')) {
-          <mat-error>{{ getFieldError('password') }}</mat-error>
+          <!-- @todo(!) create component for this -->
+          <div>{{ getFieldError('password') }}</div>
         }
-      </mat-form-field>
+      </div>
 
       <button data-testid="submit-button" matButton color="primary" type="submit" class="w-full submit-button">
         Sign In
       </button>
     </form>
-  </mat-card-content>
-</mat-card>
+  </org-card-content>
+</org-card>

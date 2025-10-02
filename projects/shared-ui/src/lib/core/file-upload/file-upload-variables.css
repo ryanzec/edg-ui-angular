@@ -1,0 +1,76 @@
+/* File Upload component Tailwind theme variables */
+@theme {
+  /* Container colors */
+  --color-file-upload-background: var(--color-secondary-background-subtle);
+  --color-file-upload-text: var(--color-text-subtle);
+
+  /* Border colors */
+  --color-file-upload-border: var(--color-border-subtle);
+
+  /* Hover state colors */
+  --color-file-upload-hover-border: var(--color-info-border);
+  --color-file-upload-hover-background: var(--color-info-background-subtle);
+
+  /* Uploading state colors */
+  --color-file-upload-uploading-background: var(--color-secondary-background);
+  --color-file-upload-uploading-text: var(--color-info-text);
+
+  /* Progress bar colors */
+  --color-file-upload-progress-background: var(--color-border-subtle);
+  --color-file-upload-progress-fill: var(--color-info-background);
+
+  /* Success state colors */
+  --color-file-upload-success-icon: var(--color-safe-background);
+  --color-file-upload-success-text: var(--color-text);
+
+  /* Error state colors */
+  --color-file-upload-error-icon: var(--color-danger-background);
+  --color-file-upload-error-text: var(--color-danger-text);
+
+  /* Upload icon colors */
+  --color-file-upload-upload-icon: var(--color-info-background);
+
+  /* Accent text colors */
+  --color-file-upload-accent-text: var(--color-info-text);
+  --color-file-upload-subtle-text: var(--color-text-subtle);
+}
+
+/*
+ * NOTE: this must be kept is sync with the @theme block above tailwinds @theme block generated variables at
+ * compile time
+ */
+body.dark-theme {
+  /* Container colors */
+  --color-file-upload-background: var(--color-secondary-background-subtle);
+  --color-file-upload-text: var(--color-text-subtle);
+
+  /* Border colors */
+  --color-file-upload-border: var(--color-border-subtle);
+
+  /* Hover state colors */
+  --color-file-upload-hover-border: var(--color-info-border);
+  --color-file-upload-hover-background: var(--color-info-background-subtle);
+
+  /* Uploading state colors */
+  --color-file-upload-uploading-background: var(--color-secondary-background);
+  --color-file-upload-uploading-text: var(--color-info-text);
+
+  /* Progress bar colors */
+  --color-file-upload-progress-background: var(--color-border-subtle);
+  --color-file-upload-progress-fill: var(--color-info-background);
+
+  /* Success state colors */
+  --color-file-upload-success-icon: var(--color-safe-background);
+  --color-file-upload-success-text: var(--color-text);
+
+  /* Error state colors */
+  --color-file-upload-error-icon: var(--color-danger-background);
+  --color-file-upload-error-text: var(--color-danger-text);
+
+  /* Upload icon colors */
+  --color-file-upload-upload-icon: var(--color-info-background);
+
+  /* Accent text colors */
+  --color-file-upload-accent-text: var(--color-info-text);
+  --color-file-upload-subtle-text: var(--color-text-subtle);
+}

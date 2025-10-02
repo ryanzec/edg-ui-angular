@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { EXAMPLENested2, EXAMPLENested2Registry } from '../nested2/nested2';
-import { MatButtonModule } from '@angular/material/button';
+import { Button } from '../../../core/button/button';
 
 @Component({
   selector: 'org-example-nested-1',
-  imports: [EXAMPLENested2, MatButtonModule],
+  imports: [EXAMPLENested2, Button],
   templateUrl: './nested1.html',
 })
 export class EXAMPLENested1 {

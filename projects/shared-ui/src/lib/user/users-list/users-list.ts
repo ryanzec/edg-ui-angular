@@ -17,7 +17,7 @@ type UsersListState = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatTableModule, MatChipsModule, MatIconModule, MatButtonModule, MatMenuModule, GroupedElementsDirective],
   templateUrl: './users-list.html',
-  styleUrl: './users-list.scss',
+  styleUrl: './users-list.css',
 })
 export class UsersList {
   public readonly users = input.required<User[]>();

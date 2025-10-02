@@ -1,13 +1,13 @@
 @reference '../../tailwind.css';
 
 /* Button color variants using ComponentColorDirective classes */
-:host(.org-primary) button {
-  @apply bg-button-primary text-button-primary-text border border-button-primary;
+:host(.org-brand) button {
+  @apply bg-button-brand text-button-brand-text border border-button-brand;
 
   &:not(:disabled) {
-    @apply hover:bg-button-primary-hover hover:border-button-primary-hover;
-    @apply focus-visible:bg-button-primary-focus focus-visible:border-button-primary-focus;
-    @apply active:bg-button-primary-active active:border-button-primary-active;
+    @apply hover:bg-button-brand-hover hover:border-button-brand-hover;
+    @apply focus-visible:bg-button-brand-focus focus-visible:border-button-brand-focus;
+    @apply active:bg-button-brand-active active:border-button-brand-active;
   }
 }
 

@@ -288,7 +288,7 @@ export const WithRegistry: Story = {
           [disabled]="disabled"
           [registryKey]="registryKey"
         />
-        <p class="text-sm text-gray-600">
+        <p class="text-sm text-text-subtle">
           This pagination is registered with key: "{{ registryKey }}"
         </p>
       </div>
@@ -304,18 +304,18 @@ export const WithRegistry: Story = {
     <div class="space-y-6 p-4 max-w-4xl">
       <div class="space-y-2">
         <h3 class="text-lg font-semibold">Interactive Pagination Example</h3>
-        <p class="text-sm text-gray-600">This example shows how the pagination component works with dynamic data.</p>
+        <p class="text-sm text-text-subtle">This example shows how the pagination component works with dynamic data.</p>
       </div>
 
       <!-- Controls -->
-      <div class="flex flex-wrap gap-4 p-4 bg-gray-50 rounded-lg">
+      <div class="flex flex-wrap gap-4 p-4 bg-secondary-background-subtle rounded-lg">
         <label class="flex items-center gap-2">
           <span class="text-sm font-medium">Total Items:</span>
           <input
             type="number"
             [value]="defaultTotalItems()"
             (input)="setTotalItems(+$any($event.target).value)"
-            class="w-20 px-2 py-1 text-sm border border-gray-300 rounded"
+            class="w-20 px-2 py-1 text-sm border border-border rounded"
             min="0"
             max="10000"
           />
@@ -327,7 +327,7 @@ export const WithRegistry: Story = {
             type="number"
             [value]="maximumVisiblePages()"
             (input)="setMaxVisiblePages(+$any($event.target).value)"
-            class="w-16 px-2 py-1 text-sm border border-gray-300 rounded"
+            class="w-16 px-2 py-1 text-sm border border-border rounded"
             min="3"
             max="15"
           />
@@ -356,12 +356,12 @@ export const WithRegistry: Story = {
       <!-- Event Log -->
       <div class="space-y-2">
         <h4 class="font-medium">Event Log:</h4>
-        <div class="p-3 bg-gray-50 rounded text-sm font-mono max-h-32 overflow-y-auto">
+        <div class="p-3 bg-secondary-background-subtle rounded text-sm font-mono max-h-32 overflow-y-auto">
           @for (event of events(); track $index) {
             <div>{{ event }}</div>
           }
           @if (events().length === 0) {
-            <div class="text-gray-500">No events yet...</div>
+            <div class="text-text-subtle">No events yet...</div>
           }
         </div>
       </div>

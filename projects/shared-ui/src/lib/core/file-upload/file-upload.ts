@@ -18,7 +18,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, MatProgressBarModule, MatIconModule],
   templateUrl: './file-upload.html',
-  styleUrls: ['./file-upload.scss'],
+  styleUrl: './file-upload.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FileUploadComponent {

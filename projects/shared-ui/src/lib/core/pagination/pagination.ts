@@ -47,7 +47,7 @@ export class PaginationRegistry {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Button],
   templateUrl: './pagination.html',
-  styleUrl: './pagination.scss',
+  styleUrl: './pagination.css',
 })
 export class Pagination implements OnInit, OnDestroy {
   private readonly _paginationRegistry = inject(PaginationRegistry, { optional: true });

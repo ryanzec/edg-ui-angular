@@ -358,7 +358,7 @@ export const NormalEnterBehavior: Story = {
     },
     template: `
       <div>
-        <p class="text-sm text-gray-600 mb-2">Shift+Enter submits, Enter adds new line</p>
+        <p class="text-sm text-text-subtle mb-2">Shift+Enter submits, Enter adds new line</p>
         <org-textarea
           [variant]="variant"
           [placeholder]="placeholder"
@@ -396,7 +396,7 @@ export const InverseEnterBehavior: Story = {
     },
     template: `
       <div>
-        <p class="text-sm text-gray-600 mb-2">Enter submits, Shift+Enter adds new line</p>
+        <p class="text-sm text-text-subtle mb-2">Enter submits, Shift+Enter adds new line</p>
         <org-textarea
           [variant]="variant"
           [placeholder]="placeholder"
@@ -559,7 +559,7 @@ export const AutoFocus: Story = {
     props: args,
     template: `
       <div>
-        <p class="text-sm text-gray-600 mb-2">This textarea will automatically receive focus when rendered</p>
+        <p class="text-sm text-text-subtle mb-2">This textarea will automatically receive focus when rendered</p>
         <org-textarea
           [variant]="variant"
           [placeholder]="placeholder"
@@ -594,7 +594,7 @@ export const AutoFocusWithSelectAll: Story = {
     props: args,
     template: `
       <div>
-        <p class="text-sm text-gray-600 mb-2">This textarea will auto-focus and select all text</p>
+        <p class="text-sm text-text-subtle mb-2">This textarea will auto-focus and select all text</p>
         <org-textarea
           [variant]="variant"
           [placeholder]="placeholder"
@@ -796,11 +796,11 @@ export const AllVariants: Story = {
           <h3 class="text-lg font-semibold">Enter Key Behavior</h3>
           <div class="space-y-2">
             <div>
-              <p class="text-sm text-gray-600">Normal: Shift+Enter submits, Enter new line</p>
+              <p class="text-sm text-text-subtle">Normal: Shift+Enter submits, Enter new line</p>
               <org-textarea placeholder="Normal enter behavior" [inverseEnter]="false" />
             </div>
             <div>
-              <p class="text-sm text-gray-600">Inverse: Enter submits, Shift+Enter new line</p>
+              <p class="text-sm text-text-subtle">Inverse: Enter submits, Shift+Enter new line</p>
               <org-textarea placeholder="Inverse enter behavior" [inverseEnter]="true" />
             </div>
           </div>

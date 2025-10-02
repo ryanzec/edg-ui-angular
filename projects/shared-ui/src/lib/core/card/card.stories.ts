@@ -118,7 +118,7 @@ export const WithFooter: Story = {
         </org-card-content>
         <org-card-footer alignment="end">
           <org-button orgColor="secondary">Cancel</org-button>
-          <org-button orgColor="primary">Save</org-button>
+          <org-button orgColor="brand">Save</org-button>
         </org-card-footer>
       </org-card>
     `,
@@ -146,7 +146,7 @@ export const Complete: Story = {
         </org-card-content>
         <org-card-footer alignment="end">
           <org-button orgColor="secondary">Learn More</org-button>
-          <org-button orgColor="primary">Order Now</org-button>
+          <org-button orgColor="brand">Order Now</org-button>
         </org-card-footer>
       </org-card>
     `,
@@ -162,10 +162,10 @@ export const Variants: Story = {
     props: args,
     template: `
       <div class="flex flex-col gap-2">
-        <org-card [orgColor]="'primary'">
-          <org-card-header title="Primary Card" />
+        <org-card [orgColor]="'brand'">
+          <org-card-header title="Brand Card" />
           <org-card-content>
-            <p>This card uses the primary color variant for its border.</p>
+            <p>This card uses the brand color variant for its border.</p>
           </org-card-content>
         </org-card>
         <org-card [orgColor]="'secondary'">
@@ -229,7 +229,7 @@ export const FooterAlignments: Story = {
             <p>Footer actions aligned to the start (left).</p>
           </org-card-content>
           <org-card-footer alignment="start">
-            <org-button orgColor="primary">Action</org-button>
+            <org-button orgColor="brand">Action</org-button>
           </org-card-footer>
         </org-card>
 
@@ -239,7 +239,7 @@ export const FooterAlignments: Story = {
             <p>Footer actions aligned to the center.</p>
           </org-card-content>
           <org-card-footer alignment="center">
-            <org-button orgColor="primary">Action</org-button>
+            <org-button orgColor="brand">Action</org-button>
           </org-card-footer>
         </org-card>
 
@@ -249,7 +249,7 @@ export const FooterAlignments: Story = {
             <p>Footer actions aligned to the end (right).</p>
           </org-card-content>
           <org-card-footer alignment="end">
-            <org-button orgColor="primary">Action</org-button>
+            <org-button orgColor="brand">Action</org-button>
           </org-card-footer>
         </org-card>
       </div>
@@ -274,10 +274,10 @@ export const AllVariants: Story = {
                 <p>Default variant</p>
               </org-card-content>
             </org-card>
-            <org-card orgColor="primary">
-              <org-card-header title="Primary" />
+            <org-card orgColor="brand">
+              <org-card-header title="Brand" />
               <org-card-content>
-                <p>Primary variant</p>
+                <p>Brand variant</p>
               </org-card-content>
             </org-card>
             <org-card orgColor="secondary">
@@ -342,7 +342,7 @@ export const AllVariants: Story = {
               </org-card-content>
               <org-card-footer alignment="end">
                 <org-button orgColor="secondary">Add to Cart</org-button>
-                <org-button orgColor="primary">Buy Now</org-button>
+                <org-button orgColor="brand">Buy Now</org-button>
               </org-card-footer>
             </org-card>
 
@@ -352,7 +352,7 @@ export const AllVariants: Story = {
                 <p>Your account has been successfully updated with the new security settings.</p>
               </org-card-content>
               <org-card-footer alignment="end">
-                <org-button orgColor="primary">Dismiss</org-button>
+                <org-button orgColor="brand">Dismiss</org-button>
               </org-card-footer>
             </org-card>
           </div>

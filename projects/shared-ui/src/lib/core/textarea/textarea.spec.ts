@@ -125,7 +125,7 @@ describe('Textarea', () => {
       expect(classes).toContain('border');
       expect(classes).toContain('rounded-md');
       expect(classes).toContain('bg-white');
-      expect(classes).toContain('border-gray-300');
+      expect(classes).toContain('border-textarea-border-default');
     });
 
     it('should apply borderless variant classes', () => {
@@ -138,22 +138,22 @@ describe('Textarea', () => {
     it('should apply focus classes when focused', () => {
       component._state.update((state) => ({ ...state, isFocused: true }));
       const classes = component.containerClasses();
-      expect(classes).toContain('border-blue-500');
+      expect(classes).toContain('border-textarea-border-focused');
       expect(classes).toContain('ring-1');
-      expect(classes).toContain('ring-blue-500');
+      expect(classes).toContain('ring-textarea-ring-focused');
     });
 
     it('should apply error classes when invalid', () => {
       fixture.componentRef.setInput('validationMessage', 'Error');
       const classes = component.containerClasses();
-      expect(classes).toContain('border-red-500');
+      expect(classes).toContain('border-textarea-border-error');
     });
 
     it('should apply disabled classes when disabled', () => {
       fixture.componentRef.setInput('disabled', true);
       const classes = component.containerClasses();
-      expect(classes).toContain('bg-gray-50');
-      expect(classes).toContain('border-gray-200');
+      expect(classes).toContain('bg-textarea-background-disabled');
+      expect(classes).toContain('border-textarea-border-default');
       expect(classes).toContain('cursor-not-allowed');
       expect(classes).toContain('opacity-50');
     });

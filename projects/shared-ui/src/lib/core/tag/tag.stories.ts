@@ -44,7 +44,7 @@ const meta: Meta<Tag> = {
     },
   },
   args: {
-    orgColor: 'primary',
+    orgColor: 'brand',
     variant: 'weak',
     preIcon: null,
     postIcon: null,
@@ -56,9 +56,9 @@ export default meta;
 type Story = StoryObj<Tag>;
 
 // Basic color variants - weak
-export const PrimaryWeak: Story = {
+export const BrandWeak: Story = {
   args: {
-    orgColor: 'primary',
+    orgColor: 'brand',
     variant: 'weak',
   },
   render: (args) => ({
@@ -74,7 +74,7 @@ export const PrimaryWeak: Story = {
         (postIconClicked)="postIconClicked($event)"
         (removed)="removed($event)"
       >
-        Primary Tag
+        Brand Tag
       </org-tag>
     `,
   }),
@@ -249,9 +249,9 @@ export const DangerWeak: Story = {
 };
 
 // Strong variants
-export const PrimaryStrong: Story = {
+export const BrandStrong: Story = {
   args: {
-    orgColor: 'primary',
+    orgColor: 'brand',
     variant: 'strong',
   },
   render: (args) => ({
@@ -267,7 +267,7 @@ export const PrimaryStrong: Story = {
         (postIconClicked)="postIconClicked($event)"
         (removed)="removed($event)"
       >
-        Primary Strong
+        Brand Strong
       </org-tag>
     `,
   }),
@@ -486,7 +486,7 @@ export const AllVariants: Story = {
         <div class="space-y-2">
           <h3 class="text-lg font-semibold">Weak Variants (Default)</h3>
           <div class="flex flex-wrap gap-2">
-            <org-tag orgColor="primary" variant="weak">Primary</org-tag>
+            <org-tag orgColor="brand" variant="weak">Brand</org-tag>
             <org-tag orgColor="secondary" variant="weak">Secondary</org-tag>
             <org-tag orgColor="neutral" variant="weak">Neutral</org-tag>
             <org-tag orgColor="safe" variant="weak">Safe</org-tag>
@@ -500,7 +500,7 @@ export const AllVariants: Story = {
         <div class="space-y-2">
           <h3 class="text-lg font-semibold">Strong Variants</h3>
           <div class="flex flex-wrap gap-2">
-            <org-tag orgColor="primary" variant="strong">Primary</org-tag>
+            <org-tag orgColor="brand" variant="strong">Brand</org-tag>
             <org-tag orgColor="secondary" variant="strong">Secondary</org-tag>
             <org-tag orgColor="neutral" variant="strong">Neutral</org-tag>
             <org-tag orgColor="safe" variant="strong">Safe</org-tag>
@@ -514,30 +514,30 @@ export const AllVariants: Story = {
         <div class="space-y-2">
           <h3 class="text-lg font-semibold">With Icons</h3>
           <div class="flex flex-wrap gap-2">
-            <org-tag orgColor="primary" preIcon="gear">Pre Icon</org-tag>
-            <org-tag orgColor="primary" postIcon="arrow-right">Post Icon</org-tag>
-            <org-tag orgColor="primary" preIcon="gear" postIcon="arrow-right">Both Icons</org-tag>
+            <org-tag orgColor="brand" preIcon="gear">Pre Icon</org-tag>
+            <org-tag orgColor="brand" postIcon="arrow-right">Post Icon</org-tag>
+            <org-tag orgColor="brand" preIcon="gear" postIcon="arrow-right">Both Icons</org-tag>
           </div>
         </div>
 
         <div class="space-y-2">
           <h3 class="text-lg font-semibold">Removable Tags</h3>
           <div class="flex flex-wrap gap-2">
-            <org-tag orgColor="primary" [removable]="true">Removable</org-tag>
-            <org-tag orgColor="primary" [removable]="true" preIcon="gear">Removable with Pre Icon</org-tag>
-            <org-tag orgColor="primary" [removable]="true" orgColor="danger">Removable Danger</org-tag>
-            <org-tag orgColor="primary" [removable]="true" orgColor="safe" variant="strong">Removable Safe Strong</org-tag>
+            <org-tag orgColor="brand" [removable]="true">Removable</org-tag>
+            <org-tag orgColor="brand" [removable]="true" preIcon="gear">Removable with Pre Icon</org-tag>
+            <org-tag orgColor="brand" [removable]="true" orgColor="danger">Removable Danger</org-tag>
+            <org-tag orgColor="brand" [removable]="true" orgColor="safe" variant="strong">Removable Safe Strong</org-tag>
           </div>
         </div>
 
         <div class="space-y-2">
           <h3 class="text-lg font-semibold">Mixed Examples</h3>
           <div class="flex flex-wrap gap-2">
-            <org-tag orgColor="primary" variant="strong" preIcon="star">Featured</org-tag>
+            <org-tag orgColor="brand" variant="strong" preIcon="star">Featured</org-tag>
             <org-tag orgColor="safe" [removable]="true">React</org-tag>
             <org-tag orgColor="info" [removable]="true">Angular</org-tag>
             <org-tag orgColor="warning" [removable]="true">Vue</org-tag>
-            <org-tag orgColor="neutral" variant="strong" postIcon="external-link">External</org-tag>
+            <org-tag orgColor="neutral" variant="strong" postIcon="arrow-square-out">External</org-tag>
           </div>
         </div>
       </div>

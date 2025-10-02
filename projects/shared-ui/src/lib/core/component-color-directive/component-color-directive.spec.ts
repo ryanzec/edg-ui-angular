@@ -53,36 +53,36 @@ describe('ComponentColorDirective', () => {
   });
 
   it('should clear all color classes before applying new color', () => {
-    component.color.set('primary');
+    component.color.set('brand');
     fixture.detectChanges();
 
-    // Should only have org-primary class, no other color classes
-    expect(domElement.classList.contains('org-primary')).toBe(true);
+    // Should only have org-brand class, no other color classes
+    expect(domElement.classList.contains('org-brand')).toBe(true);
     componentColors
-      .filter((color) => color !== 'primary')
+      .filter((color) => color !== 'brand')
       .forEach((color) => {
         expect(domElement.classList.contains(`org-${color}`)).toBe(false);
       });
   });
 
   it('should remove old color class and add new color class when color changes', () => {
-    component.color.set('primary');
+    component.color.set('brand');
     fixture.detectChanges();
 
-    expect(domElement.classList.contains('org-primary')).toBe(true);
+    expect(domElement.classList.contains('org-brand')).toBe(true);
 
     component.color.set('secondary');
     fixture.detectChanges();
 
-    expect(domElement.classList.contains('org-primary')).toBe(false);
+    expect(domElement.classList.contains('org-brand')).toBe(false);
     expect(domElement.classList.contains('org-secondary')).toBe(true);
   });
 
   it('should remove all color classes when color is set to null', () => {
-    component.color.set('primary');
+    component.color.set('brand');
     fixture.detectChanges();
 
-    expect(domElement.classList.contains('org-primary')).toBe(true);
+    expect(domElement.classList.contains('org-brand')).toBe(true);
 
     component.color.set(null);
     fixture.detectChanges();

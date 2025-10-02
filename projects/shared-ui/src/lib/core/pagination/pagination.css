@@ -1,0 +1,7 @@
+@reference '../../tailwind.css';
+
+@layer components {
+  .org-pagination {
+    /* Base pagination styles if needed */
+  }
+}

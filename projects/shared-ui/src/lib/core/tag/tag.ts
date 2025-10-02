@@ -66,13 +66,15 @@ export class Tag {
     const baseClasses = [
       'inline-flex',
       'items-center',
-      'rounded-md',
+      'rounded-xl',
       'border',
       'text-sm',
       'font-medium',
       'gap-1.5',
       'px-2',
       'py-1',
+      // this help when there are icons to make sure the icon and text look aligned
+      'leading-[14px]',
     ];
 
     // Only add variant class, color will be handled by ComponentColorDirective on host

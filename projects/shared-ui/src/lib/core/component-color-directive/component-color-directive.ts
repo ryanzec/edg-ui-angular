@@ -1,7 +1,7 @@
 import { Directive, input, HostBinding } from '@angular/core';
 
 export const ComponentColor = {
-  PRIMARY: 'primary',
+  BRAND: 'brand',
   SECONDARY: 'secondary',
   NEUTRAL: 'neutral',
   SAFE: 'safe',
@@ -26,9 +26,9 @@ export class ComponentColorDirective {
 
   // Each getter toggles a specific class based on the input value.
   // This is safe and won't remove other classes on the element.
-  @HostBinding('class.org-primary')
-  get isPrimary(): boolean {
-    return this.orgColor() === 'primary';
+  @HostBinding('class.org-brand')
+  get isBrand(): boolean {
+    return this.orgColor() === 'brand';
   }
 
   @HostBinding('class.org-secondary')

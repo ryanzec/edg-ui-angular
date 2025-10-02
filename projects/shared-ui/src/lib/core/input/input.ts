@@ -57,7 +57,7 @@ export type InputState = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Icon, Tag],
   templateUrl: './input.html',
-  styleUrl: './input.scss',
+  styleUrl: './input.css',
 })
 export class Input implements OnInit, OnDestroy, AfterViewInit {
   private readonly _focusMonitor = inject(FocusMonitor);
@@ -137,21 +137,21 @@ export class Input implements OnInit, OnDestroy, AfterViewInit {
       bordered: [
         'border',
         'rounded-md',
-        'bg-white',
+        'bg-input-background-default',
         this.isInvalid() && !this.isFocused()
-          ? 'border-red-500'
+          ? 'border-input-border-error'
           : this.isFocused()
             ? this.isInvalid()
-              ? 'border-red-500 ring-1 ring-red-500'
-              : 'border-blue-500 ring-1 ring-blue-500'
-            : 'border-gray-300',
-        this.isDisabled() ? 'bg-gray-50 border-gray-200' : '',
+              ? 'border-input-border-error ring-1 ring-input-ring-error'
+              : 'border-input-border-focused ring-1 ring-input-ring-focused'
+            : 'border-input-border-default',
+        this.isDisabled() ? 'bg-input-background-disabled border-input-border-default' : '',
       ],
       borderless: [
         'border-0',
-        'bg-white',
-        this.isFocused() ? (this.isInvalid() ? '' : '') : this.isInvalid() ? 'ring-red-500' : '',
-        this.isDisabled() ? 'bg-gray-100' : '',
+        'bg-input-background-default',
+        this.isFocused() ? (this.isInvalid() ? '' : '') : this.isInvalid() ? 'ring-input-ring-error' : '',
+        this.isDisabled() ? 'bg-input-background-disabled' : '',
       ],
     };
 
@@ -172,7 +172,14 @@ export class Input implements OnInit, OnDestroy, AfterViewInit {
   });
 
   public readonly inputClasses = computed<string>(() => {
-    const baseClasses = ['flex-1', 'bg-transparent', 'border-0', 'outline-none', 'placeholder-gray-400', 'text-base'];
+    const baseClasses = [
+      'flex-1',
+      'bg-transparent',
+      'border-0',
+      'outline-none',
+      'placeholder-input-text-placeholder',
+      'text-base',
+    ];
 
     const stateClasses = [];
 
@@ -186,31 +193,31 @@ export class Input implements OnInit, OnDestroy, AfterViewInit {
   });
 
   public readonly preIconClasses = computed<string>(() => {
-    const baseClasses = ['flex-shrink-0', 'text-gray-400'];
+    const baseClasses = ['flex-shrink-0', 'text-input-icon'];
 
     const stateClasses = [];
 
     if (!this.isDisabled() && !this.isReadonly() && this._preIconClicked$.observed) {
-      stateClasses.push('cursor-pointer', 'hover:text-gray-600');
+      stateClasses.push('cursor-pointer', 'hover:text-input-icon-hover');
     }
 
     return tailwindUtils.merge([...baseClasses, ...stateClasses].join(' '));
   });
 
   public readonly postIconClasses = computed<string>(() => {
-    const baseClasses = ['flex-shrink-0', 'text-gray-400'];
+    const baseClasses = ['flex-shrink-0', 'text-input-icon'];
 
     const stateClasses = [];
 
-    if (!this.isDisabled() && !this.isReadonly() && this._postIconClicked$.observed) {
-      stateClasses.push('cursor-pointer', 'hover:text-gray-600');
+    if (this.showPasswordToggle() || (!this.isDisabled() && !this.isReadonly() && this._postIconClicked$.observed)) {
+      stateClasses.push('cursor-pointer', 'hover:text-input-icon-hover');
     }
 
     return tailwindUtils.merge([...baseClasses, ...stateClasses].join(' '));
   });
 
   public readonly validationMessageClasses = computed(() => {
-    const baseClasses = ['text-red-600', 'transition-all', 'duration-200', 'text-sm', 'mt-1.5'];
+    const baseClasses = ['text-input-validation-error', 'transition-all', 'duration-200', 'text-sm', 'mt-1.5'];
 
     const visibilityClass = this.hasValidationMessage() ? 'visible' : 'invisible';
 

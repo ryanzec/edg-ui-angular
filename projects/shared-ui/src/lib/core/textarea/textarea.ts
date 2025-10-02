@@ -53,7 +53,7 @@ export type TextareaState = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Icon, Tag],
   templateUrl: './textarea.html',
-  styleUrl: './textarea.scss',
+  styleUrl: './textarea.css',
 })
 export class Textarea implements OnInit, OnDestroy, AfterViewInit {
   private readonly _focusMonitor = inject(FocusMonitor);
@@ -119,26 +119,26 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit {
       bordered: [
         'border',
         'rounded-md',
-        'bg-white',
+        'bg-textarea-background-default',
         this.isInvalid() && !this.isFocused()
-          ? 'border-red-500'
+          ? 'border-textarea-border-error'
           : this.isFocused()
             ? this.isInvalid()
-              ? 'border-red-500 ring-1 ring-red-500'
-              : 'border-blue-500 ring-1 ring-blue-500'
-            : 'border-gray-300',
-        this.isDisabled() ? 'bg-gray-50 border-gray-200' : '',
+              ? 'border-textarea-border-error ring-1 ring-textarea-ring-error'
+              : 'border-textarea-border-focused ring-1 ring-textarea-ring-focused'
+            : 'border-textarea-border-default',
+        this.isDisabled() ? 'bg-textarea-background-disabled border-textarea-border-default' : '',
       ],
       borderless: [
         'border-0',
-        'bg-white',
-        this.isFocused() ? (this.isInvalid() ? '' : '') : this.isInvalid() ? 'ring-red-500' : '',
-        this.isDisabled() ? 'bg-gray-100' : '',
+        'bg-textarea-background-default',
+        this.isFocused() ? (this.isInvalid() ? '' : '') : this.isInvalid() ? 'ring-textarea-ring-error' : '',
+        this.isDisabled() ? 'bg-textarea-background-disabled' : '',
       ],
     };
 
     // the min height is to make sure textareas with icons and without are consistent
-    const defaultClasses = 'px-1.5 py-0.5 gap-1 min-h-[70px]';
+    const defaultClasses = 'px-1.5 py-0.5 gap-1 min-h-[70px] bg-input-background';
 
     const stateClasses = [];
 
@@ -156,10 +156,9 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit {
   public readonly textareaClasses = computed<string>(() => {
     const baseClasses = [
       'flex-1',
-      'bg-transparent',
       'border-0',
       'outline-none',
-      'placeholder-gray-400',
+      'placeholder-textarea-text-placeholder',
       'text-base',
       'resize-none',
     ];
@@ -176,7 +175,7 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit {
   });
 
   public readonly preIconClasses = computed<string>(() => {
-    const baseClasses = ['flex-shrink-0', 'text-gray-400'];
+    const baseClasses = ['flex-shrink-0', 'text-textarea-icon'];
 
     const alignmentClasses = {
       start: 'self-start',
@@ -187,14 +186,14 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit {
     const stateClasses = [];
 
     if (!this.isDisabled() && !this.isReadonly() && this._preIconClicked$.observed) {
-      stateClasses.push('cursor-pointer', 'hover:text-gray-600');
+      stateClasses.push('cursor-pointer', 'hover:text-textarea-icon-hover');
     }
 
     return tailwindUtils.merge([...baseClasses, alignmentClasses[this.preIconAlignment()], ...stateClasses].join(' '));
   });
 
   public readonly postIconClasses = computed<string>(() => {
-    const baseClasses = ['flex-shrink-0', 'text-gray-400'];
+    const baseClasses = ['flex-shrink-0', 'text-textarea-icon'];
 
     const alignmentClasses = {
       start: 'self-start',
@@ -205,14 +204,14 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit {
     const stateClasses = [];
 
     if (!this.isDisabled() && !this.isReadonly() && this._postIconClicked$.observed) {
-      stateClasses.push('cursor-pointer', 'hover:text-gray-600');
+      stateClasses.push('cursor-pointer', 'hover:text-textarea-icon-hover');
     }
 
     return tailwindUtils.merge([...baseClasses, alignmentClasses[this.postIconAlignment()], ...stateClasses].join(' '));
   });
 
   public readonly validationMessageClasses = computed<string>(() => {
-    const baseClasses = ['text-red-600', 'transition-all', 'duration-200', 'text-sm', 'mt-1.5'];
+    const baseClasses = ['text-textarea-validation-error', 'transition-all', 'duration-200', 'text-sm', 'mt-1.5'];
 
     const visibilityClass = this.hasValidationMessage() ? 'visible' : 'invisible';
 

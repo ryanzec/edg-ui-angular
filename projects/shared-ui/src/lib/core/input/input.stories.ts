@@ -423,7 +423,7 @@ export const AutoFocus: Story = {
     props: args,
     template: `
       <div>
-        <p class="text-sm text-gray-600 mb-2">This input will automatically receive focus when rendered</p>
+        <p class="text-sm text-text-subtle mb-2">This input will automatically receive focus when rendered</p>
         <org-input
           [variant]="variant"
           [type]="type"
@@ -455,7 +455,7 @@ export const AutoFocusWithSelectAll: Story = {
     props: args,
     template: `
       <div>
-        <p class="text-sm text-gray-600 mb-2">This input will auto-focus and select all text</p>
+        <p class="text-sm text-text-subtle mb-2">This input will auto-focus and select all text</p>
         <org-input
           [variant]="variant"
           [type]="type"

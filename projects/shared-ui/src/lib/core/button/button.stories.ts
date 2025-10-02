@@ -43,7 +43,7 @@ const meta: Meta<Button> = {
     },
   },
   args: {
-    orgColor: 'primary',
+    orgColor: 'brand',
     size: 'base',
     type: 'button',
     disabled: false,
@@ -58,14 +58,14 @@ export default meta;
 type Story = StoryObj<Button>;
 
 // Basic button variants
-export const Primary: Story = {
+export const Brand: Story = {
   args: {
-    orgColor: 'primary',
+    orgColor: 'brand',
   },
   render: (args) => ({
     props: args,
     template:
-      '<org-button [orgColor]="orgColor" [size]="size" [disabled]="disabled" [loading]="loading" [preIcon]="preIcon" [postIcon]="postIcon" [type]="type">Primary Button</org-button>',
+      '<org-button [orgColor]="orgColor" [size]="size" [disabled]="disabled" [loading]="loading" [preIcon]="preIcon" [postIcon]="postIcon" [type]="type">Brand Button</org-button>',
   }),
 };
 
@@ -269,7 +269,7 @@ export const AllVariants: Story = {
         <div class="space-y-2">
           <h3 class="text-lg font-semibold">Color Variants</h3>
           <div class="flex flex-wrap gap-2">
-            <org-button orgColor="primary">Primary</org-button>
+            <org-button orgColor="brand">Brand</org-button>
             <org-button orgColor="secondary">Secondary</org-button>
             <org-button orgColor="neutral">Neutral</org-button>
             <org-button orgColor="safe">Safe</org-button>
@@ -283,52 +283,52 @@ export const AllVariants: Story = {
         <div class="space-y-2">
           <h3 class="text-lg font-semibold">Sizes</h3>
           <div class="flex items-center gap-2">
-            <org-button orgColor="primary" size="small">Small</org-button>
-            <org-button orgColor="primary" size="base">Base</org-button>
-            <org-button orgColor="primary" size="large">Large</org-button>
+            <org-button orgColor="brand" size="small">Small</org-button>
+            <org-button orgColor="brand" size="base">Base</org-button>
+            <org-button orgColor="brand" size="large">Large</org-button>
           </div>
         </div>
 
         <div class="space-y-2">
           <h3 class="text-lg font-semibold">With Icons</h3>
           <div class="flex flex-wrap gap-2">
-            <org-button orgColor="primary" preIcon="plus">Add Item</org-button>
-            <org-button orgColor="primary" postIcon="arrow-right">Continue</org-button>
-            <org-button orgColor="primary" preIcon="download-simple" postIcon="arrow-right">Download</org-button>
+            <org-button orgColor="brand" preIcon="plus">Add Item</org-button>
+            <org-button orgColor="brand" postIcon="arrow-right">Continue</org-button>
+            <org-button orgColor="brand" preIcon="download-simple" postIcon="arrow-right">Download</org-button>
           </div>
         </div>
 
         <div class="space-y-2">
           <h3 class="text-lg font-semibold">With Icons and Sizes</h3>
           <div class="flex flex-wrap gap-2 items-center">
-            <org-button orgColor="primary" preIcon="plus" size="small">Add Item</org-button>
-            <org-button orgColor="primary" postIcon="arrow-right" size="base">Continue</org-button>
-            <org-button orgColor="primary" preIcon="download-simple" postIcon="arrow-right" size="large">Download</org-button>
+            <org-button orgColor="brand" preIcon="plus" size="small">Add Item</org-button>
+            <org-button orgColor="brand" postIcon="arrow-right" size="base">Continue</org-button>
+            <org-button orgColor="brand" preIcon="download-simple" postIcon="arrow-right" size="large">Download</org-button>
           </div>
         </div>
 
         <div class="space-y-2">
           <h3 class="text-lg font-semibold">With Icons</h3>
           <div class="flex flex-wrap gap-2">
-            <org-button orgColor="primary" icon="plus">Add Item</org-button>
+            <org-button orgColor="brand" icon="plus">Add Item</org-button>
           </div>
         </div>
 
         <div class="space-y-2">
           <h3 class="text-lg font-semibold">With Icons and Sizes</h3>
           <div class="flex flex-wrap gap-2 items-center">
-            <org-button orgColor="primary" icon="plus" size="small">Add Item</org-button>
-            <org-button orgColor="primary" icon="arrow-right" size="base">Continue</org-button>
-            <org-button orgColor="primary" icon="download-simple" postIcon="arrow-right" size="large">Download</org-button>
+            <org-button orgColor="brand" icon="plus" size="small">Add Item</org-button>
+            <org-button orgColor="brand" icon="arrow-right" size="base">Continue</org-button>
+            <org-button orgColor="brand" icon="download-simple" postIcon="arrow-right" size="large">Download</org-button>
           </div>
         </div>
 
         <div class="space-y-2">
           <h3 class="text-lg font-semibold">States</h3>
           <div class="flex flex-wrap gap-2">
-            <org-button orgColor="primary">Normal</org-button>
-            <org-button orgColor="primary" [disabled]="true">Disabled</org-button>
-            <org-button orgColor="primary" [loading]="true">Loading</org-button>
+            <org-button orgColor="brand">Normal</org-button>
+            <org-button orgColor="brand" [disabled]="true">Disabled</org-button>
+            <org-button orgColor="brand" [loading]="true">Loading</org-button>
           </div>
         </div>
       </div>

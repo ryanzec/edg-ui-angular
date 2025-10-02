@@ -3,7 +3,7 @@
 /**
  * Not sure of a better way to get the storybook generated docs to play well with our dark mode
  */
-.dark-theme .sbdocs.sbdocs-wrapper {
+.sbdocs.sbdocs-wrapper {
   @apply bg-surface text-on-surface;
 
   .sbdocs-title,
@@ -22,6 +22,13 @@
     @apply text-on-surface bg-surface border-outline;
   }
 
+  .docblock-argstable-body input:checked ~ span:last-of-type,
+  .docblock-argstable-body input:not(:checked) ~ span:first-of-type {
+    @apply bg-gray-300;
+  }
+}
+
+.dark-theme .sbdocs.sbdocs-wrapper {
   .docblock-argstable-body input:checked ~ span:last-of-type,
   .docblock-argstable-body input:not(:checked) ~ span:first-of-type {
     @apply bg-gray-600;

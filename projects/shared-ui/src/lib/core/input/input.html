@@ -2,7 +2,7 @@
   <div [class]="containerClasses()">
     @for (item of inlineItems(); track item.id) {
       <org-tag
-        orgColor="primary"
+        orgColor="brand"
         variant="weak"
         [removable]="!!(item.removable && !isDisabled() && !isReadonly())"
         (removed)="handleInlineItemRemove(item)"

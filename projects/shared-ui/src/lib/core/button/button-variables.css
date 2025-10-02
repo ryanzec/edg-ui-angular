@@ -2,19 +2,19 @@
 
 /* Button component Tailwind theme variables */
 @theme {
-  /* Primary colors */
-  --color-button-primary: var(--color-brand-background);
-  --color-button-primary-text: var(--color-text-inverse);
-  --color-button-primary-hover: var(--color-brand-background-hover);
-  --color-button-primary-focus: var(--color-brand-background-hover);
-  --color-button-primary-active: var(--color-brand-background-pressed);
+  /* Brand colors */
+  --color-button-brand: var(--color-brand-background);
+  --color-button-brand-text: var(--color-text-inverse);
+  --color-button-brand-hover: var(--color-brand-background-hover);
+  --color-button-brand-focus: var(--color-brand-background-hover);
+  --color-button-brand-active: var(--color-brand-background-pressed);
 
   /* Secondary colors */
   --color-button-secondary: var(--color-secondary-background);
   --color-button-secondary-text: var(--color-text);
   --color-button-secondary-border: var(--color-border);
   --color-button-secondary-hover: var(--color-secondary-background-hover);
-  --color-button-secondary-hover-border: var(--color-border-active);
+  --color-button-secondary-hover-border: var(--color-border-bold);
   --color-button-secondary-focus: var(--color-secondary-background-hover);
   --color-button-secondary-active: var(--color-secondary-background-pressed);
 
@@ -54,67 +54,6 @@
   --color-button-warning-active: var(--color-warning-background-pressed);
 
   /* Danger colors */
-  --color-button-danger: var(--color-danger-background);
-  --color-button-danger-text: var(--color-text-inverse);
-  --color-button-danger-hover: var(--color-danger-background-hover);
-  --color-button-danger-focus: var(--color-danger-background-hover);
-  --color-button-danger-active: var(--color-danger-background-pressed);
-}
-
-/* Dark mode color overrides - clean and readable */
-body.dark-theme {
-  /* Primary colors - slightly adjusted for dark mode */
-  --color-button-primary: var(--color-brand-background);
-  --color-button-primary-text: var(--color-text-inverse);
-  --color-button-primary-hover: var(--color-brand-background-hover);
-  --color-button-primary-focus: var(--color-brand-background-hover);
-  --color-button-primary-active: var(--color-brand-background-pressed);
-
-  /* Secondary colors - inverted for dark mode */
-  --color-button-secondary: var(--color-secondary-background);
-  --color-button-secondary-text: var(--color-text);
-  --color-button-secondary-border: var(--color-border);
-  --color-button-secondary-hover: var(--color-secondary-background-hover);
-  --color-button-secondary-hover-border: var(--color-border-active);
-  --color-button-secondary-focus: var(--color-secondary-background-hover);
-  --color-button-secondary-active: var(--color-secondary-background-pressed);
-
-  /* Neutral colors - adjusted for dark mode */
-  --color-button-neutral: var(--color-neutral-background);
-  --color-button-neutral-text: var(--color-text-inverse);
-  --color-button-neutral-hover: var(--color-neutral-background-hover);
-  --color-button-neutral-focus: var(--color-neutral-background-hover);
-  --color-button-neutral-active: var(--color-neutral-background-pressed);
-
-  /* Safe colors - slightly brighter for dark mode */
-  --color-button-safe: var(--color-safe-background);
-  --color-button-safe-text: var(--color-text-inverse);
-  --color-button-safe-hover: var(--color-safe-background-hover);
-  --color-button-safe-focus: var(--color-safe-background-hover);
-  --color-button-safe-active: var(--color-safe-background-pressed);
-
-  /* Info colors - slightly brighter for dark mode */
-  --color-button-info: var(--color-info-background);
-  --color-button-info-text: var(--color-text-inverse);
-  --color-button-info-hover: var(--color-info-background-hover);
-  --color-button-info-focus: var(--color-info-background-hover);
-  --color-button-info-active: var(--color-info-background-pressed);
-
-  /* Caution colors - adjusted for better contrast in dark mode */
-  --color-button-caution: var(--color-caution-background);
-  --color-button-caution-text: var(--color-text-inverse);
-  --color-button-caution-hover: var(--color-caution-background-hover);
-  --color-button-caution-focus: var(--color-caution-background-hover);
-  --color-button-caution-active: var(--color-caution-background-pressed);
-
-  /* Warning colors - slightly brighter for dark mode */
-  --color-button-warning: var(--color-warning-background);
-  --color-button-warning-text: var(--color-text-inverse);
-  --color-button-warning-hover: var(--color-warning-background-hover);
-  --color-button-warning-focus: var(--color-warning-background-hover);
-  --color-button-warning-active: var(--color-warning-background-pressed);
-
-  /* Danger colors - slightly brighter for dark mode */
   --color-button-danger: var(--color-danger-background);
   --color-button-danger-text: var(--color-text-inverse);
   --color-button-danger-hover: var(--color-danger-background-hover);

@@ -1,0 +1,47 @@
+@import 'tailwindcss';
+
+/* Input component Tailwind theme variables */
+@theme {
+  /* Input border colors */
+  --color-input-border-default: var(--color-border);
+  --color-input-border-focused: var(--color-input-border-focused);
+  --color-input-border-error: var(--color-danger-border);
+
+  /* Input background colors */
+  --color-input-background-default: var(--color-input-background);
+  --color-input-background-disabled: var(--color-input-background);
+  --color-input-background-error: var(--color-danger-background-subtle);
+
+  /* Input ring colors */
+  --color-input-ring-focused: var(--color-input-border-focused);
+  --color-input-ring-error: var(--color-danger-border);
+
+  /* Input text colors */
+  --color-input-text: var(--color-text);
+  --color-input-text-placeholder: var(--color-text-subtle);
+  --color-input-text-disabled: var(--color-text-disabled);
+
+  /* Icon colors */
+  --color-input-icon: var(--color-text-subtle);
+  --color-input-icon-hover: var(--color-text);
+  --color-input-icon-focus: var(--color-brand-background-subtle);
+
+  /* Validation message colors */
+  --color-input-validation-error: var(--color-danger-text);
+
+  /* Selection colors */
+  --color-input-selection: var(--color-brand-background-subtle);
+}
+
+/* Dark mode color overrides */
+body.dark-theme {
+  /* Input background colors - adjusted for dark mode */
+  --color-input-background-disabled: var(--color-secondary-background-subtle);
+  --color-input-background-error: var(--color-danger-background-subtle);
+
+  /* Icon colors - adjusted for dark mode */
+  --color-input-icon-focus: var(--color-brand-background-subtle);
+
+  /* Selection colors - adjusted for dark mode */
+  --color-input-selection: var(--color-brand-background-subtle);
+}

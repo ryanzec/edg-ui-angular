@@ -2,81 +2,43 @@
 
 /* Card component Tailwind theme variables */
 @theme {
-  /* Primary colors */
-  --color-card-primary-border: theme('colors.blue.500');
-  --color-card-primary-bg: theme('colors.blue.50');
+  /* Brand colors */
+  --color-card-brand-border: var(--color-brand-border);
+  --color-card-brand-bg: var(--color-brand-background-subtle);
 
   /* Secondary colors */
-  --color-card-secondary-border: theme('colors.gray.300');
-  --color-card-secondary-bg: theme('colors.gray.50');
+  --color-card-secondary-border: var(--color-secondary-border);
+  --color-card-secondary-bg: var(--color-secondary-background-subtle);
 
   /* Neutral colors */
-  --color-card-neutral-border: theme('colors.gray.400');
-  --color-card-neutral-bg: theme('colors.gray.50');
+  --color-card-neutral-border: var(--color-neutral-border);
+  --color-card-neutral-bg: var(--color-neutral-background-subtle);
 
   /* Safe colors */
-  --color-card-safe-border: theme('colors.green.600');
-  --color-card-safe-bg: theme('colors.green.50');
+  --color-card-safe-border: var(--color-safe-border);
+  --color-card-safe-bg: var(--color-safe-background-subtle);
 
   /* Info colors */
-  --color-card-info-border: theme('colors.cyan.600');
-  --color-card-info-bg: theme('colors.cyan.50');
+  --color-card-info-border: var(--color-info-border);
+  --color-card-info-bg: var(--color-info-background-subtle);
 
   /* Caution colors */
-  --color-card-caution-border: theme('colors.yellow.600');
-  --color-card-caution-bg: theme('colors.yellow.50');
+  --color-card-caution-border: var(--color-caution-border);
+  --color-card-caution-bg: var(--color-caution-background-subtle);
 
   /* Warning colors */
-  --color-card-warning-border: theme('colors.orange.500');
-  --color-card-warning-bg: theme('colors.orange.50');
+  --color-card-warning-border: var(--color-warning-border);
+  --color-card-warning-bg: var(--color-warning-background-subtle);
 
   /* Danger colors */
-  --color-card-danger-border: theme('colors.red.600');
-  --color-card-danger-bg: theme('colors.red.50');
+  --color-card-danger-border: var(--color-danger-border);
+  --color-card-danger-bg: var(--color-danger-background-subtle);
 
   /* Text colors */
-  --color-card-title-text: theme('colors.gray.900');
-  --color-card-subtitle-text: theme('colors.gray.600');
+  --color-card-title-text: var(--color-text);
+  --color-card-text: var(--color-text);
+  --color-card-subtitle-text: var(--color-text-subtle);
 
-  --spacing-card: theme('spacing.2');
-  --spacing-card-footer-top: theme('spacing.3');
-}
-
-/* Dark mode color overrides - clean and readable */
-body.dark-theme {
-  /* Primary colors - adjusted for dark mode */
-  --color-card-primary-border: theme('colors.blue.400');
-  --color-card-primary-bg: theme('colors.blue.950');
-
-  /* Secondary colors - adjusted for dark mode */
-  --color-card-secondary-border: theme('colors.gray.600');
-  --color-card-secondary-bg: theme('colors.gray.800');
-
-  /* Neutral colors - adjusted for dark mode */
-  --color-card-neutral-border: theme('colors.gray.500');
-  --color-card-neutral-bg: theme('colors.gray.800');
-
-  /* Safe colors - adjusted for dark mode */
-  --color-card-safe-border: theme('colors.green.400');
-  --color-card-safe-bg: theme('colors.green.950');
-
-  /* Info colors - adjusted for dark mode */
-  --color-card-info-border: theme('colors.cyan.400');
-  --color-card-info-bg: theme('colors.cyan.950');
-
-  /* Caution colors - adjusted for dark mode */
-  --color-card-caution-border: theme('colors.yellow.400');
-  --color-card-caution-bg: theme('colors.yellow.950');
-
-  /* Warning colors - adjusted for dark mode */
-  --color-card-warning-border: theme('colors.orange.400');
-  --color-card-warning-bg: theme('colors.orange.950');
-
-  /* Danger colors - adjusted for dark mode */
-  --color-card-danger-border: theme('colors.red.400');
-  --color-card-danger-bg: theme('colors.red.950');
-
-  /* Text colors - adjusted for dark mode */
-  --color-card-title-text: theme('colors.gray.100');
-  --color-card-subtitle-text: theme('colors.gray.400');
+  --spacing-card: 0.5rem;
+  --spacing-card-footer-top: 0.75rem;
 }

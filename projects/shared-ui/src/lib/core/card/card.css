@@ -2,7 +2,7 @@
 
 @layer components {
   .org-card {
-    @apply border border-outline rounded-md flex flex-col gap-1 overflow-hidden;
+    @apply border border-border rounded-md flex flex-col gap-1 overflow-hidden;
 
     .org-card-header {
       @apply px-card pt-card;
@@ -29,8 +29,8 @@
 }
 
 /* Card color variants using ComponentColorDirective classes */
-:host(.org-primary) .org-card {
-  @apply border-card-primary-border bg-card-primary-bg;
+:host(.org-brand) .org-card {
+  @apply border-card-brand-border bg-card-brand-bg;
 }
 
 :host(.org-secondary) .org-card {

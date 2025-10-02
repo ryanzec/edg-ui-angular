@@ -6,13 +6,13 @@
     /* Base tag wrapper styles if needed */
   }
 
-  /* Primary variants */
-  :host(.org-primary) .org-tag .strong {
-    @apply bg-tag-primary-strong-bg text-tag-primary-strong-text border-tag-primary-strong-border;
+  /* Brand variants */
+  :host(.org-brand) .org-tag .strong {
+    @apply bg-tag-brand-strong-bg text-tag-brand-strong-text border-tag-brand-strong-border;
   }
 
-  :host(.org-primary) .org-tag .weak {
-    @apply bg-tag-primary-weak-bg text-tag-primary-weak-text border-tag-primary-weak-border;
+  :host(.org-brand) .org-tag .weak {
+    @apply bg-tag-brand-weak-bg text-tag-brand-weak-text border-tag-brand-weak-border;
   }
 
   /* Secondary variants */

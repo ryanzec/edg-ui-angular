@@ -436,7 +436,7 @@ describe('Input', () => {
       fixture.detectChanges();
 
       const container = fixture.debugElement.query(By.css('div'));
-      expect(container.nativeElement.className).toContain('border-red-500');
+      expect(container.nativeElement.className).toContain('border-input-border-error');
     });
 
     it('should set aria-invalid attribute when validation message exists', () => {
@@ -502,7 +502,7 @@ describe('Input', () => {
       fixture.detectChanges();
 
       const container = fixture.debugElement.query(By.css('div'));
-      expect(container.nativeElement.className).toContain('bg-red-50');
+      expect(container.nativeElement.className).toContain('bg-input-background-error');
     });
 
     it('should show red ring on focus when invalid', () => {
@@ -514,7 +514,7 @@ describe('Input', () => {
       fixture.detectChanges();
 
       const container = fixture.debugElement.query(By.css('div'));
-      expect(container.nativeElement.className).toContain('ring-red-500');
+      expect(container.nativeElement.className).toContain('ring-input-ring-error');
     });
   });
 });

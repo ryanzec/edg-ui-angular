@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import { ComponentColor, ComponentColorDirective } from '../component-color-directive/component-color-directive';
+import { tailwindUtils } from 'projects/shared-utils/src/utils/tailwind';
 
 export type CardAlignment = 'start' | 'center' | 'end';
 
@@ -7,7 +8,6 @@ export type CardAlignment = 'start' | 'center' | 'end';
   selector: 'org-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './card.html',
-  styleUrl: './card.css',
   hostDirectives: [
     {
       directive: ComponentColorDirective,
@@ -17,4 +17,6 @@ export type CardAlignment = 'start' | 'center' | 'end';
 })
 export class Card {
   public orgColor = input<ComponentColor | null>(null);
+
+  public mergeClasses = tailwindUtils.merge;
 }

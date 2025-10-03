@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { FileUploadComponent } from './file-upload';
 
 const meta: Meta<FileUploadComponent> = {
-  title: 'Shared UI/File Upload',
+  title: 'Core/File Upload',
   component: FileUploadComponent,
   argTypes: {
     fileTypes: {

@@ -69,10 +69,6 @@
   --color-fuchsia-text-subtle: rgb(from var(--color-fuchsia-text) r g b / var(--opacity-text-subtle));
   --color-fuchsia-text-bold: var(--color-fuchsia-900);
 
-  --color-stone-text: var(--color-stone-600);
-  --color-stone-text-subtle: rgb(from var(--color-stone-text) r g b / var(--opacity-text-subtle));
-  --color-stone-text-bold: var(--color-stone-900);
-
   --color-link: var(--color-blue-700);
   --color-link-hover: var(--color-blue-800);
   --color-link-pressed: var(--color-blue-800);
@@ -135,10 +131,6 @@
   --color-fuchsia-border: var(--color-fuchsia-400);
   --color-fuchsia-border-subtle: var(--color-fuchsia-200);
   --color-fuchsia-border-bold: var(--color-fuchsia-600);
-
-  --color-stone-border: var(--color-stone-400);
-  --color-stone-border-subtle: var(--color-stone-200);
-  --color-stone-border-bold: var(--color-stone-600);
 
   /* Backgrounds */
   --color-overlay-background: rgb(from var(--color-neutral-900) r g b / var(--opacity-overlay));
@@ -283,17 +275,6 @@
   --color-fuchsia-background-bold: var(--color-fuchsia-800);
   --color-fuchsia-background-hover-bold: var(--color-fuchsia-900);
   --color-fuchsia-background-pressed-bold: var(--color-fuchsia-800);
-
-  /* stone colors */
-  --color-stone-background: var(--color-stone-600);
-  --color-stone-background-hover: var(--color-stone-700);
-  --color-stone-background-pressed: var(--color-stone-600);
-  --color-stone-background-subtle: var(--color-stone-100);
-  --color-stone-background-hover-subtle: var(--color-stone-200);
-  --color-stone-background-pressed-subtle: var(--color-stone-100);
-  --color-stone-background-bold: var(--color-stone-800);
-  --color-stone-background-hover-bold: var(--color-stone-900);
-  --color-stone-background-pressed-bold: var(--color-stone-800);
 }
 
 /*
@@ -341,9 +322,6 @@ body.dark-theme {
 
   --color-fuchsia-text: var(--color-fuchsia-400);
   --color-fuchsia-text-subtle: rgb(from var(--color-fuchsia-400) r g b / var(--opacity-text-subtle));
-
-  --color-stone-text: var(--color-stone-400);
-  --color-stone-text-subtle: rgb(from var(--color-stone-400) r g b / var(--opacity-text-subtle));
 
   /* Links */
   --color-link: var(--color-blue-400);
@@ -408,10 +386,6 @@ body.dark-theme {
   --color-fuchsia-border: var(--color-fuchsia-600);
   --color-fuchsia-border-subtle: var(--color-fuchsia-700);
   --color-fuchsia-border-bold: var(--color-fuchsia-500);
-
-  --color-stone-border: var(--color-stone-600);
-  --color-stone-border-subtle: var(--color-stone-700);
-  --color-stone-border-bold: var(--color-stone-500);
 
   /* Backgrounds */
   --color-background: var(--color-neutral-900);
@@ -549,15 +523,4 @@ body.dark-theme {
   --color-fuchsia-background-bold: var(--color-fuchsia-300);
   --color-fuchsia-background-hover-bold: var(--color-fuchsia-200);
   --color-fuchsia-background-pressed-bold: var(--color-fuchsia-300);
-
-  /* Stone colors */
-  --color-stone-background: var(--color-stone-400);
-  --color-stone-background-hover: var(--color-stone-500);
-  --color-stone-background-pressed: var(--color-stone-400);
-  --color-stone-background-subtle: var(--color-stone-950);
-  --color-stone-background-hover-subtle: var(--color-stone-900);
-  --color-stone-background-pressed-subtle: var(--color-stone-950);
-  --color-stone-background-bold: var(--color-stone-300);
-  --color-stone-background-hover-bold: var(--color-stone-200);
-  --color-stone-background-pressed-bold: var(--color-stone-300);
 }

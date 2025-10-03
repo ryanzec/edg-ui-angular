@@ -102,6 +102,7 @@ if (!!this.isAuthenticated()) {
 
 Always use these patterns:
 - ALWAYS use the `host` property of the `@Component` decorator
+- ALWAYS add a `dataid` property to top level custom component that is `snake-case` of the component name like `Button` would be `dataid="button"` or `UserList` would be `dataid="user-list"`
 
 NEVER use these patterns:
 - NEVER use the `@HostListener` decorator on component class methods

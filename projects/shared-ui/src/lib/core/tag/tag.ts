@@ -19,7 +19,6 @@ export const tagVariants = Object.values(TagVariant);
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Icon],
   templateUrl: './tag.html',
-  styleUrl: './tag.css',
   hostDirectives: [
     {
       directive: ComponentColorDirective,
@@ -53,6 +52,8 @@ export class Tag {
     const textContent = this._elementRef.nativeElement.textContent?.trim();
     return !!textContent;
   });
+  public readonly isPreIconClickable = computed(() => this.hasPreIcon() && this._preIconClicked$.observed);
+  public readonly isPostIconClickable = computed(() => this.hasPostIcon() && this._postIconClicked$.observed);
 
   public readonly currentPostIcon = computed((): IconName | null => {
     if (this.removable()) {
@@ -62,52 +63,7 @@ export class Tag {
     return this.postIcon();
   });
 
-  public readonly tagClasses = computed<string>(() => {
-    const baseClasses = [
-      'inline-flex',
-      'items-center',
-      'rounded-xl',
-      'border',
-      'text-sm',
-      'font-medium',
-      'gap-1.5',
-      'px-2',
-      'py-1',
-      // this help when there are icons to make sure the icon and text look aligned
-      'leading-[14px]',
-    ];
-
-    // Only add variant class, color will be handled by ComponentColorDirective on host
-    const variantClass = this.variant();
-
-    return tailwindUtils.merge([...baseClasses, variantClass].join(' '));
-  });
-
-  public readonly hostClasses = computed<string>(() => {
-    return 'org-tag inline-block';
-  });
-
-  public readonly preIconClasses = computed<string>(() => {
-    const baseClasses = ['inline-flex', 'flex-shrink-0'];
-    const stateClasses = [];
-
-    if (this.hasPreIcon() && this._preIconClicked$.observed) {
-      stateClasses.push('cursor-pointer', 'hover:opacity-80');
-    }
-
-    return tailwindUtils.merge([...baseClasses, ...stateClasses].join(' '));
-  });
-
-  public readonly postIconClasses = computed<string>(() => {
-    const baseClasses = ['inline-flex', 'flex-shrink-0'];
-    const stateClasses = [];
-
-    if (this.hasPostIcon() && this._postIconClicked$.observed) {
-      stateClasses.push('cursor-pointer', 'hover:opacity-80');
-    }
-
-    return tailwindUtils.merge([...baseClasses, ...stateClasses].join(' '));
-  });
+  public mergeClasses = tailwindUtils.merge;
 
   public handlePreIconClick(): void {
     this._preIconClicked$.next();

@@ -53,7 +53,6 @@ export type TextareaState = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Icon, Tag],
   templateUrl: './textarea.html',
-  styleUrl: './textarea.css',
 })
 export class Textarea implements OnInit, OnDestroy, AfterViewInit {
   private readonly _focusMonitor = inject(FocusMonitor);
@@ -113,28 +112,6 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit {
   public readonly isInvalid = computed<boolean>(() => this.hasValidationMessage());
   public readonly isPreIconClickable = computed(() => this._preIconClicked$.observed);
   public readonly isPostIconClickable = computed(() => this._postIconClicked$.observed);
-
-  public readonly containerClasses = computed<string>(() => {
-    const baseClasses = ['org-textarea-container'];
-    const variantClass = this.variant();
-    const stateClasses = [];
-
-    if (this.isInvalid()) {
-      stateClasses.push('invalid');
-    }
-
-    if (this.isDisabled()) {
-      stateClasses.push('disabled');
-    }
-
-    return tailwindUtils.merge(
-      [...baseClasses, variantClass, ...stateClasses, this.containerClass()].filter(Boolean).join(' ')
-    );
-  });
-
-  public readonly hostClasses = computed<string>(() => {
-    return tailwindUtils.merge('inline-block w-full');
-  });
 
   public mergeClasses = tailwindUtils.merge;
 

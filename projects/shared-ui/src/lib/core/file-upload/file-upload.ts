@@ -10,13 +10,13 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Icon } from '../icon/icon';
+import { tailwindUtils } from 'projects/shared-utils/src/utils/tailwind';
 
 @Component({
   selector: 'org-file-upload',
   standalone: true,
   imports: [CommonModule, Icon],
   templateUrl: './file-upload.html',
-  styleUrl: './file-upload.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '(dragover)': 'onDragOver($event)',
@@ -29,6 +29,8 @@ export class FileUploadComponent {
   public readonly fileUpload = output<File>();
 
   public fileTypes = input<string[]>([] as string[]);
+
+  public mergeClasses = tailwindUtils.merge;
 
   protected fileName = signal<string | undefined>(undefined);
   protected isHovering = signal(false);

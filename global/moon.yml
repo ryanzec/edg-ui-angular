@@ -117,14 +117,6 @@ tasks:
     options:
       runFromWorkspaceRoot: true
 
-  generate-design-tokens:
-    command: 'sh -c "node $workspaceRoot/.moon/scripts/generate-theme-overrides.mjs && node $workspaceRoot/.moon/scripts/generate-color-palettes.mjs"'
-    local: true
-    env:
-      NODE_ENV: 'development'
-    options:
-      runFromWorkspaceRoot: true
-
   # this provides a configuration free was to easily access the pnpm command that moonrepo uses for it's toolchain
   pnpm:
     command: 'pnpm -w'

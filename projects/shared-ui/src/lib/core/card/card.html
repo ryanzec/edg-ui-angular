@@ -1,3 +1,20 @@
-<div class="org-card">
+<div
+  [class]="
+    mergeClasses(
+      'border rounded-md flex flex-col gap-1 overflow-hidden',
+      'border-card-border bg-card-bg text-card-text',
+      {
+        'border-card-brand-border bg-card-brand-bg': orgColor() === 'brand',
+        'border-card-secondary-border bg-card-secondary-bg': orgColor() === 'secondary',
+        'border-card-neutral-border bg-card-neutral-bg': orgColor() === 'neutral',
+        'border-card-safe-border bg-card-safe-bg': orgColor() === 'safe',
+        'border-card-info-border bg-card-info-bg': orgColor() === 'info',
+        'border-card-caution-border bg-card-caution-bg': orgColor() === 'caution',
+        'border-card-warning-border bg-card-warning-bg': orgColor() === 'warning',
+        'border-card-danger-border bg-card-danger-bg': orgColor() === 'danger',
+      }
+    )
+  "
+>
   <ng-content />
 </div>

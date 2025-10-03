@@ -68,8 +68,6 @@ export class EXAMPLEColors {
         { name: 'Indigo Text Subtle', cssVar: '--color-indigo-text-subtle', description: 'Subtle indigo text' },
         { name: 'Fuchsia Text', cssVar: '--color-fuchsia-text', description: 'Fuchsia color text' },
         { name: 'Fuchsia Text Subtle', cssVar: '--color-fuchsia-text-subtle', description: 'Subtle fuchsia text' },
-        { name: 'Stone Text', cssVar: '--color-stone-text', description: 'Stone color text' },
-        { name: 'Stone Text Subtle', cssVar: '--color-stone-text-subtle', description: 'Subtle stone text' },
       ],
     },
     {
@@ -173,9 +171,6 @@ export class EXAMPLEColors {
           description: 'Subtle fuchsia border',
         },
         { name: 'Fuchsia Border Bold', cssVar: '--color-fuchsia-border-bold', description: 'Bold fuchsia border' },
-        { name: 'Stone Border', cssVar: '--color-stone-border', description: 'Stone border color' },
-        { name: 'Stone Border Subtle', cssVar: '--color-stone-border-subtle', description: 'Subtle stone border' },
-        { name: 'Stone Border Bold', cssVar: '--color-stone-border-bold', description: 'Bold stone border' },
       ],
     },
   ];
@@ -725,52 +720,6 @@ export class EXAMPLEColors {
           name: 'Fuchsia Background Pressed Bold',
           cssVar: '--color-fuchsia-background-pressed-bold',
           description: 'Bold fuchsia background pressed',
-        },
-      ],
-    },
-    {
-      title: 'Extended Background Colors - Stone',
-      colors: [
-        { name: 'Stone Background', cssVar: '--color-stone-background', description: 'Stone background color' },
-        {
-          name: 'Stone Background Hover',
-          cssVar: '--color-stone-background-hover',
-          description: 'Stone background hover state',
-        },
-        {
-          name: 'Stone Background Pressed',
-          cssVar: '--color-stone-background-pressed',
-          description: 'Stone background pressed state',
-        },
-        {
-          name: 'Stone Background Subtle',
-          cssVar: '--color-stone-background-subtle',
-          description: 'Subtle stone background',
-        },
-        {
-          name: 'Stone Background Hover Subtle',
-          cssVar: '--color-stone-background-hover-subtle',
-          description: 'Subtle stone background hover',
-        },
-        {
-          name: 'Stone Background Pressed Subtle',
-          cssVar: '--color-stone-background-pressed-subtle',
-          description: 'Subtle stone background pressed',
-        },
-        {
-          name: 'Stone Background Bold',
-          cssVar: '--color-stone-background-bold',
-          description: 'Bold stone background',
-        },
-        {
-          name: 'Stone Background Hover Bold',
-          cssVar: '--color-stone-background-hover-bold',
-          description: 'Bold stone background hover',
-        },
-        {
-          name: 'Stone Background Pressed Bold',
-          cssVar: '--color-stone-background-pressed-bold',
-          description: 'Bold stone background pressed',
         },
       ],
     },

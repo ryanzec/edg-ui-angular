@@ -1,5 +1,25 @@
 <div class="org-input inline-block w-full">
-  <div [class]="containerClasses()">
+  <div
+    [class]="
+      mergeClasses(
+        'relative inline-flex items-center w-full px-1.5 py-0.5 gap-1 min-h-[30px]',
+        'focus-within:ring-1 focus-within:ring-input-ring-focused',
+        {
+          'border rounded-md bg-input-background-default border-input-border-default': variant() === 'bordered',
+          'focus-within:border-input-border-focused': variant() === 'bordered',
+          'border-input-border-error': variant() === 'bordered' && isInvalid() && !isFocused(),
+          'border-input-border-error focus-within:ring-1 focus-within:ring-input-ring-error':
+            variant() === 'bordered' && isInvalid() && isFocused(),
+          'bg-input-background-disabled border-input-border-default cursor-not-allowed opacity-50':
+            variant() === 'bordered' && isDisabled(),
+          'border-0 bg-input-background-default': variant() === 'borderless',
+          'ring-input-ring-error': variant() === 'borderless' && isInvalid() && !isFocused(),
+          'bg-input-background-disabled cursor-not-allowed opacity-50': variant() === 'borderless' && isDisabled(),
+        },
+        containerClass()
+      )
+    "
+  >
     @for (item of inlineItems(); track item.id) {
       <org-tag
         orgColor="brand"
@@ -13,10 +33,14 @@
     @if (hasPreIcon()) {
       <button
         type="button"
-        class="inline-flex org-input-icon"
-        [class.clickable]="isPreIconClickable()"
-        [class.disabled]="isDisabled()"
-        [class.readonly]="isReadonly()"
+        [class]="
+          mergeClasses(
+            'inline-flex flex-shrink-0 text-input-icon focus-visible:bg-input-icon-focus focus-visible:rounded',
+            {
+              'cursor-pointer hover:text-input-icon-hover': isPreIconClickable() && !isDisabled() && !isReadonly(),
+            }
+          )
+        "
         (click)="handlePreIconClick()"
         [disabled]="isDisabled() || isReadonly()"
         [attr.aria-label]="'Pre icon'"
@@ -26,7 +50,16 @@
     }
     <input
       #inputElement
-      class="org-input-element"
+      [class]="
+        mergeClasses(
+          'flex-1 bg-transparent border-0 outline-none placeholder-input-text-placeholder text-base',
+          'selection:bg-input-selection',
+          {
+            'cursor-not-allowed': isDisabled(),
+            'cursor-default': isReadonly(),
+          }
+        )
+      "
       [type]="currentInputType()"
       [value]="value()"
       [placeholder]="placeholder()"
@@ -40,10 +73,15 @@
     @if (hasPostIcon()) {
       <button
         type="button"
-        class="inline-flex org-input-icon"
-        [class.clickable]="showPasswordToggle() || isPostIconClickable()"
-        [class.disabled]="isDisabled()"
-        [class.readonly]="isReadonly()"
+        [class]="
+          mergeClasses(
+            'inline-flex flex-shrink-0 text-input-icon focus-visible:bg-input-icon-focus focus-visible:rounded',
+            {
+              'cursor-pointer hover:text-input-icon-hover':
+                (showPasswordToggle() || isPostIconClickable()) && !isDisabled() && !isReadonly(),
+            }
+          )
+        "
         (click)="handlePostIconClick()"
         [disabled]="isDisabled() || isReadonly()"
         [attr.aria-label]="
@@ -60,9 +98,12 @@
   </div>
   <div
     id="validation-message"
-    class="org-input-validation-message"
-    [class.visible]="hasValidationMessage()"
-    [class.hidden]="!hasValidationMessage()"
+    [class]="
+      mergeClasses('text-input-validation-error text-sm mt-1.5', {
+        visible: hasValidationMessage(),
+        invisible: !hasValidationMessage(),
+      })
+    "
     role="alert"
     aria-live="polite"
   >

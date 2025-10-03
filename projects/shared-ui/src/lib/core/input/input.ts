@@ -57,7 +57,6 @@ export type InputState = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Icon, Tag],
   templateUrl: './input.html',
-  styleUrl: './input.css',
 })
 export class Input implements OnInit, OnDestroy, AfterViewInit {
   private readonly _focusMonitor = inject(FocusMonitor);
@@ -131,24 +130,6 @@ export class Input implements OnInit, OnDestroy, AfterViewInit {
   public readonly isInvalid = computed(() => this.hasValidationMessage());
   public readonly isPreIconClickable = computed(() => this._preIconClicked$.observed);
   public readonly isPostIconClickable = computed(() => this._postIconClicked$.observed);
-
-  public readonly containerClasses = computed<string>(() => {
-    const baseClasses = ['org-input-container'];
-    const variantClass = this.variant();
-    const stateClasses = [];
-
-    if (this.isInvalid()) {
-      stateClasses.push('invalid');
-    }
-
-    if (this.isDisabled()) {
-      stateClasses.push('disabled');
-    }
-
-    return tailwindUtils.merge(
-      [...baseClasses, variantClass, ...stateClasses, this.containerClass()].filter(Boolean).join(' ')
-    );
-  });
 
   public mergeClasses = tailwindUtils.merge;
 

@@ -1,7 +1,6 @@
-@reference '../../tailwind.css';
+/* @reference '../../tailwind.css';
 
 @layer components {
-  /* Button color variants using ComponentColorDirective classes */
   :host(.org-brand) button {
     @apply bg-button-brand text-button-brand-text border border-button-brand;
 
@@ -81,4 +80,4 @@
       @apply active:bg-button-danger-active active:border-button-danger-active;
     }
   }
-}
+} */

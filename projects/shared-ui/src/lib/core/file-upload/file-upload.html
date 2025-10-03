@@ -1,8 +1,15 @@
-<div class="org-file-upload">
+<div class="block font-sans text-file-upload-success-text">
   <div
-    class="org-file-upload-container"
-    [class.hovering]="isHovering()"
-    [class.uploading]="isUploading()"
+    [class]="
+      mergeClasses(
+        'flex flex-col justify-center items-center w-full h-[200px] border-2 border-dashed rounded-lg cursor-pointer relative overflow-hidden',
+        'border-file-upload-border bg-file-upload-background text-file-upload-text',
+        {
+          'border-file-upload-hover-border bg-file-upload-hover-background': isHovering(),
+          'cursor-not-allowed bg-file-upload-uploading-background': isUploading(),
+        }
+      )
+    "
     (click)="openFileSelector()"
     (keydown)="keyPress($event)"
     tabindex="-1"
@@ -11,33 +18,35 @@
       data-testid="file-upload-input"
       type="file"
       #fileInput
-      class="org-file-upload-input"
+      class="hidden"
       [accept]="fileTypes()"
       (change)="onFileSelected($event)"
     />
 
     @if (isUploading()) {
       <!-- Custom progress bar -->
-      <div class="org-file-upload-progress-bar">
-        <div class="org-file-upload-progress-fill" [style.width.%]="progress()"></div>
+      <div class="absolute bottom-0 w-full h-1 bg-file-upload-progress-background">
+        <div class="h-full bg-file-upload-progress-fill" [style.width.%]="progress()"></div>
       </div>
-      <div class="org-file-upload-uploading-text">Uploading {{ fileName() }}...</div>
+      <div class="font-medium text-file-upload-uploading-text">Uploading {{ fileName() }}...</div>
     } @else if (fileName()) {
-      <div class="org-file-upload-content">
-        <org-icon name="check" size="large" class="org-file-upload-success-icon"></org-icon>
-        <span class="org-file-upload-success-text">{{ fileName() }} ready!</span>
-        <small class="org-file-upload-subtitle">Click or drag another file to replace.</small>
+      <div class="flex flex-col items-center gap-2 text-center p-4">
+        <org-icon name="check" size="large" class="text-file-upload-success-icon"></org-icon>
+        <span class="text-base font-medium">{{ fileName() }} ready!</span>
+        <small class="text-file-upload-subtle-text text-sm">Click or drag another file to replace.</small>
       </div>
     } @else {
-      <div class="org-file-upload-content">
-        <org-icon name="upload-simple" size="large" class="org-file-upload-upload-icon"></org-icon>
-        <span class="org-file-upload-success-text">Drag & Drop your file here</span>
-        <small class="org-file-upload-subtitle">or <b class="org-file-upload-accent">click</b> to select one</small>
+      <div class="flex flex-col items-center gap-2 text-center p-4">
+        <org-icon name="upload-simple" size="large" class="text-file-upload-upload-icon"></org-icon>
+        <span class="text-base font-medium">Drag & Drop your file here</span>
+        <small class="text-file-upload-subtle-text text-sm"
+          >or <b class="text-file-upload-accent-text font-medium">click</b> to select one</small
+        >
       </div>
     }
     @if (error()) {
-      <div class="org-file-upload-error">
-        <org-icon name="x" class="org-file-upload-error-icon"></org-icon>
+      <div class="absolute bottom-2 flex items-center gap-2 text-file-upload-error-text text-sm">
+        <org-icon name="x" class="text-file-upload-error-icon"></org-icon>
         <span>{{ error() }}</span>
       </div>
     }

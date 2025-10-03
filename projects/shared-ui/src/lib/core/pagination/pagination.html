@@ -1,12 +1,12 @@
 <div class="org-pagination">
-  <div [class]="mergeClasses('org-pagination-container', class())">
+  <div [class]="mergeClasses('flex items-center gap-4', class())">
     <!-- Result text -->
-    <div class="org-pagination-result-text">
+    <div class="text-sm text-pagination-text whitespace-nowrap">
       {{ resultText() }}
     </div>
 
     <!-- Navigation controls -->
-    <div class="org-pagination-nav">
+    <div class="flex items-center gap-1">
       <!-- Previous button -->
       <org-button
         size="small"
@@ -20,7 +20,7 @@
       <!-- Page numbers -->
       @for (page of visiblePages(); track page.value || 'ellipsis-' + $index) {
         @if (page.type === 'ellipsis') {
-          <span class="org-pagination-ellipsis">...</span>
+          <span class="px-2 py-1 text-sm text-pagination-text-ellipsis select-none">...</span>
         } @else {
           <org-button
             size="small"
@@ -46,10 +46,20 @@
     </div>
 
     <!-- Items per page selector -->
-    <div class="org-pagination-items-per-page">
-      <span class="org-pagination-items-per-page-label">Items per page:</span>
+    <div class="flex items-center gap-2 text-sm whitespace-nowrap">
+      <span class="text-pagination-text">Items per page:</span>
       <select
-        class="org-pagination-select"
+        [class]="
+          mergeClasses(
+            'px-2 py-1 text-sm border rounded-md',
+            'border-pagination-select-border bg-pagination-select-background text-pagination-select-text',
+            'focus:outline-none focus:ring-2 focus:ring-pagination-select-ring-focused focus:border-pagination-select-border-focused',
+            {
+              'opacity-50 cursor-not-allowed bg-pagination-select-background-disabled': disabled(),
+              'cursor-pointer': !disabled(),
+            }
+          )
+        "
         [disabled]="disabled()"
         (change)="setItemsPerPage(+$any($event.target).value)"
       >

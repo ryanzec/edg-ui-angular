@@ -2,47 +2,77 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { Tag, tagVariants } from './tag';
 import { iconNames } from '../icon/icon';
 import { componentColors } from '../component-color-directive/component-color-directive';
+import { StorybookExampleContainer } from '../../private/storybook-example-container/storybook-example-container';
+import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 
 const meta: Meta<Tag> = {
   title: 'Core/Tag',
   component: Tag,
-  parameters: {
-    layout: 'centered',
-  },
   tags: ['autodocs'],
-  argTypes: {
-    orgColor: {
-      control: 'select',
-      options: componentColors,
-    },
-    variant: {
-      control: 'select',
-      options: tagVariants,
-    },
-    preIcon: {
-      control: 'select',
-      options: [null, ...iconNames],
-    },
-    postIcon: {
-      control: 'select',
-      options: [null, ...iconNames],
-    },
-    removable: {
-      control: 'boolean',
-    },
-    preIconClicked: {
-      action: 'preIconClicked',
-      description: 'Emitted when the pre icon is clicked',
-    },
-    postIconClicked: {
-      action: 'postIconClicked',
-      description: 'Emitted when the post icon is clicked',
-    },
-    removed: {
-      action: 'removed',
-      description: 'Emitted when the remove icon is clicked',
+  parameters: {
+    docs: {
+      description: {
+        component: `
+<div class="docs-top-level-overview">
+  ## Tag Component
+
+  A flexible tag/badge component with multiple color schemes, variants, icons, and removable functionality.
+
+  ### Features
+  - Two visual variants: weak (default) and strong
+  - Eight color options: brand, secondary, neutral, safe, info, caution, warning, danger
+  - Optional pre and post icons
+  - Removable functionality with X icon
+  - Clickable icon support
+  - Compact, inline display
+
+  ### Variants
+  - **weak**: Subtle background with colored text (default)
+  - **strong**: Solid colored background with contrasting text
+
+  ### Color Options
+  - **brand**: Primary brand color
+  - **secondary**: Secondary accent color
+  - **neutral**: Neutral/gray color
+  - **safe**: Success/positive state (green)
+  - **info**: Informational state (blue)
+  - **caution**: Caution state (yellow)
+  - **warning**: Warning state (orange)
+  - **danger**: Error/danger state (red)
+
+  ### Usage Examples
+  \`\`\`html
+  <!-- Basic tag -->
+  <org-tag orgColor="brand">Tag Content</org-tag>
+
+  <!-- Tag with variant -->
+  <org-tag orgColor="brand" variant="strong">Strong Tag</org-tag>
+
+  <!-- Tag with icons -->
+  <org-tag orgColor="info" preIcon="gear">Settings</org-tag>
+  <org-tag orgColor="safe" postIcon="check">Completed</org-tag>
+
+  <!-- Removable tag -->
+  <org-tag orgColor="neutral" [removable]="true" (removed)="handleRemove()">
+    Removable Tag
+  </org-tag>
+
+  <!-- Tag with both icons -->
+  <org-tag orgColor="brand" preIcon="gear" postIcon="arrow-right">
+    Action Tag
+  </org-tag>
+</div>
+\`\`\`
+        `,
+      },
     },
   },
+};
+
+export default meta;
+type Story = StoryObj<Tag>;
+
+export const Default: Story = {
   args: {
     orgColor: 'brand',
     variant: 'weak',
@@ -50,417 +80,41 @@ const meta: Meta<Tag> = {
     postIcon: null,
     removable: false,
   },
-};
-
-export default meta;
-type Story = StoryObj<Tag>;
-
-// Basic color variants - weak
-export const BrandWeak: Story = {
-  args: {
-    orgColor: 'brand',
-    variant: 'weak',
+  argTypes: {
+    orgColor: {
+      control: 'select',
+      options: componentColors,
+      description: 'The color variant of the tag',
+    },
+    variant: {
+      control: 'select',
+      options: tagVariants,
+      description: 'The visual variant of the tag',
+    },
+    preIcon: {
+      control: 'select',
+      options: [null, ...iconNames],
+      description: 'Icon to display before the tag text',
+    },
+    postIcon: {
+      control: 'select',
+      options: [null, ...iconNames],
+      description: 'Icon to display after the tag text',
+    },
+    removable: {
+      control: 'boolean',
+      description: 'Whether the tag can be removed (shows X icon)',
+    },
   },
-  render: (args) => ({
-    props: args,
-    template: `
-      <org-tag
-        [orgColor]="orgColor"
-        [variant]="variant"
-        [preIcon]="preIcon"
-        [postIcon]="postIcon"
-        [removable]="removable"
-        (preIconClicked)="preIconClicked($event)"
-        (postIconClicked)="postIconClicked($event)"
-        (removed)="removed($event)"
-      >
-        Brand Tag
-      </org-tag>
-    `,
-  }),
-};
-
-export const SecondaryWeak: Story = {
-  args: {
-    orgColor: 'secondary',
-    variant: 'weak',
-  },
-  render: (args) => ({
-    props: args,
-    template: `
-      <org-tag
-        [orgColor]="orgColor"
-        [variant]="variant"
-        [preIcon]="preIcon"
-        [postIcon]="postIcon"
-        [removable]="removable"
-        (preIconClicked)="preIconClicked($event)"
-        (postIconClicked)="postIconClicked($event)"
-        (removed)="removed($event)"
-      >
-        Secondary Tag
-      </org-tag>
-    `,
-  }),
-};
-
-export const NeutralWeak: Story = {
-  args: {
-    orgColor: 'neutral',
-    variant: 'weak',
-  },
-  render: (args) => ({
-    props: args,
-    template: `
-      <org-tag
-        [orgColor]="orgColor"
-        [variant]="variant"
-        [preIcon]="preIcon"
-        [postIcon]="postIcon"
-        [removable]="removable"
-        (preIconClicked)="preIconClicked($event)"
-        (postIconClicked)="postIconClicked($event)"
-        (removed)="removed($event)"
-      >
-        Neutral Tag
-      </org-tag>
-    `,
-  }),
-};
-
-export const SafeWeak: Story = {
-  args: {
-    orgColor: 'safe',
-    variant: 'weak',
-  },
-  render: (args) => ({
-    props: args,
-    template: `
-      <org-tag
-        [orgColor]="orgColor"
-        [variant]="variant"
-        [preIcon]="preIcon"
-        [postIcon]="postIcon"
-        [removable]="removable"
-        (preIconClicked)="preIconClicked($event)"
-        (postIconClicked)="postIconClicked($event)"
-        (removed)="removed($event)"
-      >
-        Safe Tag
-      </org-tag>
-    `,
-  }),
-};
-
-export const InfoWeak: Story = {
-  args: {
-    orgColor: 'info',
-    variant: 'weak',
-  },
-  render: (args) => ({
-    props: args,
-    template: `
-      <org-tag
-        [orgColor]="orgColor"
-        [variant]="variant"
-        [preIcon]="preIcon"
-        [postIcon]="postIcon"
-        [removable]="removable"
-        (preIconClicked)="preIconClicked($event)"
-        (postIconClicked)="postIconClicked($event)"
-        (removed)="removed($event)"
-      >
-        Info Tag
-      </org-tag>
-    `,
-  }),
-};
-
-export const CautionWeak: Story = {
-  args: {
-    orgColor: 'caution',
-    variant: 'weak',
-  },
-  render: (args) => ({
-    props: args,
-    template: `
-      <org-tag
-        [orgColor]="orgColor"
-        [variant]="variant"
-        [preIcon]="preIcon"
-        [postIcon]="postIcon"
-        [removable]="removable"
-        (preIconClicked)="preIconClicked($event)"
-        (postIconClicked)="postIconClicked($event)"
-        (removed)="removed($event)"
-      >
-        Caution Tag
-      </org-tag>
-    `,
-  }),
-};
-
-export const WarningWeak: Story = {
-  args: {
-    orgColor: 'warning',
-    variant: 'weak',
-  },
-  render: (args) => ({
-    props: args,
-    template: `
-      <org-tag
-        [orgColor]="orgColor"
-        [variant]="variant"
-        [preIcon]="preIcon"
-        [postIcon]="postIcon"
-        [removable]="removable"
-        (preIconClicked)="preIconClicked($event)"
-        (postIconClicked)="postIconClicked($event)"
-        (removed)="removed($event)"
-      >
-        Warning Tag
-      </org-tag>
-    `,
-  }),
-};
-
-export const DangerWeak: Story = {
-  args: {
-    orgColor: 'danger',
-    variant: 'weak',
-  },
-  render: (args) => ({
-    props: args,
-    template: `
-      <org-tag
-        [orgColor]="orgColor"
-        [variant]="variant"
-        [preIcon]="preIcon"
-        [postIcon]="postIcon"
-        [removable]="removable"
-        (preIconClicked)="preIconClicked($event)"
-        (postIconClicked)="postIconClicked($event)"
-        (removed)="removed($event)"
-      >
-        Danger Tag
-      </org-tag>
-    `,
-  }),
-};
-
-// Strong variants
-export const BrandStrong: Story = {
-  args: {
-    orgColor: 'brand',
-    variant: 'strong',
-  },
-  render: (args) => ({
-    props: args,
-    template: `
-      <org-tag
-        [orgColor]="orgColor"
-        [variant]="variant"
-        [preIcon]="preIcon"
-        [postIcon]="postIcon"
-        [removable]="removable"
-        (preIconClicked)="preIconClicked($event)"
-        (postIconClicked)="postIconClicked($event)"
-        (removed)="removed($event)"
-      >
-        Brand Strong
-      </org-tag>
-    `,
-  }),
-};
-
-export const SecondaryStrong: Story = {
-  args: {
-    orgColor: 'secondary',
-    variant: 'strong',
-  },
-  render: (args) => ({
-    props: args,
-    template: `
-      <org-tag
-        [orgColor]="orgColor"
-        [variant]="variant"
-        [preIcon]="preIcon"
-        [postIcon]="postIcon"
-        [removable]="removable"
-        (preIconClicked)="preIconClicked($event)"
-        (postIconClicked)="postIconClicked($event)"
-        (removed)="removed($event)"
-      >
-        Secondary Strong
-      </org-tag>
-    `,
-  }),
-};
-
-// Icon variants
-export const WithPreIcon: Story = {
-  args: {
-    preIcon: 'gear',
-  },
-  render: (args) => ({
-    props: args,
-    template: `
-      <org-tag
-        [orgColor]="orgColor"
-        [variant]="variant"
-        [preIcon]="preIcon"
-        [postIcon]="postIcon"
-        [removable]="removable"
-        (preIconClicked)="preIconClicked($event)"
-        (postIconClicked)="postIconClicked($event)"
-        (removed)="removed($event)"
-      >
-        With Pre Icon
-      </org-tag>
-    `,
-  }),
-};
-
-export const WithPostIcon: Story = {
-  args: {
-    postIcon: 'arrow-right',
-  },
-  render: (args) => ({
-    props: args,
-    template: `
-      <org-tag
-        [orgColor]="orgColor"
-        [variant]="variant"
-        [preIcon]="preIcon"
-        [postIcon]="postIcon"
-        [removable]="removable"
-        (preIconClicked)="preIconClicked($event)"
-        (postIconClicked)="postIconClicked($event)"
-        (removed)="removed($event)"
-      >
-        With Post Icon
-      </org-tag>
-    `,
-  }),
-};
-
-export const WithBothIcons: Story = {
-  args: {
-    preIcon: 'gear',
-    postIcon: 'arrow-right',
-  },
-  render: (args) => ({
-    props: args,
-    template: `
-      <org-tag
-        [orgColor]="orgColor"
-        [variant]="variant"
-        [preIcon]="preIcon"
-        [postIcon]="postIcon"
-        [removable]="removable"
-        (preIconClicked)="preIconClicked($event)"
-        (postIconClicked)="postIconClicked($event)"
-        (removed)="removed($event)"
-      >
-        Both Icons
-      </org-tag>
-    `,
-  }),
-};
-
-// Removable variants
-export const Removable: Story = {
-  args: {
-    removable: true,
-  },
-  render: (args) => ({
-    props: args,
-    template: `
-      <org-tag
-        [orgColor]="orgColor"
-        [variant]="variant"
-        [preIcon]="preIcon"
-        [postIcon]="postIcon"
-        [removable]="removable"
-        (preIconClicked)="preIconClicked($event)"
-        (postIconClicked)="postIconClicked($event)"
-        (removed)="removed($event)"
-      >
-        Removable Tag
-      </org-tag>
-    `,
-  }),
-};
-
-export const RemovableWithPreIcon: Story = {
-  args: {
-    preIcon: 'gear',
-    removable: true,
-  },
-  render: (args) => ({
-    props: args,
-    template: `
-      <org-tag
-        [orgColor]="orgColor"
-        [variant]="variant"
-        [preIcon]="preIcon"
-        [postIcon]="postIcon"
-        [removable]="removable"
-        (preIconClicked)="preIconClicked($event)"
-        (postIconClicked)="postIconClicked($event)"
-        (removed)="removed($event)"
-      >
-        Removable with Pre Icon
-      </org-tag>
-    `,
-  }),
-};
-
-// Interactive examples
-export const WithClickHandlers: Story = {
-  args: {
-    preIcon: 'gear',
-    postIcon: 'arrow-right',
-  },
-  render: (args) => ({
-    props: {
-      ...args,
-      preIconClicked: () => {
-        console.log('Pre icon clicked!');
-      },
-      postIconClicked: () => {
-        console.log('Post icon clicked!');
+  parameters: {
+    docs: {
+      description: {
+        story: 'Default tag with brand color and weak variant. Use the controls below to interact with the component.',
       },
     },
-    template: `
-      <org-tag
-        [orgColor]="orgColor"
-        [variant]="variant"
-        [preIcon]="preIcon"
-        [postIcon]="postIcon"
-        [removable]="removable"
-        (preIconClicked)="preIconClicked()"
-        (postIconClicked)="postIconClicked()"
-        (removed)="removed($event)"
-      >
-        Click Icons
-      </org-tag>
-    `,
-  }),
-};
-
-export const RemovableWithHandler: Story = {
-  args: {
-    removable: true,
-    orgColor: 'danger',
   },
   render: (args) => ({
-    props: {
-      ...args,
-      removed: () => {
-        console.log('Tag removed!');
-      },
-    },
+    props: args,
     template: `
       <org-tag
         [orgColor]="orgColor"
@@ -468,79 +122,288 @@ export const RemovableWithHandler: Story = {
         [preIcon]="preIcon"
         [postIcon]="postIcon"
         [removable]="removable"
-        (preIconClicked)="preIconClicked($event)"
-        (postIconClicked)="postIconClicked($event)"
-        (removed)="removed()"
       >
-        Click X to Remove
+        Tag Content
       </org-tag>
     `,
+    moduleMetadata: {
+      imports: [Tag],
+    },
   }),
 };
 
-// Comprehensive showcase
-export const AllVariants: Story = {
+export const Colors: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Comparison of all 8 color variants with weak variant.',
+      },
+    },
+  },
   render: () => ({
     template: `
-      <div class="space-y-6 w-full max-w-4xl">
-        <div class="space-y-2">
-          <h3 class="text-lg font-semibold">Weak Variants (Default)</h3>
-          <div class="flex flex-wrap gap-2">
-            <org-tag orgColor="brand" variant="weak">Brand</org-tag>
-            <org-tag orgColor="secondary" variant="weak">Secondary</org-tag>
-            <org-tag orgColor="neutral" variant="weak">Neutral</org-tag>
-            <org-tag orgColor="safe" variant="weak">Safe</org-tag>
-            <org-tag orgColor="info" variant="weak">Info</org-tag>
-            <org-tag orgColor="caution" variant="weak">Caution</org-tag>
-            <org-tag orgColor="warning" variant="weak">Warning</org-tag>
-            <org-tag orgColor="danger" variant="weak">Danger</org-tag>
-          </div>
-        </div>
+      <org-storybook-example-container
+        title="Color Variants (Weak)"
+        currentState="Comparing all 8 color options with weak variant"
+      >
+        <org-storybook-example-container-section label="Brand">
+          <org-tag orgColor="brand">Brand</org-tag>
+        </org-storybook-example-container-section>
 
-        <div class="space-y-2">
-          <h3 class="text-lg font-semibold">Strong Variants</h3>
-          <div class="flex flex-wrap gap-2">
-            <org-tag orgColor="brand" variant="strong">Brand</org-tag>
-            <org-tag orgColor="secondary" variant="strong">Secondary</org-tag>
-            <org-tag orgColor="neutral" variant="strong">Neutral</org-tag>
-            <org-tag orgColor="safe" variant="strong">Safe</org-tag>
-            <org-tag orgColor="info" variant="strong">Info</org-tag>
-            <org-tag orgColor="caution" variant="strong">Caution</org-tag>
-            <org-tag orgColor="warning" variant="strong">Warning</org-tag>
-            <org-tag orgColor="danger" variant="strong">Danger</org-tag>
-          </div>
-        </div>
+        <org-storybook-example-container-section label="Secondary">
+          <org-tag orgColor="secondary">Secondary</org-tag>
+        </org-storybook-example-container-section>
 
-        <div class="space-y-2">
-          <h3 class="text-lg font-semibold">With Icons</h3>
-          <div class="flex flex-wrap gap-2">
-            <org-tag orgColor="brand" preIcon="gear">Pre Icon</org-tag>
-            <org-tag orgColor="brand" postIcon="arrow-right">Post Icon</org-tag>
-            <org-tag orgColor="brand" preIcon="gear" postIcon="arrow-right">Both Icons</org-tag>
-          </div>
-        </div>
+        <org-storybook-example-container-section label="Neutral">
+          <org-tag orgColor="neutral">Neutral</org-tag>
+        </org-storybook-example-container-section>
 
-        <div class="space-y-2">
-          <h3 class="text-lg font-semibold">Removable Tags</h3>
-          <div class="flex flex-wrap gap-2">
-            <org-tag orgColor="brand" [removable]="true">Removable</org-tag>
-            <org-tag orgColor="brand" [removable]="true" preIcon="gear">Removable with Pre Icon</org-tag>
-            <org-tag orgColor="brand" [removable]="true" orgColor="danger">Removable Danger</org-tag>
-            <org-tag orgColor="brand" [removable]="true" orgColor="safe" variant="strong">Removable Safe Strong</org-tag>
-          </div>
-        </div>
+        <org-storybook-example-container-section label="Safe">
+          <org-tag orgColor="safe">Safe</org-tag>
+        </org-storybook-example-container-section>
 
-        <div class="space-y-2">
-          <h3 class="text-lg font-semibold">Mixed Examples</h3>
-          <div class="flex flex-wrap gap-2">
-            <org-tag orgColor="brand" variant="strong" preIcon="star">Featured</org-tag>
-            <org-tag orgColor="safe" [removable]="true">React</org-tag>
-            <org-tag orgColor="info" [removable]="true">Angular</org-tag>
-            <org-tag orgColor="warning" [removable]="true">Vue</org-tag>
-            <org-tag orgColor="neutral" variant="strong" postIcon="arrow-square-out">External</org-tag>
-          </div>
-        </div>
-      </div>
+        <org-storybook-example-container-section label="Info">
+          <org-tag orgColor="info">Info</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Caution">
+          <org-tag orgColor="caution">Caution</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Warning">
+          <org-tag orgColor="warning">Warning</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Danger">
+          <org-tag orgColor="danger">Danger</org-tag>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>brand</strong>: Primary brand color</li>
+          <li><strong>secondary</strong>: Secondary accent color</li>
+          <li><strong>neutral</strong>: Neutral/gray color</li>
+          <li><strong>safe</strong>: Success/positive state (green)</li>
+          <li><strong>info</strong>: Informational state (blue)</li>
+          <li><strong>caution</strong>: Caution state (yellow)</li>
+          <li><strong>warning</strong>: Warning state (orange)</li>
+          <li><strong>danger</strong>: Error/danger state (red)</li>
+        </ul>
+      </org-storybook-example-container>
     `,
+    moduleMetadata: {
+      imports: [Tag, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+export const Variants: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Comparison of weak and strong variants across different colors.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Variant Comparison"
+        currentState="Comparing weak and strong variants"
+      >
+        <org-storybook-example-container-section label="Brand - Weak (default)">
+          <org-tag orgColor="brand" variant="weak">Brand Weak</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Brand - Strong">
+          <org-tag orgColor="brand" variant="strong">Brand Strong</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Safe - Weak">
+          <org-tag orgColor="safe" variant="weak">Safe Weak</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Safe - Strong">
+          <org-tag orgColor="safe" variant="strong">Safe Strong</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Danger - Weak">
+          <org-tag orgColor="danger" variant="weak">Danger Weak</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Danger - Strong">
+          <org-tag orgColor="danger" variant="strong">Danger Strong</org-tag>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>weak</strong>: Subtle background with colored text (default)</li>
+          <li><strong>strong</strong>: Solid colored background with contrasting text</li>
+          <li>Both variants work with all color options</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [Tag, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+export const WithIcons: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tags with pre icons, post icons, or both.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Icon Variations"
+        currentState="Comparing tags with different icon configurations"
+      >
+        <org-storybook-example-container-section label="No icons">
+          <org-tag orgColor="brand">No Icons</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Pre icon only">
+          <org-tag orgColor="info" preIcon="gear">Settings</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Post icon only">
+          <org-tag orgColor="safe" postIcon="check">Completed</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Both icons">
+          <org-tag orgColor="brand" preIcon="gear" postIcon="arrow-right">Action</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Strong variant with icons">
+          <org-tag orgColor="danger" variant="strong" preIcon="trash" postIcon="x">Delete</org-tag>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>preIcon</strong>: Icon displayed before the tag text</li>
+          <li><strong>postIcon</strong>: Icon displayed after the tag text</li>
+          <li>Both icons can be used simultaneously</li>
+          <li>Icons work with all variants and colors</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [Tag, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+export const Removable: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Tags with removable functionality that shows an X icon.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Removable Tags"
+        currentState="Tags with remove functionality"
+      >
+        <org-storybook-example-container-section label="Not removable">
+          <org-tag orgColor="brand">Fixed Tag</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Removable (weak)">
+          <org-tag orgColor="brand" [removable]="true">Removable Tag</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Removable (strong)">
+          <org-tag orgColor="safe" variant="strong" [removable]="true">Removable Strong</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Removable with pre icon">
+          <org-tag orgColor="info" preIcon="gear" [removable]="true">Settings Tag</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Multiple removable tags">
+          <div class="flex flex-wrap gap-2">
+            <org-tag orgColor="brand" [removable]="true">React</org-tag>
+            <org-tag orgColor="info" [removable]="true">Angular</org-tag>
+            <org-tag orgColor="safe" [removable]="true">Vue</org-tag>
+            <org-tag orgColor="caution" [removable]="true">Svelte</org-tag>
+          </div>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li>When <strong>removable</strong> is true, an X icon appears on the right</li>
+          <li>Clicking the X icon emits the <strong>removed</strong> event</li>
+          <li>The removable X icon overrides any postIcon setting</li>
+          <li>Works with all variants and colors</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [Tag, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+export const StrongVariantColors: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Comparison of all 8 color variants with strong variant.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Color Variants (Strong)"
+        currentState="Comparing all 8 color options with strong variant"
+      >
+        <org-storybook-example-container-section label="Brand">
+          <org-tag orgColor="brand" variant="strong">Brand</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Secondary">
+          <org-tag orgColor="secondary" variant="strong">Secondary</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Neutral">
+          <org-tag orgColor="neutral" variant="strong">Neutral</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Safe">
+          <org-tag orgColor="safe" variant="strong">Safe</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Info">
+          <org-tag orgColor="info" variant="strong">Info</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Caution">
+          <org-tag orgColor="caution" variant="strong">Caution</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Warning">
+          <org-tag orgColor="warning" variant="strong">Warning</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Danger">
+          <org-tag orgColor="danger" variant="strong">Danger</org-tag>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li>Strong variant provides solid colored backgrounds</li>
+          <li>Text color automatically adjusts for contrast</li>
+          <li>More prominent than weak variant</li>
+          <li>Useful for highlighting important tags</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [Tag, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
   }),
 };

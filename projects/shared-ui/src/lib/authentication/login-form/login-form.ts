@@ -8,7 +8,7 @@ import { z } from 'zod';
 import { Card } from '../../core/card/card';
 import { CardContent } from '../../core/card/card-content';
 import { CardHeader } from '../../core/card/card-header';
-import { GroupedElementsDirective } from '../../core/grouped-elements-directive/grouped-elements-directive';
+import { GroupElementsDirective } from '../../core/group-elements-directive/group-elements-directive';
 import { Icon } from '../../core/icon/icon';
 import { Input } from '../../core/input/input';
 import { Button } from '../../core/button/button';
@@ -16,7 +16,7 @@ import { Button } from '../../core/button/button';
 @Component({
   selector: 'org-login-form',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Card, CardContent, CardHeader, Icon, Input, Button, ReactiveFormsModule, GroupedElementsDirective],
+  imports: [Card, CardContent, CardHeader, Icon, Input, Button, ReactiveFormsModule, GroupElementsDirective],
   templateUrl: './login-form.html',
 })
 export class LoginForm {

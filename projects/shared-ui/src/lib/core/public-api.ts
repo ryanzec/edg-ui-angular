@@ -8,7 +8,7 @@ export * from './card/card-footer';
 export * from './component-color-directive/component-color-directive';
 export * from './feature-flag-store/feature-flag-store';
 export * from './file-upload/file-upload';
-export * from './grouped-elements-directive/grouped-elements-directive';
+export * from './group-elements-directive/group-elements-directive';
 export * from './http-with-credentials-interceptor/http-with-credentials-interceptor';
 export * from './icon/icon';
 export * from './input/input';

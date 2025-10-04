@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, input, output, computed, signal } from '@angular/core';
 import { type User, UserRoleName } from '@organization/shared-types';
-import { GroupedElementsDirective } from '../../core/grouped-elements-directive/grouped-elements-directive';
+import { GroupElementsDirective } from '../../core/group-elements-directive/group-elements-directive';
 import { Icon } from '../../core/icon/icon';
 import { Button } from '../../core/button/button';
 
@@ -12,7 +12,7 @@ type UsersListState = {
 @Component({
   selector: 'org-users-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Icon, Button, GroupedElementsDirective],
+  imports: [Icon, Button, GroupElementsDirective],
   templateUrl: './users-list.html',
 })
 export class UsersList {

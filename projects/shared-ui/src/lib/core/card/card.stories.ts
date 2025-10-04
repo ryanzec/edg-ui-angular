@@ -5,209 +5,129 @@ import { CardContent } from './card-content';
 import { CardImage } from './card-image';
 import { CardFooter } from './card-footer';
 import { Button } from '../button/button';
-import { componentColors } from '../component-color-directive/component-color-directive';
+import { StorybookExampleContainer } from '../../private/storybook-example-container/storybook-example-container';
+import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 
 const meta: Meta<Card> = {
   title: 'Core/Card',
   component: Card,
-  parameters: {
-    layout: 'centered',
-  },
   tags: ['autodocs'],
-  argTypes: {
-    orgColor: {
-      control: 'select',
-      options: [null, ...componentColors],
+  parameters: {
+    docs: {
+      description: {
+        component: `
+<div class="docs-top-level-overview">
+  ## Card Component
+
+  A flexible card component system with multiple sub-components for building rich content layouts.
+
+  ### Components
+  - **Card**: Main container with optional colored border
+  - **CardHeader**: Header section with title and subtitle
+  - **CardImage**: Full-width image section with optimized loading
+  - **CardContent**: Main content area
+  - **CardFooter**: Footer section with configurable button alignment
+
+  ### Features
+  - Compositional design with sub-components
+  - Optional colored borders (8 color variants)
+  - Flexible content layout
+  - Responsive image support
+  - Footer alignment options (start, center, end)
+  - Clean, modern design
+
+  ### Color Options
+  - **null/default**: No colored border (default)
+  - **brand**: Primary brand color border
+  - **secondary**: Secondary accent color border
+  - **neutral**: Neutral gray color border
+  - **safe**: Success/safe state border (green)
+  - **info**: Informational state border (blue)
+  - **caution**: Caution state border (yellow)
+  - **warning**: Warning state border (orange)
+  - **danger**: Danger/error state border (red)
+
+  ### Usage Examples
+  \`\`\`html
+  <!-- Basic card -->
+  <org-card>
+    <org-card-content>
+      <p>Simple card content</p>
+    </org-card-content>
+  </org-card>
+
+  <!-- Card with header -->
+  <org-card>
+    <org-card-header title="Card Title" subtitle="Optional subtitle" />
+    <org-card-content>
+      <p>Card content</p>
+    </org-card-content>
+  </org-card>
+
+  <!-- Card with image -->
+  <org-card>
+    <org-card-header title="Image Card" />
+    <org-card-image
+      src="image.jpg"
+      alt="Description"
+      [width]="400"
+      [height]="200"
+    />
+    <org-card-content>
+      <p>Card with image</p>
+    </org-card-content>
+  </org-card>
+
+  <!-- Complete card with footer -->
+  <org-card orgColor="brand">
+    <org-card-header title="Complete Card" subtitle="All sections" />
+    <org-card-image src="image.jpg" alt="Description" [width]="400" [height]="200" />
+    <org-card-content>
+      <p>Card content with all sections</p>
+    </org-card-content>
+    <org-card-footer alignment="end">
+      <org-button orgColor="secondary">Cancel</org-button>
+      <org-button orgColor="brand">Save</org-button>
+    </org-card-footer>
+  </org-card>
+</div>
+\`\`\`
+        `,
+      },
     },
-  },
-  args: {
-    orgColor: null,
   },
 };
 
 export default meta;
 type Story = StoryObj<Card>;
 
-// Basic card variants
-export const Basic: Story = {
-  render: (args) => ({
-    props: args,
-    template: `
-      <org-card [orgColor]="orgColor">
-        <org-card-content>
-          <p>This is a basic card with just content.</p>
-        </org-card-content>
-      </org-card>
-    `,
-    moduleMetadata: {
-      imports: [Card, CardContent],
+export const Default: Story = {
+  args: {
+    orgColor: null,
+  },
+  argTypes: {
+    orgColor: {
+      control: 'select',
+      options: [null, 'brand', 'secondary', 'neutral', 'safe', 'info', 'caution', 'warning', 'danger'],
+      description: 'The color variant of the card border (null for default)',
     },
-  }),
-};
-
-export const WithHeader: Story = {
-  render: (args) => ({
-    props: args,
-    template: `
-      <org-card [orgColor]="orgColor">
-        <org-card-header title="Card Title" subtitle="Optional subtitle" />
-        <org-card-content>
-          <p>This card has a header with title and subtitle.</p>
-        </org-card-content>
-      </org-card>
-    `,
-    moduleMetadata: {
-      imports: [Card, CardHeader, CardContent],
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Default card with header and content. Use the controls below to interact with the component. Note: This story uses projected content (header and content), so only the color property is interactive.',
+      },
     },
-  }),
-};
-
-export const WithImage: Story = {
+  },
   render: (args) => ({
     props: args,
     template: `
-      <org-card [orgColor]="orgColor">
-        <org-card-header title="Beautiful Landscape" />
-        <org-card-image
-          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=200&fit=crop"
-          alt="Mountain landscape"
-          [width]="400"
-          [height]="200"
-        />
-        <org-card-content>
-          <p>This card includes an image that takes the full width of the card.</p>
-        </org-card-content>
-      </org-card>
-    `,
-    moduleMetadata: {
-      imports: [Card, CardHeader, CardImage, CardContent],
-    },
-  }),
-};
-
-export const WithImageNoHeader: Story = {
-  render: (args) => ({
-    props: args,
-    template: `
-      <org-card [orgColor]="orgColor">
-        <org-card-image
-          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=200&fit=crop"
-          alt="Mountain landscape"
-          [width]="400"
-          [height]="200"
-        />
-        <org-card-content>
-          <p>This card includes an image that takes the full width of the card.</p>
-        </org-card-content>
-      </org-card>
-    `,
-    moduleMetadata: {
-      imports: [Card, CardHeader, CardImage, CardContent],
-    },
-  }),
-};
-
-export const WithFooter: Story = {
-  render: (args) => ({
-    props: args,
-    template: `
-      <org-card [orgColor]="orgColor">
-        <org-card-header title="Action Card" />
-        <org-card-content>
-          <p>This card has footer actions.</p>
-        </org-card-content>
-        <org-card-footer alignment="end">
-          <org-button orgColor="secondary">Cancel</org-button>
-          <org-button orgColor="brand">Save</org-button>
-        </org-card-footer>
-      </org-card>
-    `,
-    moduleMetadata: {
-      imports: [Card, CardHeader, CardContent, CardFooter, Button],
-    },
-  }),
-};
-
-export const Complete: Story = {
-  render: (args) => ({
-    props: args,
-    template: `
-      <org-card [orgColor]="orgColor">
-        <org-card-header title="Complete Card" subtitle="All sections included" />
-        <org-card-image
-          src="https://images.unsplash.com/photo-1551963831-b3b1ca40c98e?w=400&h=200&fit=crop"
-          alt="Breakfast food"
-          [width]="400"
-          [height]="200"
-        />
-        <org-card-content>
-          <p>This card demonstrates all available sections: header, image, content, and footer.</p>
-          <p>The image takes the full width and the footer has action buttons.</p>
-        </org-card-content>
-        <org-card-footer alignment="end">
-          <org-button orgColor="secondary">Learn More</org-button>
-          <org-button orgColor="brand">Order Now</org-button>
-        </org-card-footer>
-      </org-card>
-    `,
-    moduleMetadata: {
-      imports: [Card, CardHeader, CardImage, CardContent, CardFooter, Button],
-    },
-  }),
-};
-
-// Color variants
-export const Variants: Story = {
-  render: (args) => ({
-    props: args,
-    template: `
-      <div class="flex flex-col gap-2">
-        <org-card [orgColor]="'brand'">
-          <org-card-header title="Brand Card" />
+      <div class="max-w-sm">
+        <org-card [orgColor]="orgColor">
+          <org-card-header title="Card Title" subtitle="Optional subtitle" />
           <org-card-content>
-            <p>This card uses the brand color variant for its border.</p>
-          </org-card-content>
-        </org-card>
-        <org-card [orgColor]="'secondary'">
-          <org-card-header title="Secondary Card" />
-          <org-card-content>
-            <p>This card uses the secondary color variant for its border.</p>
-          </org-card-content>
-        </org-card>
-        <org-card [orgColor]="'neutral'">
-          <org-card-header title="Neutral Card" />
-          <org-card-content>
-            <p>This card uses the neutral color variant for its border.</p>
-          </org-card-content>
-        </org-card>
-        <org-card [orgColor]="'safe'">
-          <org-card-header title="Safe Card" />
-          <org-card-content>
-            <p>This card uses the safe color variant for its border.</p>
-          </org-card-content>
-        </org-card>
-        <org-card [orgColor]="'info'">
-            <org-card-header title="Info Card" />
-          <org-card-content>
-            <p>This card uses the info color variant for its border.</p>
-          </org-card-content>
-        </org-card>
-        <org-card [orgColor]="'caution'">
-          <org-card-header title="Caution Card" />
-          <org-card-content>
-            <p>This card uses the caution color variant for its border.</p>
-          </org-card-content>
-        </org-card>
-        <org-card [orgColor]="'warning'">
-          <org-card-header title="Warning Card" />
-          <org-card-content>
-            <p>This card uses the warning color variant for its border.</p>
-          </org-card-content>
-        </org-card>
-        <org-card [orgColor]="'danger'">
-          <org-card-header title="Danger Card" />
-          <org-card-content>
-            <p>This card uses the danger color variant for its border.</p>
+            <p>This is a card with header and content.</p>
           </org-card-content>
         </org-card>
       </div>
@@ -218,149 +138,340 @@ export const Variants: Story = {
   }),
 };
 
-// Footer alignment variants
-export const FooterAlignments: Story = {
-  render: () => ({
-    template: `
-      <div class="flex flex-col gap-4">
-        <org-card>
-          <org-card-header title="Start Aligned Footer" />
-          <org-card-content>
-            <p>Footer actions aligned to the start (left).</p>
-          </org-card-content>
-          <org-card-footer alignment="start">
-            <org-button orgColor="brand">Action</org-button>
-          </org-card-footer>
-        </org-card>
-
-        <org-card>
-          <org-card-header title="Center Aligned Footer" />
-          <org-card-content>
-            <p>Footer actions aligned to the center.</p>
-          </org-card-content>
-          <org-card-footer alignment="center">
-            <org-button orgColor="brand">Action</org-button>
-          </org-card-footer>
-        </org-card>
-
-        <org-card>
-          <org-card-header title="End Aligned Footer" />
-          <org-card-content>
-            <p>Footer actions aligned to the end (right).</p>
-          </org-card-content>
-          <org-card-footer alignment="end">
-            <org-button orgColor="brand">Action</org-button>
-          </org-card-footer>
-        </org-card>
-      </div>
-    `,
-    moduleMetadata: {
-      imports: [Card, CardHeader, CardContent, CardFooter, Button],
+export const Colors: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Comparison of all color variants for card borders (default and 8 color options).',
+      },
     },
-  }),
-};
-
-// Comprehensive showcase
-export const AllVariants: Story = {
+  },
   render: () => ({
     template: `
-      <div class="flex flex-col gap-6">
-        <div class="flex flex-col gap-2">
-          <h3 class="text-lg font-semibold">Color Variants</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <org-storybook-example-container
+        title="Color Variants"
+        currentState="Comparing default and all 8 color border options"
+      >
+        <org-storybook-example-container-section label="Default (No Border Color)">
+          <div class="max-w-sm">
             <org-card>
-              <org-card-header title="Default" />
+              <org-card-header title="Default Card" />
               <org-card-content>
-                <p>Default variant</p>
-              </org-card-content>
-            </org-card>
-            <org-card orgColor="brand">
-              <org-card-header title="Brand" />
-              <org-card-content>
-                <p>Brand variant</p>
-              </org-card-content>
-            </org-card>
-            <org-card orgColor="secondary">
-              <org-card-header title="Secondary" />
-              <org-card-content>
-                <p>Secondary variant</p>
-              </org-card-content>
-            </org-card>
-            <org-card orgColor="neutral">
-              <org-card-header title="Neutral" />
-              <org-card-content>
-                <p>Neutral variant</p>
-              </org-card-content>
-            </org-card>
-            <org-card orgColor="safe">
-              <org-card-header title="Safe" />
-              <org-card-content>
-                <p>Safe variant</p>
-              </org-card-content>
-            </org-card>
-            <org-card orgColor="info">
-              <org-card-header title="Info" />
-              <org-card-content>
-                <p>Info variant</p>
-              </org-card-content>
-            </org-card>
-            <org-card orgColor="caution">
-              <org-card-header title="Caution" />
-              <org-card-content>
-                <p>Caution variant</p>
-              </org-card-content>
-            </org-card>
-            <org-card orgColor="warning">
-              <org-card-header title="Warning" />
-              <org-card-content>
-                <p>Warning variant</p>
-              </org-card-content>
-            </org-card>
-            <org-card orgColor="danger">
-              <org-card-header title="Danger" />
-              <org-card-content>
-                <p>Danger variant</p>
+                <p>Card with no colored border.</p>
               </org-card-content>
             </org-card>
           </div>
-        </div>
+        </org-storybook-example-container-section>
 
-        <div class="space-y-2">
-          <h3 class="text-lg font-semibold">Complex Examples</h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <org-storybook-example-container-section label="Brand">
+          <div class="max-w-sm">
+            <org-card orgColor="brand">
+              <org-card-header title="Brand Card" />
+              <org-card-content>
+                <p>Card with brand color border.</p>
+              </org-card-content>
+            </org-card>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Secondary">
+          <div class="max-w-sm">
+            <org-card orgColor="secondary">
+              <org-card-header title="Secondary Card" />
+              <org-card-content>
+                <p>Card with secondary color border.</p>
+              </org-card-content>
+            </org-card>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Neutral">
+          <div class="max-w-sm">
+            <org-card orgColor="neutral">
+              <org-card-header title="Neutral Card" />
+              <org-card-content>
+                <p>Card with neutral color border.</p>
+              </org-card-content>
+            </org-card>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Safe (Success)">
+          <div class="max-w-sm">
+            <org-card orgColor="safe">
+              <org-card-header title="Safe Card" />
+              <org-card-content>
+                <p>Card with safe (success) color border.</p>
+              </org-card-content>
+            </org-card>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Info">
+          <div class="max-w-sm">
+            <org-card orgColor="info">
+              <org-card-header title="Info Card" />
+              <org-card-content>
+                <p>Card with info color border.</p>
+              </org-card-content>
+            </org-card>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Caution">
+          <div class="max-w-sm">
+            <org-card orgColor="caution">
+              <org-card-header title="Caution Card" />
+              <org-card-content>
+                <p>Card with caution color border.</p>
+              </org-card-content>
+            </org-card>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Warning">
+          <div class="max-w-sm">
+            <org-card orgColor="warning">
+              <org-card-header title="Warning Card" />
+              <org-card-content>
+                <p>Card with warning color border.</p>
+              </org-card-content>
+            </org-card>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Danger (Error)">
+          <div class="max-w-sm">
+            <org-card orgColor="danger">
+              <org-card-header title="Danger Card" />
+              <org-card-content>
+                <p>Card with danger (error) color border.</p>
+              </org-card-content>
+            </org-card>
+          </div>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>Default</strong>: No colored border, standard card appearance</li>
+          <li><strong>Brand</strong>: Primary brand color for main content cards</li>
+          <li><strong>Secondary</strong>: Secondary accent color for supporting content</li>
+          <li><strong>Neutral</strong>: Neutral gray for low-emphasis cards</li>
+          <li><strong>Safe</strong>: Green for success/positive status cards</li>
+          <li><strong>Info</strong>: Blue for informational cards</li>
+          <li><strong>Caution</strong>: Yellow for caution/warning cards</li>
+          <li><strong>Warning</strong>: Orange for important warnings</li>
+          <li><strong>Danger</strong>: Red for error/critical status cards</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [Card, CardHeader, CardContent, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+export const Compositions: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Comparison of different card compositions using various combinations of sub-components (header, image, content, footer).',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Card Compositions"
+        currentState="Comparing different combinations of card sub-components"
+      >
+        <org-storybook-example-container-section label="Content Only">
+          <div class="max-w-sm">
             <org-card>
-              <org-card-header title="Product Card" subtitle="Featured item" />
+              <org-card-content>
+                <p>Minimal card with just content.</p>
+              </org-card-content>
+            </org-card>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Header + Content">
+          <div class="max-w-sm">
+            <org-card>
+              <org-card-header title="Card Title" subtitle="Optional subtitle" />
+              <org-card-content>
+                <p>Card with header and content.</p>
+              </org-card-content>
+            </org-card>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Header + Image + Content">
+          <div class="max-w-sm">
+            <org-card>
+              <org-card-header title="Image Card" />
               <org-card-image
                 src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=200&fit=crop"
-                alt="Product image"
+                alt="Example image"
                 [width]="400"
                 [height]="200"
               />
               <org-card-content>
-                <p>Premium running shoes with advanced cushioning technology.</p>
-                <p class="font-semibold text-lg">$129.99</p>
+                <p>Card with header, image, and content.</p>
               </org-card-content>
-              <org-card-footer alignment="end">
-                <org-button orgColor="secondary">Add to Cart</org-button>
-                <org-button orgColor="brand">Buy Now</org-button>
-              </org-card-footer>
             </org-card>
+          </div>
+        </org-storybook-example-container-section>
 
-            <org-card orgColor="info">
-              <org-card-header title="Notification" />
+        <org-storybook-example-container-section label="Image + Content (No Header)">
+          <div class="max-w-sm">
+            <org-card>
+              <org-card-image
+                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=200&fit=crop"
+                alt="Example image"
+                [width]="400"
+                [height]="200"
+              />
               <org-card-content>
-                <p>Your account has been successfully updated with the new security settings.</p>
+                <p>Card with image at top, no header.</p>
+              </org-card-content>
+            </org-card>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Header + Content + Footer">
+          <div class="max-w-sm">
+            <org-card>
+              <org-card-header title="Action Card" />
+              <org-card-content>
+                <p>Card with header, content, and footer actions.</p>
               </org-card-content>
               <org-card-footer alignment="end">
-                <org-button orgColor="brand">Dismiss</org-button>
+                <org-button orgColor="brand">Action</org-button>
               </org-card-footer>
             </org-card>
           </div>
-        </div>
-      </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Complete (All Sections)">
+          <div class="max-w-sm">
+            <org-card>
+              <org-card-header title="Complete Card" subtitle="All sections" />
+              <org-card-image
+                src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=200&fit=crop"
+                alt="Example image"
+                [width]="400"
+                [height]="200"
+              />
+              <org-card-content>
+                <p>Card with all available sections.</p>
+              </org-card-content>
+              <org-card-footer alignment="end">
+                <org-button orgColor="secondary">Cancel</org-button>
+                <org-button orgColor="brand">Save</org-button>
+              </org-card-footer>
+            </org-card>
+          </div>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>Content Only</strong>: Minimal card structure with just content</li>
+          <li><strong>Header + Content</strong>: Standard card with title/subtitle and content</li>
+          <li><strong>Header + Image + Content</strong>: Card with full-width image below header</li>
+          <li><strong>Image + Content</strong>: Image-first card without header</li>
+          <li><strong>Header + Content + Footer</strong>: Card with action buttons in footer</li>
+          <li><strong>Complete</strong>: All sections combined for maximum flexibility</li>
+        </ul>
+      </org-storybook-example-container>
     `,
     moduleMetadata: {
-      imports: [Card, CardHeader, CardImage, CardContent, CardFooter, Button],
+      imports: [
+        Card,
+        CardHeader,
+        CardImage,
+        CardContent,
+        CardFooter,
+        Button,
+        StorybookExampleContainer,
+        StorybookExampleContainerSection,
+      ],
+    },
+  }),
+};
+
+export const FooterAlignments: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Comparison of different footer alignment options (start, center, end).',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Footer Alignments"
+        currentState="Comparing start, center, and end alignments"
+      >
+        <org-storybook-example-container-section label="Start Aligned (Left)">
+          <div class="max-w-sm">
+            <org-card>
+              <org-card-header title="Start Aligned" />
+              <org-card-content>
+                <p>Footer buttons aligned to the start (left).</p>
+              </org-card-content>
+              <org-card-footer alignment="start">
+                <org-button orgColor="brand">Action</org-button>
+              </org-card-footer>
+            </org-card>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Center Aligned">
+          <div class="max-w-sm">
+            <org-card>
+              <org-card-header title="Center Aligned" />
+              <org-card-content>
+                <p>Footer buttons aligned to the center.</p>
+              </org-card-content>
+              <org-card-footer alignment="center">
+                <org-button orgColor="brand">Action</org-button>
+              </org-card-footer>
+            </org-card>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="End Aligned (Right)">
+          <div class="max-w-sm">
+            <org-card>
+              <org-card-header title="End Aligned" />
+              <org-card-content>
+                <p>Footer buttons aligned to the end (right).</p>
+              </org-card-content>
+              <org-card-footer alignment="end">
+                <org-button orgColor="brand">Action</org-button>
+              </org-card-footer>
+            </org-card>
+          </div>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>Start</strong>: Buttons aligned to the left side of the footer</li>
+          <li><strong>Center</strong>: Buttons centered in the footer</li>
+          <li><strong>End</strong>: Buttons aligned to the right side of the footer (default for action buttons)</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [
+        Card,
+        CardHeader,
+        CardContent,
+        CardFooter,
+        Button,
+        StorybookExampleContainer,
+        StorybookExampleContainerSection,
+      ],
     },
   }),
 };

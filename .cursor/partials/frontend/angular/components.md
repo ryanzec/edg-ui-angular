@@ -90,8 +90,8 @@ if (!!this.isAuthenticated()) {
 - ALWAYS use Reactive forms over of Template-driven ones
 - ALWAYS use `class` attribute for css classes
 - ALWAYS use `style` attribute for inline styles
-- ALWAYS create a storybook file (`*.story.ts`) in the same folder as the component with stories for all the unique state, DO NOT create any play / test related stories in this file
-- ALWAYS create a storybook testing file (`*.tests.story.ts`) in the same folder as the component that is empty
+- ALWAYS create a storybook file (`*.stories.ts`) in the same folder as the component with stories for all the unique state, DO NOT create any play / test related stories in this file
+- ALWAYS create a storybook testing file (`*.tests.stories.ts`) in the same folder as the component that is empty
 - ALWAYS use a service injection when you ne
 - ALWAYS suffix `@ViewChild` member name with `Ref` when it is linked to a native html element and the value for the `@ViewChild` must match:
 ```ts

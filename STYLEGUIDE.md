@@ -558,3 +558,9 @@ When possible, we should create a minimal storybook example that can be used to 
 ## AI can sometimes create custom implementation of thing where a 3rd part library would be better (like creating a md5 hashing solution that ironically indefinately loops)
 
 ## refactoring names in component typescript code does not auto update template code
+
+## Only create directive when the styles being applied are true generic
+
+## will sometimes miss required proeprty in storybook file which does not have template validation
+
+- added rule to ai rules

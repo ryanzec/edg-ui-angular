@@ -1,0 +1,15 @@
+<div
+  [class]="
+    mergeClasses(
+      'flex',
+      {
+        '-space-x-6': size() === 'sm',
+        '-space-x-5': size() === 'base',
+        '-space-x-3': size() === 'lg',
+      },
+      class()
+    )
+  "
+>
+  <ng-content />
+</div>

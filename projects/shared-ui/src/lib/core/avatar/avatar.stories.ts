@@ -1,347 +1,322 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { Avatar, avatarSizes } from './avatar';
+import { Avatar } from './avatar';
+import { StorybookExampleContainer } from '../../private/storybook-example-container/storybook-example-container';
+import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 
 const meta: Meta<Avatar> = {
   title: 'Core/Avatar',
   component: Avatar,
-  parameters: {
-    layout: 'centered',
-  },
   tags: ['autodocs'],
-  argTypes: {
-    size: {
-      control: 'select',
-      options: avatarSizes,
+  parameters: {
+    docs: {
+      description: {
+        component: `
+<div class="docs-top-level-overview">
+  ## Avatar Component
+
+  A flexible avatar component that displays user images, initials, or Gravatar images with optional labels.
+
+  ### Features
+  - 3 size variants (sm, base, lg)
+  - Automatic initials generation from names
+  - Custom image support
+  - Gravatar integration via email
+  - Optional label and sub-label
+  - Automatic fallback to initials on image load error
+  - Flexible layout options
+
+  ### Size Options
+  - **sm**: Small avatar (24px)
+  - **base**: Standard avatar size (32px) - default
+  - **lg**: Large avatar (40px)
+
+  ### Image Priority
+  1. Custom image URL (via \`src\`)
+  2. Gravatar (via \`email\`)
+  3. Initials (generated from \`label\`)
+
+  ### Initials Generation
+  - Single word: First 2 letters (e.g., "John" → "JO")
+  - Multiple words: First letter of first word + first letter of last word (e.g., "John Doe" → "JD")
+
+  ### Usage Examples
+  \`\`\`html
+  <!-- Avatar with initials -->
+  <org-avatar label="John Doe"></org-avatar>
+
+  <!-- Avatar with custom image -->
+  <org-avatar label="John Doe" src="path/to/image.jpg"></org-avatar>
+
+  <!-- Avatar with Gravatar -->
+  <org-avatar label="John Doe" email="test1@example.com"></org-avatar>
+
+  <!-- Avatar with labels -->
+  <org-avatar label="John Doe" subLabel="Software Engineer"></org-avatar>
+
+  <!-- Avatar with image and labels -->
+  <org-avatar
+    label="John Doe"
+    subLabel="Software Engineer"
+    src="path/to/image.jpg"
+  ></org-avatar>
+
+  <!-- Large avatar without label display -->
+  <org-avatar label="John Doe" size="lg" [showLabel]="false"></org-avatar>
+</div>
+\`\`\`
+        `,
+      },
     },
-    label: {
-      control: 'text',
-    },
-    subLabel: {
-      control: 'text',
-    },
-    email: {
-      control: 'text',
-    },
-    src: {
-      control: 'text',
-    },
-    showLabel: {
-      control: 'boolean',
-    },
-  },
-  args: {
-    size: 'base',
-    label: null,
-    subLabel: null,
-    email: null,
-    src: null,
   },
 };
 
 export default meta;
 type Story = StoryObj<Avatar>;
 
-// Basic avatar with initials
-export const WithInitials: Story = {
+export const Default: Story = {
   args: {
     label: 'John Doe',
-  },
-  render: (args) => ({
-    props: args,
-    template:
-      '<org-avatar [label]="label" [subLabel]="subLabel" [size]="size" [email]="email" [src]="src"></org-avatar>',
-  }),
-};
-
-// Avatar with gravatar
-export const WithGravatar: Story = {
-  args: {
-    label: 'John Doe',
-    email: 'test@gravatar.com',
-  },
-  render: (args) => ({
-    props: args,
-    template:
-      '<org-avatar [label]="label" [subLabel]="subLabel" [size]="size" [email]="email" [src]="src"></org-avatar>',
-  }),
-};
-
-// Avatar with custom image
-export const WithCustomImage: Story = {
-  args: {
-    label: 'John Doe',
-    src: 'https://api.dicebear.com/7.x/avataaars/svg?seed=John',
-  },
-  render: (args) => ({
-    props: args,
-    template:
-      '<org-avatar [label]="label" [subLabel]="subLabel" [size]="size" [email]="email" [src]="src"></org-avatar>',
-  }),
-};
-
-// Avatar with label and sublabel
-export const WithLabels: Story = {
-  args: {
-    label: 'John Doe',
-    subLabel: 'Software Engineer',
-  },
-  render: (args) => ({
-    props: args,
-    template:
-      '<org-avatar [label]="label" [subLabel]="subLabel" [size]="size" [email]="email" [src]="src"></org-avatar>',
-  }),
-};
-
-// Avatar with image and labels
-export const WithImageAndLabels: Story = {
-  args: {
-    label: 'John Doe',
-    subLabel: 'Software Engineer',
-    src: 'https://api.dicebear.com/7.x/avataaars/svg?seed=John',
-  },
-  render: (args) => ({
-    props: args,
-    template:
-      '<org-avatar [label]="label" [subLabel]="subLabel" [size]="size" [email]="email" [src]="src"></org-avatar>',
-  }),
-};
-
-// Size variants
-export const SmallSize: Story = {
-  args: {
-    label: 'John Doe',
-    size: 'sm',
-  },
-  render: (args) => ({
-    props: args,
-    template:
-      '<org-avatar [label]="label" [subLabel]="subLabel" [size]="size" [email]="email" [src]="src"></org-avatar>',
-  }),
-};
-
-export const BaseSize: Story = {
-  args: {
-    label: 'John Doe',
+    subLabel: null,
     size: 'base',
+    email: null,
+    src: null,
+    circleClass: '',
+    showLabel: true,
   },
-  render: (args) => ({
-    props: args,
-    template:
-      '<org-avatar [label]="label" [subLabel]="subLabel" [size]="size" [email]="email" [src]="src"></org-avatar>',
-  }),
+  argTypes: {
+    label: {
+      control: 'text',
+      description: 'The name/label for the avatar',
+    },
+    subLabel: {
+      control: 'text',
+      description: 'Optional secondary label below the main label',
+    },
+    size: {
+      control: 'select',
+      options: ['sm', 'base', 'lg'],
+      description: 'The size of the avatar',
+    },
+    email: {
+      control: 'text',
+      description: 'Email address for Gravatar lookup',
+    },
+    src: {
+      control: 'text',
+      description: 'Custom image URL (overrides Gravatar)',
+    },
+    circleClass: {
+      control: 'text',
+      description: 'Additional CSS classes for the avatar circle',
+    },
+    showLabel: {
+      control: 'boolean',
+      description: 'Whether to display the label text',
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Default avatar configuration with label and initials. Use the controls below to interact with the component.',
+      },
+    },
+  },
 };
 
-export const LargeSize: Story = {
-  args: {
-    label: 'John Doe',
-    size: 'lg',
+export const Sizes: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Comparison of all available size variants (sm, base, lg).',
+      },
+    },
   },
-  render: (args) => ({
-    props: args,
-    template:
-      '<org-avatar [label]="label" [subLabel]="subLabel" [size]="size" [email]="email" [src]="src"></org-avatar>',
-  }),
-};
-
-// Single letter initials
-export const SingleName: Story = {
-  args: {
-    label: 'John',
-  },
-  render: (args) => ({
-    props: args,
-    template:
-      '<org-avatar [label]="label" [subLabel]="subLabel" [size]="size" [email]="email" [src]="src"></org-avatar>',
-  }),
-};
-
-// Multiple word initials
-export const MultipleWordName: Story = {
-  args: {
-    label: 'John Michael Doe',
-  },
-  render: (args) => ({
-    props: args,
-    template:
-      '<org-avatar [label]="label" [subLabel]="subLabel" [size]="size" [email]="email" [src]="src"></org-avatar>',
-  }),
-};
-
-// Avatar only (no labels)
-export const AvatarOnly: Story = {
-  args: {
-    src: 'https://api.dicebear.com/7.x/avataaars/svg?seed=John',
-  },
-  render: (args) => ({
-    props: args,
-    template:
-      '<org-avatar [label]="label" [subLabel]="subLabel" [size]="size" [email]="email" [src]="src"></org-avatar>',
-  }),
-};
-
-// Fallback behavior (invalid gravatar)
-export const GravatarFallback: Story = {
-  args: {
-    label: 'No Avatar',
-    email: 'nonexistent@example.com',
-  },
-  render: (args) => ({
-    props: args,
-    template:
-      '<org-avatar [label]="label" [subLabel]="subLabel" [size]="size" [email]="email" [src]="src"></org-avatar>',
-  }),
-};
-
-// Image load error fallback
-export const ImageLoadError: Story = {
-  args: {
-    label: 'John Doe',
-    src: 'https://invalid-url-that-will-fail.com/nonexistent-image.jpg',
-  },
-  render: (args) => ({
-    props: args,
-    template:
-      '<org-avatar [label]="label" [subLabel]="subLabel" [size]="size" [email]="email" [src]="src"></org-avatar>',
-  }),
-};
-
-export const HideLabel: Story = {
-  args: {
-    label: 'John Doe',
-    showLabel: false,
-  },
-  render: (args) => ({
-    props: args,
-    template:
-      '<org-avatar [label]="label" [subLabel]="subLabel" [size]="size" [email]="email" [src]="src" [showLabel]="showLabel"></org-avatar>',
-  }),
-};
-
-// Comprehensive showcase
-export const AllVariants: Story = {
   render: () => ({
     template: `
-      <div class="flex flex-col gap-8 p-4">
-        <div class="flex flex-col gap-2">
-          <h3 class="text-lg font-semibold">Sizes</h3>
-          <div class="flex items-center gap-4">
-            <org-avatar label="John Doe" size="sm"></org-avatar>
-            <org-avatar label="John Doe" size="base"></org-avatar>
-            <org-avatar label="John Doe" size="lg"></org-avatar>
-          </div>
-        </div>
+      <org-storybook-example-container
+        title="Size Variants"
+        currentState="Comparing sm, base, and lg sizes"
+      >
+        <org-storybook-example-container-section label="Small (sm)">
+          <org-avatar label="John Doe" size="sm"></org-avatar>
+        </org-storybook-example-container-section>
 
-        <div class="flex flex-col gap-2">
-          <h3 class="text-lg font-semibold">With Initials</h3>
-          <div class="flex items-center gap-4">
-            <org-avatar label="John Doe" size="sm"></org-avatar>
-            <org-avatar label="Jane Smith" size="base"></org-avatar>
-            <org-avatar label="Bob Johnson" size="lg"></org-avatar>
-          </div>
-        </div>
+        <org-storybook-example-container-section label="Base (default)">
+          <org-avatar label="John Doe" size="base"></org-avatar>
+        </org-storybook-example-container-section>
 
-        <div class="flex flex-col gap-2">
-          <h3 class="text-lg font-semibold">With Images</h3>
-          <div class="flex items-center gap-4">
-            <org-avatar
-              label="John Doe"
-              src="https://api.dicebear.com/7.x/avataaars/svg?seed=John"
-              size="sm"
-            ></org-avatar>
-            <org-avatar
-              label="Jane Smith"
-              src="https://api.dicebear.com/7.x/avataaars/svg?seed=Jane"
-              size="base"
-            ></org-avatar>
-            <org-avatar
-              label="Bob Johnson"
-              src="https://api.dicebear.com/7.x/avataaars/svg?seed=Bob"
-              size="lg"
-            ></org-avatar>
-          </div>
-        </div>
+        <org-storybook-example-container-section label="Large (lg)">
+          <org-avatar label="John Doe" size="lg"></org-avatar>
+        </org-storybook-example-container-section>
 
-        <div class="flex flex-col gap-2">
-          <h3 class="text-lg font-semibold">With Labels</h3>
-          <div class="flex flex-col gap-3">
-            <org-avatar
-              label="John Doe"
-              subLabel="Software Engineer"
-              size="sm"
-            ></org-avatar>
-            <org-avatar
-              label="Jane Smith"
-              subLabel="Product Manager"
-              size="base"
-            ></org-avatar>
-            <org-avatar
-              label="Bob Johnson"
-              subLabel="UI/UX Designer"
-              size="lg"
-            ></org-avatar>
-          </div>
-        </div>
-
-        <div class="flex flex-col gap-2">
-          <h3 class="text-lg font-semibold">With Images and Labels</h3>
-          <div class="flex flex-col gap-3">
-            <org-avatar
-              label="John Doe"
-              subLabel="Software Engineer"
-              src="https://api.dicebear.com/7.x/avataaars/svg?seed=John"
-              size="sm"
-            ></org-avatar>
-            <org-avatar
-              label="Jane Smith"
-              subLabel="Product Manager"
-              src="https://api.dicebear.com/7.x/avataaars/svg?seed=Jane"
-              size="base"
-            ></org-avatar>
-            <org-avatar
-              label="Bob Johnson"
-              subLabel="UI/UX Designer"
-              src="https://api.dicebear.com/7.x/avataaars/svg?seed=Bob"
-              size="lg"
-            ></org-avatar>
-          </div>
-        </div>
-
-        <div class="flex flex-col gap-2">
-          <h3 class="text-lg font-semibold">Initials Variations</h3>
-          <div class="flex items-center gap-4">
-            <org-avatar label="John"></org-avatar>
-            <org-avatar label="John Doe"></org-avatar>
-            <org-avatar label="John Michael Doe"></org-avatar>
-            <org-avatar label="A B C D"></org-avatar>
-          </div>
-        </div>
-
-        <div class="flex flex-col gap-2">
-          <h3 class="text-lg font-semibold">User List Example</h3>
-          <div class="flex flex-col gap-2">
-            <org-avatar
-              label="Alice Anderson"
-              subLabel="alice@example.com"
-              src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alice"
-            ></org-avatar>
-            <org-avatar
-              label="Bob Brown"
-              subLabel="bob@example.com"
-              src="https://api.dicebear.com/7.x/avataaars/svg?seed=Bob"
-            ></org-avatar>
-            <org-avatar
-              label="Carol Clark"
-              subLabel="carol@example.com"
-              src="https://api.dicebear.com/7.x/avataaars/svg?seed=Carol"
-            ></org-avatar>
-            <org-avatar
-              label="David Davis"
-              subLabel="david@example.com"
-              src="https://api.dicebear.com/7.x/avataaars/svg?seed=David"
-            ></org-avatar>
-          </div>
-        </div>
-      </div>
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>sm</strong>: Small avatar (24px)</li>
+          <li><strong>base</strong>: Standard avatar size (32px) - default</li>
+          <li><strong>lg</strong>: Large avatar (40px)</li>
+        </ul>
+      </org-storybook-example-container>
     `,
+    moduleMetadata: {
+      imports: [Avatar, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+export const ImageTypes: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Comparison of different image types: initials, Gravatar, and custom images.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Image Types"
+        currentState="Comparing initials, Gravatar, and custom images"
+      >
+        <org-storybook-example-container-section label="With Initials">
+          <org-avatar label="John Doe"></org-avatar>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="With Gravatar">
+          <org-avatar label="John Doe" email="test1@example.com"></org-avatar>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="With Custom Image">
+          <org-avatar label="John Doe" src="https://api.dicebear.com/7.x/avataaars/svg?seed=John"></org-avatar>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>Initials</strong>: Automatically generated from label (first and last name)</li>
+          <li><strong>Gravatar</strong>: Fetched from Gravatar service using email</li>
+          <li><strong>Custom Image</strong>: Uses provided image URL (takes priority)</li>
+          <li>Falls back to initials if image fails to load</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [Avatar, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+export const LabelVariations: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Comparison of different label configurations: with labels, with sub-labels, and without labels.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Label Variations"
+        currentState="Comparing different label configurations"
+      >
+        <org-storybook-example-container-section label="With Label Only">
+          <org-avatar label="John Doe"></org-avatar>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="With Label and Sub-label">
+          <org-avatar label="John Doe" subLabel="Software Engineer"></org-avatar>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Without Labels (Avatar Only)">
+          <org-avatar label="John Doe" [showLabel]="false"></org-avatar>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>Label Only</strong>: Displays name next to avatar</li>
+          <li><strong>Label and Sub-label</strong>: Displays name and additional info (e.g., title, email)</li>
+          <li><strong>Avatar Only</strong>: Shows only the avatar circle without text</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [Avatar, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+export const InitialsGeneration: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Comparison of how initials are generated from different name formats.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Initials Generation"
+        currentState="Comparing single name, two names, and multiple names"
+      >
+        <org-storybook-example-container-section label="Single Name">
+          <org-avatar label="John"></org-avatar>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Two Names">
+          <org-avatar label="John Doe"></org-avatar>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Multiple Names">
+          <org-avatar label="John Michael Doe"></org-avatar>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>Single Name</strong>: Shows first 2 letters (e.g., "John" → "JO")</li>
+          <li><strong>Two Names</strong>: Shows first letter of each word (e.g., "John Doe" → "JD")</li>
+          <li><strong>Multiple Names</strong>: Shows first letter of first and last word (e.g., "John Michael Doe" → "JD")</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [Avatar, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+export const ErrorHandling: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demonstration of fallback behavior when images fail to load.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Error Handling & Fallbacks"
+        currentState="Testing image load failures"
+      >
+        <org-storybook-example-container-section label="Invalid Image URL">
+          <org-avatar label="John Doe" src="https://invalid-url.com/image.jpg"></org-avatar>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Invalid Gravatar Email">
+          <org-avatar label="John Doe" email="nonexistent@example.com"></org-avatar>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Successful Image">
+          <org-avatar label="John Doe" src="https://api.dicebear.com/7.x/avataaars/svg?seed=John"></org-avatar>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>Invalid Image URL</strong>: Falls back to initials when image fails to load</li>
+          <li><strong>Invalid Gravatar</strong>: Falls back to initials when Gravatar not found</li>
+          <li><strong>Successful Image</strong>: Displays image when successfully loaded</li>
+          <li>Fallback is seamless and automatic</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [Avatar, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
   }),
 };

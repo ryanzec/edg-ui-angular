@@ -41,7 +41,7 @@ Styling Hard Requirements:
 - When defining custom css variables, ALWAYS use `var(), NEVER tailwinds `theme()` function
 - ALWAYS create component design tokens that reference system design components that are defined, availaboe core design taken as in`projects/shared-ui/src/lib/variables.css`, pattern of implementation can be found in `projects/shared-ui/src/lib/core/button/button-variables.css`
 - For color styling, please make sure all colors being usse are using custom design tokens.
-- NEVER USE TAILWIND COLORS WITH CSS CLASSES, ONLY USE WHEN DEFINING OTHER COLOR DESIGN TOKENS
+- MUST account for both light and dark mode though custom css variable as done in `projects/shared-ui/src/lib/core/button/button-variables.css`
 
 
 

@@ -14,6 +14,9 @@ export type CardAlignment = 'start' | 'center' | 'end';
       inputs: ['orgColor'],
     },
   ],
+  host: {
+    class: 'block',
+  },
 })
 export class Card {
   public orgColor = input<ComponentColor | null>(null);

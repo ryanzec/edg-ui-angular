@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { GroupedElementsDirective } from './grouped-elements-directive';
+import { GroupElementsDirective } from './group-elements-directive';
 import { describe, it, expect, beforeEach } from 'vitest';
 
 @Component({
   template: `
-    <div [orgGroupedElements]="enabled" [flexDirection]="flexDirection" data-testid="test-element">Test Content</div>
+    <div [orgGroupElements]="enabled" [flexDirection]="flexDirection" data-testid="test-element">Test Content</div>
   `,
-  imports: [GroupedElementsDirective],
+  imports: [GroupElementsDirective],
 })
 class TestComponent {
   public enabled: boolean | null = true;
@@ -30,7 +30,7 @@ describe('GroupedElementsDirective', () => {
   });
 
   it('should create an instance', () => {
-    const directive = new GroupedElementsDirective();
+    const directive = new GroupElementsDirective();
     expect(directive).toBeTruthy();
   });
 
@@ -64,7 +64,7 @@ describe('GroupedElementsDirective', () => {
   it('should add CSS classes by default when no value is provided (default row direction)', () => {
     // Test with default behavior (no explicit value)
     fixture.nativeElement.innerHTML = `
-      <div orgGroupedElements data-testid="default-element">
+      <div orgGroupElements data-testid="default-element">
         Default Content
       </div>
     `;
@@ -109,7 +109,7 @@ describe('GroupedElementsDirective', () => {
   it('should default to row direction when flexDirection is not specified', () => {
     // Test with default flexDirection behavior
     fixture.nativeElement.innerHTML = `
-      <div orgGroupedElements data-testid="default-flex-element">
+      <div orgGroupElements data-testid="default-flex-element">
         Default Flex Content
       </div>
     `;

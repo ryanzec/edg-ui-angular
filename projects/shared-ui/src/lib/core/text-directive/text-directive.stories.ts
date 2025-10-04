@@ -1,398 +1,266 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { Component, input } from '@angular/core';
-import { TextDirective, textColors, textSizes, type TextColor, type TextSize } from './text-directive';
+import { TextDirective, textColors, textSizes } from './text-directive';
+import { StorybookExampleContainer } from '../../private/storybook-example-container/storybook-example-container';
+import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 
-@Component({
-  selector: 'org-story-wrapper',
-  template: `
-    <div class="p-4 space-y-4">
-      <h3 class="text-lg font-semibold mb-2">Text Directive Demo</h3>
-
-      <div class="border-2 border-dashed border-border p-4 rounded-lg">
-        <p class="text-sm text-text-color mb-2">
-          Text Color: <strong>{{ getTextColorDisplay() }}</strong> | Text Size:
-          <strong>{{ getTextSizeDisplay() }}</strong>
-        </p>
-        <p orgText [textColor]="getTextColorValue()" [textSize]="getTextSizeValue()">
-          This is sample text with the applied directive styles.
-        </p>
-      </div>
-
-      <div class="text-sm text-text-color">
-        <p><strong>Expected behavior:</strong></p>
-        <ul class="list-disc list-inside mt-1 space-y-1">
-          <li>
-            When <strong>textColor</strong> is set: Applies the corresponding <code>text-text-[COLOR]</code> class
-          </li>
-          <li>When <strong>textSize</strong> is set: Applies the corresponding <code>text-[SIZE]</code> class</li>
-          <li>When values are <strong>null</strong>: No classes are applied (uses default styling)</li>
-        </ul>
-      </div>
-    </div>
-  `,
-  imports: [TextDirective],
-})
-class StoryWrapperComponent {
-  public readonly textColor = input<TextColor | 'null'>('null');
-  public readonly textSize = input<TextSize | 'null'>('null');
-
-  public getTextColorValue(): TextColor | null {
-    const value = this.textColor();
-    return value === 'null' ? null : value;
-  }
-
-  public getTextSizeValue(): TextSize | null {
-    const value = this.textSize();
-    return value === 'null' ? null : value;
-  }
-
-  public getTextColorDisplay(): string {
-    return this.getTextColorValue() ?? 'null';
-  }
-
-  public getTextSizeDisplay(): string {
-    return this.getTextSizeValue() ?? 'null';
-  }
-}
-
-type StoryArgs = {
-  textColor: TextColor | 'null';
-  textSize: TextSize | 'null';
-};
-
-const meta: Meta<StoryArgs> = {
-  title: 'Shared UI/Core/Directives/Text',
-  component: StoryWrapperComponent,
+const meta: Meta<TextDirective> = {
+  title: 'Core/Directives/Text',
+  component: TextDirective,
   tags: ['autodocs'],
-  argTypes: {
-    textColor: {
-      control: {
-        type: 'select',
-      },
-      options: ['null', ...textColors],
-      description: 'Controls the text color class applied to the element',
-      table: {
-        type: { summary: 'TextColor | null' },
-        defaultValue: { summary: 'null' },
+  parameters: {
+    docs: {
+      description: {
+        component: `
+<div class="docs-top-level-overview">
+  ## Text Directive
+
+  A directive for applying consistent text colors and sizes across the application.
+
+  ### Features
+  - Seven semantic color options: brand, secondary, safe, info, caution, warning, danger
+  - Six size options: xs, sm, base, lg, xl, 2xl
+  - Can be used independently or combined
+  - Null values use default styling
+
+  ### Color Options
+  - **brand**: Primary brand color
+  - **secondary**: Secondary accent color
+  - **safe**: Success/positive state (green)
+  - **info**: Informational state (blue)
+  - **caution**: Caution state (yellow)
+  - **warning**: Warning state (orange)
+  - **danger**: Error/danger state (red)
+
+  ### Size Options
+  - **xs**: Extra small (0.75rem / 12px)
+  - **sm**: Small (0.875rem / 14px)
+  - **base**: Base (1rem / 16px)
+  - **lg**: Large (1.125rem / 18px)
+  - **xl**: Extra large (1.25rem / 20px)
+  - **2xl**: 2x extra large (1.5rem / 24px)
+
+  ### Usage Examples
+  \`\`\`html
+  <!-- Text with color only -->
+  <p orgText textColor="brand">Brand colored text</p>
+
+  <!-- Text with size only -->
+  <p orgText textSize="lg">Large text</p>
+
+  <!-- Text with both color and size -->
+  <p orgText textColor="danger" textSize="xl">Danger extra large text</p>
+
+  <!-- Text with no styling (uses defaults) -->
+  <p orgText>Default text</p>
+</div>
+\`\`\`
+        `,
       },
     },
+  },
+};
+
+export default meta;
+type Story = StoryObj<TextDirective>;
+
+export const Default: Story = {
+  args: {
+    textColor: null,
+    textSize: null,
+  },
+  argTypes: {
+    textColor: {
+      control: 'select',
+      options: [null, ...textColors],
+      description: 'The semantic color to apply to the text',
+    },
     textSize: {
-      control: {
-        type: 'select',
-      },
-      options: ['null', ...textSizes],
-      description: 'Controls the text size class applied to the element',
-      table: {
-        type: { summary: 'TextSize | null' },
-        defaultValue: { summary: 'null' },
+      control: 'select',
+      options: [null, ...textSizes],
+      description: 'The size to apply to the text',
+    },
+  },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Default text directive with no color or size applied. Use the controls below to interact with the directive.',
       },
     },
   },
   render: (args) => ({
     props: args,
-  }),
-};
-
-export default meta;
-type Story = StoryObj<StoryArgs>;
-
-export const Interactive: Story = {
-  args: {
-    textColor: 'null',
-    textSize: 'null',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Interactive controls to test different combinations of text color and size.',
-      },
-    },
-  },
-};
-
-// color variants
-export const BrandColor: Story = {
-  args: {
-    textColor: 'brand',
-    textSize: 'null',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Text with brand color applied.',
-      },
-    },
-  },
-};
-
-export const SecondaryColor: Story = {
-  args: {
-    textColor: 'secondary',
-    textSize: 'null',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Text with secondary color applied.',
-      },
-    },
-  },
-};
-
-export const SafeColor: Story = {
-  args: {
-    textColor: 'safe',
-    textSize: 'null',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Text with safe color applied.',
-      },
-    },
-  },
-};
-
-export const InfoColor: Story = {
-  args: {
-    textColor: 'info',
-    textSize: 'null',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Text with info color applied.',
-      },
-    },
-  },
-};
-
-export const CautionColor: Story = {
-  args: {
-    textColor: 'caution',
-    textSize: 'null',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Text with caution color applied.',
-      },
-    },
-  },
-};
-
-export const WarningColor: Story = {
-  args: {
-    textColor: 'warning',
-    textSize: 'null',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Text with warning color applied.',
-      },
-    },
-  },
-};
-
-export const DangerColor: Story = {
-  args: {
-    textColor: 'danger',
-    textSize: 'null',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Text with danger color applied.',
-      },
-    },
-  },
-};
-
-// size variants
-export const ExtraSmallSize: Story = {
-  args: {
-    textColor: 'null',
-    textSize: 'xs',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Text with extra small size applied.',
-      },
-    },
-  },
-};
-
-export const SmallSize: Story = {
-  args: {
-    textColor: 'null',
-    textSize: 'sm',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Text with small size applied.',
-      },
-    },
-  },
-};
-
-export const BaseSize: Story = {
-  args: {
-    textColor: 'null',
-    textSize: 'base',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Text with base size applied.',
-      },
-    },
-  },
-};
-
-export const LargeSize: Story = {
-  args: {
-    textColor: 'null',
-    textSize: 'lg',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Text with large size applied.',
-      },
-    },
-  },
-};
-
-export const ExtraLargeSize: Story = {
-  args: {
-    textColor: 'null',
-    textSize: 'xl',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Text with extra large size applied.',
-      },
-    },
-  },
-};
-
-export const TwoExtraLargeSize: Story = {
-  args: {
-    textColor: 'null',
-    textSize: '2xl',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Text with 2xl size applied.',
-      },
-    },
-  },
-};
-
-// combined variants
-export const BrandLarge: Story = {
-  args: {
-    textColor: 'brand',
-    textSize: 'lg',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Text with brand color and large size.',
-      },
-    },
-  },
-};
-
-export const DangerExtraLarge: Story = {
-  args: {
-    textColor: 'danger',
-    textSize: 'xl',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Text with danger color and extra large size.',
-      },
-    },
-  },
-};
-
-export const SafeSmall: Story = {
-  args: {
-    textColor: 'safe',
-    textSize: 'sm',
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Text with safe color and small size.',
-      },
-    },
-  },
-};
-
-// showcase all variants
-export const AllVariants: Story = {
-  render: () => ({
     template: `
-      <div class="space-y-6 p-4">
-        <div class="space-y-2">
-          <h3 class="text-lg font-semibold">Color Variants</h3>
-          <div class="space-y-1">
-            <p orgText textColor="brand">Brand text color</p>
-            <p orgText textColor="secondary">Secondary text color</p>
-            <p orgText textColor="safe">Safe text color</p>
-            <p orgText textColor="info">Info text color</p>
-            <p orgText textColor="caution">Caution text color</p>
-            <p orgText textColor="warning">Warning text color</p>
-            <p orgText textColor="danger">Danger text color</p>
-          </div>
-        </div>
-
-        <div class="space-y-2">
-          <h3 class="text-lg font-semibold">Size Variants</h3>
-          <div class="space-y-1">
-            <p orgText textSize="xs">Extra small text (xs)</p>
-            <p orgText textSize="sm">Small text (sm)</p>
-            <p orgText textSize="base">Base text (base)</p>
-            <p orgText textSize="lg">Large text (lg)</p>
-            <p orgText textSize="xl">Extra large text (xl)</p>
-            <p orgText textSize="2xl">2xl text (2xl)</p>
-          </div>
-        </div>
-
-        <div class="space-y-2">
-          <h3 class="text-lg font-semibold">Combined Variants</h3>
-          <div class="space-y-1">
-            <p orgText textColor="brand" textSize="lg">Brand large text</p>
-            <p orgText textColor="danger" textSize="xl">Danger extra large text</p>
-            <p orgText textColor="safe" textSize="sm">Safe small text</p>
-            <p orgText textColor="info" textSize="2xl">Info 2xl text</p>
-            <p orgText textColor="warning" textSize="xs">Warning extra small text</p>
-          </div>
-        </div>
-
-        <div class="space-y-2">
-          <h3 class="text-lg font-semibold">Default (No Styling)</h3>
-          <p orgText>Text with no color or size specified</p>
-        </div>
-      </div>
+      <p orgText [textColor]="textColor" [textSize]="textSize">
+        This is sample text with the text directive applied.
+      </p>
     `,
     moduleMetadata: {
       imports: [TextDirective],
     },
   }),
+};
+
+export const Colors: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Comprehensive showcase of all text directive variants including colors, sizes, and combinations.',
+        story: 'Comparison of all 7 semantic color options.',
       },
     },
   },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Color Variants"
+        currentState="Comparing all 7 semantic color options"
+      >
+        <org-storybook-example-container-section label="Brand">
+          <p orgText textColor="brand">Brand text color</p>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Secondary">
+          <p orgText textColor="secondary">Secondary text color</p>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Safe">
+          <p orgText textColor="safe">Safe text color</p>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Info">
+          <p orgText textColor="info">Info text color</p>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Caution">
+          <p orgText textColor="caution">Caution text color</p>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Warning">
+          <p orgText textColor="warning">Warning text color</p>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Danger">
+          <p orgText textColor="danger">Danger text color</p>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>brand</strong>: Primary brand color</li>
+          <li><strong>secondary</strong>: Secondary accent color</li>
+          <li><strong>safe</strong>: Success/positive state (green)</li>
+          <li><strong>info</strong>: Informational state (blue)</li>
+          <li><strong>caution</strong>: Caution state (yellow)</li>
+          <li><strong>warning</strong>: Warning state (orange)</li>
+          <li><strong>danger</strong>: Error/danger state (red)</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [TextDirective, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+export const Sizes: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Comparison of all 6 size options.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Size Variants"
+        currentState="Comparing all 6 size options"
+      >
+        <org-storybook-example-container-section label="Extra Small (xs)">
+          <p orgText textSize="xs">Extra small text (0.75rem / 12px)</p>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Small (sm)">
+          <p orgText textSize="sm">Small text (0.875rem / 14px)</p>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Base">
+          <p orgText textSize="base">Base text (1rem / 16px)</p>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Large (lg)">
+          <p orgText textSize="lg">Large text (1.125rem / 18px)</p>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Extra Large (xl)">
+          <p orgText textSize="xl">Extra large text (1.25rem / 20px)</p>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="2x Extra Large (2xl)">
+          <p orgText textSize="2xl">2xl text (1.5rem / 24px)</p>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>xs</strong>: 0.75rem / 12px</li>
+          <li><strong>sm</strong>: 0.875rem / 14px</li>
+          <li><strong>base</strong>: 1rem / 16px</li>
+          <li><strong>lg</strong>: 1.125rem / 18px</li>
+          <li><strong>xl</strong>: 1.25rem / 20px</li>
+          <li><strong>2xl</strong>: 1.5rem / 24px</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [TextDirective, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+export const Combined: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Examples of combining color and size options.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Combined Color and Size"
+        currentState="Demonstrating color and size combinations"
+      >
+        <org-storybook-example-container-section label="Brand + Large">
+          <p orgText textColor="brand" textSize="lg">Brand large text</p>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Danger + Extra Large">
+          <p orgText textColor="danger" textSize="xl">Danger extra large text</p>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Safe + Small">
+          <p orgText textColor="safe" textSize="sm">Safe small text</p>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Info + 2xl">
+          <p orgText textColor="info" textSize="2xl">Info 2xl text</p>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Warning + Extra Small">
+          <p orgText textColor="warning" textSize="xs">Warning extra small text</p>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Secondary + Base">
+          <p orgText textColor="secondary" textSize="base">Secondary base text</p>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li>Color and size can be used independently or together</li>
+          <li>Both properties are optional and default to null</li>
+          <li>When null, the element uses its inherited or default styling</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [TextDirective, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
 };

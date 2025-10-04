@@ -31,7 +31,6 @@ export type ButtonState = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Icon, LoadingSpinner],
   templateUrl: './button.html',
-  styleUrl: './button.css',
   hostDirectives: [
     {
       directive: ComponentColorDirective,

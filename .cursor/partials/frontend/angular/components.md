@@ -8,15 +8,17 @@ Things you might want to indicate in your prompt for creating component:
 -->
 
 ALWAYS use the following components over bespoken inline components when appropriate:
-- buttons: `projects/shared-ui/src/lib/core/button`
-- cards: `projects/shared-ui/src/lib/core/card`
-- file upload: `projects/shared-ui/src/lib/core/file-upload`
-- icons: `projects/shared-ui/src/lib/core/icon`
-- input: `projects/shared-ui/src/lib/core/input`
-- loading icon indicator: `projects/shared-ui/src/lib/core/loading-spinner`
-- pagination: `projects/shared-ui/src/lib/core/pagination`
-- tags: `projects/shared-ui/src/lib/core/tag`
-- textarea: `projects/shared-ui/src/lib/core/textarea`
+- avatar: user display as initials or image - `projects/shared-ui/src/lib/core/avatar`
+- avatar stack: for display multiple avatars stacked on each other - `projects/shared-ui/src/lib/core/avatar-stack`
+- button: clickable button - `projects/shared-ui/src/lib/core/button`
+- card: general purpose content container - `projects/shared-ui/src/lib/core/card`
+- file upload: drag and drop fiel uploading - `projects/shared-ui/src/lib/core/file-upload`
+- icon: icons - `projects/shared-ui/src/lib/core/icon`
+- input: standard text input field - `projects/shared-ui/src/lib/core/input`
+- loading icon indicator: loading indicator - `projects/shared-ui/src/lib/core/loading-spinner`
+- pagination: pagination for a collection of data - `projects/shared-ui/src/lib/core/pagination`
+- tag: badge / tagging / labeling indicator - `projects/shared-ui/src/lib/core/tag`
+- textarea: standard textarea input field `projects/shared-ui/src/lib/core/textarea`
 
 ALWAYS use the following directives when valid over duplicating functionality in other components:
 - component color: `projects/shared-ui/src/lib/core/component-color-directive`
@@ -29,26 +31,27 @@ For references in how we implement a multitide of component feature, reference t
 - `projects/shared-ui/src/lib/core/input/input.ts`
 
 You MUST ALWAYS use these patterns when work on Angular 20 components:
-- MUST use angular CDK when it has functionality that be used
-- MUST pass the data component need in the inputs
-- MUST use modern signal input using `input()`
-- MUST use modern event handling using `output()`
-- MUST apply best practices for accessibility
-- MUST use native control flow like `@if`, `@for`, `@switch` in templates
-- MUST use `rxjs` + `outputFromObservable()` when you need to determine if an output event is being listened to like this:
+- ALWAYS use angular CDK when it has functionality that be used
+- ALWAYS pass the data component need in the inputs
+- ALWAYS use modern signal input using `input()`
+- ALWAYS use modern event handling using `output()`
+- ALWAYS apply best practices for accessibility
+- ALWAYS use native control flow like `@if`, `@for`, `@switch` in templates
+- ALWAYS use `rxjs` + `outputFromObservable()` when you need to determine if an output event is being listened to like this:
 ```ts
 private _preIconClicked$ = new Subject<void>();
 // ...
 public preIconClicked = outputFromObservable(this._preIconClicked$);
 // ...
 ```
-- MUST use the `host` property when possible of the `@Component` decorator
-- MUST add a `dataid` property to top level custom component that is `snake-case` of the component name like `Button` would be `dataid="button"` or `UserList` would be `dataid="user-list"`
-- MUST set `changeDetection: ChangeDetectionStrategy.OnPush` in `@Component` decorator
-- MUST have an input for `class` that is placed on the wrapping element for the component
-- MUST have selector be prefixed with `org-`
+- ALWAYS use the `host` property when possible of the `@Component` decorator
+- ALWAYS add a `dataid` property to top level custom component that is `snake-case` of the component name like `Button` would be `dataid="button"` or `UserList` would be `dataid="user-list"`
+- ALWAYS set `changeDetection: ChangeDetectionStrategy.OnPush` in `@Component` decorator
+- ALWAYS have an input for `class` that is placed on the wrapping element for the component
+- ALWAYS have selector be prefixed with `org-`
+- ALWAYS ask for the name of the selector if one has not been explicitly given to you
 <!-- Because of the reactive nature of Angular's new signals system, the overhead of something like `computed()` and generally not worth worrying about is order to provide a cleaner api -->
-- MUST wrap private state access in `computed()` methods
+- ALWAYS wrap private state access in `computed()` methods
 ```ts
 // ✅ MUST DO
 // ...
@@ -62,11 +65,11 @@ if (!!this.isAuthenticated()) {
   // ...
 }
 ```
-- MUST explicitly mark inputs and outputs as `public`
-- MUST explicitly mark members (data) / methods (functions) of the class component `protected` if it need to be accessed by the template
-- MUST explicitly mark methods (functions) of the class component as `public` for anything that is request to be part of the public api
+- ALWAYS explicitly mark inputs and outputs as `public`
+- ALWAYS explicitly mark members (data) / methods (functions) of the class component `protected` if it need to be accessed by the template
+- ALWAYS explicitly mark methods (functions) of the class component as `public` for anything that is request to be part of the public api
 <!-- needed to avoid compiler issues -->
-- MUST use explicitly pattern for add `hostDirectives` to components
+- ALWAYS use explicitly pattern for add `hostDirectives` to components
 ```ts
 @Component({
   //...
@@ -80,23 +83,23 @@ if (!!this.isAuthenticated()) {
 })
 ```
 <!-- this will provide better type safety and a clear api, this also always the component to only allow a subset of the directive input values if needed -->
-- MUST explicitly define the input(s) that the directive defines on the component itself when adding a `hostDirective` to a component
-- MUST add icon to `IconName` in `projects/shared-ui/src/lib/core/icon/icon.ts` if request but not available
-- MUST prefix any input with `default*` when it is only used to default internal state
-- MUST keep components small and focused on a single responsibility
-- MUST use Reactive forms over of Template-driven ones
-- MUST use `class` attribute for css classes
-- MUST use `style` attribute for inline styles
-- MUST create a storybook file (`*.story.ts`) in the same folder as the component with stories for all the unique state, DO NOT create any play / test related stories in this file
-- MUST create a storybook testing file (`*.tests.story.ts`) in the same folder as the component that is empty
-- MUST use a service injection when you ne
-- MUST suffix `@ViewChild` member name with `Ref` when it is linked to a native html element and the value for the `@ViewChild` must match:
+- ALWAYS explicitly define the input(s) that the directive defines on the component itself when adding a `hostDirective` to a component
+- ALWAYS add icon to `IconName` in `projects/shared-ui/src/lib/core/icon/icon.ts` if request but not available
+- ALWAYS prefix any input with `default*` when it is only used to default internal state
+- ALWAYS keep components small and focused on a single responsibility
+- ALWAYS use Reactive forms over of Template-driven ones
+- ALWAYS use `class` attribute for css classes
+- ALWAYS use `style` attribute for inline styles
+- ALWAYS create a storybook file (`*.story.ts`) in the same folder as the component with stories for all the unique state, DO NOT create any play / test related stories in this file
+- ALWAYS create a storybook testing file (`*.tests.story.ts`) in the same folder as the component that is empty
+- ALWAYS use a service injection when you ne
+- ALWAYS suffix `@ViewChild` member name with `Ref` when it is linked to a native html element and the value for the `@ViewChild` must match:
 ```ts
 // MUST DO
 @ViewChild('inputRef')
   public readonly inputRef!: ElementRef<HTMLInputElement>;
 ```
-- MUST suffix `@ViewChild` member name with `Component` when it is linked to an Angular component element and the value for the `@ViewChild` must match:
+- ALWAYS suffix `@ViewChild` member name with `Component` when it is linked to an Angular component element and the value for the `@ViewChild` must match:
 ```ts
 // MUST DO
 @ViewChild('cardComponent')
@@ -107,9 +110,20 @@ It won't be available in `ngOnInit` without static set to true.
 
 You must make sure this is not wrapped in any conditional logic like `@if` as it will not work in those cases
 -->
-- MUST use `static: true` for `@ViewChild` ONLY if you need to access the child in the `ngOnInit` lifecycle method
-- MUST add a `public mergeClasses` to a component when the template needs condition css classes
-- When css class application need to happen based on typescript conditional checks, add `public mergeClasses = tailwindUtils.merge;` to the component class as use that in the html template (usage reference: `projects/shared-ui/src/lib/core/pagination/pagination.html`)
+- ALWAYS use `static: true` for `@ViewChild` ONLY if you need to access the child in the `ngOnInit` lifecycle method
+- ALWAYS add a `public mergeClasses` to a component when the template needs condition css classes
+- ALWAYS add `public mergeClasses = tailwindUtils.merge;` to the component class and use that in the html template when css class application need to happen based on typescript conditional checks, usage reference: `projects/shared-ui/src/lib/core/pagination/pagination.html`
+<!--
+This button component is a better choice for accessability and it already unstyled by tailwind so there are not style concerns with this
+-->
+- ALWAYS use the bottom component when needing to create an element that has clickbility 
+- ALWAYS define class inputs to a component with a prefix that is a semantic name for what it is applied to
+```ts
+// MUST DO
+public containerClass = input<string>('');
+public iconClass = input<string>('');
+public inputClass = input<string>('');
+```
 
 You can NEVER use these patterns when work on Angular 20 components:
 - NEVER re-create functionality that is already available in angular CDK
@@ -118,13 +132,13 @@ You can NEVER use these patterns when work on Angular 20 components:
 - NEVER use the older event system pattern `@Output()` decorator
 - NEVER use old control flow pattern like `*ngIf`, `*ngFor`, `*ngSwitch` in templates
 - NEVER use the `@HostListener` decorator on component class methods
-```
+```ts
 // NEVER DO
 @HostListener('keydown', ['$event'])
 protected keyPress(event: KeyboardEvent): void {
 ```
 - NEVER create methods in components that output css / tailwind class names
-```
+```ts
 // NEVER DO
 public containerClasses() {
   return ['container', 'flex', 'flex-col'];
@@ -135,3 +149,9 @@ public containerClasses() {
 - NEVER create an inline template in `@Component` unless less then 10 lines of code
 - NEVER use `ngClass` attribute for css classes
 - NEVER use `ngStyle` attribute for inline styles
+- NEVER add an attribute to a angular component if the default value for the angular component is the same
+- NEVER use class as a property for a component
+```ts
+// NEVER DO
+public class = input<string>('');
+```

@@ -1,9 +1,11 @@
 Angular 20 Directive Hard Requirements:
-- Do NOT use the `@HostBinding` and `@HostListener` decorators. Put host bindings inside the `host` object of the `@Component` or `@Directive` decorator instead
-- `Directive` should NEVER be part of the selector for the directive
-- If the affect of the directive should be able to be turned off, have `null` value that basically removes everything
-- Must NOT set `standalone: true` inside Angular decorators. It's the default.
-- All inputs for a directive MUST have a export default value using the pattern of `[direct name minus the Directive part]_[input name minus the selector prefix part]_DEFAULT`
+
+
+You MUST ALWAYS use these patterns when work on Angular 20 directives:
+- ALWAYS ask for the name of the selector if one has not been explicitly given to you
+- ALWAYS use host bindings inside the `host` object of the `@Directive` decorator when needed
+- ALWAYS allow `null `as a value if the directive is designed to be turned off
+- ALWAYS have a export default value for each input of the directive using the pattern of `[direct name minus the Directive part]_[input name minus the selector prefix part]_DEFAULT`
 ```ts
 export const COMPONENT_COLOR_COLOR_DEFAULT: ComponentColor | null = null;
 
@@ -15,3 +17,11 @@ export class ComponentColorDirective {
   // ...
 }
 ```
+You MUST NEVER use these patterns when work on Angular 20 components:
+- NEVER use `Directive` in the name of the selector
+- NEVER use `@HostBinding` and `@HostListener` decorators
+<!--
+This is the default 
+-->
+- NEVER use `standalone: true` in the `@Directive` decorator
+- 

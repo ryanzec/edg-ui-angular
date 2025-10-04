@@ -35,7 +35,8 @@ export class Avatar {
   public size = input<AvatarSize>('base');
   public email = input<string | null>(null);
   public src = input<string | null>(null);
-  public class = input<string>('');
+  public circleClass = input<string>('');
+  public showLabel = input<boolean>(true);
 
   public clicked = output<MouseEvent | KeyboardEvent>();
 

@@ -21,7 +21,7 @@ Angular 20 Hard Requirements:
 
 
 You MUST ALWAYS use these patterns when work on Angular 20 in general:
-- MUST use `type` for types
+- ALWAYS use `type` for types
 
 You can NEVER use these patterns when work on Angular 20 components:
 - NEVER use `interface` for types

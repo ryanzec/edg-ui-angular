@@ -5,7 +5,7 @@ language: 'typescript'
 
 tasks:
   type-check:
-    command: '$workspaceRoot/node_modules/.bin/tsc --project tsconfig.app.json'
+    command: '$workspaceRoot/node_modules/.bin/ngc --project tsconfig.app.json'
     inputs:
       - '**/*'
       - /tsconfig.json

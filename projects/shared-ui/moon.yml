@@ -19,7 +19,7 @@ tasks:
   #     runFromWorkspaceRoot: false
 
   type-check:
-    command: '$workspaceRoot/node_modules/.bin/tsc --project tsconfig.lib.json'
+    command: '$workspaceRoot/node_modules/.bin/ngc --project tsconfig.lib.prod.json'
     inputs:
       - '**/*'
       - /tsconfig.json

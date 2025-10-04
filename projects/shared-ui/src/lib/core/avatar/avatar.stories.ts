@@ -25,6 +25,9 @@ const meta: Meta<Avatar> = {
     src: {
       control: 'text',
     },
+    showLabel: {
+      control: 'boolean',
+    },
   },
   args: {
     size: 'base',
@@ -199,6 +202,18 @@ export const ImageLoadError: Story = {
     props: args,
     template:
       '<org-avatar [label]="label" [subLabel]="subLabel" [size]="size" [email]="email" [src]="src"></org-avatar>',
+  }),
+};
+
+export const HideLabel: Story = {
+  args: {
+    label: 'John Doe',
+    showLabel: false,
+  },
+  render: (args) => ({
+    props: args,
+    template:
+      '<org-avatar [label]="label" [subLabel]="subLabel" [size]="size" [email]="email" [src]="src" [showLabel]="showLabel"></org-avatar>',
   }),
 };
 

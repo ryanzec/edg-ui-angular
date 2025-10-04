@@ -8,7 +8,7 @@ import { GroupedElementsDirective } from './grouped-elements-directive';
     <div class="p-4 space-y-4">
       <h3 class="text-lg font-semibold mb-2">Grouped Elements Directive Demo</h3>
 
-      <div class="border-2 border-dashed border-gray-300 p-4 rounded-lg">
+      <div class="border-2 border-dashed border-border p-4 rounded-lg">
         <p class="text-sm text-text-color mb-2">
           Directive state: <strong>{{ getDisplayValue() }}</strong> | Flex Direction:
           <strong>{{ getFlexDirectionValue() }}</strong>
@@ -16,11 +16,11 @@ import { GroupedElementsDirective } from './grouped-elements-directive';
         <div
           [orgGroupedElements]="getEnabledValue()"
           [flexDirection]="getFlexDirectionValue()"
-          class="bg-blue-50 border border-blue-200 p-4 rounded"
+          class="bg-background border border-border p-4 rounded"
         >
-          <div class="bg-white p-2 border border-outline rounded-md">First Item</div>
-          <div class="bg-white p-2 border border-outline rounded-md">Second Item</div>
-          <div class="bg-white p-2 border border-outline rounded-md">Third Item</div>
+          <div class="bg-background p-2 border border-outline rounded-md">First Item</div>
+          <div class="bg-background p-2 border border-outline rounded-md">Second Item</div>
+          <div class="bg-background p-2 border border-outline rounded-md">Third Item</div>
         </div>
       </div>
 

@@ -556,3 +556,5 @@ When possible, we should create a minimal storybook example that can be used to 
 ## `min-h-0` / `min-w-0` to child overflowing their `flex` based parent
 
 ## AI can sometimes create custom implementation of thing where a 3rd part library would be better (like creating a md5 hashing solution that ironically indefinately loops)
+
+## refactoring names in component typescript code does not auto update template code

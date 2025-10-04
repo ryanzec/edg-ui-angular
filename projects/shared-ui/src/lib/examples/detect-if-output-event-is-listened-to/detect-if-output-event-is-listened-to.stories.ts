@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { DetectIfOutputEventIsListenedTo } from './detect-if-output-event-is-listened-to';
 
 const meta: Meta<DetectIfOutputEventIsListenedTo> = {
-  title: 'Examples/Detect Output Event Listeners',
+  title: 'Examples/Patterns/Detect Output Event Listeners',
   component: DetectIfOutputEventIsListenedTo,
   parameters: {
     docs: {

@@ -58,8 +58,9 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit {
   private readonly _focusMonitor = inject(FocusMonitor);
   private readonly _elementRef = inject(ElementRef<HTMLElement>);
 
-  @ViewChild('textareaElement', { static: true })
-  private readonly _textareaElementRef!: ElementRef<HTMLTextAreaElement>;
+  // we need the static to match sure we can bind the dom event to properly managed the focused state
+  @ViewChild('textareaRef', { static: true })
+  public readonly textareaRef!: ElementRef<HTMLTextAreaElement>;
 
   /**
    * @internal Only exposed for testing purposes
@@ -116,7 +117,7 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit {
   public mergeClasses = tailwindUtils.merge;
 
   public ngOnInit(): void {
-    this._focusMonitor.monitor(this._textareaElementRef.nativeElement).subscribe((origin) => {
+    this._focusMonitor.monitor(this.textareaRef.nativeElement).subscribe((origin) => {
       const wasFocused = this._state().isFocused;
       const isFocused = !!origin;
 
@@ -129,7 +130,7 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit {
         this.focused.emit();
 
         if (this.selectAllOnFocus()) {
-          this._textareaElementRef.nativeElement.select();
+          this.textareaRef.nativeElement.select();
         }
       } else if (!isFocused && wasFocused) {
         this.blurred.emit();
@@ -139,12 +140,12 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit {
 
   public ngAfterViewInit(): void {
     if (this.autoFocus()) {
-      this._textareaElementRef.nativeElement.focus();
+      this.textareaRef.nativeElement.focus();
     }
   }
 
   public ngOnDestroy(): void {
-    this._focusMonitor.stopMonitoring(this._textareaElementRef.nativeElement);
+    this._focusMonitor.stopMonitoring(this.textareaRef.nativeElement);
   }
 
   public handleInputChange(event: Event): void {
@@ -190,6 +191,6 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public focusTextarea(): void {
-    this._textareaElementRef.nativeElement.focus();
+    this.textareaRef.nativeElement.focus();
   }
 }

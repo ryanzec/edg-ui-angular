@@ -11,3 +11,10 @@ Storybook 9 Guidelines:
 - Don't overide the default storybook lauyout, just let it use the default
 - Make sure to account for all component states
 - Make sure to NOT write and test / play related stories in the generated code
+- NEVER add centering position to storybook unless EXPLICITLY asked for
+```ts
+// NEVER DO
+  parameters: {
+    layout: 'centered',
+  },
+```

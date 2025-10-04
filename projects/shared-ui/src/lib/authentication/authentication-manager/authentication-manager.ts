@@ -18,7 +18,7 @@ type AuthenticationState = {
 @Injectable({
   providedIn: 'root',
 })
-export class AuthenticationStore {
+export class AuthenticationManager {
   private readonly _logManager = inject(LogManager);
   private readonly _localStorageManager = inject(LocalStorageManager);
   private readonly _authenticationApi = inject(AuthenticationApi);

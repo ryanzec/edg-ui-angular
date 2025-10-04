@@ -1,3 +1,4 @@
+export * from './avatar/avatar';
 export * from './button/button';
 export * from './card/card';
 export * from './card/card-header';
@@ -14,6 +15,7 @@ export * from './input/input';
 export * from './loading-spinner/loading-spinner';
 export * from './log-manager/log-manager';
 export * from './pagination/pagination';
+export * from './pagination-store/pagination-store';
 export * from './tag/tag';
 export * from './types/public-api';
 export * from './utils';

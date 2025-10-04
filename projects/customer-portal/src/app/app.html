@@ -1,4 +1,4 @@
-@if (authenticationStore.hasInitialized() === false) {
+@if (authenticationManager.hasInitialized() === false) {
   <main>
     <div>
       <!-- loading this as hidden so the the theme is properly initialized while the application is loading -->
@@ -7,8 +7,8 @@
     </div>
   </main>
 }
-@if (authenticationStore.hasInitialized()) {
-  @if (authenticationStore.isAuthenticated()) {
+@if (authenticationManager.hasInitialized()) {
+  @if (authenticationManager.isAuthenticated()) {
     <a routerLink="/home">Home</a>
     <a routerLink="/users">Users</a>
     <a routerLink="/bad-link">Bad Link</a>

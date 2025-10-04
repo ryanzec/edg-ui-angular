@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { EXAMPLENested2, EXAMPLENested2Registry } from '../nested2/nested2';
+import { EXAMPLENested2 } from '../nested2/nested2';
+import { EXAMPLENested2Store } from '../nested2-store';
 import { Button } from '../../../core/button/button';
 
 @Component({
@@ -8,15 +9,9 @@ import { Button } from '../../../core/button/button';
   templateUrl: './nested1.html',
 })
 export class EXAMPLENested1 {
-  private readonly _nested2Registry = inject(EXAMPLENested2Registry);
+  private readonly _store = inject(EXAMPLENested2Store);
 
   protected setValue() {
-    const nested2 = this._nested2Registry.get('component-store');
-
-    if (!nested2) {
-      throw new Error('Component store not found');
-    }
-
-    nested2.setValue('value from nested level 1');
+    this._store.setValue('value from nested level 1');
   }
 }

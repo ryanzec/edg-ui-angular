@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy, input, computed } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
+import { tailwindUtils } from '@organization/shared-utils';
 
 export const IconName = {
   CARET_RIGHT: 'caret-right',
@@ -27,32 +28,15 @@ export const iconNames = Object.values(IconName);
 @Component({
   selector: 'org-icon',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<i [class]="iconClasses()" aria-hidden="true"></i>`,
+  templateUrl: './icon.html',
   host: {
     class: 'inline-flex',
   },
-  styles: `
-    @layer components {
-      .org-icon {
-        display: inline-flex;
-      }
-    }
-  `,
 })
 export class Icon {
   public name = input.required<IconName>();
   public size = input<'small' | 'base' | 'large'>('base');
   public weight = input<'regular' | 'bold' | 'fill'>('regular');
 
-  public readonly iconClasses = computed(() => {
-    const sizeClasses = {
-      small: 'text-sm',
-      base: 'text-lg',
-      large: 'text-xl',
-    };
-
-    const weightClass = this.weight() === 'regular' ? 'ph' : `ph-${this.weight()}`;
-
-    return `inline-flex ${weightClass} ph-${this.name()} ${sizeClasses[this.size()]}`;
-  });
+  public mergeClasses = tailwindUtils.merge;
 }

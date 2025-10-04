@@ -4,12 +4,13 @@
  * Not sure of a better way to get the storybook generated docs to play well with our dark mode
  */
 .sbdocs.sbdocs-wrapper {
-  @apply bg-surface text-on-surface;
+  @apply bg-background text-on-background;
 
   .sbdocs-title,
   .docblock-argstable-head,
   .docblock-argstable-head th,
   .docblock-code-toggle,
+  .docblock-argstable-body,
   .docblock-argstable-body td,
   .docblock-argstable-body label,
   .docblock-argstable-body span,
@@ -19,7 +20,7 @@
   .sbdocs-content .sb-anchor h3,
   .sb-bar,
   .docs-story > * {
-    @apply text-on-surface bg-surface border-outline;
+    @apply text-text bg-background border-border;
   }
 
   .docblock-argstable-body input:checked ~ span:last-of-type,

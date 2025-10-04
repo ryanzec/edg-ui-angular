@@ -7,16 +7,16 @@ import { describe, beforeEach, afterEach, it, expect, vi } from 'vitest';
 import { signal } from '@angular/core';
 
 import { LoginView } from './login-view';
-import { AuthenticationStore } from '@organization/shared-ui';
+import { AuthenticationManager } from '@organization/shared-ui';
 import { AuthenticationAuthenticateRequest } from '@organization/shared-types';
 
 describe('LoginView', () => {
   let component: LoginView;
   let fixture: ComponentFixture<LoginView>;
   let router: Router;
-  let authenticationStore: AuthenticationStore;
+  let authenticationManager: AuthenticationManager;
 
-  const mockAuthenticationStore = {
+  const mockAuthenticationManager = {
     isAuthenticated: signal(false),
     error: signal<string | null>(null),
     authenticate: vi.fn(),
@@ -29,22 +29,22 @@ describe('LoginView', () => {
         provideRouter([{ path: 'home', component: class {} }]),
         provideHttpClient(),
         provideHttpClientTesting(),
-        { provide: AuthenticationStore, useValue: mockAuthenticationStore },
+        { provide: AuthenticationManager, useValue: mockAuthenticationManager },
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginView);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
-    authenticationStore = TestBed.inject(AuthenticationStore);
+    authenticationManager = TestBed.inject(AuthenticationManager);
 
     vi.spyOn(router, 'navigate').mockResolvedValue(true);
   });
 
   afterEach(() => {
     vi.clearAllMocks();
-    mockAuthenticationStore.isAuthenticated.set(false);
-    mockAuthenticationStore.error.set(null);
+    mockAuthenticationManager.isAuthenticated.set(false);
+    mockAuthenticationManager.error.set(null);
   });
 
   describe('Component Initialization', () => {
@@ -63,7 +63,7 @@ describe('LoginView', () => {
     it('should navigate to home when user becomes authenticated', () => {
       fixture.detectChanges();
 
-      mockAuthenticationStore.isAuthenticated.set(true);
+      mockAuthenticationManager.isAuthenticated.set(true);
       fixture.detectChanges();
 
       expect(router.navigate).toHaveBeenCalledWith(['/home']);
@@ -72,7 +72,7 @@ describe('LoginView', () => {
     it('should not navigate when user is not authenticated', () => {
       fixture.detectChanges();
 
-      mockAuthenticationStore.isAuthenticated.set(false);
+      mockAuthenticationManager.isAuthenticated.set(false);
       fixture.detectChanges();
 
       expect(router.navigate).not.toHaveBeenCalled();
@@ -84,14 +84,14 @@ describe('LoginView', () => {
       const errorMessage = 'Invalid credentials';
       fixture.detectChanges();
 
-      mockAuthenticationStore.error.set(errorMessage);
+      mockAuthenticationManager.error.set(errorMessage);
       fixture.detectChanges();
     });
 
     it('should not display snackbar when no error exists', () => {
       fixture.detectChanges();
 
-      mockAuthenticationStore.error.set(null);
+      mockAuthenticationManager.error.set(null);
       fixture.detectChanges();
     });
 
@@ -99,7 +99,7 @@ describe('LoginView', () => {
       const errorMessage = 'Network error';
       fixture.detectChanges();
 
-      mockAuthenticationStore.error.set(errorMessage);
+      mockAuthenticationManager.error.set(errorMessage);
       fixture.detectChanges();
     });
   });
@@ -113,7 +113,7 @@ describe('LoginView', () => {
 
       component.onLoginSubmit(loginRequest);
 
-      expect(authenticationStore.authenticate).toHaveBeenCalledWith(loginRequest);
+      expect(authenticationManager.authenticate).toHaveBeenCalledWith(loginRequest);
     });
 
     it('should be called when login form emits loginSubmit event', () => {

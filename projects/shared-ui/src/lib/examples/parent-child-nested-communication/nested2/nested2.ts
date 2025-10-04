@@ -1,49 +1,12 @@
-import { Component, inject, OnDestroy, OnInit, signal, Injectable } from '@angular/core';
-
-@Injectable()
-export class EXAMPLENested2Registry {
-  private registryData = new Map<string, EXAMPLENested2>();
-
-  get(key: string) {
-    return this.registryData.get(key);
-  }
-
-  register(key: string, nested2: EXAMPLENested2) {
-    this.registryData.set(key, nested2);
-  }
-
-  unregister(key: string) {
-    this.registryData.delete(key);
-  }
-}
+import { Component, inject } from '@angular/core';
+import { EXAMPLENested2Store } from '../nested2-store';
 
 @Component({
   selector: 'org-example-nested-2',
   templateUrl: './nested2.html',
 })
-export class EXAMPLENested2 implements OnInit, OnDestroy {
-  private readonly _nested2Registry = inject(EXAMPLENested2Registry, { optional: true });
-  private _value = signal<string>('');
+export class EXAMPLENested2 {
+  private readonly _store = inject(EXAMPLENested2Store);
 
-  public readonly value = this._value.asReadonly();
-
-  public ngOnInit(): void {
-    if (!this._nested2Registry) {
-      return;
-    }
-
-    this._nested2Registry.register('component-store', this);
-  }
-
-  public ngOnDestroy(): void {
-    if (!this._nested2Registry) {
-      return;
-    }
-
-    this._nested2Registry.unregister('component-store');
-  }
-
-  public setValue(value: string) {
-    this._value.set(value);
-  }
+  public readonly value = this._store.value;
 }

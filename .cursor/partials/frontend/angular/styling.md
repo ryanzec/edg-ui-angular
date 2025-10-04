@@ -22,7 +22,6 @@ Styling Hard Requirements:
 - Avoid applying css / tailwind class in the typescript code
   <!-- Not allows this here make styling the host element a bit more tedious than it is worth -->
   - This is acceptable ONLY in the case of applying classes to the host element
-- When css class application need to happen based on typescript conditional checks, add `public mergeClasses = tailwindUtils.merge;` to the component class as use that in the html template (usage reference: `projects/shared-ui/src/lib/core/pagination/pagination.html`)
 - When there are several colors + states, that might warrant a  css file for better readability (like with )
 - To make tailwind more readable, please use a pattern of grouping structural styles, animations, and then different states together where there is a large list of tailwind css that are being used on a single element (implementation reference: `projects/shared-ui/src/lib/core/button/button.css`)
 - Buttons should never be disabled before a form is invalid, there should be allowed to submit and see the errors

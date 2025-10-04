@@ -6,7 +6,7 @@
     </div>
 
     <!-- Navigation controls -->
-    <div class="flex items-center gap-1">
+    <div class="flex items-center gap-2">
       <!-- Previous button -->
       <org-button
         size="small"
@@ -14,11 +14,10 @@
         icon="caret-left"
         [disabled]="disabled() || !hasPrevious()"
         (clicked)="previousPage()"
-        class="min-w-8"
       />
 
       <!-- Page numbers -->
-      @for (page of visiblePages(); track page.value || 'ellipsis-' + $index) {
+      @for (page of visiblePageItems(); track page.value || 'ellipsis-' + $index) {
         @if (page.type === 'ellipsis') {
           <span class="px-2 py-1 text-sm text-pagination-text-ellipsis select-none">...</span>
         } @else {
@@ -27,7 +26,6 @@
             [orgColor]="page.isActive ? 'brand' : 'neutral'"
             [disabled]="disabled()"
             (clicked)="goToPage(page.value!)"
-            class="min-w-8"
           >
             {{ page.value }}
           </org-button>
@@ -41,7 +39,6 @@
         icon="caret-right"
         [disabled]="disabled() || !hasNext()"
         (clicked)="nextPage()"
-        class="min-w-8"
       />
     </div>
 

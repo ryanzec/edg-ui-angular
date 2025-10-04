@@ -4,15 +4,15 @@ import { Router } from '@angular/router';
 import { beforeEach, describe, it, expect, vi } from 'vitest';
 import { of, throwError } from 'rxjs';
 import { unauthorizedInterceptor } from './unauthorized-interceptor';
-import { AuthenticationStore } from '../authentication-store/authentication-store';
+import { AuthenticationManager } from '../authentication-manager/authentication-manager';
 
 describe('unauthorizedInterceptor', () => {
-  let mockAuthenticationStore: any;
+  let mockAuthenticationManager: any;
   let mockRouter: any;
   let interceptor: HttpInterceptorFn;
 
   beforeEach(() => {
-    mockAuthenticationStore = {
+    mockAuthenticationManager = {
       logout: vi.fn(),
     };
 
@@ -22,7 +22,7 @@ describe('unauthorizedInterceptor', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        { provide: AuthenticationStore, useValue: mockAuthenticationStore },
+        { provide: AuthenticationManager, useValue: mockAuthenticationManager },
         { provide: Router, useValue: mockRouter },
       ],
     });
@@ -44,7 +44,7 @@ describe('unauthorizedInterceptor', () => {
     result.subscribe((response) => {
       expect(response).toEqual(mockResponse);
       expect(mockNext).toHaveBeenCalledWith(request);
-      expect(mockAuthenticationStore.logout).not.toHaveBeenCalled();
+      expect(mockAuthenticationManager.logout).not.toHaveBeenCalled();
       expect(mockRouter.navigate).not.toHaveBeenCalled();
     });
   });
@@ -59,7 +59,7 @@ describe('unauthorizedInterceptor', () => {
     result.subscribe({
       error: (error) => {
         expect(error).toEqual(mockError);
-        expect(mockAuthenticationStore.logout).toHaveBeenCalledOnce();
+        expect(mockAuthenticationManager.logout).toHaveBeenCalledOnce();
         expect(mockRouter.navigate).toHaveBeenCalledWith(['/login']);
       },
     });
@@ -75,7 +75,7 @@ describe('unauthorizedInterceptor', () => {
     result.subscribe({
       error: (error) => {
         expect(error).toEqual(mockError);
-        expect(mockAuthenticationStore.logout).not.toHaveBeenCalled();
+        expect(mockAuthenticationManager.logout).not.toHaveBeenCalled();
         expect(mockRouter.navigate).not.toHaveBeenCalled();
       },
     });
@@ -91,7 +91,7 @@ describe('unauthorizedInterceptor', () => {
     result.subscribe({
       error: (error) => {
         expect(error).toEqual(mockError);
-        expect(mockAuthenticationStore.logout).not.toHaveBeenCalled();
+        expect(mockAuthenticationManager.logout).not.toHaveBeenCalled();
         expect(mockRouter.navigate).not.toHaveBeenCalled();
       },
     });

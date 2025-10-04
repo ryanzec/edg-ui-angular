@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
-import { UiThemeSwitcher, AuthenticationStore } from '@organization/shared-ui';
+import { UiThemeSwitcher, AuthenticationManager } from '@organization/shared-ui';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,11 +9,11 @@ import { CommonModule } from '@angular/common';
   templateUrl: './app.html',
 })
 export class App {
-  public readonly authenticationStore = inject(AuthenticationStore);
+  public readonly authenticationManager = inject(AuthenticationManager);
 
   protected readonly title = signal('customer-portal');
 
   constructor() {
-    this.authenticationStore.check();
+    this.authenticationManager.check();
   }
 }

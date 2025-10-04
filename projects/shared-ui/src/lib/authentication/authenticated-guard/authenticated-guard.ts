@@ -3,22 +3,22 @@ import { Router } from '@angular/router';
 import { LogManager } from '../../core/log-manager/log-manager';
 import { ApplicationRoute } from '../../core/types/application-route';
 import { inject } from '@angular/core';
-import { AuthenticationStore } from '../authentication-store/authentication-store';
+import { AuthenticationManager } from '../authentication-manager/authentication-manager';
 import { CanActivateFn } from '@angular/router';
 
 export const loggedInGuard: CanActivateFn = (route) => {
-  const authenticationStore = inject(AuthenticationStore);
+  const authenticationManager = inject(AuthenticationManager);
   const router = inject(Router);
   const logManager = inject(LogManager);
   const routeData = (route as ApplicationRoute).data;
 
   // If already authenticated, allow access
-  if (authenticationStore.isAuthenticated()) {
+  if (authenticationManager.isAuthenticated()) {
     return true;
   }
 
   // Check authentication first, then handle the result
-  return authenticationStore.checkAsync().pipe(
+  return authenticationManager.checkAsync().pipe(
     map((isAuthenticated) => {
       if (isAuthenticated) {
         return true;

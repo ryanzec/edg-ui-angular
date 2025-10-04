@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, inject, effect } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginForm, AuthenticationStore } from '@organization/shared-ui';
+import { LoginForm, AuthenticationManager } from '@organization/shared-ui';
 import { AuthenticationAuthenticateRequest } from '@organization/shared-types';
 
 @Component({
@@ -11,17 +11,17 @@ import { AuthenticationAuthenticateRequest } from '@organization/shared-types';
 })
 export class LoginView {
   private readonly router = inject(Router);
-  private readonly authenticationStore = inject(AuthenticationStore);
+  private readonly authenticationManager = inject(AuthenticationManager);
 
   constructor() {
     effect(() => {
-      if (this.authenticationStore.isAuthenticated()) {
+      if (this.authenticationManager.isAuthenticated()) {
         this.router.navigate(['/home']);
       }
     });
 
     effect(() => {
-      const error = this.authenticationStore.error();
+      const error = this.authenticationManager.error();
 
       if (error) {
         // @todo(!) something
@@ -30,6 +30,6 @@ export class LoginView {
   }
 
   public onLoginSubmit(request: AuthenticationAuthenticateRequest): void {
-    this.authenticationStore.authenticate(request);
+    this.authenticationManager.authenticate(request);
   }
 }

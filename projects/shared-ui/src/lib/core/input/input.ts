@@ -62,8 +62,9 @@ export class Input implements OnInit, OnDestroy, AfterViewInit {
   private readonly _focusMonitor = inject(FocusMonitor);
   private readonly _elementRef = inject(ElementRef<HTMLElement>);
 
-  @ViewChild('inputElement', { static: true })
-  private readonly _inputElementRef!: ElementRef<HTMLInputElement>;
+  // we need the static to match sure we can bind the dom event to properly managed the focused state
+  @ViewChild('inputRef', { static: true })
+  public readonly inputRef!: ElementRef<HTMLInputElement>;
 
   /**
    * @internal Only exposed for testing purposes
@@ -134,7 +135,7 @@ export class Input implements OnInit, OnDestroy, AfterViewInit {
   public mergeClasses = tailwindUtils.merge;
 
   public ngOnInit(): void {
-    this._focusMonitor.monitor(this._inputElementRef.nativeElement).subscribe((origin) => {
+    this._focusMonitor.monitor(this.inputRef.nativeElement).subscribe((origin) => {
       const wasFocused = this._state().isFocused;
       const isFocused = !!origin;
 
@@ -147,7 +148,7 @@ export class Input implements OnInit, OnDestroy, AfterViewInit {
         this.focused.emit();
 
         if (this.selectAllOnFocus()) {
-          this._inputElementRef.nativeElement.select();
+          this.inputRef.nativeElement.select();
         }
       } else if (!isFocused && wasFocused) {
         this.blurred.emit();
@@ -157,12 +158,12 @@ export class Input implements OnInit, OnDestroy, AfterViewInit {
 
   public ngAfterViewInit(): void {
     if (this.autoFocus()) {
-      this._inputElementRef.nativeElement.focus();
+      this.inputRef.nativeElement.focus();
     }
   }
 
   public ngOnDestroy(): void {
-    this._focusMonitor.stopMonitoring(this._inputElementRef.nativeElement);
+    this._focusMonitor.stopMonitoring(this.inputRef.nativeElement);
   }
 
   public handleInputChange(event: Event): void {
@@ -203,6 +204,6 @@ export class Input implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public focusInput(): void {
-    this._inputElementRef.nativeElement.focus();
+    this.inputRef.nativeElement.focus();
   }
 }

@@ -124,8 +124,8 @@ make more specific to avoid confusion on if something is a service vs component
 - `*-api`: API services (ex. `users-api`)
 - `*-admin-api`: API services design for only internal usage (ex. `users-admin-api`)
   - This code should be located in the application that is using it to avoid is being mistakenly imported other applications
-- `*-manager`: Management of a particular feature that lacks associated internal state (ex. `logger-manager`)
-- `*-store`: Management of a pariticular feature or instance of a feature that has state associated (ex. `authentication-store`)
+- `*-manager`: A service that is used to manage a global level feature (ex. `logger-manager` or `global-notification-manager`, `authentication-store`)
+- `*-store`: Management of a pariticular feature or instance of a feature that has state associated (ex. `pagi`)
   - `[COMPONENT_NAME]-store`: This should be used as a last resort.
 - `*data-store`: Management of api related data.
 - `*-registry`: A registry component used for component to register themselves that allow for parent multiple levels up the tree to access those child component's public apis.
@@ -554,3 +554,5 @@ When possible, we should create a minimal storybook example that can be used to 
 ## `inline-flex` to fix weird extra spacing
 
 ## `min-h-0` / `min-w-0` to child overflowing their `flex` based parent
+
+## AI can sometimes create custom implementation of thing where a 3rd part library would be better (like creating a md5 hashing solution that ironically indefinately loops)

@@ -2,18 +2,18 @@ import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
-import { AuthenticationStore } from '../authentication-store/authentication-store';
+import { AuthenticationManager } from '../authentication-manager/authentication-manager';
 import { BASE_API_URL } from '../../core/utils';
 
 export const unauthorizedInterceptor: HttpInterceptorFn = (request, next) => {
-  const authenticationStore = inject(AuthenticationStore);
+  const authenticationManager = inject(AuthenticationManager);
   const router = inject(Router);
   const baseUrl = inject(BASE_API_URL);
 
   return next(request).pipe(
     catchError((error: HttpErrorResponse) => {
       if (error.status === 401 && request.url.startsWith(baseUrl)) {
-        authenticationStore.logout();
+        authenticationManager.logout();
 
         router.navigate(['/login']);
       }

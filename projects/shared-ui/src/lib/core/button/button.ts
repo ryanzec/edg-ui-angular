@@ -39,7 +39,7 @@ export type ButtonState = {
     },
   ],
   host: {
-    class: "'display-contents'",
+    class: 'inline-flex',
   },
 })
 export class Button implements OnInit, OnDestroy {

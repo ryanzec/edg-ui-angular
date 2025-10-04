@@ -2,7 +2,7 @@
 @theme {
   /* Default card colors */
   --color-card-border: var(--color-border);
-  --color-card-bg: var(--color-secondary-background);
+  --color-card-bg: var(--color-background);
 
   /* Brand colors */
   --color-card-brand-border: var(--color-brand-border);

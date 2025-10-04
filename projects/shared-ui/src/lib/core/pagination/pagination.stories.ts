@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { Component, signal } from '@angular/core';
 import { Pagination } from './pagination';
-import { PaginationRegistry } from './pagination';
+import { PaginationStore } from '../pagination-store/pagination-store';
 
 const meta: Meta<Pagination> = {
   title: 'Core/Pagination',
@@ -21,7 +21,7 @@ const meta: Meta<Pagination> = {
       control: 'select',
       options: [5, 10, 20, 50],
     },
-    maximumVisiblePages: {
+    visiblePages: {
       control: 'number',
     },
     itemsPerPageOptions: {
@@ -30,18 +30,14 @@ const meta: Meta<Pagination> = {
     disabled: {
       control: 'boolean',
     },
-    registryKey: {
-      control: 'text',
-    },
   },
   args: {
     defaultCurrentPage: 1,
     defaultTotalItems: 100,
     defaultItemsPerPage: 10,
-    maximumVisiblePages: 7,
+    visiblePages: 7,
     itemsPerPageOptions: [5, 10, 20, 50],
     disabled: false,
-    registryKey: null,
   },
 };
 
@@ -61,12 +57,12 @@ export const Default: Story = {
         [defaultCurrentPage]="defaultCurrentPage"
         [defaultTotalItems]="defaultTotalItems"
         [defaultItemsPerPage]="defaultItemsPerPage"
-        [maximumVisiblePages]="maximumVisiblePages"
+        [visiblePages]="visiblePages"
         [itemsPerPageOptions]="itemsPerPageOptions"
         [disabled]="disabled"
-        [registryKey]="registryKey"
       />
     `,
+    providers: [PaginationStore],
   }),
 };
 
@@ -82,12 +78,12 @@ export const SmallDataset: Story = {
         [defaultCurrentPage]="defaultCurrentPage"
         [defaultTotalItems]="defaultTotalItems"
         [defaultItemsPerPage]="defaultItemsPerPage"
-        [maximumVisiblePages]="maximumVisiblePages"
+        [visiblePages]="visiblePages"
         [itemsPerPageOptions]="itemsPerPageOptions"
         [disabled]="disabled"
-        [registryKey]="registryKey"
       />
     `,
+    providers: [PaginationStore],
   }),
 };
 
@@ -104,12 +100,12 @@ export const LargeDataset: Story = {
         [defaultCurrentPage]="defaultCurrentPage"
         [defaultTotalItems]="defaultTotalItems"
         [defaultItemsPerPage]="defaultItemsPerPage"
-        [maximumVisiblePages]="maximumVisiblePages"
+        [visiblePages]="visiblePages"
         [itemsPerPageOptions]="itemsPerPageOptions"
         [disabled]="disabled"
-        [registryKey]="registryKey"
       />
     `,
+    providers: [PaginationStore],
   }),
 };
 
@@ -126,12 +122,12 @@ export const FirstPage: Story = {
         [defaultCurrentPage]="defaultCurrentPage"
         [defaultTotalItems]="defaultTotalItems"
         [defaultItemsPerPage]="defaultItemsPerPage"
-        [maximumVisiblePages]="maximumVisiblePages"
+        [visiblePages]="visiblePages"
         [itemsPerPageOptions]="itemsPerPageOptions"
         [disabled]="disabled"
-        [registryKey]="registryKey"
       />
     `,
+    providers: [PaginationStore],
   }),
 };
 
@@ -148,12 +144,12 @@ export const LastPage: Story = {
         [defaultCurrentPage]="defaultCurrentPage"
         [defaultTotalItems]="defaultTotalItems"
         [defaultItemsPerPage]="defaultItemsPerPage"
-        [maximumVisiblePages]="maximumVisiblePages"
+        [visiblePages]="visiblePages"
         [itemsPerPageOptions]="itemsPerPageOptions"
         [disabled]="disabled"
-        [registryKey]="registryKey"
       />
     `,
+    providers: [PaginationStore],
   }),
 };
 
@@ -170,12 +166,12 @@ export const MiddlePage: Story = {
         [defaultCurrentPage]="defaultCurrentPage"
         [defaultTotalItems]="defaultTotalItems"
         [defaultItemsPerPage]="defaultItemsPerPage"
-        [maximumVisiblePages]="maximumVisiblePages"
+        [visiblePages]="visiblePages"
         [itemsPerPageOptions]="itemsPerPageOptions"
         [disabled]="disabled"
-        [registryKey]="registryKey"
       />
     `,
+    providers: [PaginationStore],
   }),
 };
 
@@ -184,7 +180,7 @@ export const FewVisiblePages: Story = {
     defaultTotalItems: 500,
     defaultItemsPerPage: 10,
     defaultCurrentPage: 25,
-    maximumVisiblePages: 5,
+    visiblePages: 5,
   },
   render: (args) => ({
     props: args,
@@ -193,12 +189,12 @@ export const FewVisiblePages: Story = {
         [defaultCurrentPage]="defaultCurrentPage"
         [defaultTotalItems]="defaultTotalItems"
         [defaultItemsPerPage]="defaultItemsPerPage"
-        [maximumVisiblePages]="maximumVisiblePages"
+        [visiblePages]="visiblePages"
         [itemsPerPageOptions]="itemsPerPageOptions"
         [disabled]="disabled"
-        [registryKey]="registryKey"
       />
     `,
+    providers: [PaginationStore],
   }),
 };
 
@@ -207,7 +203,7 @@ export const ManyVisiblePages: Story = {
     defaultTotalItems: 500,
     defaultItemsPerPage: 10,
     defaultCurrentPage: 25,
-    maximumVisiblePages: 11,
+    visiblePages: 11,
   },
   render: (args) => ({
     props: args,
@@ -216,12 +212,12 @@ export const ManyVisiblePages: Story = {
         [defaultCurrentPage]="defaultCurrentPage"
         [defaultTotalItems]="defaultTotalItems"
         [defaultItemsPerPage]="defaultItemsPerPage"
-        [maximumVisiblePages]="maximumVisiblePages"
+        [visiblePages]="visiblePages"
         [itemsPerPageOptions]="itemsPerPageOptions"
         [disabled]="disabled"
-        [registryKey]="registryKey"
       />
     `,
+    providers: [PaginationStore],
   }),
 };
 
@@ -238,12 +234,12 @@ export const CustomItemsPerPageOptions: Story = {
         [defaultCurrentPage]="defaultCurrentPage"
         [defaultTotalItems]="defaultTotalItems"
         [defaultItemsPerPage]="defaultItemsPerPage"
-        [maximumVisiblePages]="maximumVisiblePages"
+        [visiblePages]="visiblePages"
         [itemsPerPageOptions]="itemsPerPageOptions"
         [disabled]="disabled"
-        [registryKey]="registryKey"
       />
     `,
+    providers: [PaginationStore],
   }),
 };
 
@@ -260,40 +256,12 @@ export const Disabled: Story = {
         [defaultCurrentPage]="defaultCurrentPage"
         [defaultTotalItems]="defaultTotalItems"
         [defaultItemsPerPage]="defaultItemsPerPage"
-        [maximumVisiblePages]="maximumVisiblePages"
+        [visiblePages]="visiblePages"
         [itemsPerPageOptions]="itemsPerPageOptions"
         [disabled]="disabled"
-        [registryKey]="registryKey"
       />
     `,
-  }),
-};
-
-export const WithRegistry: Story = {
-  args: {
-    defaultTotalItems: 100,
-    defaultItemsPerPage: 10,
-    registryKey: 'example-pagination',
-  },
-  render: (args) => ({
-    props: args,
-    template: `
-      <div class="space-y-4">
-        <org-pagination
-          [defaultCurrentPage]="defaultCurrentPage"
-          [defaultTotalItems]="defaultTotalItems"
-          [defaultItemsPerPage]="defaultItemsPerPage"
-          [maximumVisiblePages]="maximumVisiblePages"
-          [itemsPerPageOptions]="itemsPerPageOptions"
-          [disabled]="disabled"
-          [registryKey]="registryKey"
-        />
-        <p class="text-sm text-text-subtle">
-          This pagination is registered with key: "{{ registryKey }}"
-        </p>
-      </div>
-    `,
-    providers: [PaginationRegistry],
+    providers: [PaginationStore],
   }),
 };
 
@@ -325,7 +293,7 @@ export const WithRegistry: Story = {
           <span class="text-sm font-medium">Max Visible Pages:</span>
           <input
             type="number"
-            [value]="maximumVisiblePages()"
+            [value]="visiblePages()"
             (input)="setMaxVisiblePages(+$any($event.target).value)"
             class="w-16 px-2 py-1 text-sm border border-border rounded"
             min="3"
@@ -347,7 +315,7 @@ export const WithRegistry: Story = {
       <!-- Pagination Component -->
       <org-pagination
         [defaultTotalItems]="defaultTotalItems()"
-        [maximumVisiblePages]="maximumVisiblePages()"
+        [visiblePages]="visiblePages()"
         [disabled]="disabled()"
         (pageChanged)="onPageChanged($event)"
         (itemsPerPageChanged)="onItemsPerPageChanged($event)"
@@ -368,10 +336,11 @@ export const WithRegistry: Story = {
     </div>
   `,
   imports: [Pagination],
+  providers: [PaginationStore],
 })
 class PaginationInteractiveStory {
   public defaultTotalItems = signal(247);
-  public maximumVisiblePages = signal(7);
+  public visiblePages = signal(7);
   public disabled = signal(false);
   public events = signal<string[]>([]);
 
@@ -381,7 +350,7 @@ class PaginationInteractiveStory {
   }
 
   public setMaxVisiblePages(value: number): void {
-    this.maximumVisiblePages.set(Math.max(3, value));
+    this.visiblePages.set(Math.max(3, value));
     this.addEvent(`Max visible pages changed to: ${value}`);
   }
 

@@ -4,13 +4,13 @@ import { beforeEach, describe, it, expect, vi } from 'vitest';
 import { signal } from '@angular/core';
 
 import { loggedInGuard } from './authenticated-guard';
-import { AuthenticationStore } from '../authentication-store/authentication-store';
+import { AuthenticationManager } from '../authentication-manager/authentication-manager';
 import { LogManager } from '../../core/log-manager/log-manager';
 
 const unauthenticatedRedirect = '/home';
 
 describe('loggedInGuard', () => {
-  let mockAuthenticationStore: {
+  let mockAuthenticationManager: {
     isAuthenticated: ReturnType<typeof signal<boolean>>;
   };
   let mockRouter: {
@@ -26,7 +26,7 @@ describe('loggedInGuard', () => {
     mockRouter = {
       createUrlTree: vi.fn().mockReturnValue(mockUrlTree),
     };
-    mockAuthenticationStore = {
+    mockAuthenticationManager = {
       isAuthenticated: signal(false),
     };
     mockLogManager = {
@@ -35,7 +35,7 @@ describe('loggedInGuard', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        { provide: AuthenticationStore, useValue: mockAuthenticationStore },
+        { provide: AuthenticationManager, useValue: mockAuthenticationManager },
         { provide: Router, useValue: mockRouter },
         { provide: LogManager, useValue: mockLogManager },
       ],
@@ -44,7 +44,7 @@ describe('loggedInGuard', () => {
 
   describe('when user is authenticated', () => {
     beforeEach(() => {
-      mockAuthenticationStore.isAuthenticated.set(true);
+      mockAuthenticationManager.isAuthenticated.set(true);
     });
 
     it('should return true', () => {
@@ -68,7 +68,7 @@ describe('loggedInGuard', () => {
 
   describe('when user is not authenticated', () => {
     beforeEach(() => {
-      mockAuthenticationStore.isAuthenticated.set(false);
+      mockAuthenticationManager.isAuthenticated.set(false);
     });
 
     describe('with unauthenticatedRedirect in route data', () => {
@@ -153,8 +153,8 @@ describe('loggedInGuard', () => {
   });
 
   describe('dependency injection', () => {
-    it('should inject AuthenticationStore, Router, and LogManager correctly', () => {
-      mockAuthenticationStore.isAuthenticated.set(false);
+    it('should inject AuthenticationManager, Router, and LogManager correctly', () => {
+      mockAuthenticationManager.isAuthenticated.set(false);
 
       TestBed.runInInjectionContext(() => loggedInGuard({} as any, {} as any));
 

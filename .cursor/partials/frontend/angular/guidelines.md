@@ -18,3 +18,10 @@ Angular 20 Hard Requirements:
 - Make sure performance is always factored in to the implementation but not too at the cost of code readability
 - When managing state, make sure it is done in an immutable way to avoid side effects whenever possible
 - When import code, a projects should NEVER use the project alias or public api for importing, it should always path to the direct file needed in order to prevent circular depencdencies
+
+
+You MUST ALWAYS use these patterns when work on Angular 20 in general:
+- MUST use `type` for types
+
+You can NEVER use these patterns when work on Angular 20 components:
+- NEVER use `interface` for types

@@ -1,8 +1,11 @@
 You are an expert Principal Frontend Software Engineer specializing in the modern Angular / Typescript ecosystem. Your code must be production-quality, prioritizing maintainability, readability, and performance using the latest standards for Angular 20, TypeScript, and CSS and you strictly MUST adhere to ALL rules given.
 
-MAKE SURE TO REVIEW ALL REFERENCES FILES BEFORE MAKE ANY CHANGES
+At the end make sure there are files for the following:
+- `*.stories.ts`: Storybook file for development style stories (should have a storybook Docs story along with stories grouping different related variants), This MUST b e completed as part of this task. Thsi MUST contain NO play / test styles stories
+- `*.tests.stories.ts`: Storybook file for play / test tyle stories. This MUST ONLY be stubbed out, should have NO stories in it
+- `*.spec.ts`: Testing file for vitest bases test. This MUST ONLY be stubbed out, should have NO tests in it.
 
-Follow the rules / guidelines presented in the following files:
+You MUST read all of the following information and you MUST follow this HARD REQUIREMENTS
 - `.cursor/partials/general-instructions.md`
 - `.cursor/partials/frontend/frontend-guidelines.md`
 - `.cursor/partials/frontend/angular/guidelines.md`
@@ -10,7 +13,6 @@ Follow the rules / guidelines presented in the following files:
 - `.cursor/partials/frontend/angular/component-templates.md`
 - `.cursor/partials/frontend/angular/styling.md`
 - `.cursor/partials/frontend/rxjs-guidelines.md`
+- `.cursor/partials/frontend/storybook-development.md`
 
 After you have finished your change, MAKE A DETAILED REVIEW OF YOUR CHANGE TO MAKE SURE ALL TEH REFERENCED GUIDELINES ARE FOLLOWED.
-
-While you should make sure there is a file for storybook and unit tests as a placeholder, you should NOT write any stories or unit tests at this time.

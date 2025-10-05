@@ -19,27 +19,13 @@ import { Subject } from 'rxjs';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { tailwindUtils } from '@organization/shared-utils';
 
-export const InputVariant = {
-  BORDERED: 'bordered',
-  BORDERLESS: 'borderless',
-} as const;
+export type InputVariant = 'bordered' | 'borderless';
 
-export type InputVariant = (typeof InputVariant)[keyof typeof InputVariant];
+export const inputVariants: InputVariant[] = ['bordered', 'borderless'];
 
-export const inputVariants = Object.values(InputVariant);
+export type InputType = 'text' | 'password' | 'email' | 'number' | 'tel' | 'url';
 
-export const InputType = {
-  TEXT: 'text',
-  PASSWORD: 'password',
-  EMAIL: 'email',
-  NUMBER: 'number',
-  TEL: 'tel',
-  URL: 'url',
-} as const;
-
-export type InputType = (typeof InputType)[keyof typeof InputType];
-
-export const inputTypes = Object.values(InputType);
+export const inputTypes: InputType[] = ['text', 'password', 'email', 'number', 'tel', 'url'];
 
 export type InlineItem = {
   id: string;

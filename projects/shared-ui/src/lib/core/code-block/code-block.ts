@@ -4,14 +4,9 @@ import { Icon } from '../icon/icon';
 import { tailwindUtils } from '@organization/shared-utils';
 import { ScrollAreaDirective } from '../scroll-area-directive/scroll-area-directive';
 
-export const CodeBlockVariant = {
-  BLOCK: 'block',
-  INLINE: 'inline',
-} as const;
+export type CodeBlockVariant = 'block' | 'inline';
 
-export type CodeBlockVariant = (typeof CodeBlockVariant)[keyof typeof CodeBlockVariant];
-
-export const codeBlockVariants = Object.values(CodeBlockVariant);
+export const codeBlockVariants: CodeBlockVariant[] = ['block', 'inline'];
 
 @Component({
   selector: 'org-code-block',

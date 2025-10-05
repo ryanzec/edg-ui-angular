@@ -1,14 +1,9 @@
 import { z } from 'zod';
 import { ResponseStructure } from '../utils';
 
-export const UserRoleName = {
-  ADMIN: 'admin',
-  USER: 'user',
-} as const;
+export type UserRoleName = 'admin' | 'user';
 
-export type UserRoleName = (typeof UserRoleName)[keyof typeof UserRoleName];
-
-export const assignableUserRoles = [UserRoleName.ADMIN, UserRoleName.USER];
+export const assignableUserRoles: UserRoleName[] = ['admin', 'user'];
 
 export const userSchema = z.object({
   id: z.string(),

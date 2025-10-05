@@ -3,16 +3,12 @@ import { Icon, type IconName } from '../icon/icon';
 import { tailwindUtils } from '@organization/shared-utils';
 import { Subject } from 'rxjs';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
-import { type ComponentColor, ComponentColorDirective } from '../component-color-directive/component-color-directive';
+import { ComponentColorDirective } from '../component-color-directive/component-color-directive';
+import { ComponentColor } from '../types/component-types';
 
-export const TagVariant = {
-  STRONG: 'strong',
-  WEAK: 'weak',
-} as const;
+export type TagVariant = 'strong' | 'weak';
 
-export type TagVariant = (typeof TagVariant)[keyof typeof TagVariant];
-
-export const tagVariants = Object.values(TagVariant);
+export const tagVariants: TagVariant[] = ['strong', 'weak'];
 
 @Component({
   selector: 'org-tag',

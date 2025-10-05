@@ -4,8 +4,10 @@
 @import './core/avatar/avatar-variables.css';
 @import './core/button/button-variables.css';
 @import './core/card/card-variables.css';
+@import './core/checkbox/checkbox-variables.css';
 @import './core/code-block/code-block-variables.css';
 @import './core/file-upload/file-upload-variables.css';
+@import './core/radio/radio-variables.css';
 @import './core/tag/tag-variables.css';
 @import './core/input/input-variables.css';
 @import './core/textarea/textarea-variables.css';

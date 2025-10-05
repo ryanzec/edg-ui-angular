@@ -14,7 +14,8 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { Icon } from '../icon/icon';
 import { LoadingSpinner } from '../loading-spinner/loading-spinner';
 import { type IconName } from '../icon/icon';
-import { ComponentColor, ComponentColorDirective } from '../component-color-directive/component-color-directive';
+import { ComponentColorDirective } from '../component-color-directive/component-color-directive';
+import { ComponentColor } from '../types/component-types';
 import { tailwindUtils } from '@organization/shared-utils';
 
 export type ButtonSize = 'small' | 'base' | 'large';

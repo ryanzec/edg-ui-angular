@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, input, output, computed, signal } from '@angular/core';
-import { type User, UserRoleName } from '@organization/shared-types';
+import { type User } from '@organization/shared-types';
 import { GroupElementsDirective } from '../../core/group-elements-directive/group-elements-directive';
 import { Icon } from '../../core/icon/icon';
 import { Button } from '../../core/button/button';
@@ -30,8 +30,6 @@ export class UsersList {
   public readonly displayedColumns = ['name', 'email', 'roles', 'createdAt', 'actions'];
 
   public readonly state = computed(() => this._state());
-
-  public readonly UserRoleName = UserRoleName;
 
   public onEdit(user: User): void {
     this.userEdit.emit(user);

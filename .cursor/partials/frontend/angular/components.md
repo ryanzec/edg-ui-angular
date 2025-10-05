@@ -127,6 +127,7 @@ public containerClass = input<string>('');
 public iconClass = input<string>('');
 public inputClass = input<string>('');
 ```
+- ALWAYS default size inputs to `base`
 
 You can NEVER use these patterns when work on Angular 20 components:
 - NEVER re-create functionality that is already available in angular CDK

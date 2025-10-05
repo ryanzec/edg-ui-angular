@@ -1,22 +1,7 @@
 import { Directive, input, HostBinding } from '@angular/core';
-
-export const ComponentColor = {
-  BRAND: 'brand',
-  SECONDARY: 'secondary',
-  NEUTRAL: 'neutral',
-  SAFE: 'safe',
-  INFO: 'info',
-  CAUTION: 'caution',
-  WARNING: 'warning',
-  DANGER: 'danger',
-} as const;
-
-export type ComponentColor = (typeof ComponentColor)[keyof typeof ComponentColor];
-
-export const componentColors = Object.values(ComponentColor);
+import { ComponentColor } from '../types/component-types';
 
 export const COMPONENT_COLOR_COLOR_DEFAULT: ComponentColor | null = null;
-
 @Directive({
   selector: '[orgColor]',
   standalone: true,

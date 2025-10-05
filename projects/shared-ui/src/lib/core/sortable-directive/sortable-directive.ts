@@ -13,7 +13,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Icon, IconName } from '../icon/icon';
-import { SortingStore, SortingDirection } from '../sorting-store/sorting-store';
+import { SortingStore } from '../sorting-store/sorting-store';
 
 export const SORTABLE_SELECTABLE_DEFAULT = '';
 
@@ -51,10 +51,10 @@ export class SortableDirective implements OnDestroy {
     const direction = this._sortingStore.direction();
 
     if (!isActivelySorting) {
-      return IconName.ARROWS_DOWN_UP;
+      return 'arrows-down-up';
     }
 
-    return direction === SortingDirection.ASC ? IconName.ARROW_UP : IconName.ARROW_DOWN;
+    return direction === 'asc' ? 'arrow-up' : 'arrow-down';
   });
 
   constructor() {

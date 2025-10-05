@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UsersList } from './users-list';
-import { User, UserRoleName } from '@organization/shared-types';
+import { User } from '@organization/shared-types';
 import { describe, beforeEach, it, expect, vi } from 'vitest';
 
 describe('UsersList', () => {
@@ -13,7 +13,7 @@ describe('UsersList', () => {
       organizationId: 'org1',
       name: 'John Doe',
       email: 'john@example.com',
-      roles: [UserRoleName.ADMIN],
+      roles: ['admin'],
       hasPassword: true,
       createdAt: '2024-01-01T00:00:00Z',
       updatedAt: '2024-01-01T00:00:00Z',
@@ -23,7 +23,7 @@ describe('UsersList', () => {
       organizationId: 'org1',
       name: 'Jane Smith',
       email: 'jane@example.com',
-      roles: [UserRoleName.USER],
+      roles: ['user'],
       hasPassword: true,
       createdAt: '2024-01-02T00:00:00Z',
       updatedAt: '2024-01-02T00:00:00Z',

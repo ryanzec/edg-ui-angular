@@ -1,15 +1,9 @@
 import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import { tailwindUtils } from '@organization/shared-utils';
 
-export const AvatarStackSize = {
-  SM: 'sm',
-  BASE: 'base',
-  LG: 'lg',
-} as const;
+export type AvatarStackSize = 'sm' | 'base' | 'lg';
 
-export type AvatarStackSize = (typeof AvatarStackSize)[keyof typeof AvatarStackSize];
-
-export const avatarStackSizes = Object.values(AvatarStackSize);
+export const avatarStackSizes: AvatarStackSize[] = ['sm', 'base', 'lg'];
 
 export const AVATAR_STACK_SIZE_DEFAULT: AvatarStackSize = 'base';
 

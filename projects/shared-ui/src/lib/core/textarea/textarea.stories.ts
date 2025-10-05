@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { Textarea, textareaVariants, iconAlignments } from './textarea';
+import { Textarea, textareaVariants, textareaIconAlignments } from './textarea';
 import { iconNames } from '../icon/icon';
 import { StorybookExampleContainer } from '../../private/storybook-example-container/storybook-example-container';
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
@@ -144,12 +144,12 @@ export const Default: Story = {
     },
     preIconAlignment: {
       control: 'select',
-      options: iconAlignments,
+      options: textareaIconAlignments,
       description: 'Vertical alignment of the pre icon',
     },
     postIconAlignment: {
       control: 'select',
-      options: iconAlignments,
+      options: textareaIconAlignments,
       description: 'Vertical alignment of the post icon',
     },
     selectAllOnFocus: {

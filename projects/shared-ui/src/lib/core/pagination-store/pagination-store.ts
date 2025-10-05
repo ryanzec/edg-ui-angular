@@ -78,7 +78,7 @@ export class PaginationStore {
     // show all pages if total is within visible limit
     if (total <= visible) {
       return Array.from({ length: total }, (_, i) => ({
-        type: 'page' as const,
+        type: 'page',
         value: i + 1,
         isActive: i + 1 === current,
       }));

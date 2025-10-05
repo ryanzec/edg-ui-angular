@@ -1,12 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { ErrorMessage, HttpError } from '@organization/shared-types';
 
-export const LogMode = {
-  PRODUCTION: 'production',
-  DEVELOPMENT: 'development',
-} as const;
-
-export type LogMode = (typeof LogMode)[keyof typeof LogMode];
+export type LogMode = 'production' | 'development';
 
 type ErrorMessageOptions = {
   defaultMessage?: string;
@@ -16,12 +11,12 @@ type ErrorMessageOptions = {
   providedIn: 'root',
 })
 export class LogManager {
-  private _loggingMode = signal<LogMode>(LogMode.DEVELOPMENT);
+  private _loggingMode = signal<LogMode>('development');
 
   // match native api
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public log(...args: any) {
-    if (this._loggingMode() !== LogMode.PRODUCTION) {
+    if (this._loggingMode() !== 'production') {
       console.log(...args);
     }
   }

@@ -24,7 +24,7 @@ Helps keep better consistent for all stories.
 - ALWAYS wrap the docs description content in a `<div class="docs-top-level-overview">...</div>` block
 - ALWAYS create a first story called `Default` story with full controls for the autodocs story
 - ALWAYS use `inject()` to inject services
-- AWLAYS prefix the title of the story with the file patterns
+- AWLAYS prefix the title of the storybook file with the file patterns:
   - component stories MUST start with `Components/*`
   - directive stories MUST start with `Directives/*`
   - service stories MUST start with `Services/*`

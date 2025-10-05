@@ -1,35 +1,66 @@
-import { Component, ChangeDetectionStrategy, input, effect } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import { tailwindUtils } from '@organization/shared-utils';
 
-export const IconName = {
-  CARET_RIGHT: 'caret-right',
-  CARET_LEFT: 'caret-left',
-  CARET_UP: 'caret-up',
-  CARET_DOWN: 'caret-down',
-  ARROW_UP: 'arrow-up',
-  ARROW_DOWN: 'arrow-down',
-  ARROWS_DOWN_UP: 'arrows-down-up',
-  PLUS: 'plus',
-  CHECK: 'check',
-  X: 'x',
-  ARROW_RIGHT: 'arrow-right',
-  ARROW_LEFT: 'arrow-left',
-  DOWNLOAD_SIMPLE: 'download-simple',
-  UPLOAD_SIMPLE: 'upload-simple',
-  TRASH: 'trash',
-  PENCIL_SIMPLE: 'pencil-simple',
-  GEAR: 'gear',
-  CIRCLE_NOTCH: 'circle-notch',
-  EYE: 'eye',
-  EYE_SLASH: 'eye-slash',
-  ENVELOPE: 'envelope',
-  LOCK_KEY: 'lock-key',
-  COPY: 'copy',
-} as const;
+export type IconName =
+  | 'caret-right'
+  | 'caret-left'
+  | 'caret-up'
+  | 'caret-down'
+  | 'arrow-up'
+  | 'arrow-down'
+  | 'arrows-down-up'
+  | 'plus'
+  | 'check'
+  | 'x'
+  | 'arrow-right'
+  | 'arrow-left'
+  | 'download-simple'
+  | 'upload-simple'
+  | 'trash'
+  | 'pencil-simple'
+  | 'gear'
+  | 'circle-notch'
+  | 'eye'
+  | 'eye-slash'
+  | 'envelope'
+  | 'lock-key'
+  | 'copy'
+  | 'square'
+  | 'check-square'
+  | 'minus-square'
+  | 'circle'
+  | 'check-circle';
 
-export type IconName = (typeof IconName)[keyof typeof IconName];
-
-export const iconNames = Object.values(IconName);
+export const iconNames: IconName[] = [
+  'caret-right',
+  'caret-left',
+  'caret-up',
+  'caret-down',
+  'arrow-up',
+  'arrow-down',
+  'arrows-down-up',
+  'plus',
+  'check',
+  'x',
+  'arrow-right',
+  'arrow-left',
+  'download-simple',
+  'upload-simple',
+  'trash',
+  'pencil-simple',
+  'gear',
+  'circle-notch',
+  'eye',
+  'eye-slash',
+  'envelope',
+  'lock-key',
+  'copy',
+  'square',
+  'check-square',
+  'minus-square',
+  'circle',
+  'check-circle',
+];
 
 @Component({
   selector: 'org-icon',
@@ -45,10 +76,4 @@ export class Icon {
   public weight = input<'regular' | 'bold' | 'fill'>('regular');
 
   public mergeClasses = tailwindUtils.merge;
-
-  constructor() {
-    effect(() => {
-      console.log('Icon constructor', this.name());
-    });
-  }
 }

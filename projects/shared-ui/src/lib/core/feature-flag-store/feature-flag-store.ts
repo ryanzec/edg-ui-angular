@@ -2,13 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import * as LDClient from 'launchdarkly-js-client-sdk';
 import { LogManager } from '../log-manager/log-manager';
 
-export const FeatureFlag = {
-  INTERNAL_TOOLS: 'internal-tools',
-  WORK_IN_PROGRESS: 'work-in-progress',
-} as const;
-
-export type FeatureFlag = (typeof FeatureFlag)[keyof typeof FeatureFlag];
-
+export type FeatureFlag = 'internal-tools' | 'work-in-progress';
 @Injectable({
   providedIn: 'root',
 })
@@ -18,8 +12,8 @@ export class FeatureFlagStore {
   private _client: LDClient.LDClient | undefined;
   private _isInitialized = signal(false);
   private _featureFlags = signal<Record<FeatureFlag, boolean>>({
-    [FeatureFlag.INTERNAL_TOOLS]: false,
-    [FeatureFlag.WORK_IN_PROGRESS]: false,
+    'internal-tools': false,
+    'work-in-progress': false,
   });
 
   readonly isInitialized = this._isInitialized.asReadonly();
@@ -50,8 +44,8 @@ export class FeatureFlagStore {
       });
 
       this._featureFlags.set({
-        [FeatureFlag.INTERNAL_TOOLS]: featureFlags[FeatureFlag.INTERNAL_TOOLS] ?? false,
-        [FeatureFlag.WORK_IN_PROGRESS]: featureFlags[FeatureFlag.WORK_IN_PROGRESS] ?? false,
+        'internal-tools': featureFlags['internal-tools'] ?? false,
+        'work-in-progress': featureFlags['work-in-progress'] ?? false,
       });
 
       this._isInitialized.set(true);

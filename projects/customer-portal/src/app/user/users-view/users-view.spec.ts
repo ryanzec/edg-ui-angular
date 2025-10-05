@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UsersView } from './users-view';
 import { UsersDataStore } from '@organization/shared-ui';
-import { User, UserRoleName } from '@organization/shared-types';
+import { User } from '@organization/shared-types';
 import { describe, beforeEach, it, expect, vi } from 'vitest';
 import { signal } from '@angular/core';
 
@@ -16,7 +16,7 @@ describe('UsersView', () => {
       organizationId: 'org1',
       name: 'John Doe',
       email: 'john@example.com',
-      roles: [UserRoleName.ADMIN],
+      roles: ['admin'],
       hasPassword: true,
       createdAt: '2024-01-01T00:00:00Z',
       updatedAt: '2024-01-01T00:00:00Z',

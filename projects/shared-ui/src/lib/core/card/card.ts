@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, input } from '@angular/core';
-import { ComponentColor, ComponentColorDirective } from '../component-color-directive/component-color-directive';
+import { ComponentColorDirective } from '../component-color-directive/component-color-directive';
+import { ComponentColor } from '../types/component-types';
 import { tailwindUtils } from 'projects/shared-utils/src/utils/tailwind';
 
 export type CardAlignment = 'start' | 'center' | 'end';

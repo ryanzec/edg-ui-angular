@@ -48,14 +48,9 @@ class UsersApi = {
 - ALWAYS co-locate the types in the main file that is using them when they are tightly coupled, pattern example"
 ```
 // MUST DO
-export const IconName = {
-  CARET_RIGHT: 'caret-right',
-  CARET_LEFT: 'caret-left',
-} as const;
+export const IconName = 'caret-right' | 'caret-left';
 
-export type IconName = (typeof IconName)[keyof typeof IconName];
-
-export const iconNames = Object.values(IconName);
+export const iconNames = ['caret-right', 'caret-left'];
 // ...
 export class Icon {
   public name = input.required<IconName>();
@@ -63,19 +58,25 @@ export class Icon {
 ```
 - ALWAYS create generic types that can be use in many locates (like a `User`) should be placed in there own file
 <!--
-This provides more flexible in the usage of the type
+This produce simplier more predeictable runtime code is is more flexible as a tpye of `'red' | 'green'` can be passed to a type of `'red' | 'green' | 'blue'` where if they where 2 explicit types, you would have to do type casting and such.
+
+There will be edge cases where an const "enum" is better when you want to reference a longer sting by a shorting key (like for error messages) and only in those case use you use that like this:
+```ts
+export const ErrorMessage = {
+  UNKNOWN: 'An unknown error occurred',
+  UNAUTHENTICATED: 'unable to authenticate',
+  AUTHENTICATION_EXPIRED: 'Logged in session expired',
+} as const;
+
+export type ErrorMessage = (typeof ErrorMessage)[keyof typeof ErrorMessage];
+```
 -->
-- ALWAYS use a const object and inferred type from that instead of just a type, also create an array of all values which is often usefull defining a type that is a static list of string values, 
+- ALWAYS use a string literal union type over an enum
 ```ts
 // ALWAY do this
-export const IconName = {
-  CARET_RIGHT: 'caret-right',
-  GEAR: 'gear',
- } as const;
+export const IconName = 'caret-right' | 'caret-left';
 
-export type IconName = (typeof IconName)[number];
-
-export const iconNames = Object.values(IconName);
+export const iconNames = ['caret-right', 'caret-left'];
 ```
 - ALWAYS use `unknown` over `any` whenever possible
 - ALWAYS return early instead of nesting the continue logic

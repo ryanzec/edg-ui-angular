@@ -1,13 +1,8 @@
 import { Injectable, computed, signal } from '@angular/core';
 
-export const SortingDirection = {
-  ASC: 'asc',
-  DESC: 'desc',
-} as const;
+export type SortingDirection = 'asc' | 'desc';
 
-export type SortingDirection = (typeof SortingDirection)[keyof typeof SortingDirection];
-
-export const sortingDirections = Object.values(SortingDirection);
+export const sortingDirections: SortingDirection[] = ['asc', 'desc'];
 
 export type SortingState = {
   key: string | null;
@@ -40,22 +35,22 @@ export class SortingStore {
     if (currentState.key !== key) {
       this._state.set({
         key,
-        direction: SortingDirection.ASC,
+        direction: 'asc',
       });
 
       return;
     }
 
-    if (currentState.direction === SortingDirection.ASC) {
+    if (currentState.direction === 'asc') {
       this._state.update((state) => ({
         ...state,
-        direction: SortingDirection.DESC,
+        direction: 'desc',
       }));
 
       return;
     }
 
-    if (currentState.direction === SortingDirection.DESC) {
+    if (currentState.direction === 'desc') {
       this._state.update((state) => ({
         ...state,
         direction: null,
@@ -66,7 +61,7 @@ export class SortingStore {
 
     this._state.update((state) => ({
       ...state,
-      direction: SortingDirection.ASC,
+      direction: 'asc',
     }));
   }
 

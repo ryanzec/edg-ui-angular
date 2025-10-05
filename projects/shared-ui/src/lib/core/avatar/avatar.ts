@@ -2,15 +2,9 @@ import { Component, ChangeDetectionStrategy, input, output, computed, signal } f
 import SparkMD5 from 'spark-md5';
 import { tailwindUtils } from '@organization/shared-utils';
 
-export const AvatarSize = {
-  SMALL: 'sm',
-  BASE: 'base',
-  LARGE: 'lg',
-} as const;
+export type AvatarSize = 'sm' | 'base' | 'lg';
 
-export type AvatarSize = (typeof AvatarSize)[keyof typeof AvatarSize];
-
-export const avatarSizes = Object.values(AvatarSize);
+export const avatarSizes: AvatarSize[] = ['sm', 'base', 'lg'];
 
 type AvatarState = {
   imageLoadError: boolean;

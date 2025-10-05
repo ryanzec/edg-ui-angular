@@ -1,31 +1,13 @@
 import { Directive, input } from '@angular/core';
+import { ComponentColor, ComponentSize, componentColors, componentSizes } from '../types/component-types';
 
-export const TextColor = {
-  BRAND: 'brand',
-  SECONDARY: 'secondary',
-  SAFE: 'safe',
-  INFO: 'info',
-  CAUTION: 'caution',
-  WARNING: 'warning',
-  DANGER: 'danger',
-} as const;
+export type TextColor = ComponentColor;
 
-export type TextColor = (typeof TextColor)[keyof typeof TextColor];
+export const textColors: TextColor[] = componentColors;
 
-export const textColors = Object.values(TextColor);
+export type TextSize = ComponentSize;
 
-export const TextSize = {
-  XS: 'xs',
-  SM: 'sm',
-  BASE: 'base',
-  LG: 'lg',
-  XL: 'xl',
-  TWO_XL: '2xl',
-} as const;
-
-export type TextSize = (typeof TextSize)[keyof typeof TextSize];
-
-export const textSizes = Object.values(TextSize);
+export const textSizes: TextSize[] = componentSizes;
 
 export const TEXT_COLOR_DEFAULT: TextColor | null = null;
 export const TEXT_SIZE_DEFAULT: TextSize | null = null;

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { Tag, tagVariants } from './tag';
 import { iconNames } from '../icon/icon';
-import { componentColors } from '../component-color-directive/component-color-directive';
+import { componentColors } from '../types/component-types';
 import { StorybookExampleContainer } from '../../private/storybook-example-container/storybook-example-container';
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 

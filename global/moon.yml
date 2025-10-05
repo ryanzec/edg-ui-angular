@@ -54,14 +54,6 @@ tasks:
     options:
       runFromWorkspaceRoot: true
 
-  generate-enum:
-    command: 'node $workspaceRoot/.moon/scripts/generate-shared-type.cjs enum'
-    local: true
-    env:
-      NODE_ENV: 'development'
-    options:
-      runFromWorkspaceRoot: true
-
   generate-type:
     command: 'node $workspaceRoot/.moon/scripts/generate-shared-type.cjs type'
     local: true

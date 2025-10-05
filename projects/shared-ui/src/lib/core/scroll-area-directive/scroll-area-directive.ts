@@ -1,17 +1,11 @@
 import { Directive, input, inject, Renderer2, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
-export const ScrollAreaDirection = {
-  VERTICAL: 'vertical',
-  HORIZONTAL: 'horizontal',
-  BOTH: 'both',
-} as const;
+export type ScrollAreaDirection = 'vertical' | 'horizontal' | 'both';
 
-export type ScrollAreaDirection = (typeof ScrollAreaDirection)[keyof typeof ScrollAreaDirection];
+export const scrollAreaDirections: ScrollAreaDirection[] = ['vertical', 'horizontal', 'both'];
 
-export const scrollAreaDirections = Object.values(ScrollAreaDirection);
-
-export const SCROLL_AREA_DIRECTION_DEFAULT: ScrollAreaDirection = ScrollAreaDirection.VERTICAL;
+export const SCROLL_AREA_DIRECTION_DEFAULT: ScrollAreaDirection = 'vertical';
 export const SCROLL_AREA_ONLY_SHOW_ON_HOVER_DEFAULT = false;
 
 // unique id for the style element to avoid duplicates

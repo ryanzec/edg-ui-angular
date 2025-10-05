@@ -9,12 +9,10 @@ const toPascalCase = (str) => {
 };
 
 const typeTemplateMap = {
-  enum: 'const-enum-template.txt',
   type: 'type-template.txt',
 }
 
 const typeDirectoryMap = {
-  enum: 'enums',
   type: 'types',
 }
 

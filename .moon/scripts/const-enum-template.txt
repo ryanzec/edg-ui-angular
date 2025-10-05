@@ -1,5 +1,0 @@
-export const $$NAME$$ = {
-  EXAMPLE: 'value',
-} as const;
-
-export type $$NAME$$ = (typeof $$NAME$$)[keyof typeof $$NAME$$];

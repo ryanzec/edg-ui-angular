@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { Component, signal } from '@angular/core';
 import { UsersList } from './users-list';
-import { User, UserRoleName } from '@organization/shared-types';
+import { User } from '@organization/shared-types';
 import { StorybookExampleContainer } from '../../private/storybook-example-container/storybook-example-container';
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 
@@ -11,7 +11,7 @@ const sampleUsers: User[] = [
     organizationId: 'org1',
     name: 'John Administrator',
     email: 'john.admin@company.com',
-    roles: [UserRoleName.ADMIN],
+    roles: ['admin'],
     hasPassword: true,
     createdAt: '2024-01-15T10:30:00Z',
     updatedAt: '2024-01-20T14:45:00Z',
@@ -21,7 +21,7 @@ const sampleUsers: User[] = [
     organizationId: 'org1',
     name: 'Jane Smith',
     email: 'jane.smith@company.com',
-    roles: [UserRoleName.USER],
+    roles: ['user'],
     hasPassword: true,
     createdAt: '2024-02-01T09:15:00Z',
     updatedAt: '2024-02-05T16:20:00Z',
@@ -31,7 +31,7 @@ const sampleUsers: User[] = [
     organizationId: 'org1',
     name: 'Bob Wilson',
     email: 'bob.wilson@company.com',
-    roles: [UserRoleName.ADMIN, UserRoleName.USER],
+    roles: ['admin', 'user'],
     hasPassword: false,
     createdAt: '2024-01-10T08:00:00Z',
     updatedAt: '2024-01-25T11:30:00Z',
@@ -41,7 +41,7 @@ const sampleUsers: User[] = [
     organizationId: 'org1',
     name: 'Sarah Johnson',
     email: 'sarah.johnson@company.com',
-    roles: [UserRoleName.USER],
+    roles: ['user'],
     hasPassword: true,
     createdAt: '2024-03-01T13:45:00Z',
     updatedAt: '2024-03-02T10:15:00Z',
@@ -51,7 +51,7 @@ const sampleUsers: User[] = [
     organizationId: 'org1',
     name: 'Michael Brown',
     email: 'michael.brown@company.com',
-    roles: [UserRoleName.ADMIN],
+    roles: ['admin'],
     hasPassword: true,
     createdAt: '2024-02-15T07:30:00Z',
     updatedAt: '2024-02-20T12:00:00Z',
@@ -320,8 +320,8 @@ export const RoleTypes: Story = {
       imports: [UsersList, StorybookExampleContainer, StorybookExampleContainerSection],
     },
     props: {
-      adminUsers: sampleUsers.filter((u) => u.roles.includes(UserRoleName.ADMIN) && u.roles.length === 1),
-      regularUsers: sampleUsers.filter((u) => u.roles.includes(UserRoleName.USER) && u.roles.length === 1),
+      adminUsers: sampleUsers.filter((u) => u.roles.includes('admin') && u.roles.length === 1),
+      regularUsers: sampleUsers.filter((u) => u.roles.includes('user') && u.roles.length === 1),
       mixedUsers: sampleUsers,
     },
   }),

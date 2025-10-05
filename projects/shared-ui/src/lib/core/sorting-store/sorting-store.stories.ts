@@ -38,7 +38,7 @@ import { Button } from '../button/button';
   `,
 })
 class SortingDemo {
-  private readonly sortingStore = inject(SortingStore);
+  public readonly sortingStore = inject(SortingStore);
 }
 
 const meta: Meta<SortingStore> = {

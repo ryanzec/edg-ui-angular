@@ -1,4 +1,5 @@
-import { ComponentColorDirective, type ComponentColor, componentColors } from './component-color-directive';
+import { ComponentColorDirective } from './component-color-directive';
+import { ComponentColor, componentColors } from '../types/component-types';
 import { Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { describe, it, expect, beforeEach } from 'vitest';

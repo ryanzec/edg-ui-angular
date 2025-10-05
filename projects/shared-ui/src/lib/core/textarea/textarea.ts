@@ -19,24 +19,13 @@ import { Subject } from 'rxjs';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { tailwindUtils } from '@organization/shared-utils';
 
-export const TextareaVariant = {
-  BORDERED: 'bordered',
-  BORDERLESS: 'borderless',
-} as const;
+export type TextareaVariant = 'bordered' | 'borderless';
 
-export type TextareaVariant = (typeof TextareaVariant)[keyof typeof TextareaVariant];
+export const textareaVariants: TextareaVariant[] = ['bordered', 'borderless'];
 
-export const textareaVariants = Object.values(TextareaVariant);
+export type TextareaIconAlignment = 'start' | 'center' | 'end';
 
-export const IconAlignment = {
-  START: 'start',
-  CENTER: 'center',
-  END: 'end',
-} as const;
-
-export type IconAlignment = (typeof IconAlignment)[keyof typeof IconAlignment];
-
-export const iconAlignments = Object.values(IconAlignment);
+export const textareaIconAlignments: TextareaIconAlignment[] = ['start', 'center', 'end'];
 
 export type InlineItem = {
   id: string;
@@ -77,8 +66,8 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit {
   public readonly = input<boolean>(false);
   public preIcon = input<IconName | null>(null);
   public postIcon = input<IconName | null>(null);
-  public preIconAlignment = input<IconAlignment>('start');
-  public postIconAlignment = input<IconAlignment>('end');
+  public preIconAlignment = input<TextareaIconAlignment>('start');
+  public postIconAlignment = input<TextareaIconAlignment>('end');
   public inlineItems = input<InlineItem[]>([]);
   public selectAllOnFocus = input<boolean>(false);
   public autoFocus = input<boolean>(false);

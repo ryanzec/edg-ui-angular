@@ -5,6 +5,7 @@ export * from './card/card-header';
 export * from './card/card-content';
 export * from './card/card-image';
 export * from './card/card-footer';
+export * from './code-block/code-block';
 export * from './component-color-directive/component-color-directive';
 export * from './feature-flag-store/feature-flag-store';
 export * from './file-upload/file-upload';

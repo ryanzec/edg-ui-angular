@@ -19,6 +19,7 @@ export const IconName = {
   EYE_SLASH: 'eye-slash',
   ENVELOPE: 'envelope',
   LOCK_KEY: 'lock-key',
+  COPY: 'copy',
 } as const;
 
 export type IconName = (typeof IconName)[keyof typeof IconName];

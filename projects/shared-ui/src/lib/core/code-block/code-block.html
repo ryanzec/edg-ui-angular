@@ -1,0 +1,66 @@
+@if (isBlock()) {
+  <div [class]="mergeClasses('group relative', sizingClass())">
+    <div class="absolute top-[-24px] right-0">
+      @if (allowCopy()) {
+        <button
+          type="button"
+          [class]="
+            mergeClasses(
+              'inline-flex items-center justify-center rounded cursor-pointer border-none p-1',
+              'bg-transparent text-code-block-copy-icon opacity-10',
+              'focus-visible:opacity-80',
+              'group-hover:opacity-80',
+              'z-10'
+            )
+          "
+          [cdkCopyToClipboard]="text()"
+          aria-label="Copy code"
+        >
+          <org-icon name="copy" />
+        </button>
+      }
+    </div>
+    <div
+      orgScrollArea
+      scrollAreaDirection="both"
+      [scrollAreaOnlyShowOnHover]="true"
+      [scrollAreaUseStableContent]="true"
+      [class]="
+        mergeClasses(
+          'h-full w-full org-code-block-container',
+          'relative block rounded-md border p-2',
+          'bg-code-block-background border-code-block-border',
+          containerClass()
+        )
+      "
+    >
+      <pre
+        [class]="
+          mergeClasses('m-0 whitespace-pre font-mono text-sm leading-normal', 'text-code-block-text', {
+            'line-clamp-[var(--ellipsis-lines)] overflow-hidden whitespace-pre-wrap break-all': hasEllipsis(),
+          })
+        "
+        [style]="{
+          '--ellipsis-lines': hasEllipsis() ? ellipsisAt() : null,
+          display: hasEllipsis() ? '-webkit-box' : null,
+          '-webkit-box-orient': hasEllipsis() ? 'vertical' : null,
+          '-webkit-line-clamp': hasEllipsis() ? 'var(--ellipsis-lines)' : null,
+          'line-clamp': hasEllipsis() ? 'var(--ellipsis-lines)' : null,
+        }"
+      ><code>{{ text() }}</code></pre>
+    </div>
+  </div>
+}
+
+@if (isInline()) {
+  <code
+    [class]="
+      mergeClasses(
+        'inline py-0.5 px-1.5 rounded-sm font-mono text-sm',
+        'bg-code-block-background text-code-block-text',
+        containerClass()
+      )
+    "
+    >{{ text() }}</code
+  >
+}

@@ -1,4 +1,4 @@
-import { Directive, input, effect, ElementRef, inject, Renderer2, PLATFORM_ID } from '@angular/core';
+import { Directive, input, inject, Renderer2, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 export const ScrollAreaDirection = {
@@ -25,15 +25,16 @@ const STYLE_ID = 'org-scroll-area-styles';
     '[class.org-scroll-area--horizontal]': '_getDirection() === "horizontal"',
     '[class.org-scroll-area--both]': '_getDirection() === "both"',
     '[class.org-scroll-area--hover-only]': 'scrollAreaOnlyShowOnHover()',
+    '[class.org-scroll-area--stable-content]': 'scrollAreaUseStableContent()',
   },
 })
 export class ScrollAreaDirective {
-  private _elementRef = inject(ElementRef);
   private _renderer = inject(Renderer2);
   private _platformId = inject(PLATFORM_ID);
 
   public scrollAreaDirection = input<ScrollAreaDirection | ''>(SCROLL_AREA_DIRECTION_DEFAULT);
   public scrollAreaOnlyShowOnHover = input<boolean>(SCROLL_AREA_ONLY_SHOW_ON_HOVER_DEFAULT);
+  public scrollAreaUseStableContent = input<boolean>(true);
 
   // helper method to get the direction, handling empty string
   public _getDirection(): ScrollAreaDirection {
@@ -42,27 +43,9 @@ export class ScrollAreaDirective {
   }
 
   constructor() {
-    // inject global styles once
     if (isPlatformBrowser(this._platformId)) {
       this._injectGlobalStyles();
     }
-
-    // apply inline styles for scrollbar customization
-    effect(() => {
-      const element = this._elementRef.nativeElement as HTMLElement;
-      const direction = this._getDirection();
-
-      // set overflow based on direction
-      if (direction === ScrollAreaDirection.VERTICAL) {
-        this._renderer.setStyle(element, 'overflow-y', 'auto');
-        this._renderer.setStyle(element, 'overflow-x', 'hidden');
-      } else if (direction === ScrollAreaDirection.HORIZONTAL) {
-        this._renderer.setStyle(element, 'overflow-x', 'auto');
-        this._renderer.setStyle(element, 'overflow-y', 'hidden');
-      } else if (direction === ScrollAreaDirection.BOTH) {
-        this._renderer.setStyle(element, 'overflow', 'auto');
-      }
-    });
   }
 
   private _injectGlobalStyles(): void {
@@ -75,101 +58,100 @@ export class ScrollAreaDirective {
     this._renderer.setAttribute(styleElement, 'id', STYLE_ID);
 
     const styles = `
-      /* modern scrollbar styling using native css */
-      /* light mode (default) - darker scrollbars */
+      /* this prevent this style from being applied to Safari which cause the default scrollbar to be applied */
+      @supports (scrollbar-color: auto) {
+        body {
+          scrollbar-width: thin;
+        }
+      }
+
+      @supports selector(::-webkit-scrollbar) {
+        ::-webkit-scrollbar {
+          -webkit-appearance: none;
+          width: 8px;
+          height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+          background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+          -webkit-appearance: none;
+          border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-corner {
+          background: transparent;
+        }
+      }
       .org-scroll-area {
-        /* firefox scrollbar styling */
-        scrollbar-width: thin;
-        scrollbar-color: rgb(148 163 184 / 0.7) transparent;
+        --scrollbar-thumb-color: rgb(148 163 184 / 0.7);
+        --scrollbar-thumb-hover-color: rgb(100 116 139 / 0.9);
       }
 
-      /* webkit scrollbar styling */
-      .org-scroll-area::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-      }
-
-      .org-scroll-area::-webkit-scrollbar-track {
-        background: transparent;
-      }
-
-      .org-scroll-area::-webkit-scrollbar-thumb {
-        background-color: rgb(148 163 184 / 0.7);
-        border-radius: 4px;
-        transition: background-color 0.2s ease;
-      }
-
-      .org-scroll-area::-webkit-scrollbar-thumb:hover {
-        background-color: rgb(100 116 139 / 0.9);
-      }
-
-      /* dark mode - lighter scrollbars */
       .dark-theme .org-scroll-area {
-        scrollbar-color: rgb(203 213 225 / 0.3) transparent;
+        --scrollbar-thumb-color: rgb(203 213 225 / 0.3);
+        --scrollbar-thumb-hover-color: rgb(203 213 225 / 0.5);
       }
 
-      .dark-theme .org-scroll-area::-webkit-scrollbar-thumb {
-        background-color: rgb(203 213 225 / 0.3);
+      .org-scroll-area {
+        /* Firefox */
+        scrollbar-color: var(--scrollbar-thumb-color) transparent;
       }
 
-      .dark-theme .org-scroll-area::-webkit-scrollbar-thumb:hover {
-        background-color: rgb(203 213 225 / 0.5);
+      /* Overflow Control */
+      /* using scroll instead of auto forces non-overlay scrollbars in Safari that can be styled */
+      .org-scroll-area--vertical {
+        overflow-y: scroll;
+        overflow-x: hidden;
       }
 
-      /* hide scrollbar for hover-only mode by default */
-      .org-scroll-area.org-scroll-area--hover-only {
+      .org-scroll-area--horizontal {
+        overflow-x: scroll;
+        overflow-y: hidden;
+      }
+
+      .org-scroll-area--both {
+        overflow: scroll;
+      }
+
+      /* Layout Stability */
+      .org-scroll-area--stable-content {
+        scrollbar-gutter: stable;
+        /* contain size calculations to prevent parent subpixel issues which effects chrome */
+        contain: strict;
+      }
+
+      .org-scroll-area:not(.org-scroll-area--stable-content) {
         scrollbar-width: none;
       }
 
-      .org-scroll-area.org-scroll-area--hover-only::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
+      /* Visibility Control */
+      .org-scroll-area--hover-only {
+        /* For Firefox: Make the scrollbar invisible, but keep its space */
+        scrollbar-color: transparent transparent;
       }
 
-      .org-scroll-area.org-scroll-area--hover-only::-webkit-scrollbar-thumb {
+      .org-scroll-area--hover-only:hover {
+        /* For Firefox: Restore color on hover */
+        scrollbar-color: var(--scrollbar-thumb-color) transparent;
+        scrollbar-width: thin;
+      }
+
+      .org-scroll-area--hover-only::-webkit-scrollbar-thumb {
+        /* For WebKit: Make the thumb invisible, but keep its space */
         background-color: transparent;
       }
 
-      /* show scrollbar on hover - light mode */
-      .org-scroll-area.org-scroll-area--hover-only:hover {
-        scrollbar-width: thin;
-        scrollbar-color: rgb(148 163 184 / 0.7) transparent;
+      .org-scroll-area--hover-only:hover::-webkit-scrollbar-thumb {
+        /* For WebKit: Restore thumb color on hover */
+        background-color: var(--scrollbar-thumb-color);
       }
 
-      .org-scroll-area.org-scroll-area--hover-only:hover::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-      }
-
-      .org-scroll-area.org-scroll-area--hover-only:hover::-webkit-scrollbar-thumb {
-        background-color: rgb(148 163 184 / 0.7);
-      }
-
-      .org-scroll-area.org-scroll-area--hover-only:hover::-webkit-scrollbar-thumb:hover {
-        background-color: rgb(100 116 139 / 0.9);
-      }
-
-      /* show scrollbar on hover - dark mode */
-      .dark-theme .org-scroll-area.org-scroll-area--hover-only:hover {
-        scrollbar-color: rgb(203 213 225 / 0.3) transparent;
-      }
-
-      .dark-theme .org-scroll-area.org-scroll-area--hover-only:hover::-webkit-scrollbar-thumb {
-        background-color: rgb(203 213 225 / 0.3);
-      }
-
-      .dark-theme .org-scroll-area.org-scroll-area--hover-only:hover::-webkit-scrollbar-thumb:hover {
-        background-color: rgb(203 213 225 / 0.5);
-      }
-
-      /* hide horizontal scrollbar for vertical-only mode */
-      .org-scroll-area.org-scroll-area--vertical::-webkit-scrollbar:horizontal {
-        display: none;
-      }
-
-      /* hide vertical scrollbar for horizontal-only mode */
-      .org-scroll-area.org-scroll-area--horizontal::-webkit-scrollbar:vertical {
-        display: none;
+      .org-scroll-area--hover-only:hover::-webkit-scrollbar-thumb:hover {
+        /* For WebKit: Handle the thumb's own hover state */
+        background-color: var(--scrollbar-thumb-hover-color);
       }
     `;
 

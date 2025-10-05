@@ -4,7 +4,7 @@ import { StorybookExampleContainer } from '../../private/storybook-example-conta
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 
 const meta: Meta<Avatar> = {
-  title: 'Core/Avatar',
+  title: 'Core/Components/Avatar',
   component: Avatar,
   tags: ['autodocs'],
   parameters: {

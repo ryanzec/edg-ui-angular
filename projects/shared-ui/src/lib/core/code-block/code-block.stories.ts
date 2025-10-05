@@ -5,7 +5,7 @@ import { StorybookExampleContainerSection } from '../../private/storybook-exampl
 import { ScrollAreaDirective } from '../scroll-area-directive/scroll-area-directive';
 
 const meta: Meta<CodeBlock> = {
-  title: 'Core/CodeBlock',
+  title: 'Core/Components/CodeBlock',
   component: CodeBlock,
   tags: ['autodocs'],
   parameters: {

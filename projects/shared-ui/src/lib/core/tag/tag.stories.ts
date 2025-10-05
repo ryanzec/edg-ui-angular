@@ -6,7 +6,7 @@ import { StorybookExampleContainer } from '../../private/storybook-example-conta
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 
 const meta: Meta<Tag> = {
-  title: 'Core/Tag',
+  title: 'Core/Components/Tag',
   component: Tag,
   tags: ['autodocs'],
   parameters: {

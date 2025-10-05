@@ -4,7 +4,7 @@ import { StorybookExampleContainer } from '../../private/storybook-example-conta
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 
 const meta: Meta<GroupElementsDirective> = {
-  title: 'Core/Directives/Grouped Elements',
+  title: 'Core/Directives/Group Elements',
   component: GroupElementsDirective,
   tags: ['autodocs'],
   parameters: {

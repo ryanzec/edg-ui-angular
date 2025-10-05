@@ -3,7 +3,7 @@ import { FileUploadComponent } from './file-upload';
 import { expect, fn, fireEvent } from 'storybook/test';
 
 const meta: Meta<FileUploadComponent> = {
-  title: 'Core/File Upload/Tests',
+  title: 'Core/Components/File Upload/Tests',
   component: FileUploadComponent,
   argTypes: {
     fileTypes: {

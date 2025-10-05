@@ -10,6 +10,7 @@ import {
   computed,
   EnvironmentInjector,
   afterNextRender,
+  OnDestroy,
 } from '@angular/core';
 import { Icon, IconName } from '../icon/icon';
 import { SortingStore, SortingDirection } from '../sorting-store/sorting-store';
@@ -17,7 +18,7 @@ import { SortingStore, SortingDirection } from '../sorting-store/sorting-store';
 export const SORTABLE_SELECTABLE_DEFAULT = '';
 
 @Directive({
-  selector: '[orgSelectable]',
+  selector: '[orgSortable]',
   host: {
     '(click)': '_handleClick()',
     '[class.cursor-pointer]': 'true',
@@ -27,7 +28,7 @@ export const SORTABLE_SELECTABLE_DEFAULT = '';
     '[class.items-center]': 'true',
   },
 })
-export class SortableDirective {
+export class SortableDirective implements OnDestroy {
   private readonly _renderer = inject(Renderer2);
   private readonly _elementRef = inject(ElementRef);
   private readonly _environmentInjector = inject(EnvironmentInjector);
@@ -35,12 +36,12 @@ export class SortableDirective {
 
   private _iconComponentRef: ComponentRef<Icon> | null = null;
 
-  public orgSelectable = input.required<string>();
+  public orgSortable = input.required<string>();
 
   private readonly _isActivelySorting = computed<boolean>(() => {
     const key = this._sortingStore.key();
     const direction = this._sortingStore.direction();
-    const selectableValue = this.orgSelectable();
+    const selectableValue = this.orgSortable();
 
     return key === selectableValue && direction !== null;
   });
@@ -77,8 +78,12 @@ export class SortableDirective {
     });
   }
 
+  ngOnDestroy(): void {
+    this._iconComponentRef?.destroy();
+  }
+
   public _handleClick(): void {
-    const selectableValue = this.orgSelectable();
+    const selectableValue = this.orgSortable();
 
     if (!selectableValue) {
       return;

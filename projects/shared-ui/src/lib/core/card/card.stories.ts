@@ -9,7 +9,7 @@ import { StorybookExampleContainer } from '../../private/storybook-example-conta
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 
 const meta: Meta<Card> = {
-  title: 'Core/Card',
+  title: 'Core/Components/Card',
   component: Card,
   tags: ['autodocs'],
   parameters: {

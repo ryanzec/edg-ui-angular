@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/angular';
 import { Avatar } from './avatar';
 
 const meta: Meta<Avatar> = {
-  title: 'Core/Avatar/Tests',
+  title: 'Core/Components/Avatar/Tests',
   component: Avatar,
   parameters: {
     layout: 'centered',

@@ -5,7 +5,7 @@ import { StorybookExampleContainer } from '../../private/storybook-example-conta
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 
 const meta: Meta<Textarea> = {
-  title: 'Core/Textarea',
+  title: 'Core/Components/Textarea',
   component: Textarea,
   tags: ['autodocs'],
   parameters: {

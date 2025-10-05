@@ -1,0 +1,10 @@
+<i
+  [class]="
+    mergeClasses('inline-flex', weight() === 'regular' ? 'ph' : 'ph-' + weight(), 'ph-' + name(), {
+      'text-sm': size() === 'small',
+      'text-lg': size() === 'base',
+      'text-xl': size() === 'large',
+    })
+  "
+  aria-hidden="true"
+></i>

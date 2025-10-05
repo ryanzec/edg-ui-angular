@@ -5,7 +5,7 @@ import { StorybookExampleContainer } from '../../private/storybook-example-conta
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 
 const meta: Meta<Input> = {
-  title: 'Core/Input',
+  title: 'Core/Components/Input',
   component: Input,
   tags: ['autodocs'],
   parameters: {

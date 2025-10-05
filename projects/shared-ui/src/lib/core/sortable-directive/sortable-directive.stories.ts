@@ -19,10 +19,10 @@ import { SortingStore } from '../sorting-store/sorting-store';
       <div class="flex flex-col gap-2">
         <h3 class="text-lg font-semibold">Click to Sort</h3>
         <div class="flex gap-4 p-4 bg-background border border-border rounded">
-          <span class="font-medium" [orgSelectable]="'name'">Name</span>
-          <span class="font-medium" [orgSelectable]="'email'">Email</span>
-          <span class="font-medium" [orgSelectable]="'status'">Status</span>
-          <span class="font-medium" [orgSelectable]="'date'">Date</span>
+          <span class="font-medium" [orgSortable]="'name'">Name</span>
+          <span class="font-medium" [orgSortable]="'email'">Email</span>
+          <span class="font-medium" [orgSortable]="'status'">Status</span>
+          <span class="font-medium" [orgSortable]="'date'">Date</span>
         </div>
       </div>
     </div>
@@ -33,7 +33,7 @@ class SortableDemo {
 }
 
 const meta: Meta<SortableDirective> = {
-  title: 'Core/SortableDirective',
+  title: 'Core/Directives/Sortable',
   component: SortableDirective,
   tags: ['autodocs'],
   parameters: {
@@ -60,7 +60,7 @@ const meta: Meta<SortableDirective> = {
 
   ### Requirements
   - **MUST** be used within a component that provides SortingStore
-  - **MUST** have a non-empty \`orgSelectable\` value (the sort key)
+  - **MUST** have a non-empty \`orgSortable\` value (the sort key)
 
   ### Usage Examples
   \`\`\`html
@@ -73,9 +73,9 @@ const meta: Meta<SortableDirective> = {
   }
 
   <!-- Use directive on sortable headers -->
-  <th [orgSelectable]="'name'">Name</th>
-  <th [orgSelectable]="'email'">Email</th>
-  <th [orgSelectable]="'date'">Date</th>
+  <th [orgSortable]="'name'">Name</th>
+  <th [orgSortable]="'email'">Email</th>
+  <th [orgSortable]="'date'">Date</th>
   \`\`\`
 
   ### Integration with SortingStore

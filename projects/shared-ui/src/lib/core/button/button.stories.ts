@@ -4,7 +4,7 @@ import { StorybookExampleContainer } from '../../private/storybook-example-conta
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 
 const meta: Meta<Button> = {
-  title: 'Core/Button',
+  title: 'Core/Components/Button',
   component: Button,
   tags: ['autodocs'],
   parameters: {

@@ -42,7 +42,7 @@ class SortingDemo {
 }
 
 const meta: Meta<SortingStore> = {
-  title: 'Core/SortingStore',
+  title: 'Core/Services/Sorting Store',
   component: SortingStore,
   tags: ['autodocs'],
   parameters: {

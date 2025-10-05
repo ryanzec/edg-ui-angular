@@ -51,7 +51,7 @@ type StoryArgs = {
 };
 
 const meta: Meta<StoryArgs> = {
-  title: 'Core/File Upload',
+  title: 'Core/Components/File Upload',
   component: StoryWrapperComponent,
   tags: ['autodocs'],
   parameters: {

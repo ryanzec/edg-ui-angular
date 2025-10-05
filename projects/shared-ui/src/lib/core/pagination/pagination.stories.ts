@@ -5,7 +5,7 @@ import { StorybookExampleContainer } from '../../private/storybook-example-conta
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 
 const meta: Meta<Pagination> = {
-  title: 'Core/Pagination',
+  title: 'Core/Components/Pagination',
   component: Pagination,
   tags: ['autodocs'],
   parameters: {

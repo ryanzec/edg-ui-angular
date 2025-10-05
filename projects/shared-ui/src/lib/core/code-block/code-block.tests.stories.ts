@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/angular';
 import { CodeBlock } from './code-block';
 
 const meta: Meta<CodeBlock> = {
-  title: 'Core/CodeBlock/Tests',
+  title: 'Core/Components/CodeBlock/Tests',
   component: CodeBlock,
 };
 

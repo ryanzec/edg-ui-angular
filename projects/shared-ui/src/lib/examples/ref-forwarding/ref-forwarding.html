@@ -1,4 +1,5 @@
-<div class="border border-primary p-2">
-  <org-button orgColor="brand" (click)="focusNestedElement()">focus nested element</org-button>
+<div class="space-y-3 rounded border border-info-border bg-info-background-subtle p-4">
+  <p class="text-sm font-medium text-text">Parent Component (can focus deeply nested input)</p>
+  <org-button orgColor="brand" (click)="focusNestedElement()">Focus Nested Input</org-button>
   <org-example-nested-1 #nested1Component />
 </div>

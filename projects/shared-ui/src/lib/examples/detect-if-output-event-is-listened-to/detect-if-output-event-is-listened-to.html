@@ -1,55 +1,48 @@
-<div class="space-y-6 p-6 bg-white rounded-lg shadow-lg max-w-2xl mx-auto">
+<div class="mx-auto max-w-2xl space-y-6 rounded-lg border border-border bg-background p-6">
   <div class="text-center">
-    <h1 class="text-2xl font-bold text-gray-900 mb-2">Detect Output Event Listeners</h1>
-    <p class="text-text-color">Using Subject + outputFromObservable() to detect if an event is being listened to</p>
+    <h1 class="mb-2 text-2xl font-bold text-text">Detect Output Event Listeners</h1>
+    <p class="text-text-subtle">Using Subject + outputFromObservable() to detect if an event is being listened to</p>
   </div>
 
   <!-- Status Display -->
-  <div class="bg-gray-50 p-4 rounded-lg text-center">
-    <div class="text-sm font-medium text-text-color mb-1">buttonClicked Event Status</div>
-    <div class="text-xl font-bold" [class.text-green-600]="isListenedTo()" [class.text-red-600]="!isListenedTo()">
+  <div class="rounded-lg border border-border bg-background p-4 text-center">
+    <div class="mb-1 text-sm font-medium text-text-subtle">buttonClicked Event Status</div>
+    <div class="text-xl font-bold" [class.text-safe-text]="isListenedTo()" [class.text-danger-text]="!isListenedTo()">
       {{ isListenedTo() ? '✓ Being Listened To' : '✗ Not Being Listened To' }}
     </div>
   </div>
 
   <!-- Interactive Example -->
-  <div class="text-center space-y-4">
+  <div class="space-y-4 text-center">
     <div>
-      <p class="text-text-color mb-4">
+      <p class="mb-4 text-text">
         Notice how the button changes appearance based on whether someone is listening to the
-        <code class="text-background px-1 rounded">buttonClicked</code> output:
+        <code class="rounded bg-background px-1 py-0.5 text-xs">buttonClicked</code> output:
       </p>
-      <button [class]="buttonClasses()" (click)="handleClick()">Click Me! ({{ clickCount() }} clicks)</button>
-    </div>
-
-    <div class="text-sm text-text-color">
-      <div>🔵 Blue = Event is being listened to</div>
-      <div>⚪ Gray = Event is not being listened to</div>
+      <org-button orgColor="brand" (click)="handleClick()">Click Me! ({{ clickCount() }} clicks)</org-button>
     </div>
   </div>
 
   <!-- Pattern Explanation -->
-  <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-    <h3 class="font-semibold text-blue-900 mb-3">The Pattern:</h3>
-    <div class="text-blue-800 space-y-2 text-sm font-mono">
+  <div class="rounded-lg border border-info-border bg-info-background-subtle p-4">
+    <h3 class="mb-3 font-semibold text-text">The Pattern:</h3>
+    <div class="space-y-2 text-sm font-mono text-text">
       <div>
-        <span class="text-blue-600">1.</span> <code>private _buttonClicked$ = new Subject&lt;string&gt;()</code>
+        <span class="text-info-text">1.</span> <code>private _buttonClicked$ = new Subject&lt;string&gt;()</code>
       </div>
       <div>
-        <span class="text-blue-600">2.</span>
+        <span class="text-info-text">2.</span>
         <code>public buttonClicked = outputFromObservable(this._buttonClicked$)</code>
       </div>
       <div>
-        <span class="text-blue-600">3.</span> <code>this._buttonClicked$.observed</code> → true if being listened to
+        <span class="text-info-text">3.</span> <code>this._buttonClicked$.observed</code> → true if being listened to
       </div>
-      <div><span class="text-blue-600">4.</span> <code>this._buttonClicked$.next(value)</code> → emit event</div>
+      <div><span class="text-info-text">4.</span> <code>this._buttonClicked$.next(value)</code> → emit event</div>
     </div>
   </div>
 
   <!-- Reset Button -->
   <div class="text-center">
-    <button class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600" (click)="resetCounter()">
-      Reset Counter
-    </button>
+    <org-button orgColor="neutral" (click)="resetCounter()"> Reset Counter </org-button>
   </div>
 </div>

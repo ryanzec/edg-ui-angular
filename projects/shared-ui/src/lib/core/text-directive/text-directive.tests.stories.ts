@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/angular';
 import { TextDirective } from './text-directive';
 
 const meta: Meta = {
-  title: 'Shared UI/Core/Directives/Text/Tests',
+  title: 'ShaCore/Directives/Text/Tests',
   component: TextDirective,
 };
 

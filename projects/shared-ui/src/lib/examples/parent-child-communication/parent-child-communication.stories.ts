@@ -10,7 +10,18 @@ export default meta;
 type Story = StoryObj<EXAMPLEParentChildCommunication>;
 
 export const DirectChild: Story = {
-  args: {
-    // Add args here when the component has inputs
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Demonstrates parent-to-child communication using ViewChild to access a direct child component's public methods. The parent calls setValue() on the child after the view initializes.",
+      },
+    },
   },
+  render: () => ({
+    template: `<org-example-parent-child-communication />`,
+    moduleMetadata: {
+      imports: [EXAMPLEParentChildCommunication],
+    },
+  }),
 };

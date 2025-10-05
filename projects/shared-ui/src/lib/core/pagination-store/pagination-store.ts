@@ -203,20 +203,15 @@ export class PaginationStore {
     return validPage;
   }
 
-  public setItemsPerPage(itemsPerPage: number): number {
+  public setItemsPerPage(itemsPerPage: number): void {
     if (this._config().disabled || !this._config().itemsPerPageOptions.includes(itemsPerPage)) {
-      return this._state().itemsPerPage;
+      return;
     }
 
-    const currentItem = this.startIndex() + 1;
     this._state.update((state) => ({
       ...state,
       itemsPerPage,
     }));
-
-    // adjust current page to maintain approximate position
-    const newPage = Math.ceil(currentItem / itemsPerPage);
-    return this.setCurrentPage(newPage);
   }
 
   public goToPage(page: number): number {

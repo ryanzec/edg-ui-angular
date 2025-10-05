@@ -10,7 +10,18 @@ export default meta;
 type Story = StoryObj<EXAMPLEChildParentEventsCommunication>;
 
 export const Events: Story = {
-  args: {
-    // Add args here when the component has inputs
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Demonstrates child-to-parent communication using the signal-based output() pattern. The child component emits events that the parent listens to and handles.',
+      },
+    },
   },
+  render: () => ({
+    template: `<org-example-child-parent-events-communication />`,
+    moduleMetadata: {
+      imports: [EXAMPLEChildParentEventsCommunication],
+    },
+  }),
 };

@@ -10,7 +10,18 @@ export default meta;
 type Story = StoryObj<EXAMPLEParentChildNestedCommunication>;
 
 export const Nested: Story = {
-  args: {
-    // Add args here when the component has inputs
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Demonstrates the registry pattern for parent-to-nested-child communication. The parent provides a store that deeply nested children can inject and access without prop drilling.',
+      },
+    },
   },
+  render: () => ({
+    template: `<org-example-parent-child-nested-communication />`,
+    moduleMetadata: {
+      imports: [EXAMPLEParentChildNestedCommunication],
+    },
+  }),
 };

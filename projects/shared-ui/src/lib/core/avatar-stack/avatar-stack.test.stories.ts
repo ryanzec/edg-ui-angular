@@ -19,7 +19,7 @@ import { Avatar } from '../avatar/avatar';
 class TestWrapperComponent {}
 
 const meta: Meta = {
-  title: 'Shared UI/Core/Avatar Stack/Tests',
+  title: 'Core/Avatar Stack/Tests',
   component: TestWrapperComponent,
 };
 

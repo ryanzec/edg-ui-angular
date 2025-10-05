@@ -8,7 +8,7 @@ const loginSubmit = (requestData: AuthenticationAuthenticateRequest) => {
 };
 
 const meta: Meta<LoginForm> = {
-  title: 'Shared UI/Authentication/Login Form/Tests',
+  title: 'Authentication/Login Form/Tests',
   component: LoginForm,
   parameters: {
     layout: 'centered',

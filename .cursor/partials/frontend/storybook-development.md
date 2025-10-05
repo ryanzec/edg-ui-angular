@@ -18,6 +18,7 @@ Helps keep better consistent for all stories.
 - ALWAYS make sure that required property of the component being storied has all its required properties set
 - ALWAYS make sure for the interactive demo story, the types for the controls in the correct types based on the component property types
 - ALWAYS wrap the docs description content in a `<div class="docs-top-level-overview">...</div>` block
+- ALWAYS create a first story called `Default` story with full controls for the autodocs story
 
 You MUST NEVER use these patterns when work on development storybook stories:
 - NEVER write play / tests stories in the development stories file

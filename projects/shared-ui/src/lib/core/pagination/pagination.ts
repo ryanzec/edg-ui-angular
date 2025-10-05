@@ -58,12 +58,10 @@ export class Pagination implements OnInit {
   }
 
   public setItemsPerPage(itemsPerPage: number): void {
-    const newPage = this._paginationStore.setItemsPerPage(itemsPerPage);
+    this._paginationStore.setItemsPerPage(itemsPerPage);
     this.itemsPerPageChanged.emit(itemsPerPage);
 
-    if (newPage !== this.activePage()) {
-      this.pageChanged.emit(newPage);
-    }
+    this.setCurrentPage(1);
   }
 
   public goToPage(page: number): void {

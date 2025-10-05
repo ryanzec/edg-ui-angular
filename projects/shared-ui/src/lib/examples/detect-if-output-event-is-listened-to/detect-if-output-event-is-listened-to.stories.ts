@@ -37,6 +37,12 @@ export const NoListeners: Story = {
       },
     },
   },
+  render: () => ({
+    template: `<org-detect-if-output-event-is-listened-to />`,
+    moduleMetadata: {
+      imports: [DetectIfOutputEventIsListenedTo],
+    },
+  }),
 };
 
 export const WithEventListener: Story = {
@@ -52,4 +58,11 @@ export const WithEventListener: Story = {
       },
     },
   },
+  render: (args) => ({
+    props: args,
+    template: `<org-detect-if-output-event-is-listened-to (buttonClicked)="buttonClicked($event)" />`,
+    moduleMetadata: {
+      imports: [DetectIfOutputEventIsListenedTo],
+    },
+  }),
 };

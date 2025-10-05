@@ -226,7 +226,8 @@ export const AllIcons: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Complete showcase of all available icons from the Phosphor Icons library.',
+        story:
+          'Complete showcase of all available icons from the Phosphor Icons library. Click any icon card to copy its name to the clipboard.',
       },
     },
   },
@@ -234,88 +235,44 @@ export const AllIcons: Story = {
     template: `
       <org-storybook-example-container
         title="All Available Icons"
-        currentState="Displaying all Phosphor icons"
+        currentState="Displaying all Phosphor icons - Click to copy icon name"
       >
-        <div class="grid grid-cols-4 gap-4">
-          <div class="flex flex-col items-center gap-2 rounded border border-border p-3">
-            <org-icon name="caret-right"></org-icon>
-            <span class="text-xs text-text-color">caret-right</span>
-          </div>
-          <div class="flex flex-col items-center gap-2 rounded border border-border p-3">
-            <org-icon name="caret-left"></org-icon>
-            <span class="text-xs text-text-color">caret-left</span>
-          </div>
-          <div class="flex flex-col items-center gap-2 rounded border border-border p-3">
-            <org-icon name="plus"></org-icon>
-            <span class="text-xs text-text-color">plus</span>
-          </div>
-          <div class="flex flex-col items-center gap-2 rounded border border-border p-3">
-            <org-icon name="check"></org-icon>
-            <span class="text-xs text-text-color">check</span>
-          </div>
-          <div class="flex flex-col items-center gap-2 rounded border border-border p-3">
-            <org-icon name="x"></org-icon>
-            <span class="text-xs text-text-color">x</span>
-          </div>
-          <div class="flex flex-col items-center gap-2 rounded border border-border p-3">
-            <org-icon name="arrow-right"></org-icon>
-            <span class="text-xs text-text-color">arrow-right</span>
-          </div>
-          <div class="flex flex-col items-center gap-2 rounded border border-border p-3">
-            <org-icon name="arrow-left"></org-icon>
-            <span class="text-xs text-text-color">arrow-left</span>
-          </div>
-          <div class="flex flex-col items-center gap-2 rounded border border-border p-3">
-            <org-icon name="download-simple"></org-icon>
-            <span class="text-xs text-text-color">download-simple</span>
-          </div>
-          <div class="flex flex-col items-center gap-2 rounded border border-border p-3">
-            <org-icon name="upload-simple"></org-icon>
-            <span class="text-xs text-text-color">upload-simple</span>
-          </div>
-          <div class="flex flex-col items-center gap-2 rounded border border-border p-3">
-            <org-icon name="trash"></org-icon>
-            <span class="text-xs text-text-color">trash</span>
-          </div>
-          <div class="flex flex-col items-center gap-2 rounded border border-border p-3">
-            <org-icon name="pencil-simple"></org-icon>
-            <span class="text-xs text-text-color">pencil-simple</span>
-          </div>
-          <div class="flex flex-col items-center gap-2 rounded border border-border p-3">
-            <org-icon name="gear"></org-icon>
-            <span class="text-xs text-text-color">gear</span>
-          </div>
-          <div class="flex flex-col items-center gap-2 rounded border border-border p-3">
-            <org-icon name="circle-notch"></org-icon>
-            <span class="text-xs text-text-color">circle-notch</span>
-          </div>
-          <div class="flex flex-col items-center gap-2 rounded border border-border p-3">
-            <org-icon name="eye"></org-icon>
-            <span class="text-xs text-text-color">eye</span>
-          </div>
-          <div class="flex flex-col items-center gap-2 rounded border border-border p-3">
-            <org-icon name="eye-slash"></org-icon>
-            <span class="text-xs text-text-color">eye-slash</span>
-          </div>
-          <div class="flex flex-col items-center gap-2 rounded border border-border p-3">
-            <org-icon name="envelope"></org-icon>
-            <span class="text-xs text-text-color">envelope</span>
-          </div>
-          <div class="flex flex-col items-center gap-2 rounded border border-border p-3">
-            <org-icon name="lock-key"></org-icon>
-            <span class="text-xs text-text-color">lock-key</span>
-          </div>
+        <div class="grid grid-cols-12 gap-4">
+          @for (iconName of iconNames; track iconName) {
+            <button
+              type="button"
+              class="cursor-pointer flex flex-col items-center gap-2 rounded border border-border p-3 transition-colors hover:bg-background-hover focus-visible:bg-background-hover"
+              (click)="copyToClipboard(iconName)"
+            >
+              <org-icon [name]="iconName"></org-icon>
+              <span class="text-xs text-text-color">{{ iconName }}</span>
+            </button>
+          }
         </div>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>All icons are from the Phosphor Icons library</li>
           <li>Icons are displayed at base size with regular weight</li>
           <li>Each icon can be used with any size and weight combination</li>
+          <li>Click any icon card to copy its name to the clipboard</li>
         </ul>
       </org-storybook-example-container>
     `,
     moduleMetadata: {
       imports: [Icon, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+    applicationConfig: {
+      providers: [],
+    },
+    props: {
+      iconNames,
+      copyToClipboard: async (iconName: string) => {
+        try {
+          await navigator.clipboard.writeText(iconName);
+        } catch (error) {
+          console.error('Failed to copy to clipboard:', error);
+        }
+      },
     },
   }),
 };

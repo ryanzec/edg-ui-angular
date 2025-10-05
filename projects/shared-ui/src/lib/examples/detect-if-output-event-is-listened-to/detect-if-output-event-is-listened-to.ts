@@ -1,6 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { Subject } from 'rxjs';
+import { Button } from '../../core/button/button';
 
 /**
  * Simple example demonstrating how to detect if an output event is being listened to
@@ -8,7 +9,7 @@ import { Subject } from 'rxjs';
  */
 @Component({
   selector: 'org-detect-if-output-event-is-listened-to',
-  imports: [],
+  imports: [Button],
   templateUrl: './detect-if-output-event-is-listened-to.html',
 })
 export class DetectIfOutputEventIsListenedTo {
@@ -37,15 +38,4 @@ export class DetectIfOutputEventIsListenedTo {
   public resetCounter(): void {
     this._clickCount.set(0);
   }
-
-  // Dynamic styling based on whether the event is being listened to
-  public readonly buttonClasses = computed(() => {
-    const baseClasses = ['px-6', 'py-3', 'rounded-lg', 'font-medium', 'text-lg'];
-
-    if (this.isListenedTo()) {
-      return [...baseClasses, 'bg-blue-500', 'text-white', 'hover:bg-blue-600', 'cursor-pointer'].join(' ');
-    }
-
-    return [...baseClasses, 'bg-gray-300', 'text-text-color', 'cursor-default'].join(' ');
-  });
 }

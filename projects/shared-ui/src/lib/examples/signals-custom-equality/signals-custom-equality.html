@@ -1,34 +1,44 @@
-<div class="flex gap-2">
-  <org-card class="w-[400px] h-full">
+<div class="flex gap-4">
+  <org-card class="h-full w-[400px]">
     <org-card-header title="Signal without custom equality" />
     <org-card-content>
-      <div class="flex flex-col gap-2">
-        <div>
-          By default, update a store that tracks a non-scalar value will trigger an effect to be called even if the
-          values is effective the same (like setting and array to a new array of the same value)
-        </div>
+      <div class="flex flex-col gap-3">
+        <p class="text-sm text-text">
+          By default, updating a signal that tracks a non-scalar value will trigger an effect to be called even if the
+          value is effectively the same (like setting an array to a new array with the same values).
+        </p>
         <div class="flex gap-2">
-          <org-button orgColor="brand" (click)="updateSignalWithValue1()">Update Signal Value1</org-button>
-          <org-button orgColor="brand" (click)="updateSignalWithValue2()">Update Signal Value2</org-button>
+          <org-button orgColor="brand" (click)="updateSignalWithValue1()">Update Signal Value 1</org-button>
+          <org-button orgColor="brand" (click)="updateSignalWithValue2()">Update Signal Value 2</org-button>
         </div>
-        <div>{{ signalTriggeredCount() }}</div>
+        <div class="rounded border border-border bg-background p-3">
+          <p class="text-sm font-medium text-text">Effect triggered count:</p>
+          <p class="text-2xl font-bold text-text">{{ signalTriggeredCount() }}</p>
+        </div>
       </div>
     </org-card-content>
   </org-card>
   <org-card class="w-[400px]">
     <org-card-header title="Signal with custom equality" />
     <org-card-content class="h-full">
-      <div class="flex flex-col gap-2 h-full">
-        <div>You can provide a custom equal function when creating the signal to avoid this issue.</div>
-        <div class="flex flex-col gap-2 mt-auto">
+      <div class="flex h-full flex-col gap-3">
+        <p class="text-sm text-text">
+          You can provide a custom <code class="rounded bg-background px-1 py-0.5 text-xs">equal</code> function when
+          creating the signal to avoid this issue.
+        </p>
+        <div class="mt-auto flex flex-col gap-3">
           <div class="flex gap-2">
-            <org-button orgColor="brand" (click)="updateSignalWithValue1CustomEquality()"
-              >Update Signal Value1</org-button
-            ><org-button orgColor="brand" (click)="updateSignalWithValue2CustomEquality()"
-              >Update Signal Value2</org-button
-            >
+            <org-button orgColor="brand" (click)="updateSignalWithValue1CustomEquality()">
+              Update Signal Value 1
+            </org-button>
+            <org-button orgColor="brand" (click)="updateSignalWithValue2CustomEquality()">
+              Update Signal Value 2
+            </org-button>
           </div>
-          <div>{{ signalTriggeredCustomEqualityCount() }}</div>
+          <div class="rounded border border-border bg-background p-3">
+            <p class="text-sm font-medium text-text">Effect triggered count:</p>
+            <p class="text-2xl font-bold text-text">{{ signalTriggeredCustomEqualityCount() }}</p>
+          </div>
         </div>
       </div>
     </org-card-content>

@@ -37,6 +37,7 @@ class StoryWrapperComponent {
   public getFileTypesDisplay(): string {
     const types = this.fileTypes();
     if (types.length === 0) return 'All types';
+
     return types.join(', ');
   }
 

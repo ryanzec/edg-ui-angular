@@ -90,6 +90,7 @@ export class LoginForm {
       email: 'Email',
       password: 'Password',
     };
+
     return labels[fieldName] || fieldName;
   }
 }

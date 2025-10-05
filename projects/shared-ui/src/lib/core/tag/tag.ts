@@ -50,6 +50,7 @@ export class Tag {
   public readonly hasPostIcon = computed(() => !!this.currentPostIcon());
   public readonly hasContent = computed(() => {
     const textContent = this._elementRef.nativeElement.textContent?.trim();
+
     return !!textContent;
   });
   public readonly isPreIconClickable = computed(() => this.hasPreIcon() && this._preIconClicked$.observed);

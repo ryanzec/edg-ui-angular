@@ -37,6 +37,7 @@ export class UsersApi {
 
   public updateUser(user: UpdateUser): Observable<UpdateUserResponse> {
     const { id, ...restOfUser } = user;
+
     return this._http
       .patch<UpdateUserResponse>(`${this._baseUrl}/users/${id}`, restOfUser)
       .pipe(catchError(this.handleError));

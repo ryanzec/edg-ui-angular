@@ -91,11 +91,13 @@ export class FileUploadComponent {
   private handleFile(file: File | undefined): void {
     if (!file) {
       this.error.set('No file was selected.');
+
       return;
     }
 
     if (!this.isFileValid(file)) {
       this.error.set(`Invalid file type. Please select a ${this.fileTypes()} file.`);
+
       return;
     }
 

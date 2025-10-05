@@ -25,6 +25,7 @@ export class ScrollAreaDirective {
   public scrollAreaOnlyShowOnHover = input<boolean>(SCROLL_AREA_ONLY_SHOW_ON_HOVER_DEFAULT);
   // ... 
 ```
+- ALWAYS use Renderer2 when inject html from a directive
 
 You MUST NEVER use these patterns when work on Angular 20 directives:
 - NEVER use `Directive` in the name of the selector

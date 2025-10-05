@@ -11,4 +11,4 @@ Follow the rules / guidelines presented in the following files:
 
 After you have finished your change, MAKE A DETAILED REVIEW OF YOUR CHANGE TO MAKE SURE ALL TEH REFERENCED GUIDELINES ARE FOLLOWED.
 
-While you should make sure there is a file for storybook and unit tests as a placeholder, you should NOT write any stories or unit tests at this time.
+While you should make sure there is a file for development storybook and unit tests as a placeholder, you must NOT write any stories or unit tests at this time.

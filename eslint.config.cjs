@@ -44,6 +44,7 @@ module.exports = tseslint.config(
         'error',
         { blankLine: 'always', prev: 'block-like', next: '*' },
         { blankLine: 'always', prev: '*', next: 'block-like' },
+        { blankLine: 'always', prev: '*', next: 'return' },
       ],
       'prettier/prettier': 'error',
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],

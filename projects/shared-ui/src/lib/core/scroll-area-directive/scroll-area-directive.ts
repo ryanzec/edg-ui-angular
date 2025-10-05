@@ -21,9 +21,9 @@ const STYLE_ID = 'org-scroll-area-styles';
   selector: '[orgScrollArea]',
   host: {
     '[class.org-scroll-area]': 'true',
-    '[class.org-scroll-area--vertical]': '_getDirection() === "vertical"',
-    '[class.org-scroll-area--horizontal]': '_getDirection() === "horizontal"',
-    '[class.org-scroll-area--both]': '_getDirection() === "both"',
+    '[class.org-scroll-area--vertical]': 'scrollAreaDirection() === "vertical"',
+    '[class.org-scroll-area--horizontal]': 'scrollAreaDirection() === "horizontal"',
+    '[class.org-scroll-area--both]': 'scrollAreaDirection() === "both"',
     '[class.org-scroll-area--hover-only]': 'scrollAreaOnlyShowOnHover()',
     '[class.org-scroll-area--stable-content]': 'scrollAreaUseStableContent()',
   },
@@ -35,12 +35,6 @@ export class ScrollAreaDirective {
   public scrollAreaDirection = input<ScrollAreaDirection | ''>(SCROLL_AREA_DIRECTION_DEFAULT);
   public scrollAreaOnlyShowOnHover = input<boolean>(SCROLL_AREA_ONLY_SHOW_ON_HOVER_DEFAULT);
   public scrollAreaUseStableContent = input<boolean>(true);
-
-  // helper method to get the direction, handling empty string
-  public _getDirection(): ScrollAreaDirection {
-    const value = this.scrollAreaDirection();
-    return value === '' ? SCROLL_AREA_DIRECTION_DEFAULT : value;
-  }
 
   constructor() {
     if (isPlatformBrowser(this._platformId)) {

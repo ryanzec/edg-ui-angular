@@ -2,9 +2,13 @@ For references on how we structure our stroybook files and implement a number of
 - `projects/shared-ui/src/lib/core/button/button.stories.ts`
 - `projects/shared-ui/src/lib/core/input/input.stories.ts`
 - `projects/shared-ui/src/lib/core/tag/tag.stories.ts`
+- `/Users/ryanzec/repositories/angular-sandbox/projects/shared-ui/src/lib/core/pagination/pagination.spec.ts`
 
 For reference on how we structure pattern based example stories, reference these files:
 - `projects/shared-ui/src/lib/examples/detect-if-output-event-is-listened-to/detect-if-output-event-is-listened-to.stories.ts`
+
+For a reference on how to build a storybook file for a service (which has no UI of its own), you MUST ALWASY reference thesse file:
+- `projects/shared-ui/src/lib/core/sorting-store/sorting-store.stories.ts`
 
 You MUST ALWAYS use these patterns when work on development storybook stories:
 - ALWAYS create a story for each variant but group different versions of a variant together (so if there are 5 size for a component, there should be 1 story for sizes that has all 5 size in the same story)
@@ -19,6 +23,8 @@ Helps keep better consistent for all stories.
 - ALWAYS make sure for the interactive demo story, the types for the controls in the correct types based on the component property types
 - ALWAYS wrap the docs description content in a `<div class="docs-top-level-overview">...</div>` block
 - ALWAYS create a first story called `Default` story with full controls for the autodocs story
+- ALWAYS use `inject()` to inject services
 
 You MUST NEVER use these patterns when work on development storybook stories:
 - NEVER write play / tests stories in the development stories file
+- NEVER USE constructor parameter injection

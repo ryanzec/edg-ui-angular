@@ -31,6 +31,7 @@ export const loggedInGuard: CanActivateFn = (route) => {
           message: 'No unauthenticated redirect route data found',
           context: { routeData },
         });
+
         return router.createUrlTree(['/']);
       }
 

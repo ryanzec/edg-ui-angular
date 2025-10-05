@@ -5,6 +5,9 @@ Things you might want to indicate in your prompt for creating component:
 - What parts of the component should be part of a public api
 - How you want the component broken out if needed (if there is a part that should be it own re-usable component, create those on their own first in a separate prompt)
 - If the component is going to need a store and if so, if it needs to be able to support multiple instances of the component at the same time (important and it indicates of the services injection needs to be structured)
+- Defined which services it MUST use with paths to the folder along with:
+  - If the service MUST be provided by the parent or itself
+  - If the service is optional or not
 -->
 
 ALWAYS use the following components over bespoken inline components when appropriate:

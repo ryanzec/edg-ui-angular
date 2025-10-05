@@ -1,0 +1,107 @@
+import {
+  Directive,
+  input,
+  inject,
+  Renderer2,
+  ElementRef,
+  effect,
+  createComponent,
+  ComponentRef,
+  computed,
+  EnvironmentInjector,
+  afterNextRender,
+} from '@angular/core';
+import { Icon, IconName } from '../icon/icon';
+import { SortingStore, SortingDirection } from '../sorting-store/sorting-store';
+
+export const SORTABLE_SELECTABLE_DEFAULT = '';
+
+@Directive({
+  selector: '[orgSelectable]',
+  host: {
+    '(click)': '_handleClick()',
+    '[class.cursor-pointer]': 'true',
+    '[class.select-none]': 'true',
+    '[class.flex]': 'true',
+    '[class.gap-1]': 'true',
+    '[class.items-center]': 'true',
+  },
+})
+export class SortableDirective {
+  private readonly _renderer = inject(Renderer2);
+  private readonly _elementRef = inject(ElementRef);
+  private readonly _environmentInjector = inject(EnvironmentInjector);
+  private readonly _sortingStore = inject(SortingStore);
+
+  private _iconComponentRef: ComponentRef<Icon> | null = null;
+
+  public orgSelectable = input.required<string>();
+
+  private readonly _isActivelySorting = computed<boolean>(() => {
+    const key = this._sortingStore.key();
+    const direction = this._sortingStore.direction();
+    const selectableValue = this.orgSelectable();
+
+    return key === selectableValue && direction !== null;
+  });
+
+  private readonly _iconName = computed<IconName>(() => {
+    const isActivelySorting = this._isActivelySorting();
+    const direction = this._sortingStore.direction();
+
+    if (!isActivelySorting) {
+      return IconName.ARROWS_DOWN_UP;
+    }
+
+    return direction === SortingDirection.ASC ? IconName.ARROW_UP : IconName.ARROW_DOWN;
+  });
+
+  constructor() {
+    // keep icon up-to-date with state updates
+    effect(() => {
+      this._updateIcon(this._iconName(), this._isActivelySorting());
+    });
+
+    afterNextRender(() => {
+      // create and inject the icon component
+      this._iconComponentRef = createComponent(Icon, {
+        environmentInjector: this._environmentInjector,
+      });
+
+      const iconElement = this._iconComponentRef.location.nativeElement;
+      const hostElement = this._elementRef.nativeElement;
+
+      this._renderer.appendChild(hostElement, iconElement);
+
+      this._updateIcon(this._iconName(), this._isActivelySorting());
+    });
+  }
+
+  public _handleClick(): void {
+    const selectableValue = this.orgSelectable();
+
+    if (!selectableValue) {
+      return;
+    }
+
+    this._sortingStore.toggleSort(selectableValue);
+  }
+
+  private _updateIcon(iconName: IconName, isActivelySorting: boolean): void {
+    if (!this._iconComponentRef) {
+      return;
+    }
+
+    const iconElement = this._iconComponentRef.location.nativeElement;
+
+    this._iconComponentRef.setInput('name', iconName);
+
+    if (isActivelySorting) {
+      this._renderer.removeClass(iconElement, 'text-text-subtle');
+    } else {
+      this._renderer.addClass(iconElement, 'text-text-subtle');
+    }
+
+    this._iconComponentRef.changeDetectorRef.detectChanges();
+  }
+}

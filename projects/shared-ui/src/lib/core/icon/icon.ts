@@ -1,9 +1,14 @@
-import { Component, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, effect } from '@angular/core';
 import { tailwindUtils } from '@organization/shared-utils';
 
 export const IconName = {
   CARET_RIGHT: 'caret-right',
   CARET_LEFT: 'caret-left',
+  CARET_UP: 'caret-up',
+  CARET_DOWN: 'caret-down',
+  ARROW_UP: 'arrow-up',
+  ARROW_DOWN: 'arrow-down',
+  ARROWS_DOWN_UP: 'arrows-down-up',
   PLUS: 'plus',
   CHECK: 'check',
   X: 'x',
@@ -40,4 +45,10 @@ export class Icon {
   public weight = input<'regular' | 'bold' | 'fill'>('regular');
 
   public mergeClasses = tailwindUtils.merge;
+
+  constructor() {
+    effect(() => {
+      console.log('Icon constructor', this.name());
+    });
+  }
 }

@@ -43,6 +43,8 @@ Styling Hard Requirements:
 - For color styling, please make sure all colors being usse are using custom design tokens.
 - MUST account for both light and dark mode though custom css variable as done in `projects/shared-ui/src/lib/core/button/button-variables.css`
 
+- NEVER use the style tag unless the value NEEDS to be dynamic based on typescript code
+
 
 
 

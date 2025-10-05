@@ -16,6 +16,7 @@ export * from './loading-spinner/loading-spinner';
 export * from './log-manager/log-manager';
 export * from './pagination/pagination';
 export * from './pagination-store/pagination-store';
+export * from './scroll-area-directive/scroll-area-directive';
 export * from './tag/tag';
 export * from './types/public-api';
 export * from './utils';

@@ -37,6 +37,10 @@
   --color-secondary-text-subtle: rgb(from var(--color-secondary-text) r g b / var(--opacity-text-subtle));
   --color-secondary-text-bold: var(--color-neutral-900);
 
+  --color-neutral-text: var(--color-neutral-700);
+  --color-neutral-text-subtle: rgb(from var(--color-neutral-text) r g b / var(--opacity-text-subtle));
+  --color-neutral-text-bold: var(--color-neutral-900);
+
   --color-safe-text: var(--color-green-600);
   --color-safe-text-subtle: rgb(from var(--color-safe-text) r g b / var(--opacity-text-subtle));
   --color-safe-text-bold: var(--color-green-900);

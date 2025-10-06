@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import { tailwindUtils } from '@organization/shared-utils';
+import { ComponentColor, componentColors } from '../types/component-types';
 
 export type IconName =
   | 'caret-right'
@@ -62,6 +63,18 @@ export const iconNames: IconName[] = [
   'check-circle',
 ];
 
+export type IconSize = 'small' | 'base' | 'large';
+
+export const iconSizes: IconSize[] = ['small', 'base', 'large'];
+
+export type IconWeight = 'regular' | 'bold' | 'fill';
+
+export const iconWeights: IconWeight[] = ['regular', 'bold', 'fill'];
+
+export type IconColor = 'inherit' | ComponentColor;
+
+export const iconColors: IconColor[] = ['inherit', ...componentColors];
+
 @Component({
   selector: 'org-icon',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -72,8 +85,9 @@ export const iconNames: IconName[] = [
 })
 export class Icon {
   public name = input.required<IconName>();
-  public size = input<'small' | 'base' | 'large'>('base');
-  public weight = input<'regular' | 'bold' | 'fill'>('regular');
+  public size = input<IconSize>('base');
+  public weight = input<IconWeight>('regular');
+  public color = input<IconColor>('inherit');
 
   public mergeClasses = tailwindUtils.merge;
 }

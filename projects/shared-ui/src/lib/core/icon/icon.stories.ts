@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { Icon, iconNames } from './icon';
+import { Icon, iconNames, iconColors } from './icon';
 import { StorybookExampleContainer } from '../../private/storybook-example-container/storybook-example-container';
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 
@@ -20,7 +20,7 @@ const meta: Meta<Icon> = {
   - Uses Phosphor Icons library
   - Three size options: small, base (default), large
   - Three weight options: regular (default), bold, fill
-  - Inherits text color from parent elements
+  - Nine color options: inherit (default), brand, secondary, neutral, safe, info, caution, warning, danger
   - Inline display for easy integration with text
   - Accessible with aria-hidden attribute
 
@@ -34,6 +34,17 @@ const meta: Meta<Icon> = {
   - **bold**: Thicker icon strokes
   - **fill**: Filled/solid icon style
 
+  ### Color Options
+  - **inherit**: Inherits text color from parent elements (default)
+  - **brand**: Primary brand color
+  - **secondary**: Secondary accent color
+  - **neutral**: Neutral/gray color
+  - **safe**: Success/positive state (green)
+  - **info**: Informational state (blue)
+  - **caution**: Caution state (yellow)
+  - **warning**: Warning state (orange)
+  - **danger**: Error/danger state (red)
+
   ### Usage Examples
   \`\`\`html
   <!-- Default icon -->
@@ -45,13 +56,16 @@ const meta: Meta<Icon> = {
   <!-- Icon with weight -->
   <org-icon name="check" weight="bold"></org-icon>
 
+  <!-- Icon with color -->
+  <org-icon name="check" color="brand"></org-icon>
+
   <!-- Icon with custom color (via parent) -->
   <div class="text-blue-500">
     <org-icon name="check"></org-icon>
   </div>
 
   <!-- Icon with all options -->
-  <org-icon name="check" size="large" weight="fill"></org-icon>
+  <org-icon name="check" size="large" weight="fill" color="safe"></org-icon>
 </div>
 \`\`\`
         `,
@@ -68,6 +82,7 @@ export const Default: Story = {
     name: 'check',
     size: 'base',
     weight: 'regular',
+    color: 'inherit',
   },
   argTypes: {
     name: {
@@ -85,11 +100,17 @@ export const Default: Story = {
       options: ['regular', 'bold', 'fill'],
       description: 'The weight/style of the icon',
     },
+    color: {
+      control: 'select',
+      options: iconColors,
+      description: 'The color of the icon',
+    },
   },
   parameters: {
     docs: {
       description: {
-        story: 'Default icon with base size and regular weight. Use the controls below to interact with the component.',
+        story:
+          'Default icon with base size, regular weight, and inherit color. Use the controls below to interact with the component.',
       },
     },
   },
@@ -164,6 +185,75 @@ export const Weights: Story = {
           <li><strong>regular</strong>: Standard icon weight - default</li>
           <li><strong>bold</strong>: Thicker icon strokes</li>
           <li><strong>fill</strong>: Filled/solid icon style</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [Icon, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+export const Colors: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Comparison of all 9 color variants including inherit (default) and 8 component colors.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Color Variants"
+        currentState="Comparing all 9 color options"
+      >
+        <org-storybook-example-container-section label="Inherit (default)">
+          <org-icon name="check" color="inherit"></org-icon>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Brand">
+          <org-icon name="check" color="brand"></org-icon>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Secondary">
+          <org-icon name="check" color="secondary"></org-icon>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Neutral">
+          <org-icon name="check" color="neutral"></org-icon>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Safe">
+          <org-icon name="check" color="safe"></org-icon>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Info">
+          <org-icon name="check" color="info"></org-icon>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Caution">
+          <org-icon name="check" color="caution"></org-icon>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Warning">
+          <org-icon name="check" color="warning"></org-icon>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Danger">
+          <org-icon name="check" color="danger"></org-icon>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>inherit</strong>: Inherits text color from parent elements (default)</li>
+          <li><strong>brand</strong>: Primary brand color</li>
+          <li><strong>secondary</strong>: Secondary accent color</li>
+          <li><strong>neutral</strong>: Neutral/gray color</li>
+          <li><strong>safe</strong>: Success/positive state (green)</li>
+          <li><strong>info</strong>: Informational state (blue)</li>
+          <li><strong>caution</strong>: Caution state (yellow)</li>
+          <li><strong>warning</strong>: Warning state (orange)</li>
+          <li><strong>danger</strong>: Error/danger state (red)</li>
         </ul>
       </org-storybook-example-container>
     `,

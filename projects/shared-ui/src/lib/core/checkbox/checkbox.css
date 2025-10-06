@@ -1,0 +1,8 @@
+@reference '../../tailwind.css';
+
+@layer components {
+  /* hide the native checkbox visually but keep it accessible */
+  .org-checkbox-container input[type='checkbox'] {
+    @apply sr-only;
+  }
+}

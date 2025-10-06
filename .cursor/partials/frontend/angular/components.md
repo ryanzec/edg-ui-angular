@@ -116,10 +116,6 @@ You must make sure this is not wrapped in any conditional logic like `@if` as it
 - ALWAYS use `static: true` for `@ViewChild` ONLY if you need to access the child in the `ngOnInit` lifecycle method
 - ALWAYS add a `public mergeClasses` to a component when the template needs condition css classes
 - ALWAYS add `public mergeClasses = tailwindUtils.merge;` to the component class and use that in the html template when css class application need to happen based on typescript conditional checks, usage reference: `projects/shared-ui/src/lib/core/pagination/pagination.html`
-<!--
-This button component is a better choice for accessability and it already unstyled by tailwind so there are not style concerns with this
--->
-- ALWAYS use the bottom component when needing to create an element that has clickbility 
 - ALWAYS define class inputs to a component with a prefix that is a semantic name for what it is applied to
 ```ts
 // MUST DO

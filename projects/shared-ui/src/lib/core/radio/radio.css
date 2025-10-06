@@ -1,0 +1,8 @@
+@reference '../../tailwind.css';
+
+@layer components {
+  /* hide the native radio visually but keep it accessible */
+  .org-radio-container input[type='radio'] {
+    @apply sr-only;
+  }
+}

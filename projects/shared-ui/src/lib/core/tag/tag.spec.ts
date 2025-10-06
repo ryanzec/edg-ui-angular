@@ -6,10 +6,10 @@ import { beforeEach, describe, it, expect } from 'vitest';
 import { Tag } from './tag';
 
 @Component({
-  template: ` <org-tag [orgColor]="orgColor" [variant]="variant" [removable]="removable"> Test Tag </org-tag> `,
+  template: ` <org-tag [color]="color" [variant]="variant" [removable]="removable"> Test Tag </org-tag> `,
 })
 class TestHostComponent {
-  public orgColor: any = 'brand';
+  public color: any = 'brand';
   public variant: any = 'weak';
   public removable = false;
 }
@@ -41,7 +41,7 @@ describe('Tag', () => {
 
   describe('Color Classes', () => {
     it('should apply brand color class to host', () => {
-      hostComponent.orgColor = 'brand';
+      hostComponent.color = 'brand';
       fixture.detectChanges();
 
       const hostElement = fixture.debugElement.nativeElement;
@@ -49,15 +49,15 @@ describe('Tag', () => {
     });
 
     it('should apply danger color class to host', () => {
-      hostComponent.orgColor = 'danger';
+      hostComponent.color = 'danger';
       fixture.detectChanges();
 
       const hostElement = fixture.debugElement.nativeElement;
       expect(hostElement.classList).toContain('org-danger');
     });
 
-    it('should not apply any color class when orgColor is null', () => {
-      hostComponent.orgColor = null;
+    it('should not apply any color class when color is null', () => {
+      hostComponent.color = null;
       fixture.detectChanges();
 
       const hostElement = fixture.debugElement.nativeElement;

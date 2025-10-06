@@ -13,52 +13,48 @@
         'p-0.5': this.isIconOnly() && (this.size() === 'small' || this.size() === 'base'),
         'p-1': this.isIconOnly() && this.size() === 'large',
         'opacity-50 cursor-not-allowed': this.isDisabled(),
-        'bg-button-brand-background text-button-brand-text border border-button-brand': orgColor() === 'brand',
-        'hover:bg-button-brand-hover hover:border-button-brand-hover': orgColor() === 'brand' && !isDisabled(),
+        'bg-button-brand-background text-button-brand-text border border-button-brand': color() === 'brand',
+        'hover:bg-button-brand-hover hover:border-button-brand-hover': color() === 'brand' && !isDisabled(),
         'focus-visible:bg-button-brand-focus focus-visible:border-button-brand-focus':
-          orgColor() === 'brand' && !isDisabled(),
-        'active:bg-button-brand-active active:border-button-brand-active': orgColor() === 'brand' && !isDisabled(),
+          color() === 'brand' && !isDisabled(),
+        'active:bg-button-brand-active active:border-button-brand-active': color() === 'brand' && !isDisabled(),
         'bg-button-secondary-background text-button-secondary-text border border-button-secondary':
-          orgColor() === 'secondary',
-        'hover:bg-button-secondary-hover hover:border-button-secondary-hover':
-          orgColor() === 'secondary' && !isDisabled(),
+          color() === 'secondary',
+        'hover:bg-button-secondary-hover hover:border-button-secondary-hover': color() === 'secondary' && !isDisabled(),
         'focus-visible:bg-button-secondary-focus focus-visible:border-button-secondary-hover':
-          orgColor() === 'secondary' && !isDisabled(),
+          color() === 'secondary' && !isDisabled(),
         'active:bg-button-secondary-active active:border-button-secondary-hover':
-          orgColor() === 'secondary' && !isDisabled(),
-        'bg-button-neutral-background text-button-neutral-text border border-button-neutral': orgColor() === 'neutral',
-        'hover:bg-button-neutral-hover hover:border-button-neutral-hover': orgColor() === 'neutral' && !isDisabled(),
+          color() === 'secondary' && !isDisabled(),
+        'bg-button-neutral-background text-button-neutral-text border border-button-neutral': color() === 'neutral',
+        'hover:bg-button-neutral-hover hover:border-button-neutral-hover': color() === 'neutral' && !isDisabled(),
         'focus-visible:bg-button-neutral-focus focus-visible:border-button-neutral-focus':
-          orgColor() === 'neutral' && !isDisabled(),
-        'active:bg-button-neutral-active active:border-button-neutral-active':
-          orgColor() === 'neutral' && !isDisabled(),
-        'bg-button-safe-background text-button-safe-text border border-button-safe': orgColor() === 'safe',
-        'hover:bg-button-safe-hover hover:border-button-safe-hover': orgColor() === 'safe' && !isDisabled(),
+          color() === 'neutral' && !isDisabled(),
+        'active:bg-button-neutral-active active:border-button-neutral-active': color() === 'neutral' && !isDisabled(),
+        'bg-button-safe-background text-button-safe-text border border-button-safe': color() === 'safe',
+        'hover:bg-button-safe-hover hover:border-button-safe-hover': color() === 'safe' && !isDisabled(),
         'focus-visible:bg-button-safe-focus focus-visible:border-button-safe-focus':
-          orgColor() === 'safe' && !isDisabled(),
-        'active:bg-button-safe-active active:border-button-safe-active': orgColor() === 'safe' && !isDisabled(),
-        'bg-button-info-background text-button-info-text border border-button-info': orgColor() === 'info',
-        'hover:bg-button-info-hover hover:border-button-info-hover': orgColor() === 'info' && !isDisabled(),
+          color() === 'safe' && !isDisabled(),
+        'active:bg-button-safe-active active:border-button-safe-active': color() === 'safe' && !isDisabled(),
+        'bg-button-info-background text-button-info-text border border-button-info': color() === 'info',
+        'hover:bg-button-info-hover hover:border-button-info-hover': color() === 'info' && !isDisabled(),
         'focus-visible:bg-button-info-focus focus-visible:border-button-info-focus':
-          orgColor() === 'info' && !isDisabled(),
-        'active:bg-button-info-active active:border-button-info-active': orgColor() === 'info' && !isDisabled(),
-        'bg-button-caution-background text-button-caution-text border border-button-caution': orgColor() === 'caution',
-        'hover:bg-button-caution-hover hover:border-button-caution-hover': orgColor() === 'caution' && !isDisabled(),
+          color() === 'info' && !isDisabled(),
+        'active:bg-button-info-active active:border-button-info-active': color() === 'info' && !isDisabled(),
+        'bg-button-caution-background text-button-caution-text border border-button-caution': color() === 'caution',
+        'hover:bg-button-caution-hover hover:border-button-caution-hover': color() === 'caution' && !isDisabled(),
         'focus-visible:bg-button-caution-focus focus-visible:border-button-caution-focus':
-          orgColor() === 'caution' && !isDisabled(),
-        'active:bg-button-caution-active active:border-button-caution-active':
-          orgColor() === 'caution' && !isDisabled(),
-        'bg-button-warning-background text-button-warning-text border border-button-warning': orgColor() === 'warning',
-        'hover:bg-button-warning-hover hover:border-button-warning-hover': orgColor() === 'warning' && !isDisabled(),
+          color() === 'caution' && !isDisabled(),
+        'active:bg-button-caution-active active:border-button-caution-active': color() === 'caution' && !isDisabled(),
+        'bg-button-warning-background text-button-warning-text border border-button-warning': color() === 'warning',
+        'hover:bg-button-warning-hover hover:border-button-warning-hover': color() === 'warning' && !isDisabled(),
         'focus-visible:bg-button-warning-focus focus-visible:border-button-warning-focus':
-          orgColor() === 'warning' && !isDisabled(),
-        'active:bg-button-warning-active active:border-button-warning-active':
-          orgColor() === 'warning' && !isDisabled(),
-        'bg-button-danger-background text-button-danger-text border border-button-danger': orgColor() === 'danger',
-        'hover:bg-button-danger-hover hover:border-button-danger-hover': orgColor() === 'danger' && !isDisabled(),
+          color() === 'warning' && !isDisabled(),
+        'active:bg-button-warning-active active:border-button-warning-active': color() === 'warning' && !isDisabled(),
+        'bg-button-danger-background text-button-danger-text border border-button-danger': color() === 'danger',
+        'hover:bg-button-danger-hover hover:border-button-danger-hover': color() === 'danger' && !isDisabled(),
         'focus-visible:bg-button-danger-focus focus-visible:border-button-danger-focus':
-          orgColor() === 'danger' && !isDisabled(),
-        'active:bg-button-danger-active active:border-button-danger-active': orgColor() === 'danger' && !isDisabled(),
+          color() === 'danger' && !isDisabled(),
+        'active:bg-button-danger-active active:border-button-danger-active': color() === 'danger' && !isDisabled(),
       }
     )
   "

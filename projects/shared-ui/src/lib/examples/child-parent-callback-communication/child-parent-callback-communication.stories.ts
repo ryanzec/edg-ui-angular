@@ -21,7 +21,7 @@ type Story = StoryObj<EXAMPLEChildParentCallbackCommunication>;
   template: `
     <div class="space-y-2">
       <p class="text-sm text-text">Child Component (Using output())</p>
-      <org-button orgColor="brand" (click)="messageEmitted.emit('Hello from child via output()!')">
+      <org-button color="brand" (click)="messageEmitted.emit('Hello from child via output()!')">
         Send Message via Output
       </org-button>
     </div>
@@ -39,7 +39,7 @@ class ChildWithOutput {
   template: `
     <div class="space-y-2">
       <p class="text-sm text-text">Child Component (Using callback)</p>
-      <org-button orgColor="secondary" (click)="onSendMessage()"> Send Message via Callback </org-button>
+      <org-button color="secondary" (click)="onSendMessage()"> Send Message via Callback </org-button>
     </div>
   `,
 })

@@ -7,13 +7,13 @@ import { Card } from './card';
 
 @Component({
   template: `
-    <org-card [orgColor]="orgColor">
+    <org-card [color]="color">
       <div>Test Content</div>
     </org-card>
   `,
 })
 class TestHostComponent {
-  public orgColor: any = null;
+  public color: any = null;
 }
 
 describe('Card', () => {
@@ -43,7 +43,7 @@ describe('Card', () => {
 
   describe('Color Classes', () => {
     it('should apply brand color class to host', () => {
-      hostComponent.orgColor = 'brand';
+      hostComponent.color = 'brand';
       fixture.detectChanges();
 
       const hostElement = fixture.debugElement.nativeElement;
@@ -51,15 +51,15 @@ describe('Card', () => {
     });
 
     it('should apply danger color class to host', () => {
-      hostComponent.orgColor = 'danger';
+      hostComponent.color = 'danger';
       fixture.detectChanges();
 
       const hostElement = fixture.debugElement.nativeElement;
       expect(hostElement.classList).toContain('org-danger');
     });
 
-    it('should not apply any color class when orgColor is null', () => {
-      hostComponent.orgColor = null;
+    it('should not apply any color class when color is null', () => {
+      hostComponent.color = null;
       fixture.detectChanges();
 
       const hostElement = fixture.debugElement.nativeElement;

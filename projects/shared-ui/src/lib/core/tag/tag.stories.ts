@@ -43,22 +43,22 @@ const meta: Meta<Tag> = {
   ### Usage Examples
   \`\`\`html
   <!-- Basic tag -->
-  <org-tag orgColor="brand">Tag Content</org-tag>
+  <org-tag color="brand">Tag Content</org-tag>
 
   <!-- Tag with variant -->
-  <org-tag orgColor="brand" variant="strong">Strong Tag</org-tag>
+  <org-tag color="brand" variant="strong">Strong Tag</org-tag>
 
   <!-- Tag with icons -->
-  <org-tag orgColor="info" preIcon="gear">Settings</org-tag>
-  <org-tag orgColor="safe" postIcon="check">Completed</org-tag>
+  <org-tag color="info" preIcon="gear">Settings</org-tag>
+  <org-tag color="safe" postIcon="check">Completed</org-tag>
 
   <!-- Removable tag -->
-  <org-tag orgColor="neutral" [removable]="true" (removed)="handleRemove()">
+  <org-tag color="neutral" [removable]="true" (removed)="handleRemove()">
     Removable Tag
   </org-tag>
 
   <!-- Tag with both icons -->
-  <org-tag orgColor="brand" preIcon="gear" postIcon="arrow-right">
+  <org-tag color="brand" preIcon="gear" postIcon="arrow-right">
     Action Tag
   </org-tag>
 </div>
@@ -74,14 +74,14 @@ type Story = StoryObj<Tag>;
 
 export const Default: Story = {
   args: {
-    orgColor: 'brand',
+    color: 'brand',
     variant: 'weak',
     preIcon: null,
     postIcon: null,
     removable: false,
   },
   argTypes: {
-    orgColor: {
+    color: {
       control: 'select',
       options: componentColors,
       description: 'The color variant of the tag',
@@ -117,7 +117,7 @@ export const Default: Story = {
     props: args,
     template: `
       <org-tag
-        [orgColor]="orgColor"
+        [color]="color"
         [variant]="variant"
         [preIcon]="preIcon"
         [postIcon]="postIcon"
@@ -147,35 +147,35 @@ export const Colors: Story = {
         currentState="Comparing all 8 color options with weak variant"
       >
         <org-storybook-example-container-section label="Brand">
-          <org-tag orgColor="brand">Brand</org-tag>
+          <org-tag color="brand">Brand</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Secondary">
-          <org-tag orgColor="secondary">Secondary</org-tag>
+          <org-tag color="secondary">Secondary</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Neutral">
-          <org-tag orgColor="neutral">Neutral</org-tag>
+          <org-tag color="neutral">Neutral</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Safe">
-          <org-tag orgColor="safe">Safe</org-tag>
+          <org-tag color="safe">Safe</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Info">
-          <org-tag orgColor="info">Info</org-tag>
+          <org-tag color="info">Info</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Caution">
-          <org-tag orgColor="caution">Caution</org-tag>
+          <org-tag color="caution">Caution</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Warning">
-          <org-tag orgColor="warning">Warning</org-tag>
+          <org-tag color="warning">Warning</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Danger">
-          <org-tag orgColor="danger">Danger</org-tag>
+          <org-tag color="danger">Danger</org-tag>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -211,27 +211,27 @@ export const Variants: Story = {
         currentState="Comparing weak and strong variants"
       >
         <org-storybook-example-container-section label="Brand - Weak (default)">
-          <org-tag orgColor="brand" variant="weak">Brand Weak</org-tag>
+          <org-tag color="brand" variant="weak">Brand Weak</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Brand - Strong">
-          <org-tag orgColor="brand" variant="strong">Brand Strong</org-tag>
+          <org-tag color="brand" variant="strong">Brand Strong</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Safe - Weak">
-          <org-tag orgColor="safe" variant="weak">Safe Weak</org-tag>
+          <org-tag color="safe" variant="weak">Safe Weak</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Safe - Strong">
-          <org-tag orgColor="safe" variant="strong">Safe Strong</org-tag>
+          <org-tag color="safe" variant="strong">Safe Strong</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Danger - Weak">
-          <org-tag orgColor="danger" variant="weak">Danger Weak</org-tag>
+          <org-tag color="danger" variant="weak">Danger Weak</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Danger - Strong">
-          <org-tag orgColor="danger" variant="strong">Danger Strong</org-tag>
+          <org-tag color="danger" variant="strong">Danger Strong</org-tag>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -262,23 +262,23 @@ export const WithIcons: Story = {
         currentState="Comparing tags with different icon configurations"
       >
         <org-storybook-example-container-section label="No icons">
-          <org-tag orgColor="brand">No Icons</org-tag>
+          <org-tag color="brand">No Icons</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Pre icon only">
-          <org-tag orgColor="info" preIcon="gear">Settings</org-tag>
+          <org-tag color="info" preIcon="gear">Settings</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Post icon only">
-          <org-tag orgColor="safe" postIcon="check">Completed</org-tag>
+          <org-tag color="safe" postIcon="check">Completed</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Both icons">
-          <org-tag orgColor="brand" preIcon="gear" postIcon="arrow-right">Action</org-tag>
+          <org-tag color="brand" preIcon="gear" postIcon="arrow-right">Action</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Strong variant with icons">
-          <org-tag orgColor="danger" variant="strong" preIcon="trash" postIcon="x">Delete</org-tag>
+          <org-tag color="danger" variant="strong" preIcon="trash" postIcon="x">Delete</org-tag>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -310,27 +310,27 @@ export const Removable: Story = {
         currentState="Tags with remove functionality"
       >
         <org-storybook-example-container-section label="Not removable">
-          <org-tag orgColor="brand">Fixed Tag</org-tag>
+          <org-tag color="brand">Fixed Tag</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Removable (weak)">
-          <org-tag orgColor="brand" [removable]="true">Removable Tag</org-tag>
+          <org-tag color="brand" [removable]="true">Removable Tag</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Removable (strong)">
-          <org-tag orgColor="safe" variant="strong" [removable]="true">Removable Strong</org-tag>
+          <org-tag color="safe" variant="strong" [removable]="true">Removable Strong</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Removable with pre icon">
-          <org-tag orgColor="info" preIcon="gear" [removable]="true">Settings Tag</org-tag>
+          <org-tag color="info" preIcon="gear" [removable]="true">Settings Tag</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Multiple removable tags">
           <div class="flex flex-wrap gap-2">
-            <org-tag orgColor="brand" [removable]="true">React</org-tag>
-            <org-tag orgColor="info" [removable]="true">Angular</org-tag>
-            <org-tag orgColor="safe" [removable]="true">Vue</org-tag>
-            <org-tag orgColor="caution" [removable]="true">Svelte</org-tag>
+            <org-tag color="brand" [removable]="true">React</org-tag>
+            <org-tag color="info" [removable]="true">Angular</org-tag>
+            <org-tag color="safe" [removable]="true">Vue</org-tag>
+            <org-tag color="caution" [removable]="true">Svelte</org-tag>
           </div>
         </org-storybook-example-container-section>
 
@@ -363,35 +363,35 @@ export const StrongVariantColors: Story = {
         currentState="Comparing all 8 color options with strong variant"
       >
         <org-storybook-example-container-section label="Brand">
-          <org-tag orgColor="brand" variant="strong">Brand</org-tag>
+          <org-tag color="brand" variant="strong">Brand</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Secondary">
-          <org-tag orgColor="secondary" variant="strong">Secondary</org-tag>
+          <org-tag color="secondary" variant="strong">Secondary</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Neutral">
-          <org-tag orgColor="neutral" variant="strong">Neutral</org-tag>
+          <org-tag color="neutral" variant="strong">Neutral</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Safe">
-          <org-tag orgColor="safe" variant="strong">Safe</org-tag>
+          <org-tag color="safe" variant="strong">Safe</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Info">
-          <org-tag orgColor="info" variant="strong">Info</org-tag>
+          <org-tag color="info" variant="strong">Info</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Caution">
-          <org-tag orgColor="caution" variant="strong">Caution</org-tag>
+          <org-tag color="caution" variant="strong">Caution</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Warning">
-          <org-tag orgColor="warning" variant="strong">Warning</org-tag>
+          <org-tag color="warning" variant="strong">Warning</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Danger">
-          <org-tag orgColor="danger" variant="strong">Danger</org-tag>
+          <org-tag color="danger" variant="strong">Danger</org-tag>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">

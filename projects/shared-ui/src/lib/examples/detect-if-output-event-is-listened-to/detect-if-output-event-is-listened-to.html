@@ -19,7 +19,7 @@
         Notice how the button changes appearance based on whether someone is listening to the
         <code class="rounded bg-background px-1 py-0.5 text-xs">buttonClicked</code> output:
       </p>
-      <org-button orgColor="brand" (click)="handleClick()">Click Me! ({{ clickCount() }} clicks)</org-button>
+      <org-button color="brand" (click)="handleClick()">Click Me! ({{ clickCount() }} clicks)</org-button>
     </div>
   </div>
 
@@ -43,6 +43,6 @@
 
   <!-- Reset Button -->
   <div class="text-center">
-    <org-button orgColor="neutral" (click)="resetCounter()"> Reset Counter </org-button>
+    <org-button color="neutral" (click)="resetCounter()"> Reset Counter </org-button>
   </div>
 </div>

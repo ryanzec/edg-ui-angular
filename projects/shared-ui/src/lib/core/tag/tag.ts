@@ -3,8 +3,9 @@ import { Icon, type IconName } from '../icon/icon';
 import { tailwindUtils } from '@organization/shared-utils';
 import { Subject } from 'rxjs';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
-import { ComponentColorDirective } from '../component-color-directive/component-color-directive';
 import { ComponentColor } from '../types/component-types';
+
+export type TagColor = ComponentColor;
 
 export type TagVariant = 'strong' | 'weak';
 
@@ -15,18 +16,12 @@ export const tagVariants: TagVariant[] = ['strong', 'weak'];
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Icon],
   templateUrl: './tag.html',
-  hostDirectives: [
-    {
-      directive: ComponentColorDirective,
-      inputs: ['orgColor'],
-    },
-  ],
 })
 export class Tag {
   private readonly _elementRef = inject(ElementRef<HTMLElement>);
 
   // Input properties
-  public orgColor = input.required<ComponentColor>();
+  public color = input.required<ComponentColor>();
   public variant = input<TagVariant>('weak');
   public preIcon = input<IconName | null>(null);
   public postIcon = input<IconName | null>(null);

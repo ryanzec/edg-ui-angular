@@ -14,9 +14,10 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { Icon } from '../icon/icon';
 import { LoadingSpinner } from '../loading-spinner/loading-spinner';
 import { type IconName } from '../icon/icon';
-import { ComponentColorDirective } from '../component-color-directive/component-color-directive';
 import { ComponentColor } from '../types/component-types';
 import { tailwindUtils } from '@organization/shared-utils';
+
+export type ButtonColor = ComponentColor;
 
 export type ButtonSize = 'small' | 'base' | 'large';
 
@@ -32,12 +33,6 @@ export type ButtonState = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Icon, LoadingSpinner],
   templateUrl: './button.html',
-  hostDirectives: [
-    {
-      directive: ComponentColorDirective,
-      inputs: ['orgColor'],
-    },
-  ],
   host: {
     class: 'inline-flex',
   },
@@ -61,7 +56,7 @@ export class Button implements OnInit, OnDestroy {
     return this._state();
   }
 
-  public orgColor = input.required<ComponentColor>();
+  public color = input.required<ButtonColor>();
   public size = input<ButtonSize>('base');
   public disabled = input<boolean>(false);
   public loading = input<boolean>(false);

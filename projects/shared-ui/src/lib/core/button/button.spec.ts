@@ -2,14 +2,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { describe, it, expect, beforeEach } from '@jest/globals';
+import { beforeEach, describe, it, expect, vi } from 'vitest';
 
 import { Button } from './button';
 
 @Component({
   template: `
     <org-button
-      [orgColor]="orgColor"
+      [color]="color"
       [size]="size"
       [disabled]="disabled"
       [loading]="loading"
@@ -23,7 +23,7 @@ import { Button } from './button';
   `,
 })
 class TestHostComponent {
-  public orgColor: any = 'brand';
+  public color: any = 'brand';
   public size: any = 'base';
   public disabled = false;
   public loading = false;
@@ -42,23 +42,27 @@ describe('Button', () => {
   let component: Button;
   let hostComponent: TestHostComponent;
   let fixture: ComponentFixture<TestHostComponent>;
-  let focusMonitorSpy: jasmine.SpyObj<FocusMonitor>;
+  let focusMonitorSpy: { monitor: any; stopMonitoring: any };
 
   beforeEach(async () => {
-    const focusMonitorSpyObj = jasmine.createSpyObj('FocusMonitor', ['monitor', 'stopMonitoring']);
-    focusMonitorSpyObj.monitor.and.returnValue({
-      subscribe: jasmine.createSpy().and.returnValue({ unsubscribe: jasmine.createSpy() }),
-    } as any);
+    // Create a mock FocusMonitor using vitest
+    focusMonitorSpy = {
+      monitor: vi.fn().mockReturnValue({
+        subscribe: vi.fn().mockReturnValue({ unsubscribe: vi.fn() }),
+      }),
+      stopMonitoring: vi.fn(),
+    };
 
     await TestBed.configureTestingModule({
       imports: [Button, TestHostComponent],
-      providers: [{ provide: FocusMonitor, useValue: focusMonitorSpyObj }],
+      providers: [{ provide: FocusMonitor, useValue: focusMonitorSpy }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TestHostComponent);
     hostComponent = fixture.componentInstance;
     component = fixture.debugElement.query(By.directive(Button)).componentInstance;
-    focusMonitorSpy = TestBed.inject(FocusMonitor) as jasmine.SpyObj<FocusMonitor>;
+    // No need to cast with jasmine.SpyObj
+    // focusMonitorSpy is already the mock object
 
     fixture.detectChanges();
   });
@@ -200,7 +204,7 @@ describe('Button', () => {
 
   describe('CSS Classes', () => {
     it('should apply brand color class to host', () => {
-      hostComponent.orgColor = 'brand';
+      hostComponent.color = 'brand';
       fixture.detectChanges();
 
       const hostElement = fixture.debugElement.nativeElement;
@@ -208,7 +212,7 @@ describe('Button', () => {
     });
 
     it('should apply danger color class to host', () => {
-      hostComponent.orgColor = 'danger';
+      hostComponent.color = 'danger';
       fixture.detectChanges();
 
       const hostElement = fixture.debugElement.nativeElement;

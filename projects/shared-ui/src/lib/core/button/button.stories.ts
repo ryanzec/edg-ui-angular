@@ -44,22 +44,22 @@ const meta: Meta<Button> = {
   ### Usage Examples
   \`\`\`html
   <!-- Basic button -->
-  <org-button orgColor="brand">Click Me</org-button>
+  <org-button color="brand">Click Me</org-button>
 
   <!-- Button with icon -->
-  <org-button orgColor="brand" preIcon="plus">Add Item</org-button>
+  <org-button color="brand" preIcon="plus">Add Item</org-button>
 
   <!-- Loading button -->
-  <org-button orgColor="brand" [loading]="true">Saving...</org-button>
+  <org-button color="brand" [loading]="true">Saving...</org-button>
 
   <!-- Disabled button -->
-  <org-button orgColor="brand" [disabled]="true">Disabled</org-button>
+  <org-button color="brand" [disabled]="true">Disabled</org-button>
 
   <!-- Icon-only button -->
-  <org-button orgColor="brand" icon="gear"></org-button>
+  <org-button color="brand" icon="gear"></org-button>
 
   <!-- Large button with icons -->
-  <org-button orgColor="brand" size="large" preIcon="download-simple" postIcon="arrow-right">
+  <org-button color="brand" size="large" preIcon="download-simple" postIcon="arrow-right">
     Download
   </org-button>
 </div>
@@ -75,7 +75,7 @@ type Story = StoryObj<Button>;
 
 export const Default: Story = {
   args: {
-    orgColor: 'brand',
+    color: 'brand',
     size: 'base',
     disabled: false,
     loading: false,
@@ -86,7 +86,7 @@ export const Default: Story = {
     class: '',
   },
   argTypes: {
-    orgColor: {
+    color: {
       control: 'select',
       options: ['brand', 'secondary', 'neutral', 'safe', 'info', 'caution', 'warning', 'danger'],
       description: 'The color variant of the button',
@@ -137,7 +137,7 @@ export const Default: Story = {
     props: args,
     template: `
       <org-button
-        [orgColor]="orgColor"
+        [color]="color"
         [size]="size"
         [disabled]="disabled"
         [loading]="loading"
@@ -171,35 +171,35 @@ export const Colors: Story = {
         currentState="Comparing all 8 color options"
       >
         <org-storybook-example-container-section label="Brand (Primary)">
-          <org-button orgColor="brand">Brand Button</org-button>
+          <org-button color="brand">Brand Button</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Secondary">
-          <org-button orgColor="secondary">Secondary Button</org-button>
+          <org-button color="secondary">Secondary Button</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Neutral">
-          <org-button orgColor="neutral">Neutral Button</org-button>
+          <org-button color="neutral">Neutral Button</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Safe (Success)">
-          <org-button orgColor="safe">Safe Button</org-button>
+          <org-button color="safe">Safe Button</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Info">
-          <org-button orgColor="info">Info Button</org-button>
+          <org-button color="info">Info Button</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Caution">
-          <org-button orgColor="caution">Caution Button</org-button>
+          <org-button color="caution">Caution Button</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Warning">
-          <org-button orgColor="warning">Warning Button</org-button>
+          <org-button color="warning">Warning Button</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Danger (Destructive)">
-          <org-button orgColor="danger">Danger Button</org-button>
+          <org-button color="danger">Danger Button</org-button>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -235,15 +235,15 @@ export const Sizes: Story = {
         currentState="Comparing small, base, and large sizes"
       >
         <org-storybook-example-container-section label="Small">
-          <org-button orgColor="brand" size="small">Small Button</org-button>
+          <org-button color="brand" size="small">Small Button</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Base (Default)">
-          <org-button orgColor="brand" size="base">Base Button</org-button>
+          <org-button color="brand" size="base">Base Button</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Large">
-          <org-button orgColor="brand" size="large">Large Button</org-button>
+          <org-button color="brand" size="large">Large Button</org-button>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -274,19 +274,19 @@ export const IconVariations: Story = {
         currentState="Comparing different icon placements"
       >
         <org-storybook-example-container-section label="With Pre-Icon">
-          <org-button orgColor="brand" preIcon="plus">Add Item</org-button>
+          <org-button color="brand" preIcon="plus">Add Item</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="With Post-Icon">
-          <org-button orgColor="brand" postIcon="arrow-right">Continue</org-button>
+          <org-button color="brand" postIcon="arrow-right">Continue</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="With Both Icons">
-          <org-button orgColor="brand" preIcon="download-simple" postIcon="arrow-right">Download</org-button>
+          <org-button color="brand" preIcon="download-simple" postIcon="arrow-right">Download</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Icon-Only">
-          <org-button orgColor="brand" icon="gear"></org-button>
+          <org-button color="brand" icon="gear"></org-button>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -318,19 +318,19 @@ export const States: Story = {
         currentState="Comparing normal, disabled, and loading states"
       >
         <org-storybook-example-container-section label="Normal">
-          <org-button orgColor="brand">Normal Button</org-button>
+          <org-button color="brand">Normal Button</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Disabled">
-          <org-button orgColor="brand" [disabled]="true">Disabled Button</org-button>
+          <org-button color="brand" [disabled]="true">Disabled Button</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Loading">
-          <org-button orgColor="brand" [loading]="true">Loading Button</org-button>
+          <org-button color="brand" [loading]="true">Loading Button</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Loading with Icon">
-          <org-button orgColor="brand" [loading]="true" preIcon="upload-simple">Uploading...</org-button>
+          <org-button color="brand" [loading]="true" preIcon="upload-simple">Uploading...</org-button>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">

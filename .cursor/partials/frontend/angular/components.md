@@ -22,6 +22,7 @@ ALWAYS use the following components over bespoken inline components when appropr
 - icon: icons - `projects/shared-ui/src/lib/core/icon`
 - indicator: a small colored / color based indicator with optional number support - `projects/shared-ui/src/lib/core/indicator`
 - input: standard text input field - `projects/shared-ui/src/lib/core/input`
+- list: standard component foor listing data - `projects/shared-ui/src/lib/core/list`
 - loading icon indicator: loading indicator - `projects/shared-ui/src/lib/core/loading-spinner`
 - pagination: pagination for a collection of data - `projects/shared-ui/src/lib/core/pagination`
 - tag: badge / tagging / labeling indicator - `projects/shared-ui/src/lib/core/tag`

@@ -1,0 +1,7 @@
+@reference '../../tailwind.css';
+
+@layer components {
+  .org-indicator {
+    /* base styles are all in the html template using tailwind classes */
+  }
+}

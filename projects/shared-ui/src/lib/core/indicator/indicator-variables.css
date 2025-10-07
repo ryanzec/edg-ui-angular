@@ -1,0 +1,52 @@
+/* Indicator component Tailwind theme variables */
+@theme {
+  /* Primary color */
+  --color-indicator-primary: var(--color-primary-background);
+
+  /* Secondary color */
+  --color-indicator-secondary: var(--color-secondary-background);
+
+  /* Neutral color */
+  --color-indicator-neutral: var(--color-neutral-background);
+
+  /* Safe color */
+  --color-indicator-safe: var(--color-safe-background);
+
+  /* Info color */
+  --color-indicator-info: var(--color-info-background);
+
+  /* Caution color */
+  --color-indicator-caution: var(--color-caution-background);
+
+  /* Warning color */
+  --color-indicator-warning: var(--color-warning-background);
+
+  /* Danger color */
+  --color-indicator-danger: var(--color-danger-background);
+}
+
+body.dark-theme {
+  /* Primary color */
+  --color-indicator-primary: var(--color-primary-background);
+
+  /* Secondary color */
+  --color-indicator-secondary: var(--color-secondary-background);
+
+  /* Neutral color */
+  --color-indicator-neutral: var(--color-neutral-background);
+
+  /* Safe color */
+  --color-indicator-safe: var(--color-safe-background);
+
+  /* Info color */
+  --color-indicator-info: var(--color-info-background);
+
+  /* Caution color */
+  --color-indicator-caution: var(--color-caution-background);
+
+  /* Warning color */
+  --color-indicator-warning: var(--color-warning-background);
+
+  /* Danger color */
+  --color-indicator-danger: var(--color-danger-background);
+}

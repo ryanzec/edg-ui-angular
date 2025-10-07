@@ -77,6 +77,7 @@ export const Default: Story = {
   args: {
     color: 'primary',
     size: 'base',
+    variant: 'filled',
     disabled: false,
     loading: false,
     preIcon: null,
@@ -95,6 +96,11 @@ export const Default: Story = {
       control: 'select',
       options: ['sm', 'base', 'lg'],
       description: 'The size of the button',
+    },
+    variant: {
+      control: 'select',
+      options: ['filled', 'ghost'],
+      description: 'The variant style of the button',
     },
     disabled: {
       control: 'boolean',
@@ -139,6 +145,7 @@ export const Default: Story = {
       <org-button
         [color]="color"
         [size]="size"
+        [variant]="variant"
         [disabled]="disabled"
         [loading]="loading"
         [preIcon]="preIcon"
@@ -338,6 +345,89 @@ export const States: Story = {
           <li><strong>Disabled</strong>: Non-interactive, reduced opacity, no hover effects</li>
           <li><strong>Loading</strong>: Shows spinner, non-interactive during operation</li>
           <li><strong>Loading with Icon</strong>: Icon is replaced by spinner during loading</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [Button, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+export const Variants: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Comparison of filled and ghost variants across all colors. Ghost variant has transparent background in default state but matches filled styling on hover/focus/active.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Button Variants"
+        currentState="Comparing filled and ghost variants for all colors"
+      >
+        <org-storybook-example-container-section label="Primary">
+          <div class="flex gap-2">
+            <org-button color="primary" variant="filled">Filled</org-button>
+            <org-button color="primary" variant="ghost">Ghost</org-button>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Secondary">
+          <div class="flex gap-2">
+            <org-button color="secondary" variant="filled">Filled</org-button>
+            <org-button color="secondary" variant="ghost">Ghost</org-button>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Neutral">
+          <div class="flex gap-2">
+            <org-button color="neutral" variant="filled">Filled</org-button>
+            <org-button color="neutral" variant="ghost">Ghost</org-button>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Safe">
+          <div class="flex gap-2">
+            <org-button color="safe" variant="filled">Filled</org-button>
+            <org-button color="safe" variant="ghost">Ghost</org-button>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Info">
+          <div class="flex gap-2">
+            <org-button color="info" variant="filled">Filled</org-button>
+            <org-button color="info" variant="ghost">Ghost</org-button>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Caution">
+          <div class="flex gap-2">
+            <org-button color="caution" variant="filled">Filled</org-button>
+            <org-button color="caution" variant="ghost">Ghost</org-button>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Warning">
+          <div class="flex gap-2">
+            <org-button color="warning" variant="filled">Filled</org-button>
+            <org-button color="warning" variant="ghost">Ghost</org-button>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Danger">
+          <div class="flex gap-2">
+            <org-button color="danger" variant="filled">Filled</org-button>
+            <org-button color="danger" variant="ghost">Ghost</org-button>
+          </div>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>Filled</strong>: Default variant with colored background and border</li>
+          <li><strong>Ghost</strong>: Transparent background and border in default state, colored text</li>
+          <li><strong>Hover/Focus/Active</strong>: Ghost variant matches filled variant styling on interaction</li>
         </ul>
       </org-storybook-example-container>
     `,

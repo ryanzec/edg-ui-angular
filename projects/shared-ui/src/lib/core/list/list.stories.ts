@@ -237,9 +237,9 @@ export const Interactive: Story = {
       >
         <org-storybook-example-container-section label="With Click Listeners">
           <org-list>
-            <org-list-item (clicked)="undefined">Clickable - Item 1</org-list-item>
-            <org-list-item (clicked)="undefined">Clickable - Item 2</org-list-item>
-            <org-list-item [isSelected]="true" (clicked)="undefined">Clickable - Selected Item</org-list-item>
+            <org-list-item asTag="button" (clicked)="undefined">Clickable - Item 1</org-list-item>
+            <org-list-item asTag="button" (clicked)="undefined">Clickable - Item 2</org-list-item>
+            <org-list-item asTag="button" [isSelected]="true" (clicked)="undefined">Clickable - Selected Item</org-list-item>
           </org-list>
         </org-storybook-example-container-section>
 
@@ -253,9 +253,9 @@ export const Interactive: Story = {
 
         <org-storybook-example-container-section label="Mixed">
           <org-list>
-            <org-list-item (clicked)="undefined">Clickable Item</org-list-item>
+            <org-list-item asTag="button" (clicked)="undefined">Clickable Item</org-list-item>
             <org-list-item>Non-Clickable Item</org-list-item>
-            <org-list-item (clicked)="undefined">Another Clickable Item</org-list-item>
+            <org-list-item asTag="a" href="#">Another Clickable Item as an anchor tag</org-list-item>
           </org-list>
         </org-storybook-example-container-section>
 
@@ -316,6 +316,47 @@ export const CustomStyling: Story = {
           <li>List items also support containerClass for individual styling</li>
           <li>Can add borders, gaps, and other styling as needed</li>
           <li>Maintains all interactive behaviors</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [List, ListItem, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+export const ItemTypes: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'List items can be rendered as different HTML elements using the asTag input - button, anchor, or div (default).',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="List Item Types"
+        currentState="Demonstrating different element types in the same list"
+      >
+        <org-storybook-example-container-section label="Mixed Element Types">
+          <org-list>
+            <org-list-item asTag="button" (clicked)="undefined">Button Item - Clickable with event</org-list-item>
+            <org-list-item asTag="a" href="https://example.com" [isExternalHref]="true">Anchor Item - External Link</org-list-item>
+            <org-list-item asTag="a" href="/dashboard">Anchor Item - Internal Link</org-list-item>
+            <org-list-item>Div Item - Static Content</org-list-item>
+            <org-list-item asTag="button" [isSelected]="true" (clicked)="undefined">Button Item - Selected</org-list-item>
+          </org-list>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>Button (asTag="button")</strong>: Renders as button element, requires clicked event handler</li>
+          <li><strong>Anchor (asTag="a")</strong>: Renders as anchor element, requires href input</li>
+          <li><strong>Div (default)</strong>: Renders as div element when no asTag is specified</li>
+          <li>External links automatically include target="_blank" and rel="noopener noreferrer"</li>
+          <li>All types support the same styling and state management (selected, hover, etc.)</li>
+          <li>Each type maintains proper accessibility attributes for its element</li>
         </ul>
       </org-storybook-example-container>
     `,

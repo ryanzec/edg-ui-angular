@@ -40,7 +40,6 @@ const meta: Meta<Card> = {
   - **null/default**: No colored border (default)
   - **primary**: Primary color border
   - **secondary**: Secondary accent color border
-  - **neutral**: Neutral gray color border
   - **safe**: Success/safe state border (green)
   - **info**: Informational state border (blue)
   - **caution**: Caution state border (yellow)
@@ -108,7 +107,7 @@ export const Default: Story = {
   argTypes: {
     color: {
       control: 'select',
-      options: [null, 'primary', 'secondary', 'neutral', 'safe', 'info', 'caution', 'warning', 'danger'],
+      options: [null, 'primary', 'secondary', 'safe', 'info', 'caution', 'warning', 'danger'],
       description: 'The color variant of the card border (null for default)',
     },
   },
@@ -185,17 +184,6 @@ export const Colors: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section label="Neutral">
-          <div class="max-w-sm">
-            <org-card color="neutral">
-              <org-card-header title="Neutral Card" />
-              <org-card-content>
-                <p>Card with neutral color border.</p>
-              </org-card-content>
-            </org-card>
-          </div>
-        </org-storybook-example-container-section>
-
         <org-storybook-example-container-section label="Safe (Success)">
           <div class="max-w-sm">
             <org-card color="safe">
@@ -255,7 +243,6 @@ export const Colors: Story = {
           <li><strong>Default</strong>: No colored border, standard card appearance</li>
           <li><strong>Primary</strong>: Primary color for main content cards</li>
           <li><strong>Secondary</strong>: Secondary accent color for supporting content</li>
-          <li><strong>Neutral</strong>: Neutral gray for low-emphasis cards</li>
           <li><strong>Safe</strong>: Green for success/positive status cards</li>
           <li><strong>Info</strong>: Blue for informational cards</li>
           <li><strong>Caution</strong>: Yellow for caution/warning cards</li>

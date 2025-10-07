@@ -1,21 +1,28 @@
-<button
-  type="button"
-  [class]="
-    mergeClasses(
-      'w-full flex items-center gap-1',
-      'px-2.5 py-2 text-base',
-      'text-list-item-text bg-list-item-background',
-      'focus:outline-none',
-      {
-        'cursor-pointer': isClickable(),
-        'hover:bg-list-item-hover': !isSelected() && isClickable(),
-        'focus-visible:bg-list-item-hover': !isSelected() && isClickable(),
-        'bg-list-item-selected': isSelected(),
-      },
-      containerClass()
-    )
-  "
-  (click)="handleClick()"
->
+<ng-template #contentTemplate>
   <ng-content />
-</button>
+</ng-template>
+
+<li>
+  @switch (asTag()) {
+    @case ('a') {
+      <a
+        [href]="href()"
+        [target]="isExternalHref() ? '_blank' : '_self'"
+        rel="noopener noreferrer"
+        [class]="containerCssClass()"
+      >
+        <ng-container [ngTemplateOutlet]="contentTemplate" />
+      </a>
+    }
+    @case ('button') {
+      <button type="button" [class]="containerCssClass()" (click)="handleClick()">
+        <ng-container [ngTemplateOutlet]="contentTemplate" />
+      </button>
+    }
+    @default {
+      <div [class]="containerCssClass()">
+        <ng-container [ngTemplateOutlet]="contentTemplate" />
+      </div>
+    }
+  }
+</li>

@@ -10,6 +10,9 @@ Things you might want to indicate in your prompt for creating component:
   - If the service is optional or not
 -->
 
+ALWAYS follow these tules when the use case matches:
+- needing multiple instances of `<ng-content>` - `.cursor/partials/frontend/angular/patterns/multiple-ng-content.md`
+
 ALWAYS use the following components over bespoken inline components when appropriate:
 - avatar: user display as initials or image - `projects/shared-ui/src/lib/core/avatar`
 - avatar stack: for display multiple avatars stacked on each other - `projects/shared-ui/src/lib/core/avatar-stack`
@@ -39,7 +42,6 @@ For references in how we implement a multitide of component feature, reference t
 
 ALWAYS use the following service with the pattern matches:
 - data selection store: for being able to track selected data - `projects/shared-ui/src/lib/core/data-selection-store`
-
 
 You MUST ALWAYS use these patterns when work on Angular 20 components:
 - ALWAYS use angular CDK when it has functionality that be used

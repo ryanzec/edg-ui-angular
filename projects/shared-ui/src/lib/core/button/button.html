@@ -4,57 +4,30 @@
   [class]="
     mergeClasses(
       'org-button',
-      'inline-flex items-center justify-center rounded-md cursor-pointer',
-      'focus:outline-none',
       {
-        'px-2 py-1 text-xs gap-1.5': this.isIconOnly() === false && this.size() === 'sm',
-        'px-2.5 py-0.5 text-base gap-2': this.isIconOnly() === false && this.size() === 'base',
-        'px-4 py-1 text-xl gap-2': this.isIconOnly() === false && this.size() === 'lg',
-        'p-0.5': this.isIconOnly() && (this.size() === 'sm' || this.size() === 'base'),
-        'p-1': this.isIconOnly() && this.size() === 'lg',
-        'opacity-50 cursor-not-allowed': this.isDisabled(),
-        'bg-button-primary-background text-button-primary-text border border-button-primary': color() === 'primary',
-        'hover:bg-button-primary-hover hover:border-button-primary-hover': color() === 'primary' && !isDisabled(),
-        'focus-visible:bg-button-primary-focus focus-visible:border-button-primary-focus':
-          color() === 'primary' && !isDisabled(),
-        'active:bg-button-primary-active active:border-button-primary-active': color() === 'primary' && !isDisabled(),
-        'bg-button-secondary-background text-button-secondary-text border border-button-secondary':
-          color() === 'secondary',
-        'hover:bg-button-secondary-hover hover:border-button-secondary-hover': color() === 'secondary' && !isDisabled(),
-        'focus-visible:bg-button-secondary-focus focus-visible:border-button-secondary-hover':
-          color() === 'secondary' && !isDisabled(),
-        'active:bg-button-secondary-active active:border-button-secondary-hover':
-          color() === 'secondary' && !isDisabled(),
-        'bg-button-neutral-background text-button-neutral-text border border-button-neutral': color() === 'neutral',
-        'hover:bg-button-neutral-hover hover:border-button-neutral-hover': color() === 'neutral' && !isDisabled(),
-        'focus-visible:bg-button-neutral-focus focus-visible:border-button-neutral-focus':
-          color() === 'neutral' && !isDisabled(),
-        'active:bg-button-neutral-active active:border-button-neutral-active': color() === 'neutral' && !isDisabled(),
-        'bg-button-safe-background text-button-safe-text border border-button-safe': color() === 'safe',
-        'hover:bg-button-safe-hover hover:border-button-safe-hover': color() === 'safe' && !isDisabled(),
-        'focus-visible:bg-button-safe-focus focus-visible:border-button-safe-focus':
-          color() === 'safe' && !isDisabled(),
-        'active:bg-button-safe-active active:border-button-safe-active': color() === 'safe' && !isDisabled(),
-        'bg-button-info-background text-button-info-text border border-button-info': color() === 'info',
-        'hover:bg-button-info-hover hover:border-button-info-hover': color() === 'info' && !isDisabled(),
-        'focus-visible:bg-button-info-focus focus-visible:border-button-info-focus':
-          color() === 'info' && !isDisabled(),
-        'active:bg-button-info-active active:border-button-info-active': color() === 'info' && !isDisabled(),
-        'bg-button-caution-background text-button-caution-text border border-button-caution': color() === 'caution',
-        'hover:bg-button-caution-hover hover:border-button-caution-hover': color() === 'caution' && !isDisabled(),
-        'focus-visible:bg-button-caution-focus focus-visible:border-button-caution-focus':
-          color() === 'caution' && !isDisabled(),
-        'active:bg-button-caution-active active:border-button-caution-active': color() === 'caution' && !isDisabled(),
-        'bg-button-warning-background text-button-warning-text border border-button-warning': color() === 'warning',
-        'hover:bg-button-warning-hover hover:border-button-warning-hover': color() === 'warning' && !isDisabled(),
-        'focus-visible:bg-button-warning-focus focus-visible:border-button-warning-focus':
-          color() === 'warning' && !isDisabled(),
-        'active:bg-button-warning-active active:border-button-warning-active': color() === 'warning' && !isDisabled(),
-        'bg-button-danger-background text-button-danger-text border border-button-danger': color() === 'danger',
-        'hover:bg-button-danger-hover hover:border-button-danger-hover': color() === 'danger' && !isDisabled(),
-        'focus-visible:bg-button-danger-focus focus-visible:border-button-danger-focus':
-          color() === 'danger' && !isDisabled(),
-        'active:bg-button-danger-active active:border-button-danger-active': color() === 'danger' && !isDisabled(),
+        'org-button-size-sm': !isIconOnly() && size() === 'sm',
+        'org-button-size-base': !isIconOnly() && size() === 'base',
+        'org-button-size-lg': !isIconOnly() && size() === 'lg',
+        'org-button-icon-only-sm': isIconOnly() && size() === 'sm',
+        'org-button-icon-only-base': isIconOnly() && size() === 'base',
+        'org-button-icon-only-lg': isIconOnly() && size() === 'lg',
+        'org-button-disabled': isDisabled(),
+        'org-button-primary-filled': color() === 'primary',
+        'org-button-primary-ghost': color() === 'primary' && variant() === 'ghost',
+        'org-button-secondary-filled': color() === 'secondary',
+        'org-button-secondary-ghost': color() === 'secondary' && variant() === 'ghost',
+        'org-button-neutral-filled': color() === 'neutral',
+        'org-button-neutral-ghost': color() === 'neutral' && variant() === 'ghost',
+        'org-button-safe-filled': color() === 'safe',
+        'org-button-safe-ghost': color() === 'safe' && variant() === 'ghost',
+        'org-button-info-filled': color() === 'info',
+        'org-button-info-ghost': color() === 'info' && variant() === 'ghost',
+        'org-button-caution-filled': color() === 'caution',
+        'org-button-caution-ghost': color() === 'caution' && variant() === 'ghost',
+        'org-button-warning-filled': color() === 'warning',
+        'org-button-warning-ghost': color() === 'warning' && variant() === 'ghost',
+        'org-button-danger-filled': color() === 'danger',
+        'org-button-danger-ghost': color() === 'danger' && variant() === 'ghost',
       }
     )
   "

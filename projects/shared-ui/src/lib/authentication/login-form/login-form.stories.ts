@@ -6,7 +6,7 @@ import { StorybookExampleContainer } from '../../private/storybook-example-conta
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 
 const meta: Meta<LoginForm> = {
-  title: 'Authentication/Login Form',
+  title: 'Authentication/Components/Login Form',
   component: LoginForm,
   tags: ['autodocs'],
   parameters: {

@@ -427,15 +427,15 @@ body.dark-theme {
   --color-secondary-background-pressed-bold: var(--color-neutral-700);
 
   /* Neutral colors */
-  --color-neutral-background: var(--color-neutral-300);
-  --color-neutral-background-hover: var(--color-neutral-400);
-  --color-neutral-background-pressed: var(--color-neutral-300);
+  --color-neutral-background: var(--color-neutral-500);
+  --color-neutral-background-hover: var(--color-neutral-600);
+  --color-neutral-background-pressed: var(--color-neutral-500);
   --color-neutral-background-subtle: var(--color-neutral-800);
   --color-neutral-background-hover-subtle: var(--color-neutral-700);
   --color-neutral-background-pressed-subtle: var(--color-neutral-800);
-  --color-neutral-background-bold: var(--color-neutral-200);
-  --color-neutral-background-hover-bold: var(--color-neutral-100);
-  --color-neutral-background-pressed-bold: var(--color-neutral-200);
+  --color-neutral-background-bold: var(--color-neutral-300);
+  --color-neutral-background-hover-bold: var(--color-neutral-400);
+  --color-neutral-background-pressed-bold: var(--color-neutral-300);
 
   /* Safe colors */
   --color-safe-background: var(--color-green-400);

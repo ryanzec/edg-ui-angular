@@ -23,6 +23,8 @@ export type ButtonSize = Extract<ComponentSize, 'sm' | 'base' | 'lg'>;
 
 export type ButtonType = 'button' | 'submit' | 'reset';
 
+export type ButtonVariant = 'filled' | 'ghost';
+
 export type ButtonState = {
   isPressed: boolean;
   isFocused: boolean;
@@ -33,6 +35,7 @@ export type ButtonState = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Icon, LoadingSpinner],
   templateUrl: './button.html',
+  styleUrl: './button.css',
   host: {
     class: 'inline-flex',
   },
@@ -58,6 +61,7 @@ export class Button implements OnInit, OnDestroy {
 
   public color = input.required<ButtonColor>();
   public size = input<ButtonSize>('base');
+  public variant = input<ButtonVariant>('filled');
   public disabled = input<boolean>(false);
   public loading = input<boolean>(false);
   public preIcon = input<IconName | null>(null);

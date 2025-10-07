@@ -10,11 +10,11 @@
   <div class="flex flex-col gap-12">
     <!-- Text and Link Colors -->
     <section class="border-b border-border-subtle pb-12 last:border-b-0 last:pb-0">
-      <h2 class="text-3xl font-semibold text-text mb-8 pb-2 border-b-2 border-brand-border">Text & Link Colors</h2>
+      <h2 class="text-3xl font-semibold text-text mb-8 pb-2 border-b-2 border-primary-border">Text & Link Colors</h2>
 
       @for (category of colorCategories; track category.title) {
         <div class="mb-10 last:mb-0">
-          <h3 class="text-xl font-semibold text-text mb-6 pl-2 border-l-3 border-brand-background">
+          <h3 class="text-xl font-semibold text-text mb-6 pl-2 border-l-3 border-primary-background">
             {{ category.title }}
           </h3>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -49,7 +49,7 @@
                 <div class="flex-1 min-w-0">
                   <div class="font-semibold text-text mb-1 text-sm">{{ color.name }}</div>
                   <div
-                    class="font-mono text-xs text-brand-text bg-brand-background-subtle px-1.5 py-0.5 rounded inline-block mb-2 break-all"
+                    class="font-mono text-xs text-primary-text bg-primary-background-subtle px-1.5 py-0.5 rounded inline-block mb-2 break-all"
                   >
                     {{ color.cssVar }}
                   </div>
@@ -66,11 +66,11 @@
 
     <!-- Border Colors -->
     <section class="border-b border-border-subtle pb-12 last:border-b-0 last:pb-0">
-      <h2 class="text-3xl font-semibold text-text mb-8 pb-2 border-b-2 border-brand-border">Border Colors</h2>
+      <h2 class="text-3xl font-semibold text-text mb-8 pb-2 border-b-2 border-primary-border">Border Colors</h2>
 
       @for (category of borderColors; track category.title) {
         <div class="mb-10 last:mb-0">
-          <h3 class="text-xl font-semibold text-text mb-6 pl-2 border-l-3 border-brand-background">
+          <h3 class="text-xl font-semibold text-text mb-6 pl-2 border-l-3 border-primary-background">
             {{ category.title }}
           </h3>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -103,7 +103,7 @@
                 <div class="flex-1 min-w-0">
                   <div class="font-semibold text-text mb-1 text-sm">{{ color.name }}</div>
                   <div
-                    class="font-mono text-xs text-brand-text bg-brand-background-subtle px-1.5 py-0.5 rounded inline-block mb-2 break-all"
+                    class="font-mono text-xs text-primary-text bg-primary-background-subtle px-1.5 py-0.5 rounded inline-block mb-2 break-all"
                   >
                     {{ color.cssVar }}
                   </div>
@@ -120,11 +120,11 @@
 
     <!-- Background Colors -->
     <section class="border-b border-border-subtle pb-12 last:border-b-0 last:pb-0">
-      <h2 class="text-3xl font-semibold text-text mb-8 pb-2 border-b-2 border-brand-border">Background Colors</h2>
+      <h2 class="text-3xl font-semibold text-text mb-8 pb-2 border-b-2 border-primary-border">Background Colors</h2>
 
       @for (category of backgroundColors; track category.title) {
         <div class="mb-10 last:mb-0">
-          <h3 class="text-xl font-semibold text-text mb-6 pl-2 border-l-3 border-brand-background">
+          <h3 class="text-xl font-semibold text-text mb-6 pl-2 border-l-3 border-primary-background">
             {{ category.title }}
           </h3>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -145,7 +145,7 @@
                 <div class="flex-1 min-w-0">
                   <div class="font-semibold text-text mb-1 text-sm">{{ color.name }}</div>
                   <div
-                    class="font-mono text-xs text-brand-text bg-brand-background-subtle px-1.5 py-0.5 rounded inline-block mb-2 break-all"
+                    class="font-mono text-xs text-primary-text bg-primary-background-subtle px-1.5 py-0.5 rounded inline-block mb-2 break-all"
                   >
                     {{ color.cssVar }}
                   </div>

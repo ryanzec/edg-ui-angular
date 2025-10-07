@@ -7,7 +7,7 @@ import { Component, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 const meta: Meta<Radio> = {
-  title: 'Components/Radio',
+  title: 'Core/Components/Radio',
   component: Radio,
   tags: ['autodocs'],
   parameters: {
@@ -49,10 +49,10 @@ const meta: Meta<Radio> = {
   </org-radio>
 
   <!-- Different sizes -->
-  <org-radio name="size-choice" value="small" size="small">
+  <org-radio name="size-choice" value="small" size="sm">
     Small radio
   </org-radio>
-  <org-radio name="size-choice" value="large" size="large">
+  <org-radio name="size-choice" value="large" size="lg">
     Large radio
   </org-radio>
 
@@ -108,7 +108,7 @@ export const Default: Story = {
     },
     size: {
       control: 'select',
-      options: ['small', 'base', 'large'],
+      options: ['sm', 'base', 'lg'],
       description: 'Size of the radio icon',
     },
     containerClass: {
@@ -157,7 +157,7 @@ export const Sizes: Story = {
         currentState="Comparing small, base, and large sizes"
       >
         <org-storybook-example-container-section label="Small">
-          <org-radio name="small" value="small" size="small" [checked]="true">
+          <org-radio name="small" value="small" size="sm" [checked]="true">
             Small radio
           </org-radio>
         </org-storybook-example-container-section>
@@ -169,7 +169,7 @@ export const Sizes: Story = {
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Large">
-          <org-radio name="large" value="large" size="large" [checked]="true">
+          <org-radio name="large" value="large" size="lg" [checked]="true">
             Large radio
           </org-radio>
         </org-storybook-example-container-section>

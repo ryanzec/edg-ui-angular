@@ -14,12 +14,12 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { Icon } from '../icon/icon';
 import { LoadingSpinner } from '../loading-spinner/loading-spinner';
 import { type IconName } from '../icon/icon';
-import { ComponentColor } from '../types/component-types';
+import { ComponentColor, ComponentSize } from '../types/component-types';
 import { tailwindUtils } from '@organization/shared-utils';
 
 export type ButtonColor = ComponentColor;
 
-export type ButtonSize = 'small' | 'base' | 'large';
+export type ButtonSize = Extract<ComponentSize, 'sm' | 'base' | 'lg'>;
 
 export type ButtonType = 'button' | 'submit' | 'reset';
 

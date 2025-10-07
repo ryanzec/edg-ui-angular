@@ -22,7 +22,7 @@
   >
     @for (item of inlineItems(); track item.id) {
       <org-tag
-        color="brand"
+        color="primary"
         variant="weak"
         [removable]="!!(item.removable && !isDisabled() && !isReadonly())"
         (removed)="handleInlineItemRemove(item)"

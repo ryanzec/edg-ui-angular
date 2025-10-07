@@ -94,7 +94,10 @@ const showDetails = false;
 You can NEVER use these patterns when work on Angular 20 components:
 - NEVER use `interface` for types
 - NEVER comment code that is self documenting
-- NEVER use abbreviations unless they are the follow abbreviations: `id`, `utils`,
+<!--
+The size abbrivations are there to conform with tailwind since AI is highly baised to those name anyways
+-->
+- NEVER use abbreviations unless they are the follow abbreviations: `id`, `utils`, `3xs`, `2xs`, `xs`, `sm`, `lg`, `xl`, `2xl`, `3xl`, `4xl`
 - NEVER provide useless comments
 - NEVER use negative naming for `boolean` based variables / fields / methods
 ```ts
@@ -102,4 +105,8 @@ You can NEVER use these patterns when work on Angular 20 components:
 const disabled = false;
 const hideDetails = false;
 ```
-- MUST use PUT for updating data with an api call
+- NEVER use PUT for updating data with an api call
+<!--
+Since our tolling will auto format code, no need to waste time / money on AI to fix these.
+-->
+- NEVER fixed stylistic linting errors

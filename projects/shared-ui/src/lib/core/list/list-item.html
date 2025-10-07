@@ -1,0 +1,21 @@
+<button
+  type="button"
+  [class]="
+    mergeClasses(
+      'w-full flex items-center gap-1',
+      'px-2.5 py-2 text-base',
+      'text-list-item-text bg-list-item-background',
+      'focus:outline-none',
+      {
+        'cursor-pointer': isClickable(),
+        'hover:bg-list-item-hover': !isSelected() && isClickable(),
+        'focus-visible:bg-list-item-hover': !isSelected() && isClickable(),
+        'bg-list-item-selected': isSelected(),
+      },
+      containerClass()
+    )
+  "
+  (click)="handleClick()"
+>
+  <ng-content />
+</button>

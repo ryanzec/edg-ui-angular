@@ -42,12 +42,12 @@ describe('Card', () => {
   });
 
   describe('Color Classes', () => {
-    it('should apply brand color class to host', () => {
-      hostComponent.color = 'brand';
+    it('should apply primary color class to host', () => {
+      hostComponent.color = 'primary';
       fixture.detectChanges();
 
       const hostElement = fixture.debugElement.nativeElement;
-      expect(hostElement.classList).toContain('org-brand');
+      expect(hostElement.classList).toContain('org-primary');
     });
 
     it('should apply danger color class to host', () => {
@@ -63,7 +63,7 @@ describe('Card', () => {
       fixture.detectChanges();
 
       const hostElement = fixture.debugElement.nativeElement;
-      expect(hostElement.classList).not.toContain('org-brand');
+      expect(hostElement.classList).not.toContain('org-primary');
       expect(hostElement.classList).not.toContain('org-secondary');
       expect(hostElement.classList).not.toContain('org-danger');
     });

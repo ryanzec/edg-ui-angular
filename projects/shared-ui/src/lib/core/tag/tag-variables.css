@@ -1,12 +1,12 @@
 /* Tag component Tailwind theme variables */
 @theme {
-  /* Brand variants */
-  --color-tag-brand-strong-bg: var(--color-brand-background);
-  --color-tag-brand-strong-text: var(--color-text-inverse);
-  --color-tag-brand-strong-border: var(--color-brand-background);
-  --color-tag-brand-weak-bg: var(--color-brand-background-subtle);
-  --color-tag-brand-weak-text: var(--color-brand-text-bold);
-  --color-tag-brand-weak-border: var(--color-brand-background-subtle);
+  /* Primary variants */
+  --color-tag-primary-strong-bg: var(--color-primary-background);
+  --color-tag-primary-strong-text: var(--color-text-inverse);
+  --color-tag-primary-strong-border: var(--color-primary-background);
+  --color-tag-primary-weak-bg: var(--color-primary-background-subtle);
+  --color-tag-primary-weak-text: var(--color-primary-text-bold);
+  --color-tag-primary-weak-border: var(--color-primary-background-subtle);
 
   /* Secondary variants */
   --color-tag-secondary-strong-bg: var(--color-secondary-background);
@@ -66,13 +66,13 @@
 }
 
 .dark-theme {
-  /* Brand variants */
-  --color-tag-brand-strong-bg: var(--color-brand-background);
-  --color-tag-brand-strong-text: var(--color-text-inverse);
-  --color-tag-brand-strong-border: var(--color-brand-background);
-  --color-tag-brand-weak-bg: var(--color-brand-background-subtle);
-  --color-tag-brand-weak-text: var(--color-text);
-  --color-tag-brand-weak-border: var(--color-brand-background-subtle);
+  /* Primary variants */
+  --color-tag-primary-strong-bg: var(--color-primary-background);
+  --color-tag-primary-strong-text: var(--color-text-inverse);
+  --color-tag-primary-strong-border: var(--color-primary-background);
+  --color-tag-primary-weak-bg: var(--color-primary-background-subtle);
+  --color-tag-primary-weak-text: var(--color-text);
+  --color-tag-primary-weak-border: var(--color-primary-background-subtle);
 
   /* Secondary variants */
   --color-tag-secondary-strong-bg: var(--color-secondary-background);

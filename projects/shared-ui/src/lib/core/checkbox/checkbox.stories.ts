@@ -7,7 +7,7 @@ import { Component, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 const meta: Meta<Checkbox> = {
-  title: 'Components/Checkbox',
+  title: 'Core/Components/Checkbox',
   component: Checkbox,
   tags: ['autodocs'],
   parameters: {
@@ -61,10 +61,10 @@ const meta: Meta<Checkbox> = {
   </org-checkbox>
 
   <!-- Different sizes -->
-  <org-checkbox name="small" value="small" size="small">
+  <org-checkbox name="small" value="small" size="sm">
     Small checkbox
   </org-checkbox>
-  <org-checkbox name="large" value="large" size="large">
+  <org-checkbox name="large" value="large" size="lg">
     Large checkbox
   </org-checkbox>
 
@@ -123,7 +123,7 @@ export const Default: Story = {
     },
     size: {
       control: 'select',
-      options: ['small', 'base', 'large'],
+      options: ['sm', 'base', 'lg'],
       description: 'Size of the checkbox icon',
     },
     containerClass: {
@@ -174,7 +174,7 @@ export const Sizes: Story = {
         currentState="Comparing small, base, and large sizes"
       >
         <org-storybook-example-container-section label="Small">
-          <org-checkbox name="small" value="small" size="small" [checked]="true">
+          <org-checkbox name="small" value="small" size="sm" [checked]="true">
             Small checkbox
           </org-checkbox>
         </org-storybook-example-container-section>
@@ -186,7 +186,7 @@ export const Sizes: Story = {
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Large">
-          <org-checkbox name="large" value="large" size="large" [checked]="true">
+          <org-checkbox name="large" value="large" size="lg" [checked]="true">
             Large checkbox
           </org-checkbox>
         </org-storybook-example-container-section>

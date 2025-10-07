@@ -38,21 +38,21 @@ import { Button } from '../button/button';
       </div>
 
       <div class="flex flex-wrap gap-2">
-        <org-button color="brand" size="small" (click)="paginationStore.firstPage()"> First Page </org-button>
-        <org-button color="brand" size="small" (click)="paginationStore.previousPage()"> Previous Page </org-button>
-        <org-button color="brand" size="small" (click)="paginationStore.nextPage()"> Next Page </org-button>
-        <org-button color="brand" size="small" (click)="paginationStore.lastPage()"> Last Page </org-button>
-        <org-button color="secondary" size="small" (click)="paginationStore.goToPage(5)"> Go to Page 5 </org-button>
-        <org-button color="secondary" size="small" (click)="paginationStore.setItemsPerPage(20)">
+        <org-button color="primary" size="sm" (click)="paginationStore.firstPage()"> First Page </org-button>
+        <org-button color="primary" size="sm" (click)="paginationStore.previousPage()"> Previous Page </org-button>
+        <org-button color="primary" size="sm" (click)="paginationStore.nextPage()"> Next Page </org-button>
+        <org-button color="primary" size="sm" (click)="paginationStore.lastPage()"> Last Page </org-button>
+        <org-button color="secondary" size="sm" (click)="paginationStore.goToPage(5)"> Go to Page 5 </org-button>
+        <org-button color="secondary" size="sm" (click)="paginationStore.setItemsPerPage(20)">
           Set Items Per Page: 20
         </org-button>
-        <org-button color="secondary" size="small" (click)="paginationStore.setItemsPerPage(50)">
+        <org-button color="secondary" size="sm" (click)="paginationStore.setItemsPerPage(50)">
           Set Items Per Page: 50
         </org-button>
-        <org-button color="neutral" size="small" (click)="paginationStore.setTotalItems(100)">
+        <org-button color="neutral" size="sm" (click)="paginationStore.setTotalItems(100)">
           Set Total Items: 100
         </org-button>
-        <org-button color="neutral" size="small" (click)="paginationStore.setTotalItems(500)">
+        <org-button color="neutral" size="sm" (click)="paginationStore.setTotalItems(500)">
           Set Total Items: 500
         </org-button>
       </div>

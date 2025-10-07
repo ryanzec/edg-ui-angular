@@ -15,7 +15,7 @@ export const TEXT_SIZE_DEFAULT: TextSize | null = null;
 @Directive({
   selector: '[orgText]',
   host: {
-    '[class.text-brand-text]': 'textColor() === "brand"',
+    '[class.text-primary-text]': 'textColor() === "primary"',
     '[class.text-secondary-text]': 'textColor() === "secondary"',
     '[class.text-safe-text]': 'textColor() === "safe"',
     '[class.text-info-text]': 'textColor() === "info"',

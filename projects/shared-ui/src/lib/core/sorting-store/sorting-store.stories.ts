@@ -17,22 +17,18 @@ import { Button } from '../button/button';
       </div>
 
       <div class="flex flex-wrap gap-2">
-        <org-button color="brand" size="small" (click)="sortingStore.toggleSort('name')">
-          Toggle Sort: Name
-        </org-button>
-        <org-button color="brand" size="small" (click)="sortingStore.toggleSort('date')">
-          Toggle Sort: Date
-        </org-button>
-        <org-button color="brand" size="small" (click)="sortingStore.toggleSort('status')">
+        <org-button color="primary" size="sm" (click)="sortingStore.toggleSort('name')"> Toggle Sort: Name </org-button>
+        <org-button color="primary" size="sm" (click)="sortingStore.toggleSort('date')"> Toggle Sort: Date </org-button>
+        <org-button color="primary" size="sm" (click)="sortingStore.toggleSort('status')">
           Toggle Sort: Status
         </org-button>
-        <org-button color="secondary" size="small" (click)="sortingStore.setSort('name', 'asc')">
+        <org-button color="secondary" size="sm" (click)="sortingStore.setSort('name', 'asc')">
           Set: Name ASC
         </org-button>
-        <org-button color="secondary" size="small" (click)="sortingStore.setSort('date', 'desc')">
+        <org-button color="secondary" size="sm" (click)="sortingStore.setSort('date', 'desc')">
           Set: Date DESC
         </org-button>
-        <org-button color="neutral" size="small" (click)="sortingStore.clearSort()"> Clear Sort </org-button>
+        <org-button color="neutral" size="sm" (click)="sortingStore.clearSort()"> Clear Sort </org-button>
       </div>
     </div>
   `,

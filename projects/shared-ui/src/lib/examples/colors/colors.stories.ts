@@ -18,7 +18,7 @@ The colors are organized by category and automatically adapt to light and dark t
 - **Text Colors**: Primary, subtle, disabled, inverse, and semantic text colors
 - **Link Colors**: Default, hover, pressed, and visited link states
 - **Border Colors**: Input borders, general borders, and semantic border colors
-- **Background Colors**: Base, brand, secondary, neutral, and semantic background colors
+- **Background Colors**: Base, primary, secondary, neutral, and semantic background colors
 - **Theme Support**: All colors automatically adapt to light and dark themes
 - **Interactive Swatches**: Visual representation of each color with variable names
 
@@ -29,7 +29,7 @@ All colors are available as CSS custom properties (variables) and can be used in
 \`\`\`css
 .my-element {
   color: var(--color-text);
-  background-color: var(--color-brand-background);
+  background-color: var(--color-primary-background);
   border-color: var(--color-border);
 }
 \`\`\`

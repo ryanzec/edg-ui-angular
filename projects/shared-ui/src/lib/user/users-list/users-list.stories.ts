@@ -374,7 +374,7 @@ export const Interactive: Story = {
         <div class="p-3 bg-secondary-background-subtle rounded text-sm font-mono max-h-48 overflow-y-auto">
           @for (event of events(); track $index) {
             <div class="mb-2">
-              <div class="font-bold text-brand">{{ event.timestamp }} - {{ event.action }}</div>
+              <div class="font-bold text-primary-text">{{ event.timestamp }} - {{ event.action }}</div>
               <div class="text-text-subtle">User: {{ event.userName }} ({{ event.userEmail }})</div>
               <div class="text-text-subtle">ID: {{ event.userId }}</div>
             </div>

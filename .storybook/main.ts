@@ -86,6 +86,11 @@ const config: StorybookConfig = {
       use: ['style-loader', 'css-loader'],
     });
 
+    // config.module?.rules?.push({
+    //   test: /@fontsource.*\.css$/,
+    //   use: ['style-loader', 'css-loader'],
+    // });
+
     return config;
   },
 };

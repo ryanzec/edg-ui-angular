@@ -62,18 +62,18 @@ export const USER_SELECTION_STORE_TOKEN = new InjectionToken<DataSelectionStore<
       </div>
 
       <div class="flex flex-wrap gap-2">
-        <org-button color="brand" size="small" (click)="selectionStore.selectAll(users)"> Select All </org-button>
-        <org-button color="brand" size="small" (click)="selectionStore.deselectAll()"> Deselect All </org-button>
-        <org-button color="brand" size="small" (click)="selectionStore.toggleSelectAll(users)">
+        <org-button color="primary" size="sm" (click)="selectionStore.selectAll(users)"> Select All </org-button>
+        <org-button color="primary" size="sm" (click)="selectionStore.deselectAll()"> Deselect All </org-button>
+        <org-button color="primary" size="sm" (click)="selectionStore.toggleSelectAll(users)">
           Toggle Select All
         </org-button>
-        <org-button color="secondary" size="small" (click)="selectionStore.select(users[0])">
+        <org-button color="secondary" size="sm" (click)="selectionStore.select(users[0])">
           Select First User
         </org-button>
-        <org-button color="secondary" size="small" (click)="selectionStore.selectMultiple([users[1], users[2]])">
+        <org-button color="secondary" size="sm" (click)="selectionStore.selectMultiple([users[1], users[2]])">
           Select Users 2 & 3
         </org-button>
-        <org-button color="neutral" size="small" (click)="selectionStore.clear()"> Clear Selection </org-button>
+        <org-button color="neutral" size="sm" (click)="selectionStore.clear()"> Clear Selection </org-button>
       </div>
     </div>
   `,

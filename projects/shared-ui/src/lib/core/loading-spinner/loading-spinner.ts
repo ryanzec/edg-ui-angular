@@ -1,7 +1,5 @@
 import { Component, ChangeDetectionStrategy, input } from '@angular/core';
-import { Icon } from '../icon/icon';
-
-export type IconSize = 'small' | 'base' | 'large';
+import { Icon, IconSize } from '../icon/icon';
 
 @Component({
   selector: 'org-loading-spinner',

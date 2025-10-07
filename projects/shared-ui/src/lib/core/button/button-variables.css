@@ -1,13 +1,15 @@
 /* Button component Tailwind theme variables */
 @theme {
-  /* Brand colors */
-  --color-button-brand-background: var(--color-brand-background);
-  --color-button-brand-text: var(--color-text-inverse);
-  --color-button-brand-hover: var(--color-brand-background-hover);
-  --color-button-brand-focus: var(--color-brand-background-hover);
-  --color-button-brand-active: var(--color-brand-background-pressed);
+  /* Primary colors */
+  --color-button-primary: var(--color-primary-background);
+  --color-button-primary-background: var(--color-primary-background);
+  --color-button-primary-text: var(--color-text-inverse);
+  --color-button-primary-hover: var(--color-primary-background-hover);
+  --color-button-primary-focus: var(--color-primary-background-hover);
+  --color-button-primary-active: var(--color-primary-background-pressed);
 
   /* Secondary colors */
+  --color-button-secondary: var(--color-border);
   --color-button-secondary-background: var(--color-secondary-background);
   --color-button-secondary-text: var(--color-text);
   --color-button-secondary-border: var(--color-border);
@@ -17,6 +19,7 @@
   --color-button-secondary-active: var(--color-secondary-background-pressed);
 
   /* Neutral colors */
+  --color-button-neutral: var(--color-neutral-background);
   --color-button-neutral-background: var(--color-neutral-background);
   --color-button-neutral-text: var(--color-text-inverse);
   --color-button-neutral-hover: var(--color-neutral-background-hover);
@@ -24,6 +27,7 @@
   --color-button-neutral-active: var(--color-neutral-background-pressed);
 
   /* Safe colors */
+  --color-button-safe: var(--color-safe-background);
   --color-button-safe-background: var(--color-safe-background);
   --color-button-safe-text: var(--color-text-inverse);
   --color-button-safe-hover: var(--color-safe-background-hover);
@@ -31,6 +35,7 @@
   --color-button-safe-active: var(--color-safe-background-pressed);
 
   /* Info colors */
+  --color-button-info: var(--color-info-background);
   --color-button-info-background: var(--color-info-background);
   --color-button-info-text: var(--color-text-inverse);
   --color-button-info-hover: var(--color-info-background-hover);
@@ -38,6 +43,7 @@
   --color-button-info-active: var(--color-info-background-pressed);
 
   /* Caution colors */
+  --color-button-caution: var(--color-caution-background);
   --color-button-caution-background: var(--color-caution-background);
   --color-button-caution-text: var(--color-text-inverse);
   --color-button-caution-hover: var(--color-caution-background-hover);
@@ -45,6 +51,7 @@
   --color-button-caution-active: var(--color-caution-background-pressed);
 
   /* Warning colors */
+  --color-button-warning: var(--color-warning-background);
   --color-button-warning-background: var(--color-warning-background);
   --color-button-warning-text: var(--color-text-inverse);
   --color-button-warning-hover: var(--color-warning-background-hover);
@@ -52,6 +59,7 @@
   --color-button-warning-active: var(--color-warning-background-pressed);
 
   /* Danger colors */
+  --color-button-danger: var(--color-danger-background);
   --color-button-danger-background: var(--color-danger-background);
   --color-button-danger-text: var(--color-text-inverse);
   --color-button-danger-hover: var(--color-danger-background-hover);
@@ -60,14 +68,16 @@
 }
 
 body.dark-theme {
-  /* Brand colors */
-  --color-button-brand-background: var(--color-brand-background);
-  --color-button-brand-text: var(--color-text-inverse);
-  --color-button-brand-hover: var(--color-brand-background-hover);
-  --color-button-brand-focus: var(--color-brand-background-hover);
-  --color-button-brand-active: var(--color-brand-background-pressed);
+  /* Primary colors */
+  --color-button-primary: var(--color-primary-background);
+  --color-button-primary-background: var(--color-primary-background);
+  --color-button-primary-text: var(--color-text-inverse);
+  --color-button-primary-hover: var(--color-primary-background-hover);
+  --color-button-primary-focus: var(--color-primary-background-hover);
+  --color-button-primary-active: var(--color-primary-background-pressed);
 
   /* Secondary colors */
+  --color-button-secondary: var(--color-border);
   --color-button-secondary-background: var(--color-secondary-background);
   --color-button-secondary-text: var(--color-text);
   --color-button-secondary-border: var(--color-border);
@@ -77,6 +87,7 @@ body.dark-theme {
   --color-button-secondary-active: var(--color-secondary-background-pressed);
 
   /* Neutral colors */
+  --color-button-neutral: var(--color-neutral-background);
   --color-button-neutral-background: var(--color-neutral-background);
   --color-button-neutral-text: var(--color-text-inverse);
   --color-button-neutral-hover: var(--color-neutral-background-hover);
@@ -84,6 +95,7 @@ body.dark-theme {
   --color-button-neutral-active: var(--color-neutral-background-pressed);
 
   /* Safe colors */
+  --color-button-safe: var(--color-safe-background);
   --color-button-safe-background: var(--color-safe-background);
   --color-button-safe-text: var(--color-text-inverse);
   --color-button-safe-hover: var(--color-safe-background-hover);
@@ -91,6 +103,7 @@ body.dark-theme {
   --color-button-safe-active: var(--color-safe-background-pressed);
 
   /* Info colors */
+  --color-button-info: var(--color-info-background);
   --color-button-info-background: var(--color-info-background);
   --color-button-info-text: var(--color-text-inverse);
   --color-button-info-hover: var(--color-info-background-hover);
@@ -98,6 +111,7 @@ body.dark-theme {
   --color-button-info-active: var(--color-info-background-pressed);
 
   /* Caution colors */
+  --color-button-caution: var(--color-caution-background);
   --color-button-caution-background: var(--color-caution-background);
   --color-button-caution-text: var(--color-text-inverse);
   --color-button-caution-hover: var(--color-caution-background-hover);
@@ -105,6 +119,7 @@ body.dark-theme {
   --color-button-caution-active: var(--color-caution-background-pressed);
 
   /* Warning colors */
+  --color-button-warning: var(--color-warning-background);
   --color-button-warning-background: var(--color-warning-background);
   --color-button-warning-text: var(--color-text-inverse);
   --color-button-warning-hover: var(--color-warning-background-hover);
@@ -112,6 +127,7 @@ body.dark-theme {
   --color-button-warning-active: var(--color-warning-background-pressed);
 
   /* Danger colors */
+  --color-button-danger: var(--color-danger-background);
   --color-button-danger-background: var(--color-danger-background);
   --color-button-danger-text: var(--color-text-inverse);
   --color-button-danger-hover: var(--color-danger-background-hover);

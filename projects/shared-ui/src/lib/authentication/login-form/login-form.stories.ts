@@ -360,7 +360,7 @@ class LoginFormPasswordVisibleStory implements AfterViewInit {
         <div class="p-3 bg-secondary-background-subtle rounded text-sm font-mono max-h-48 overflow-y-auto">
           @for (event of events(); track $index) {
             <div class="mb-2">
-              <div class="font-bold text-brand">{{ event.timestamp }}</div>
+              <div class="font-bold text-primary-text">{{ event.timestamp }}</div>
               <div class="text-text-subtle">Email: {{ event.email }}</div>
               <div class="text-text-subtle">Password: {{ event.password }}</div>
             </div>

@@ -20,7 +20,7 @@ const meta: Meta<Icon> = {
   - Uses Phosphor Icons library
   - Three size options: small, base (default), large
   - Three weight options: regular (default), bold, fill
-  - Nine color options: inherit (default), brand, secondary, neutral, safe, info, caution, warning, danger
+  - Nine color options: inherit (default), primary, secondary, neutral, safe, info, caution, warning, danger
   - Inline display for easy integration with text
   - Accessible with aria-hidden attribute
 
@@ -36,7 +36,7 @@ const meta: Meta<Icon> = {
 
   ### Color Options
   - **inherit**: Inherits text color from parent elements (default)
-  - **brand**: Primary brand color
+  - **primary**: Primary color
   - **secondary**: Secondary accent color
   - **neutral**: Neutral/gray color
   - **safe**: Success/positive state (green)
@@ -51,13 +51,13 @@ const meta: Meta<Icon> = {
   <org-icon name="check"></org-icon>
 
   <!-- Icon with size -->
-  <org-icon name="check" size="large"></org-icon>
+  <org-icon name="check" size="lg"></org-icon>
 
   <!-- Icon with weight -->
   <org-icon name="check" weight="bold"></org-icon>
 
   <!-- Icon with color -->
-  <org-icon name="check" color="brand"></org-icon>
+  <org-icon name="check" color="primary"></org-icon>
 
   <!-- Icon with custom color (via parent) -->
   <div class="text-blue-500">
@@ -65,7 +65,7 @@ const meta: Meta<Icon> = {
   </div>
 
   <!-- Icon with all options -->
-  <org-icon name="check" size="large" weight="fill" color="safe"></org-icon>
+  <org-icon name="check" size="lg" weight="fill" color="safe"></org-icon>
 </div>
 \`\`\`
         `,
@@ -92,7 +92,7 @@ export const Default: Story = {
     },
     size: {
       control: 'select',
-      options: ['small', 'base', 'large'],
+      options: ['sm', 'base', 'lg'],
       description: 'The size of the icon',
     },
     weight: {
@@ -131,7 +131,7 @@ export const Sizes: Story = {
         currentState="Comparing small, base, and large sizes"
       >
         <org-storybook-example-container-section label="Small (text-sm / 14px)">
-          <org-icon name="check" size="small"></org-icon>
+          <org-icon name="check" size="sm"></org-icon>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Base (text-lg / 18px) - Default">
@@ -139,7 +139,7 @@ export const Sizes: Story = {
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Large (text-xl / 20px)">
-          <org-icon name="check" size="large"></org-icon>
+          <org-icon name="check" size="lg"></org-icon>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -212,8 +212,8 @@ export const Colors: Story = {
           <org-icon name="check" color="inherit"></org-icon>
         </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section label="Brand">
-          <org-icon name="check" color="brand"></org-icon>
+        <org-storybook-example-container-section label="Primary">
+          <org-icon name="check" color="primary"></org-icon>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Secondary">
@@ -246,7 +246,7 @@ export const Colors: Story = {
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
           <li><strong>inherit</strong>: Inherits text color from parent elements (default)</li>
-          <li><strong>brand</strong>: Primary brand color</li>
+          <li><strong>primary</strong>: Primary color</li>
           <li><strong>secondary</strong>: Secondary accent color</li>
           <li><strong>neutral</strong>: Neutral/gray color</li>
           <li><strong>safe</strong>: Success/positive state (green)</li>

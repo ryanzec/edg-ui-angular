@@ -2,10 +2,10 @@
   <span
     [class]="
       mergeClasses('inline-flex items-center rounded-xl border text-sm font-medium gap-1.5 px-2 py-1 leading-[14px]', {
-        'bg-tag-brand-strong-bg text-tag-brand-strong-text border-tag-brand-strong-border':
-          color() === 'brand' && variant() === 'strong',
-        'bg-tag-brand-weak-bg text-tag-brand-weak-text border-tag-brand-weak-border':
-          color() === 'brand' && variant() === 'weak',
+        'bg-tag-primary-strong-bg text-tag-primary-strong-text border-tag-primary-strong-border':
+          color() === 'primary' && variant() === 'strong',
+        'bg-tag-primary-weak-bg text-tag-primary-weak-text border-tag-primary-weak-border':
+          color() === 'primary' && variant() === 'weak',
         'bg-tag-secondary-strong-bg text-tag-secondary-strong-text border-tag-secondary-strong-border':
           color() === 'secondary' && variant() === 'strong',
         'bg-tag-secondary-weak-bg text-tag-secondary-weak-text border-tag-secondary-weak-border':
@@ -48,7 +48,7 @@
         (click)="handlePreIconClick()"
         [attr.aria-label]="'Pre icon'"
       >
-        <org-icon [name]="preIcon()!" size="small" />
+        <org-icon [name]="preIcon()!" size="sm" />
       </button>
     }
     <ng-content />
@@ -63,7 +63,7 @@
         (click)="handlePostIconClick()"
         [attr.aria-label]="removable() ? 'Remove tag' : 'Post icon'"
       >
-        <org-icon [name]="currentPostIcon()!" size="small" />
+        <org-icon [name]="currentPostIcon()!" size="sm" />
       </button>
     }
   </span>

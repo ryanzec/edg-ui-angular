@@ -49,15 +49,15 @@ export class ScrollAreaDirective {
       /* this prevent this style from being applied to Safari which cause the default scrollbar to be applied */
       @supports (scrollbar-color: auto) {
         body {
-          scrollbar-width: thin;
+          scrollbar-width: auto;
         }
       }
 
       @supports selector(::-webkit-scrollbar) {
         ::-webkit-scrollbar {
-          -webkit-appearance: none;
+          /*-webkit-appearance: none;
           width: 8px;
-          height: 8px;
+          height: 8px;*/
         }
 
         ::-webkit-scrollbar-track {
@@ -93,27 +93,42 @@ export class ScrollAreaDirective {
       .org-scroll-area--vertical {
         overflow-y: scroll;
         overflow-x: hidden;
+
+        @supports (scrollbar-gutter: stable) {
+          overflow-y: auto;
+          scrollbar-gutter: stable;
+        }
       }
 
       .org-scroll-area--horizontal {
         overflow-x: scroll;
         overflow-y: hidden;
+
+        @supports (scrollbar-gutter: stable) {
+          overflow-x: auto;
+          scrollbar-gutter: stable;
+        }
       }
 
       .org-scroll-area--both {
         overflow: scroll;
+
+        @supports (scrollbar-gutter: stable) {
+          overflow: auto;
+          scrollbar-gutter: stable;
+        }
       }
 
       /* Layout Stability */
       .org-scroll-area--stable-content {
         scrollbar-gutter: stable;
         /* contain size calculations to prevent parent subpixel issues which effects chrome */
-        contain: strict;
+        contain: paint;
       }
 
-      .org-scroll-area:not(.org-scroll-area--stable-content) {
+      /*.org-scroll-area:not(.org-scroll-area--stable-content) {
         scrollbar-width: none;
-      }
+      }*/
 
       /* Visibility Control */
       .org-scroll-area--hover-only {
@@ -124,7 +139,7 @@ export class ScrollAreaDirective {
       .org-scroll-area--hover-only:hover {
         /* For Firefox: Restore color on hover */
         scrollbar-color: var(--scrollbar-thumb-color) transparent;
-        scrollbar-width: thin;
+        scrollbar-width: auto;
       }
 
       .org-scroll-area--hover-only::-webkit-scrollbar-thumb {

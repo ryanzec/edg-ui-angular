@@ -28,6 +28,7 @@ Helps keep better consistent for all stories.
   - component stories MUST start with `Components/*`
   - directive stories MUST start with `Directives/*`
   - service stories MUST start with `Services/*`
+- ALWAYS combine development stories (`*.stories.ts`) into one file when a directory has multiple components
 
 You MUST NEVER use these patterns when work on development storybook stories:
 - NEVER write play / tests stories in the development stories file

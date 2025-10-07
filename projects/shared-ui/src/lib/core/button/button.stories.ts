@@ -27,7 +27,7 @@ const meta: Meta<Button> = {
   - Form support (button, submit, reset types)
 
   ### Color Options
-  - **brand**: Primary brand color (default)
+  - **primary**: Primary color (default)
   - **secondary**: Secondary accent color
   - **neutral**: Neutral gray color
   - **safe**: Success/safe state (green)
@@ -44,22 +44,22 @@ const meta: Meta<Button> = {
   ### Usage Examples
   \`\`\`html
   <!-- Basic button -->
-  <org-button color="brand">Click Me</org-button>
+  <org-button color="primary">Click Me</org-button>
 
   <!-- Button with icon -->
-  <org-button color="brand" preIcon="plus">Add Item</org-button>
+  <org-button color="primary" preIcon="plus">Add Item</org-button>
 
   <!-- Loading button -->
-  <org-button color="brand" [loading]="true">Saving...</org-button>
+  <org-button color="primary" [loading]="true">Saving...</org-button>
 
   <!-- Disabled button -->
-  <org-button color="brand" [disabled]="true">Disabled</org-button>
+  <org-button color="primary" [disabled]="true">Disabled</org-button>
 
   <!-- Icon-only button -->
-  <org-button color="brand" icon="gear"></org-button>
+  <org-button color="primary" icon="gear"></org-button>
 
   <!-- Large button with icons -->
-  <org-button color="brand" size="large" preIcon="download-simple" postIcon="arrow-right">
+  <org-button color="primary" size="lg" preIcon="download-simple" postIcon="arrow-right">
     Download
   </org-button>
 </div>
@@ -75,7 +75,7 @@ type Story = StoryObj<Button>;
 
 export const Default: Story = {
   args: {
-    color: 'brand',
+    color: 'primary',
     size: 'base',
     disabled: false,
     loading: false,
@@ -88,12 +88,12 @@ export const Default: Story = {
   argTypes: {
     color: {
       control: 'select',
-      options: ['brand', 'secondary', 'neutral', 'safe', 'info', 'caution', 'warning', 'danger'],
+      options: ['primary', 'secondary', 'neutral', 'safe', 'info', 'caution', 'warning', 'danger'],
       description: 'The color variant of the button',
     },
     size: {
       control: 'select',
-      options: ['small', 'base', 'large'],
+      options: ['sm', 'base', 'lg'],
       description: 'The size of the button',
     },
     disabled: {
@@ -129,7 +129,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default button with brand color. Use the controls below to interact with the component.',
+        story: 'Default button with primary color. Use the controls below to interact with the component.',
       },
     },
   },
@@ -170,8 +170,8 @@ export const Colors: Story = {
         title="Color Variants"
         currentState="Comparing all 8 color options"
       >
-        <org-storybook-example-container-section label="Brand (Primary)">
-          <org-button color="brand">Brand Button</org-button>
+        <org-storybook-example-container-section label="Primary">
+          <org-button color="primary">Primary Button</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Secondary">
@@ -203,7 +203,7 @@ export const Colors: Story = {
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
-          <li><strong>Brand</strong>: Primary brand color for main actions</li>
+          <li><strong>Primary</strong>: Primary color for main actions</li>
           <li><strong>Secondary</strong>: Secondary accent color for alternative actions</li>
           <li><strong>Neutral</strong>: Neutral gray for low-emphasis actions</li>
           <li><strong>Safe</strong>: Green for success/positive actions</li>
@@ -235,15 +235,15 @@ export const Sizes: Story = {
         currentState="Comparing small, base, and large sizes"
       >
         <org-storybook-example-container-section label="Small">
-          <org-button color="brand" size="small">Small Button</org-button>
+          <org-button color="primary" size="sm">Small Button</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Base (Default)">
-          <org-button color="brand" size="base">Base Button</org-button>
+          <org-button color="primary" size="base">Base Button</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Large">
-          <org-button color="brand" size="large">Large Button</org-button>
+          <org-button color="primary" size="lg">Large Button</org-button>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -274,19 +274,19 @@ export const IconVariations: Story = {
         currentState="Comparing different icon placements"
       >
         <org-storybook-example-container-section label="With Pre-Icon">
-          <org-button color="brand" preIcon="plus">Add Item</org-button>
+          <org-button color="primary" preIcon="plus">Add Item</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="With Post-Icon">
-          <org-button color="brand" postIcon="arrow-right">Continue</org-button>
+          <org-button color="primary" postIcon="arrow-right">Continue</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="With Both Icons">
-          <org-button color="brand" preIcon="download-simple" postIcon="arrow-right">Download</org-button>
+          <org-button color="primary" preIcon="download-simple" postIcon="arrow-right">Download</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Icon-Only">
-          <org-button color="brand" icon="gear"></org-button>
+          <org-button color="primary" icon="gear"></org-button>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -318,19 +318,19 @@ export const States: Story = {
         currentState="Comparing normal, disabled, and loading states"
       >
         <org-storybook-example-container-section label="Normal">
-          <org-button color="brand">Normal Button</org-button>
+          <org-button color="primary">Normal Button</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Disabled">
-          <org-button color="brand" [disabled]="true">Disabled Button</org-button>
+          <org-button color="primary" [disabled]="true">Disabled Button</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Loading">
-          <org-button color="brand" [loading]="true">Loading Button</org-button>
+          <org-button color="primary" [loading]="true">Loading Button</org-button>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Loading with Icon">
-          <org-button color="brand" [loading]="true" preIcon="upload-simple">Uploading...</org-button>
+          <org-button color="primary" [loading]="true" preIcon="upload-simple">Uploading...</org-button>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">

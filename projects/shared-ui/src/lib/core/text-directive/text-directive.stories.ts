@@ -17,13 +17,13 @@ const meta: Meta<TextDirective> = {
   A directive for applying consistent text colors and sizes across the application.
 
   ### Features
-  - Seven semantic color options: brand, secondary, safe, info, caution, warning, danger
+  - Seven semantic color options: primary, secondary, safe, info, caution, warning, danger
   - Six size options: xs, sm, base, lg, xl, 2xl
   - Can be used independently or combined
   - Null values use default styling
 
   ### Color Options
-  - **brand**: Primary brand color
+  - **primary**: Primary color
   - **secondary**: Secondary accent color
   - **safe**: Success/positive state (green)
   - **info**: Informational state (blue)
@@ -42,7 +42,7 @@ const meta: Meta<TextDirective> = {
   ### Usage Examples
   \`\`\`html
   <!-- Text with color only -->
-  <p orgText textColor="brand">Brand colored text</p>
+  <p orgText textColor="primary">Primary colored text</p>
 
   <!-- Text with size only -->
   <p orgText textSize="lg">Large text</p>
@@ -115,8 +115,8 @@ export const Colors: Story = {
         title="Color Variants"
         currentState="Comparing all 7 semantic color options"
       >
-        <org-storybook-example-container-section label="Brand">
-          <p orgText textColor="brand">Brand text color</p>
+        <org-storybook-example-container-section label="Primary">
+          <p orgText textColor="primary">Primary text color</p>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Secondary">
@@ -144,7 +144,7 @@ export const Colors: Story = {
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
-          <li><strong>brand</strong>: Primary brand color</li>
+          <li><strong>primary</strong>: Primary color</li>
           <li><strong>secondary</strong>: Secondary accent color</li>
           <li><strong>safe</strong>: Success/positive state (green)</li>
           <li><strong>info</strong>: Informational state (blue)</li>
@@ -228,8 +228,8 @@ export const Combined: Story = {
         title="Combined Color and Size"
         currentState="Demonstrating color and size combinations"
       >
-        <org-storybook-example-container-section label="Brand + Large">
-          <p orgText textColor="brand" textSize="lg">Brand large text</p>
+        <org-storybook-example-container-section label="Primary + Large">
+          <p orgText textColor="primary" textSize="lg">Primary large text</p>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Danger + Extra Large">

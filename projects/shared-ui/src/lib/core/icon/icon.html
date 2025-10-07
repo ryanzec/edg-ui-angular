@@ -1,10 +1,10 @@
 <i
   [class]="
     mergeClasses('inline-flex', weight() === 'regular' ? 'ph' : 'ph-' + weight(), 'ph-' + name(), {
-      'text-sm': size() === 'small',
+      'text-sm': size() === 'sm',
       'text-lg': size() === 'base',
-      'text-xl': size() === 'large',
-      'text-brand-text': color() === 'brand',
+      'text-xl': size() === 'lg',
+      'text-primary-text': color() === 'primary',
       'text-secondary-text': color() === 'secondary',
       'text-neutral-text': color() === 'neutral',
       'text-safe-text': color() === 'safe',

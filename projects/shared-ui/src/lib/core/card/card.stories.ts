@@ -38,7 +38,7 @@ const meta: Meta<Card> = {
 
   ### Color Options
   - **null/default**: No colored border (default)
-  - **brand**: Primary brand color border
+  - **primary**: Primary color border
   - **secondary**: Secondary accent color border
   - **neutral**: Neutral gray color border
   - **safe**: Success/safe state border (green)
@@ -79,7 +79,7 @@ const meta: Meta<Card> = {
   </org-card>
 
   <!-- Complete card with footer -->
-  <org-card color="brand">
+  <org-card color="primary">
     <org-card-header title="Complete Card" subtitle="All sections" />
     <org-card-image src="image.jpg" alt="Description" [width]="400" [height]="200" />
     <org-card-content>
@@ -87,7 +87,7 @@ const meta: Meta<Card> = {
     </org-card-content>
     <org-card-footer alignment="end">
       <org-button color="secondary">Cancel</org-button>
-      <org-button color="brand">Save</org-button>
+      <org-button color="primary">Save</org-button>
     </org-card-footer>
   </org-card>
 </div>
@@ -108,7 +108,7 @@ export const Default: Story = {
   argTypes: {
     color: {
       control: 'select',
-      options: [null, 'brand', 'secondary', 'neutral', 'safe', 'info', 'caution', 'warning', 'danger'],
+      options: [null, 'primary', 'secondary', 'neutral', 'safe', 'info', 'caution', 'warning', 'danger'],
       description: 'The color variant of the card border (null for default)',
     },
   },
@@ -163,12 +163,12 @@ export const Colors: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section label="Brand">
+        <org-storybook-example-container-section label="Primary">
           <div class="max-w-sm">
-            <org-card color="brand">
-              <org-card-header title="Brand Card" />
+            <org-card color="primary">
+              <org-card-header title="Primary Card" />
               <org-card-content>
-                <p>Card with brand color border.</p>
+                <p>Card with primary color border.</p>
               </org-card-content>
             </org-card>
           </div>
@@ -253,7 +253,7 @@ export const Colors: Story = {
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
           <li><strong>Default</strong>: No colored border, standard card appearance</li>
-          <li><strong>Brand</strong>: Primary brand color for main content cards</li>
+          <li><strong>Primary</strong>: Primary color for main content cards</li>
           <li><strong>Secondary</strong>: Secondary accent color for supporting content</li>
           <li><strong>Neutral</strong>: Neutral gray for low-emphasis cards</li>
           <li><strong>Safe</strong>: Green for success/positive status cards</li>
@@ -347,7 +347,7 @@ export const Compositions: Story = {
                 <p>Card with header, content, and footer actions.</p>
               </org-card-content>
               <org-card-footer alignment="end">
-                <org-button color="brand">Action</org-button>
+                <org-button color="primary">Action</org-button>
               </org-card-footer>
             </org-card>
           </div>
@@ -368,7 +368,7 @@ export const Compositions: Story = {
               </org-card-content>
               <org-card-footer alignment="end">
                 <org-button color="secondary">Cancel</org-button>
-                <org-button color="brand">Save</org-button>
+                <org-button color="primary">Save</org-button>
               </org-card-footer>
             </org-card>
           </div>
@@ -421,7 +421,7 @@ export const FooterAlignments: Story = {
                 <p>Footer buttons aligned to the start (left).</p>
               </org-card-content>
               <org-card-footer alignment="start">
-                <org-button color="brand">Action</org-button>
+                <org-button color="primary">Action</org-button>
               </org-card-footer>
             </org-card>
           </div>
@@ -435,7 +435,7 @@ export const FooterAlignments: Story = {
                 <p>Footer buttons aligned to the center.</p>
               </org-card-content>
               <org-card-footer alignment="center">
-                <org-button color="brand">Action</org-button>
+                <org-button color="primary">Action</org-button>
               </org-card-footer>
             </org-card>
           </div>
@@ -449,7 +449,7 @@ export const FooterAlignments: Story = {
                 <p>Footer buttons aligned to the end (right).</p>
               </org-card-content>
               <org-card-footer alignment="end">
-                <org-button color="brand">Action</org-button>
+                <org-button color="primary">Action</org-button>
               </org-card-footer>
             </org-card>
           </div>

@@ -12,6 +12,10 @@ import '../projects/shared-ui/src/lib/tailwind.css';
 import '@phosphor-icons/web/regular/style.css';
 import '@phosphor-icons/web/bold/style.css';
 import '@phosphor-icons/web/fill/style.css';
+// import '@fontsource/geist-sans/400.css';
+// import '@fontsource/geist-sans/500.css';
+// import '@fontsource/geist-sans/600.css';
+// import '@fontsource/geist-sans/700.css';
 import '../.storybook/storybook-styles.css';
 
 export const globalTypes = {

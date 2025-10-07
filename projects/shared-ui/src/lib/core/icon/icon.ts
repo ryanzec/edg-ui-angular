@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import { tailwindUtils } from '@organization/shared-utils';
-import { ComponentColor, componentColors } from '../types/component-types';
+import { ComponentColor, componentColors, ComponentSize } from '../types/component-types';
 
 export type IconName =
   | 'caret-right'
@@ -63,9 +63,9 @@ export const iconNames: IconName[] = [
   'check-circle',
 ];
 
-export type IconSize = 'small' | 'base' | 'large';
+export type IconSize = Extract<ComponentSize, 'sm' | 'base' | 'lg'>;
 
-export const iconSizes: IconSize[] = ['small', 'base', 'large'];
+export const iconSizes: IconSize[] = ['sm', 'base', 'lg'];
 
 export type IconWeight = 'regular' | 'bold' | 'fill';
 

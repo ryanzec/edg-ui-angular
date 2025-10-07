@@ -1,8 +1,9 @@
 import { Component, ChangeDetectionStrategy, input, output, computed, signal } from '@angular/core';
 import SparkMD5 from 'spark-md5';
 import { tailwindUtils } from '@organization/shared-utils';
+import { ComponentSize } from '../types/component-types';
 
-export type AvatarSize = 'sm' | 'base' | 'lg';
+export type AvatarSize = Extract<ComponentSize, 'sm' | 'base' | 'lg'>;
 
 export const avatarSizes: AvatarSize[] = ['sm', 'base', 'lg'];
 

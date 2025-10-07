@@ -4,9 +4,9 @@
   --color-card-border: var(--color-border);
   --color-card-bg: var(--color-background);
 
-  /* Brand colors */
-  --color-card-brand-border: var(--color-brand-border);
-  --color-card-brand-bg: var(--color-brand-background-subtle);
+  /* Primary colors */
+  --color-card-primary-border: var(--color-primary-border);
+  --color-card-primary-bg: var(--color-primary-background-subtle);
 
   /* Secondary colors */
   --color-card-secondary-border: var(--color-secondary-border);
@@ -54,9 +54,9 @@
   --color-card-border: var(--color-border);
   --color-card-bg: var(--color-secondary-background);
 
-  /* Brand colors */
-  --color-card-brand-border: var(--color-brand-border);
-  --color-card-brand-bg: var(--color-brand-background-subtle);
+  /* Primary colors */
+  --color-card-primary-border: var(--color-primary-border);
+  --color-card-primary-bg: var(--color-primary-background-subtle);
 
   /* Secondary colors */
   --color-card-secondary-border: var(--color-secondary-border);

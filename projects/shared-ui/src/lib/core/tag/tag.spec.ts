@@ -9,7 +9,7 @@ import { Tag } from './tag';
   template: ` <org-tag [color]="color" [variant]="variant" [removable]="removable"> Test Tag </org-tag> `,
 })
 class TestHostComponent {
-  public color: any = 'brand';
+  public color: any = 'primary';
   public variant: any = 'weak';
   public removable = false;
 }
@@ -40,12 +40,12 @@ describe('Tag', () => {
   });
 
   describe('Color Classes', () => {
-    it('should apply brand color class to host', () => {
-      hostComponent.color = 'brand';
+    it('should apply primary color class to host', () => {
+      hostComponent.color = 'primary';
       fixture.detectChanges();
 
       const hostElement = fixture.debugElement.nativeElement;
-      expect(hostElement.classList).toContain('org-brand');
+      expect(hostElement.classList).toContain('org-primary');
     });
 
     it('should apply danger color class to host', () => {
@@ -61,7 +61,7 @@ describe('Tag', () => {
       fixture.detectChanges();
 
       const hostElement = fixture.debugElement.nativeElement;
-      expect(hostElement.classList).not.toContain('org-brand');
+      expect(hostElement.classList).not.toContain('org-primary');
       expect(hostElement.classList).not.toContain('org-secondary');
       expect(hostElement.classList).not.toContain('org-danger');
     });

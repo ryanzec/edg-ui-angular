@@ -2,13 +2,17 @@ import { Component, ChangeDetectionStrategy, input, output, computed, ViewChild,
 import { Icon, IconName } from '../icon/icon';
 import { tailwindUtils } from '@organization/shared-utils';
 import { TextDirective, TextSize } from '../text-directive/text-directive';
+import { ComponentSize } from '../types/component-types';
+
+export type CheckboxSize = Extract<ComponentSize, 'sm' | 'base' | 'lg'>;
+
+export const checkboxSizes: CheckboxSize[] = ['sm', 'base', 'lg'];
 
 @Component({
   selector: 'org-checkbox',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Icon, TextDirective],
   templateUrl: './checkbox.html',
-  styleUrl: './checkbox.css',
   host: {
     dataid: 'checkbox',
     class: 'inline-flex',
@@ -26,7 +30,7 @@ export class Checkbox {
   public checked = input<boolean>(false);
   public indeterminate = input<boolean>(false);
   public disabled = input<boolean>(false);
-  public size = input<'small' | 'base' | 'large'>('base');
+  public size = input<CheckboxSize>('base');
   public containerClass = input<string>('');
 
   // outputs
@@ -39,9 +43,9 @@ export class Checkbox {
   public readonly isDisabled = computed<boolean>(() => this.disabled());
   public readonly textSize = computed<TextSize>(() => {
     switch (this.size()) {
-      case 'small':
+      case 'sm':
         return 'sm';
-      case 'large':
+      case 'lg':
         return 'lg';
       default:
         return 'base';

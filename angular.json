@@ -47,6 +47,22 @@
               {
                 "input": "@phosphor-icons/web/fill/style.css",
                 "bundleName": "phosphor-icons"
+              },
+              {
+                "input": "./node_modules/@fontsource/geist-sans/400.css",
+                "bundleName": "geist-sans"
+              },
+              {
+                "input": "./node_modules/@fontsource/geist-sans/500.css",
+                "bundleName": "geist-sans"
+              },
+              {
+                "input": "./node_modules/@fontsource/geist-sans/600.css",
+                "bundleName": "geist-sans"
+              },
+              {
+                "input": "./node_modules/@fontsource/geist-sans/700.css",
+                "bundleName": "geist-sans"
               }
             ]
           },
@@ -182,6 +198,22 @@
               {
                 "input": "@phosphor-icons/web/fill/style.css",
                 "bundleName": "phosphor-icons"
+              },
+              {
+                "input": "./node_modules/@fontsource/geist-sans/400.css",
+                "bundleName": "geist-sans"
+              },
+              {
+                "input": "./node_modules/@fontsource/geist-sans/500.css",
+                "bundleName": "geist-sans"
+              },
+              {
+                "input": "./node_modules/@fontsource/geist-sans/600.css",
+                "bundleName": "geist-sans"
+              },
+              {
+                "input": "./node_modules/@fontsource/geist-sans/700.css",
+                "bundleName": "geist-sans"
               }
             ]
           },
@@ -331,7 +363,25 @@
             "index": ".storybook/index.html",
             "main": ".storybook/main.ts",
             "tsConfig": "tsconfig.json",
-            "styles": ["projects/shared-ui/src/lib/styles.css"]
+            "styles": [
+              "projects/shared-ui/src/lib/styles.css",
+              {
+                "input": "./node_modules/@fontsource/geist-sans/400.css",
+                "bundleName": "geist-sans"
+              },
+              {
+                "input": "./node_modules/@fontsource/geist-sans/500.css",
+                "bundleName": "geist-sans"
+              },
+              {
+                "input": "./node_modules/@fontsource/geist-sans/600.css",
+                "bundleName": "geist-sans"
+              },
+              {
+                "input": "./node_modules/@fontsource/geist-sans/700.css",
+                "bundleName": "geist-sans"
+              }
+            ]
           }
         },
         "build-storybook": {

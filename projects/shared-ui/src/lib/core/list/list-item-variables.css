@@ -1,0 +1,16 @@
+/* List Item component Tailwind theme variables */
+@theme {
+  /* List Item colors */
+  --color-list-item-background: transparent;
+  --color-list-item-text: var(--color-text);
+  --color-list-item-hover: var(--color-neutral-background-hover-subtle);
+  --color-list-item-selected: var(--color-primary-background-subtle);
+}
+
+body.dark-theme {
+  /* List Item colors */
+  --color-list-item-background: transparent;
+  --color-list-item-text: var(--color-text);
+  --color-list-item-hover: var(--color-neutral-background-hover-subtle);
+  --color-list-item-selected: var(--color-primary-background-subtle);
+}

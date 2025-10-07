@@ -2,13 +2,17 @@ import { Component, ChangeDetectionStrategy, input, output, computed, ViewChild,
 import { Icon, IconName } from '../icon/icon';
 import { tailwindUtils } from '@organization/shared-utils';
 import { TextDirective, TextSize } from '../text-directive/text-directive';
+import { ComponentSize } from '../types/component-types';
+
+export type RadioSize = Extract<ComponentSize, 'sm' | 'base' | 'lg'>;
+
+export const radioSizes: RadioSize[] = ['sm', 'base', 'lg'];
 
 @Component({
   selector: 'org-radio',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Icon, TextDirective],
   templateUrl: './radio.html',
-  styleUrl: './radio.css',
   host: {
     dataid: 'radio',
     class: 'inline-flex',
@@ -24,7 +28,7 @@ export class Radio {
 
   // optional inputs
   public checked = input<boolean>(false);
-  public size = input<'small' | 'base' | 'large'>('base');
+  public size = input<RadioSize>('base');
   public containerClass = input<string>('');
 
   // outputs
@@ -34,9 +38,9 @@ export class Radio {
   public readonly isChecked = computed<boolean>(() => this.checked());
   public readonly textSize = computed<TextSize>(() => {
     switch (this.size()) {
-      case 'small':
+      case 'sm':
         return 'sm';
-      case 'large':
+      case 'lg':
         return 'lg';
       default:
         return 'base';

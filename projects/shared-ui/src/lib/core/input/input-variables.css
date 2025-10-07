@@ -21,13 +21,13 @@
   /* Icon colors */
   --color-input-icon: var(--color-text-subtle);
   --color-input-icon-hover: var(--color-text);
-  --color-input-icon-focus: var(--color-brand-background-subtle);
+  --color-input-icon-focus: var(--color-primary-background-subtle);
 
   /* Validation message colors */
   --color-input-validation-error: var(--color-danger-text);
 
   /* Selection colors */
-  --color-input-selection: var(--color-brand-background-subtle);
+  --color-input-selection: var(--color-primary-background-subtle);
 }
 
 /*
@@ -57,11 +57,11 @@ body.dark-theme {
   /* Icon colors */
   --color-input-icon: var(--color-text-subtle);
   --color-input-icon-hover: var(--color-text);
-  --color-input-icon-focus: var(--color-brand-background-subtle);
+  --color-input-icon-focus: var(--color-primary-background-subtle);
 
   /* Validation message colors */
   --color-input-validation-error: var(--color-danger-text);
 
   /* Selection colors */
-  --color-input-selection: var(--color-brand-background-subtle);
+  --color-input-selection: var(--color-primary-background-subtle);
 }

@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/angular';
 import { Radio } from './radio';
 
 const meta: Meta<Radio> = {
-  title: 'Components/Radio/Tests',
+  title: 'Core/Components/Radio/Tests',
   component: Radio,
 };
 

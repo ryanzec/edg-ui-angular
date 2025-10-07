@@ -9,7 +9,7 @@
     <div class="flex items-center gap-2">
       <!-- Previous button -->
       <org-button
-        size="small"
+        size="sm"
         color="neutral"
         icon="caret-left"
         [disabled]="disabled() || !hasPrevious()"
@@ -22,8 +22,8 @@
           <span class="px-2 py-1 text-sm text-pagination-text-ellipsis select-none">...</span>
         } @else {
           <org-button
-            size="small"
-            [color]="page.isActive ? 'brand' : 'neutral'"
+            size="sm"
+            [color]="page.isActive ? 'primary' : 'neutral'"
             [disabled]="disabled()"
             (clicked)="goToPage(page.value!)"
           >
@@ -34,7 +34,7 @@
 
       <!-- Next button -->
       <org-button
-        size="small"
+        size="sm"
         color="neutral"
         icon="caret-right"
         [disabled]="disabled() || !hasNext()"

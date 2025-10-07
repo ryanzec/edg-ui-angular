@@ -11,6 +11,7 @@
     "@angular/forms": "20.3.1",
     "@angular/platform-browser": "20.3.1",
     "@angular/router": "20.3.1",
+    "@fontsource/geist-sans": "5.2.5",
     "@phosphor-icons/web": "2.1.2",
     "chart.js": "4.5.0",
     "clsx": "2.1.1",

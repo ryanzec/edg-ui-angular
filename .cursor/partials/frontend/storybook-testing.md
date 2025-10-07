@@ -6,6 +6,7 @@ Storybook 9 Play / Testing Story Guidelines:
 - Tests should simulate the the interaction the user would take, not call component apis directly (these should test the behavior, not the implementation)
 
 
+- ALWAYS combine testing stories (`*.tests.stories.ts`) into one file when a directory has multiple components
 
 <!--
 This is for a clean separation of stories in thw storybook interface

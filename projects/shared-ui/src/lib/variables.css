@@ -5,13 +5,17 @@
 @import './core/button/button-variables.css';
 @import './core/card/card-variables.css';
 @import './core/checkbox/checkbox-variables.css';
+@import './core/checkbox-toggle/checkbox-toggle-variables.css';
 @import './core/code-block/code-block-variables.css';
 @import './core/file-upload/file-upload-variables.css';
+@import './core/indicator/indicator-variables.css';
 @import './core/radio/radio-variables.css';
 @import './core/tag/tag-variables.css';
 @import './core/input/input-variables.css';
 @import './core/textarea/textarea-variables.css';
 @import './core/pagination/pagination-variables.css';
+@import './core/table/table-variables.css';
+@import './core/list/list-item-variables.css';
 
 @theme {
   --opacity-text-subtle: 0.45;
@@ -29,9 +33,9 @@
   --color-text-inverse: var(--color-neutral-100);
   --color-text-inverse-subtle: rgb(from var(--color-text-inverse) r g b / var(--opacity-text-subtle));
 
-  --color-brand-text: var(--color-teal-600);
-  --color-brand-text-subtle: rgb(from var(--color-brand-text) r g b / var(--opacity-text-subtle));
-  --color-brand-text-bold: var(--color-teal-900);
+  --color-primary-text: var(--color-teal-600);
+  --color-primary-text-subtle: rgb(from var(--color-primary-text) r g b / var(--opacity-text-subtle));
+  --color-primary-text-bold: var(--color-teal-900);
 
   --color-secondary-text: var(--color-neutral-700);
   --color-secondary-text-subtle: rgb(from var(--color-secondary-text) r g b / var(--opacity-text-subtle));
@@ -92,9 +96,9 @@
   --color-border-subtle: var(--color-neutral-200);
   --color-border-bold: var(--color-neutral-600);
 
-  --color-brand-border: var(--color-teal-400);
-  --color-brand-border-subtle: var(--color-teal-200);
-  --color-brand-border-bold: var(--color-teal-600);
+  --color-primary-border: var(--color-teal-400);
+  --color-primary-border-subtle: var(--color-teal-200);
+  --color-primary-border-bold: var(--color-teal-600);
 
   --color-secondary-border: var(--color-neutral-300);
   --color-secondary-border-subtle: var(--color-neutral-200);
@@ -152,16 +156,16 @@
 
   --color-input-background: var(--color-white);
 
-  /* Brand colors */
-  --color-brand-background: var(--color-teal-600);
-  --color-brand-background-hover: var(--color-teal-700);
-  --color-brand-background-pressed: var(--color-teal-600);
-  --color-brand-background-subtle: var(--color-teal-100);
-  --color-brand-background-hover-subtle: var(--color-teal-200);
-  --color-brand-background-pressed-subtle: var(--color-teal-100);
-  --color-brand-background-bold: var(--color-teal-800);
-  --color-brand-background-hover-bold: var(--color-teal-900);
-  --color-brand-background-pressed-bold: var(--color-teal-800);
+  /* Primary colors */
+  --color-primary-background: var(--color-teal-600);
+  --color-primary-background-hover: var(--color-teal-700);
+  --color-primary-background-pressed: var(--color-teal-600);
+  --color-primary-background-subtle: var(--color-teal-100);
+  --color-primary-background-hover-subtle: var(--color-teal-200);
+  --color-primary-background-pressed-subtle: var(--color-teal-100);
+  --color-primary-background-bold: var(--color-teal-800);
+  --color-primary-background-hover-bold: var(--color-teal-900);
+  --color-primary-background-pressed-bold: var(--color-teal-800);
 
   /* Secondary colors */
   --color-secondary-background: var(--color-white);
@@ -298,8 +302,8 @@ body.dark-theme {
   --color-text-inverse: var(--color-neutral-900);
   --color-text-inverse-subtle: rgb(from var(--color-neutral-900) r g b / var(--opacity-text-subtle));
 
-  --color-brand-text: var(--color-teal-400);
-  --color-brand-text-subtle: rgb(from var(--color-teal-400) r g b / var(--opacity-text-subtle));
+  --color-primary-text: var(--color-teal-400);
+  --color-primary-text-subtle: rgb(from var(--color-teal-400) r g b / var(--opacity-text-subtle));
 
   --color-secondary-text: var(--color-neutral-400);
   --color-secondary-text-subtle: rgb(from var(--color-neutral-400) r g b / var(--opacity-text-subtle));
@@ -347,9 +351,9 @@ body.dark-theme {
   --color-border-subtle: var(--color-neutral-700);
   --color-border-bold: var(--color-neutral-500);
 
-  --color-brand-border: var(--color-teal-600);
-  --color-brand-border-subtle: var(--color-teal-700);
-  --color-brand-border-bold: var(--color-teal-500);
+  --color-primary-border: var(--color-teal-600);
+  --color-primary-border-subtle: var(--color-teal-700);
+  --color-primary-border-bold: var(--color-teal-500);
 
   --color-secondary-border: var(--color-neutral-700);
   --color-secondary-border-subtle: var(--color-neutral-800);
@@ -401,15 +405,15 @@ body.dark-theme {
 
   --color-input-background: var(--color-black);
 
-  --color-brand-background: var(--color-teal-400);
-  --color-brand-background-hover: var(--color-teal-500);
-  --color-brand-background-pressed: var(--color-teal-400);
-  --color-brand-background-subtle: var(--color-teal-950);
-  --color-brand-background-hover-subtle: var(--color-teal-900);
-  --color-brand-background-pressed-subtle: var(--color-teal-950);
-  --color-brand-background-bold: var(--color-teal-200);
-  --color-brand-background-hover-bold: var(--color-teal-300);
-  --color-brand-background-pressed-bold: var(--color-teal-200);
+  --color-primary-background: var(--color-teal-400);
+  --color-primary-background-hover: var(--color-teal-500);
+  --color-primary-background-pressed: var(--color-teal-400);
+  --color-primary-background-subtle: var(--color-teal-950);
+  --color-primary-background-hover-subtle: var(--color-teal-900);
+  --color-primary-background-pressed-subtle: var(--color-teal-950);
+  --color-primary-background-bold: var(--color-teal-200);
+  --color-primary-background-hover-bold: var(--color-teal-300);
+  --color-primary-background-pressed-bold: var(--color-teal-200);
 
   /* Secondary colors */
   --color-secondary-background: var(--color-neutral-800);
@@ -426,9 +430,9 @@ body.dark-theme {
   --color-neutral-background: var(--color-neutral-300);
   --color-neutral-background-hover: var(--color-neutral-400);
   --color-neutral-background-pressed: var(--color-neutral-300);
-  --color-neutral-background-subtle: var(--color-neutral-950);
-  --color-neutral-background-hover-subtle: var(--color-neutral-900);
-  --color-neutral-background-pressed-subtle: var(--color-neutral-950);
+  --color-neutral-background-subtle: var(--color-neutral-800);
+  --color-neutral-background-hover-subtle: var(--color-neutral-700);
+  --color-neutral-background-pressed-subtle: var(--color-neutral-800);
   --color-neutral-background-bold: var(--color-neutral-200);
   --color-neutral-background-hover-bold: var(--color-neutral-100);
   --color-neutral-background-pressed-bold: var(--color-neutral-200);

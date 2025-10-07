@@ -15,8 +15,12 @@ ALWAYS use the following components over bespoken inline components when appropr
 - avatar stack: for display multiple avatars stacked on each other - `projects/shared-ui/src/lib/core/avatar-stack`
 - button: clickable button - `projects/shared-ui/src/lib/core/button`
 - card: general purpose content container - `projects/shared-ui/src/lib/core/card`
-- file upload: drag and drop fiel uploading - `projects/shared-ui/src/lib/core/file-upload`
+- checkbox: standard input checkbox - `projects/shared-ui/src/lib/core/checkbox`
+- checkbox toggle: a toggle variant of a checkbox - `projects/shared-ui/src/lib/core/checkbox-toggle`
+- code block: For simple display of code like data in a block or inline with other text - `projects/shared-ui/src/lib/core/code-block`
+- file upload: drag and drop file uploading - `projects/shared-ui/src/lib/core/file-upload`
 - icon: icons - `projects/shared-ui/src/lib/core/icon`
+- indicator: a small colored / color based indicator with optional number support - `projects/shared-ui/src/lib/core/indicator`
 - input: standard text input field - `projects/shared-ui/src/lib/core/input`
 - loading icon indicator: loading indicator - `projects/shared-ui/src/lib/core/loading-spinner`
 - pagination: pagination for a collection of data - `projects/shared-ui/src/lib/core/pagination`
@@ -24,7 +28,6 @@ ALWAYS use the following components over bespoken inline components when appropr
 - textarea: standard textarea input field `projects/shared-ui/src/lib/core/textarea`
 
 ALWAYS use the following directives when valid over duplicating functionality in other components:
-- component color: `projects/shared-ui/src/lib/core/component-color-directive`
 - grouping elements with spacing: `projects/shared-ui/src/lib/core/grouped-elements-directive`
 
 When you are requested or need to implement a component that will have an associated store and need to be able to support multiple instances as the same time, you MUST follow the pattern outlined in : `projects/shared-ui/src/lib/examples/parent-child-multiple-nested-communication copy`
@@ -32,6 +35,10 @@ When you are requested or need to implement a component that will have an associ
 For references in how we implement a multitide of component feature, reference these files:
 - `projects/shared-ui/src/lib/core/button/button.ts`
 - `projects/shared-ui/src/lib/core/input/input.ts`
+
+ALWAYS use the following service with the pattern matches:
+- data selection store: for being able to track selected data - `projects/shared-ui/src/lib/core/data-selection-store`
+
 
 You MUST ALWAYS use these patterns when work on Angular 20 components:
 - ALWAYS use angular CDK when it has functionality that be used
@@ -124,6 +131,15 @@ public iconClass = input<string>('');
 public inputClass = input<string>('');
 ```
 - ALWAYS default size inputs to `base`
+- ALWAYS use `Extract<>` on the ComponentSize type in `projects/shared-ui/src/lib/core/types/component-types.ts` when a component has a size type input for defining the component's size
+```ts
+export type TestSize = Extract<ComponentSize, 'sm' | 'base' | 'lg'>;
+```
+- ALWAYS use `Extract<>` on the ComponentSize type in `projects/shared-ui/src/lib/core/types/component-types.ts` when a component has a color type input for defining the component's color
+```ts
+export type TestColor = Extract<ComponentSize, 'primary' | 'danger'>;
+```
+- ALWAYS make sure they are no rules in the component css file (`component.css) and removw that file
 
 You can NEVER use these patterns when work on Angular 20 components:
 - NEVER re-create functionality that is already available in angular CDK

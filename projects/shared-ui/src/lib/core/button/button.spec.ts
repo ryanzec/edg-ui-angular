@@ -23,7 +23,7 @@ import { Button } from './button';
   `,
 })
 class TestHostComponent {
-  public color: any = 'brand';
+  public color: any = 'primary';
   public size: any = 'base';
   public disabled = false;
   public loading = false;
@@ -203,12 +203,12 @@ describe('Button', () => {
   });
 
   describe('CSS Classes', () => {
-    it('should apply brand color class to host', () => {
-      hostComponent.color = 'brand';
+    it('should apply primary color class to host', () => {
+      hostComponent.color = 'primary';
       fixture.detectChanges();
 
       const hostElement = fixture.debugElement.nativeElement;
-      expect(hostElement.classList).toContain('org-brand');
+      expect(hostElement.classList).toContain('org-primary');
     });
 
     it('should apply danger color class to host', () => {
@@ -220,7 +220,7 @@ describe('Button', () => {
     });
 
     it('should apply small size classes', () => {
-      hostComponent.size = 'small';
+      hostComponent.size = 'sm';
       fixture.detectChanges();
 
       const buttonElement = fixture.debugElement.query(By.css('button'));

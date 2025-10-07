@@ -20,7 +20,7 @@ const meta: Meta<Tag> = {
 
   ### Features
   - Two visual variants: weak (default) and strong
-  - Eight color options: brand, secondary, neutral, safe, info, caution, warning, danger
+  - Eight color options: primary, secondary, neutral, safe, info, caution, warning, danger
   - Optional pre and post icons
   - Removable functionality with X icon
   - Clickable icon support
@@ -31,7 +31,7 @@ const meta: Meta<Tag> = {
   - **strong**: Solid colored background with contrasting text
 
   ### Color Options
-  - **brand**: Primary brand color
+  - **primary**: Primary primary color
   - **secondary**: Secondary accent color
   - **neutral**: Neutral/gray color
   - **safe**: Success/positive state (green)
@@ -43,10 +43,10 @@ const meta: Meta<Tag> = {
   ### Usage Examples
   \`\`\`html
   <!-- Basic tag -->
-  <org-tag color="brand">Tag Content</org-tag>
+  <org-tag color="primary">Tag Content</org-tag>
 
   <!-- Tag with variant -->
-  <org-tag color="brand" variant="strong">Strong Tag</org-tag>
+  <org-tag color="primary" variant="strong">Strong Tag</org-tag>
 
   <!-- Tag with icons -->
   <org-tag color="info" preIcon="gear">Settings</org-tag>
@@ -58,7 +58,7 @@ const meta: Meta<Tag> = {
   </org-tag>
 
   <!-- Tag with both icons -->
-  <org-tag color="brand" preIcon="gear" postIcon="arrow-right">
+  <org-tag color="primary" preIcon="gear" postIcon="arrow-right">
     Action Tag
   </org-tag>
 </div>
@@ -74,7 +74,7 @@ type Story = StoryObj<Tag>;
 
 export const Default: Story = {
   args: {
-    color: 'brand',
+    color: 'primary',
     variant: 'weak',
     preIcon: null,
     postIcon: null,
@@ -109,7 +109,8 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default tag with brand color and weak variant. Use the controls below to interact with the component.',
+        story:
+          'Default tag with primary color and weak variant. Use the controls below to interact with the component.',
       },
     },
   },
@@ -146,8 +147,8 @@ export const Colors: Story = {
         title="Color Variants (Weak)"
         currentState="Comparing all 8 color options with weak variant"
       >
-        <org-storybook-example-container-section label="Brand">
-          <org-tag color="brand">Brand</org-tag>
+        <org-storybook-example-container-section label="Primary">
+          <org-tag color="primary">Primary</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Secondary">
@@ -179,7 +180,7 @@ export const Colors: Story = {
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
-          <li><strong>brand</strong>: Primary brand color</li>
+          <li><strong>primary</strong>: Primary primary color</li>
           <li><strong>secondary</strong>: Secondary accent color</li>
           <li><strong>neutral</strong>: Neutral/gray color</li>
           <li><strong>safe</strong>: Success/positive state (green)</li>
@@ -210,12 +211,12 @@ export const Variants: Story = {
         title="Variant Comparison"
         currentState="Comparing weak and strong variants"
       >
-        <org-storybook-example-container-section label="Brand - Weak (default)">
-          <org-tag color="brand" variant="weak">Brand Weak</org-tag>
+        <org-storybook-example-container-section label="Primary - Weak (default)">
+          <org-tag color="primary" variant="weak">Primary Weak</org-tag>
         </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section label="Brand - Strong">
-          <org-tag color="brand" variant="strong">Brand Strong</org-tag>
+        <org-storybook-example-container-section label="Primary - Strong">
+          <org-tag color="primary" variant="strong">Primary Strong</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Safe - Weak">
@@ -262,7 +263,7 @@ export const WithIcons: Story = {
         currentState="Comparing tags with different icon configurations"
       >
         <org-storybook-example-container-section label="No icons">
-          <org-tag color="brand">No Icons</org-tag>
+          <org-tag color="primary">No Icons</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Pre icon only">
@@ -274,7 +275,7 @@ export const WithIcons: Story = {
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Both icons">
-          <org-tag color="brand" preIcon="gear" postIcon="arrow-right">Action</org-tag>
+          <org-tag color="primary" preIcon="gear" postIcon="arrow-right">Action</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Strong variant with icons">
@@ -310,11 +311,11 @@ export const Removable: Story = {
         currentState="Tags with remove functionality"
       >
         <org-storybook-example-container-section label="Not removable">
-          <org-tag color="brand">Fixed Tag</org-tag>
+          <org-tag color="primary">Fixed Tag</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Removable (weak)">
-          <org-tag color="brand" [removable]="true">Removable Tag</org-tag>
+          <org-tag color="primary" [removable]="true">Removable Tag</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Removable (strong)">
@@ -327,7 +328,7 @@ export const Removable: Story = {
 
         <org-storybook-example-container-section label="Multiple removable tags">
           <div class="flex flex-wrap gap-2">
-            <org-tag color="brand" [removable]="true">React</org-tag>
+            <org-tag color="primary" [removable]="true">React</org-tag>
             <org-tag color="info" [removable]="true">Angular</org-tag>
             <org-tag color="safe" [removable]="true">Vue</org-tag>
             <org-tag color="caution" [removable]="true">Svelte</org-tag>
@@ -362,8 +363,8 @@ export const StrongVariantColors: Story = {
         title="Color Variants (Strong)"
         currentState="Comparing all 8 color options with strong variant"
       >
-        <org-storybook-example-container-section label="Brand">
-          <org-tag color="brand" variant="strong">Brand</org-tag>
+        <org-storybook-example-container-section label="Primary">
+          <org-tag color="primary" variant="strong">Primary</org-tag>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Secondary">

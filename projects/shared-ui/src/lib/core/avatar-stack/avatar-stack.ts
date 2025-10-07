@@ -1,7 +1,8 @@
 import { Component, ChangeDetectionStrategy, input } from '@angular/core';
 import { tailwindUtils } from '@organization/shared-utils';
+import { ComponentSize } from '../types/component-types';
 
-export type AvatarStackSize = 'sm' | 'base' | 'lg';
+export type AvatarStackSize = Extract<ComponentSize, 'sm' | 'base' | 'lg'>;
 
 export const avatarStackSizes: AvatarStackSize[] = ['sm', 'base', 'lg'];
 

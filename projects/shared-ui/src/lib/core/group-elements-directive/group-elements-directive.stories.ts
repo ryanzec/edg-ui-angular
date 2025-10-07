@@ -234,7 +234,7 @@ export const PracticalExamples: Story = {
       >
         <org-storybook-example-container-section label="Button Group (Row)">
           <div orgGroupElements class="bg-background border border-border p-4 rounded">
-            <button class="rounded bg-brand px-4 py-2 text-white">Save</button>
+            <button class="rounded bg-primary px-4 py-2 text-white">Save</button>
             <button class="rounded bg-secondary px-4 py-2 text-white">Cancel</button>
             <button class="rounded bg-neutral px-4 py-2 text-white">Reset</button>
           </div>

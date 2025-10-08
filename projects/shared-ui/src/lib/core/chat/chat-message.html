@@ -1,0 +1,81 @@
+<div
+  [class]="
+    mergeClasses('org-chat-message flex flex-col gap-2', containerClass(), {
+      'items-end': chatMessage().source === 'user',
+      'items-start': chatMessage().source === 'ai',
+      'items-center': chatMessage().source === 'system',
+    })
+  "
+>
+  <!-- main message container -->
+  <div
+    class="flex flex-col"
+    [class]="
+      mergeClasses({
+        'max-w-[80%]': chatMessage().source === 'user' || chatMessage().source === 'ai',
+        'max-w-[90%]': chatMessage().source === 'system',
+      })
+    "
+  >
+    <!-- message content -->
+    <div
+      [class]="
+        mergeClasses('px-3 py-2 text-base', {
+          'rounded-2xl bg-chat-message-user-background text-chat-message-user-text': chatMessage().source === 'user',
+          'rounded-2xl bg-chat-message-ai-background text-chat-message-ai-text': chatMessage().source === 'ai',
+          'text-center font-bold text-chat-message-system-text': chatMessage().source === 'system',
+        })
+      "
+    >
+      <!-- steps section -->
+      @if (hasSteps()) {
+        <div class="flex flex-col gap-1">
+          <org-button
+            color="neutral"
+            variant="text"
+            size="sm"
+            [excludeSpacing]="true"
+            [postIcon]="isStepsExpanded() ? 'caret-up' : 'caret-down'"
+            (clicked)="toggleStepsExpanded()"
+            class="self-start"
+          >
+            {{ isStepsExpanded() ? 'Hide' : 'Show' }} Steps ({{ chatMessage().steps!.length }})
+          </org-button>
+
+          @if (isStepsExpanded()) {
+            <org-checklist [items]="chatMessage().steps!" containerClass="pl-2" />
+          }
+        </div>
+      }
+      <div class="flex items-center gap-2">
+        <span class="flex-1">{{ chatMessage().message }}</span>
+        <ng-content select="[name]" />
+      </div>
+    </div>
+  </div>
+
+  <!-- metadata section (status, duration, actions) -->
+  @if (hasStatus() || hasDuration()) {
+    <div class="flex items-center leading-[1rem] gap-1 text-sm text-chat-message-metadata-text">
+      @if (hasStatus()) {
+        <div class="flex items-center gap-1.5">
+          <org-indicator
+            [color]="statusIndicatorColor()"
+            [class]="
+              mergeClasses({
+                'animate-pulse': chatMessage().status === 'in-progress',
+              })
+            "
+          />
+          <span>{{ statusDisplay() }}</span>
+        </div>
+      }
+
+      @if (hasDuration()) {
+        <span>({{ durationDisplay() }})</span>
+      }
+
+      <ng-content select="[actions]" />
+    </div>
+  }
+</div>

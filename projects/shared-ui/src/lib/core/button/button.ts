@@ -23,7 +23,7 @@ export type ButtonSize = Extract<ComponentSize, 'sm' | 'base' | 'lg'>;
 
 export type ButtonType = 'button' | 'submit' | 'reset';
 
-export type ButtonVariant = 'filled' | 'ghost';
+export type ButtonVariant = 'filled' | 'ghost' | 'text';
 
 export type ButtonState = {
   isPressed: boolean;
@@ -68,6 +68,7 @@ export class Button implements OnInit, OnDestroy {
   public postIcon = input<IconName | null>(null);
   public icon = input<IconName | null>(null);
   public type = input<ButtonType>('button');
+  public excludeSpacing = input<boolean>(false);
   public class = input<string>('');
 
   public clicked = output<void>();

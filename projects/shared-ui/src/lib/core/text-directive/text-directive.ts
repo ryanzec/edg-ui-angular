@@ -17,6 +17,7 @@ export const TEXT_SIZE_DEFAULT: TextSize | null = null;
   host: {
     '[class.text-primary-text]': 'textColor() === "primary"',
     '[class.text-secondary-text]': 'textColor() === "secondary"',
+    '[class.text-neutral-text]': 'textColor() === "neutral"',
     '[class.text-safe-text]': 'textColor() === "safe"',
     '[class.text-info-text]': 'textColor() === "info"',
     '[class.text-caution-text]': 'textColor() === "caution"',

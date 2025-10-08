@@ -143,6 +143,7 @@ export type TestSize = Extract<ComponentSize, 'sm' | 'base' | 'lg'>;
 export type TestColor = Extract<ComponentSize, 'primary' | 'danger'>;
 ```
 - ALWAYS make sure they are no rules in the component css file (`component.css) and removw that file
+- ALWAYS suffix data types specific to component with `*Data`
 
 You can NEVER use these patterns when work on Angular 20 components:
 - NEVER re-create functionality that is already available in angular CDK

@@ -1,13 +1,10 @@
 import { Component, ChangeDetectionStrategy, input } from '@angular/core';
-import { ComponentColor } from '../types/component-types';
+import { ComponentColor, componentColors } from '../types/component-types';
 import { tailwindUtils } from 'projects/shared-utils/src/utils/tailwind';
 
-export type CardColor = Extract<
-  ComponentColor,
-  'primary' | 'secondary' | 'safe' | 'info' | 'caution' | 'warning' | 'danger'
->;
+export type CardColor = ComponentColor;
 
-export const cardColors: CardColor[] = ['primary', 'secondary', 'safe', 'info', 'caution', 'warning', 'danger'];
+export const cardColors: CardColor[] = componentColors;
 
 export type CardAlignment = 'start' | 'center' | 'end';
 

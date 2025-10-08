@@ -1,0 +1,58 @@
+<!-- Logo Section -->
+<div class="flex-1 flex flex-col gap-3">
+  @if (logo()) {
+    <div class="flex justify-center border-b border-application-navigation-border">
+      <img [src]="logo()" alt="Logo" class="w-auto" />
+    </div>
+  }
+
+  <!-- Navigation Items -->
+  <nav class="flex-1">
+    <org-list>
+      @for (item of navigationItems(); track item.id) {
+        <org-list-item
+          asTag="a"
+          [href]="item.routePath"
+          containerClass="gap-3"
+          (clicked)="handleNavigationItemClick(item)"
+        >
+          <org-icon [name]="item.icon" size="base" />
+          <span class="font-medium">{{ item.label }}</span>
+        </org-list-item>
+      }
+    </org-list>
+  </nav>
+
+  <!-- Settings Menu -->
+  <div class="relative mt-auto">
+    <div #settingsButton class="w-full">
+      <org-button color="neutral" variant="ghost" size="base" preIcon="gear" (clicked)="handleSettingsButtonClick()">
+        Settings
+      </org-button>
+    </div>
+
+    @if (settingsMenuIsOpen()) {
+      <div
+        #settingsMenu
+        class="absolute bottom-full left-0 mb-2 w-48 bg-application-navigation-background border border-application-navigation-border rounded-md shadow-lg z-50 overflow-hidden"
+      >
+        <org-list>
+          @for (item of settingsMenuItems(); track item.id) {
+            <org-list-item asTag="button" (clicked)="handleSettingsMenuItemClick(item)">
+              <org-icon [name]="item.icon" size="base" />
+              <span class="ml-3">{{ item.label }}</span>
+            </org-list-item>
+          }
+        </org-list>
+      </div>
+    }
+  </div>
+</div>
+
+<!-- User Section -->
+<div class="p-2 border-t border-application-navigation-border flex flex-col gap-1">
+  @if (userName()) {
+    <div class="text-sm font-medium text-application-navigation-text mb-2">Signed in user: {{ userName() }}</div>
+  }
+  <org-button class="w-full" color="neutral" variant="ghost" (clicked)="handleLogoutClick()"> Logout </org-button>
+</div>

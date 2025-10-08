@@ -18,6 +18,7 @@ const meta: Meta<Button> = {
 
   ### Features
   - 8 color variants for different semantic meanings
+  - 3 style variants (filled, ghost, text)
   - 3 size options (small, base, large)
   - Icon support (pre-icon, post-icon, or icon-only)
   - Loading state with spinner
@@ -84,6 +85,7 @@ export const Default: Story = {
     postIcon: null,
     icon: null,
     type: 'button',
+    excludeSpacing: false,
     class: '',
   },
   argTypes: {
@@ -99,7 +101,7 @@ export const Default: Story = {
     },
     variant: {
       control: 'select',
-      options: ['filled', 'ghost'],
+      options: ['filled', 'ghost', 'text'],
       description: 'The variant style of the button',
     },
     disabled: {
@@ -127,6 +129,10 @@ export const Default: Story = {
       options: ['button', 'submit', 'reset'],
       description: 'The HTML button type',
     },
+    excludeSpacing: {
+      control: 'boolean',
+      description: 'Whether to exclude padding styles from the button',
+    },
     class: {
       control: 'text',
       description: 'Additional CSS classes',
@@ -152,6 +158,7 @@ export const Default: Story = {
         [postIcon]="postIcon"
         [icon]="icon"
         [type]="type"
+        [excludeSpacing]="excludeSpacing"
         [class]="class"
       >
         Click Me
@@ -358,7 +365,8 @@ export const Variants: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Comparison of filled and ghost variants across all colors. Ghost variant has transparent background in default state but matches filled styling on hover/focus/active.',
+        story:
+          'Comparison of filled, ghost, and text variants across all colors. Ghost variant has transparent background in default state but matches filled styling on hover/focus/active. Text variant always has transparent background and border, using color-specific text tokens.',
       },
     },
   },
@@ -366,12 +374,13 @@ export const Variants: Story = {
     template: `
       <org-storybook-example-container
         title="Button Variants"
-        currentState="Comparing filled and ghost variants for all colors"
+        currentState="Comparing filled, ghost, and text variants for all colors"
       >
         <org-storybook-example-container-section label="Primary">
           <div class="flex gap-2">
             <org-button color="primary" variant="filled">Filled</org-button>
             <org-button color="primary" variant="ghost">Ghost</org-button>
+            <org-button color="primary" variant="text">Text</org-button>
           </div>
         </org-storybook-example-container-section>
 
@@ -379,6 +388,7 @@ export const Variants: Story = {
           <div class="flex gap-2">
             <org-button color="secondary" variant="filled">Filled</org-button>
             <org-button color="secondary" variant="ghost">Ghost</org-button>
+            <org-button color="secondary" variant="text">Text</org-button>
           </div>
         </org-storybook-example-container-section>
 
@@ -386,6 +396,7 @@ export const Variants: Story = {
           <div class="flex gap-2">
             <org-button color="neutral" variant="filled">Filled</org-button>
             <org-button color="neutral" variant="ghost">Ghost</org-button>
+            <org-button color="neutral" variant="text">Text</org-button>
           </div>
         </org-storybook-example-container-section>
 
@@ -393,6 +404,7 @@ export const Variants: Story = {
           <div class="flex gap-2">
             <org-button color="safe" variant="filled">Filled</org-button>
             <org-button color="safe" variant="ghost">Ghost</org-button>
+            <org-button color="safe" variant="text">Text</org-button>
           </div>
         </org-storybook-example-container-section>
 
@@ -400,6 +412,7 @@ export const Variants: Story = {
           <div class="flex gap-2">
             <org-button color="info" variant="filled">Filled</org-button>
             <org-button color="info" variant="ghost">Ghost</org-button>
+            <org-button color="info" variant="text">Text</org-button>
           </div>
         </org-storybook-example-container-section>
 
@@ -407,6 +420,7 @@ export const Variants: Story = {
           <div class="flex gap-2">
             <org-button color="caution" variant="filled">Filled</org-button>
             <org-button color="caution" variant="ghost">Ghost</org-button>
+            <org-button color="caution" variant="text">Text</org-button>
           </div>
         </org-storybook-example-container-section>
 
@@ -414,6 +428,7 @@ export const Variants: Story = {
           <div class="flex gap-2">
             <org-button color="warning" variant="filled">Filled</org-button>
             <org-button color="warning" variant="ghost">Ghost</org-button>
+            <org-button color="warning" variant="text">Text</org-button>
           </div>
         </org-storybook-example-container-section>
 
@@ -421,6 +436,7 @@ export const Variants: Story = {
           <div class="flex gap-2">
             <org-button color="danger" variant="filled">Filled</org-button>
             <org-button color="danger" variant="ghost">Ghost</org-button>
+            <org-button color="danger" variant="text">Text</org-button>
           </div>
         </org-storybook-example-container-section>
 
@@ -428,6 +444,68 @@ export const Variants: Story = {
           <li><strong>Filled</strong>: Default variant with colored background and border</li>
           <li><strong>Ghost</strong>: Transparent background and border in default state, colored text</li>
           <li><strong>Hover/Focus/Active</strong>: Ghost variant matches filled variant styling on interaction</li>
+          <li><strong>Text</strong>: Always transparent background and border, uses color-specific text tokens (e.g., primary-text, danger-text) in default state, bold variant (e.g., primary-text-bold, danger-text-bold) on hover/focus/active</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [Button, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+export const ExcludeSpacing: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Comparison of buttons with and without spacing (padding). When excludeSpacing is true, the button has no padding applied.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Exclude Spacing"
+        currentState="Comparing buttons with and without padding"
+      >
+        <org-storybook-example-container-section label="With Spacing (Default)">
+          <div class="flex gap-2 items-baseline">
+            <org-button color="primary" size="sm">Small</org-button>
+            <org-button color="primary" size="base">Base</org-button>
+            <org-button color="primary" size="lg">Large</org-button>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Without Spacing (excludeSpacing=true)">
+          <div class="flex gap-2 items-baseline">
+            <org-button color="primary" size="sm" [excludeSpacing]="true">Small</org-button>
+            <org-button color="primary" size="base" [excludeSpacing]="true">Base</org-button>
+            <org-button color="primary" size="lg" [excludeSpacing]="true">Large</org-button>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Icon-Only With Spacing">
+          <div class="flex gap-2 items-baseline">
+            <org-button color="primary" size="sm" icon="gear"></org-button>
+            <org-button color="primary" size="base" icon="gear"></org-button>
+            <org-button color="primary" size="lg" icon="gear"></org-button>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Icon-Only Without Spacing">
+          <div class="flex gap-2 items-baseline">
+            <org-button color="primary" size="sm" icon="gear" [excludeSpacing]="true"></org-button>
+            <org-button color="primary" size="base" icon="gear" [excludeSpacing]="true"></org-button>
+            <org-button color="primary" size="lg" icon="gear" [excludeSpacing]="true"></org-button>
+          </div>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>Default</strong>: Button includes padding based on size</li>
+          <li><strong>excludeSpacing=true</strong>: Removes all padding, useful for custom layouts where spacing is controlled externally</li>
+          <li><strong>Text Size</strong>: Font size and gap are preserved regardless of excludeSpacing setting</li>
+          <li><strong>Icon-Only</strong>: Icon-only buttons also respect the excludeSpacing setting</li>
         </ul>
       </org-storybook-example-container>
     `,

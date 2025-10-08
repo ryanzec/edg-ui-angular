@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/angular';
+import type { Meta } from '@storybook/angular';
 import { Button } from './button';
 
 const meta: Meta<Button> = {
@@ -7,7 +7,5 @@ const meta: Meta<Button> = {
 };
 
 export default meta;
-type Story = StoryObj<Button>;
 
 // test stories will be added here
-

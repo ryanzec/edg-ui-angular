@@ -76,10 +76,11 @@ html {
 @import './variables.css';
 
 body {
-  @apply bg-background text-text scheme-light;
+  @apply bg-[#f8f8f8] text-[#000000] scheme-light;
   @apply scheme-light;
 }
 
 body.dark-theme {
+  @apply bg-[#121212] text-[#ffffff];
   @apply scheme-dark;
 }

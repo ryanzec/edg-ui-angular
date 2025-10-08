@@ -184,6 +184,17 @@ export const Colors: Story = {
           </div>
         </org-storybook-example-container-section>
 
+        <org-storybook-example-container-section label="Neutral">
+          <div class="max-w-sm">
+            <org-card color="neutral">
+              <org-card-header title="Neutral Card" />
+              <org-card-content>
+                <p>Card with neutral color border.</p>
+              </org-card-content>
+            </org-card>
+          </div>
+        </org-storybook-example-container-section>
+
         <org-storybook-example-container-section label="Safe (Success)">
           <div class="max-w-sm">
             <org-card color="safe">
@@ -243,6 +254,7 @@ export const Colors: Story = {
           <li><strong>Default</strong>: No colored border, standard card appearance</li>
           <li><strong>Primary</strong>: Primary color for main content cards</li>
           <li><strong>Secondary</strong>: Secondary accent color for supporting content</li>
+          <li><strong>Neutral</strong>: Neutral gray for low-emphasis cards</li>
           <li><strong>Safe</strong>: Green for success/positive status cards</li>
           <li><strong>Info</strong>: Blue for informational cards</li>
           <li><strong>Caution</strong>: Yellow for caution/warning cards</li>

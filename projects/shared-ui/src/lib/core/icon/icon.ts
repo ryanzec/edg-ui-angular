@@ -30,7 +30,9 @@ export type IconName =
   | 'check-square'
   | 'minus-square'
   | 'circle'
-  | 'check-circle';
+  | 'check-circle'
+  | 'dots-three'
+  | 'x-circle';
 
 export const iconNames: IconName[] = [
   'caret-right',
@@ -61,6 +63,8 @@ export const iconNames: IconName[] = [
   'minus-square',
   'circle',
   'check-circle',
+  'dots-three',
+  'x-circle',
 ];
 
 export type IconSize = Extract<ComponentSize, 'sm' | 'base' | 'lg'>;

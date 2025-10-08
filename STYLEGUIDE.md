@@ -463,3 +463,11 @@ When possible, we should create a minimal storybook example that can be used to 
 ## will sometimes miss required proeprty in storybook file which does not have template validation
 
 - added rule to ai rules
+
+## seems to often want to use the seconard color in general for dark mode, not sure why our how best to guide the api about this
+
+- TODO: add to add rules
+
+## you will often need to update story titles to match our pattern for story organization
+
+## BE DETAILED, if you add a new variant, you should say Update the existing variant story

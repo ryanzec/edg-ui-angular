@@ -25,6 +25,7 @@ const meta: Meta<TextDirective> = {
   ### Color Options
   - **primary**: Primary color
   - **secondary**: Secondary accent color
+  - **neutral**: Neutral color
   - **safe**: Success/positive state (green)
   - **info**: Informational state (blue)
   - **caution**: Caution state (yellow)
@@ -115,12 +116,20 @@ export const Colors: Story = {
         title="Color Variants"
         currentState="Comparing all 7 semantic color options"
       >
+        <org-storybook-example-container-section label="Default">
+          <p orgText>Default text color</p>
+        </org-storybook-example-container-section>
+
         <org-storybook-example-container-section label="Primary">
           <p orgText textColor="primary">Primary text color</p>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Secondary">
           <p orgText textColor="secondary">Secondary text color</p>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Neutral">
+          <p orgText textColor="neutral">Neutral text color</p>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Safe">
@@ -146,6 +155,7 @@ export const Colors: Story = {
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
           <li><strong>primary</strong>: Primary color</li>
           <li><strong>secondary</strong>: Secondary accent color</li>
+          <li><strong>neutral</strong>: Neutral color</li>
           <li><strong>safe</strong>: Success/positive state (green)</li>
           <li><strong>info</strong>: Informational state (blue)</li>
           <li><strong>caution</strong>: Caution state (yellow)</li>
@@ -238,6 +248,10 @@ export const Combined: Story = {
 
         <org-storybook-example-container-section label="Safe + Small">
           <p orgText textColor="safe" textSize="sm">Safe small text</p>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Neutral + Large">
+          <p orgText textColor="neutral" textSize="lg">Neutral large text</p>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Info + 2xl">

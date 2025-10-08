@@ -12,6 +12,7 @@ export type IndicatorColor = ComponentColor;
   styleUrl: './indicator.css',
   host: {
     dataid: 'indicator',
+    class: 'inline-flex',
   },
 })
 export class Indicator {

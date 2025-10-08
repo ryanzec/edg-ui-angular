@@ -1,0 +1,38 @@
+/* Checklist component Tailwind theme variables */
+@theme {
+  /* Item hover/focus colors */
+  --color-checklist-item-background-hover: var(--color-neutral-background-hover-subtle);
+  --color-checklist-item-background-focus: var(--color-neutral-background-hover-subtle);
+
+  /* Expanded item background */
+  --color-checklist-item-background-expanded: var(--color-background-level1);
+
+  /* Status colors */
+  --color-checklist-status-not-started: var(--color-neutral-text);
+  --color-checklist-status-in-progress: var(--color-info-text);
+  --color-checklist-status-valid: var(--color-safe-text);
+  --color-checklist-status-invalid: var(--color-danger-text);
+
+  /* Text colors */
+  --color-checklist-item-text: var(--color-text);
+  --color-checklist-expand-icon-text: var(--color-text);
+}
+
+body.dark-theme {
+  /* Item hover/focus colors */
+  --color-checklist-item-background-hover: var(--color-neutral-background-hover-subtle);
+  --color-checklist-item-background-focus: var(--color-neutral-background-hover-subtle);
+
+  /* Expanded item background */
+  --color-checklist-item-background-expanded: var(--color-background-level1);
+
+  /* Status colors */
+  --color-checklist-status-not-started: var(--color-neutral-text);
+  --color-checklist-status-in-progress: var(--color-info-text);
+  --color-checklist-status-valid: var(--color-safe-text);
+  --color-checklist-status-invalid: var(--color-danger-text);
+
+  /* Text colors */
+  --color-checklist-item-text: var(--color-text);
+  --color-checklist-expand-icon-text: var(--color-text);
+}

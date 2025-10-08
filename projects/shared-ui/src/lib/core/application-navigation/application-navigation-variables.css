@@ -1,0 +1,14 @@
+/* Application Navigation component Tailwind theme variables */
+@theme {
+  /* Application Navigation colors */
+  --color-application-navigation-background: var(--color-background);
+  --color-application-navigation-border: var(--color-border);
+  --color-application-navigation-text: var(--color-text);
+}
+
+body.dark-theme {
+  /* Application Navigation colors */
+  --color-application-navigation-background: var(--color-background);
+  --color-application-navigation-border: var(--color-border);
+  --color-application-navigation-text: var(--color-text);
+}

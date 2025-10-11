@@ -43,16 +43,16 @@ const meta: Meta<TextDirective> = {
   ### Usage Examples
   \`\`\`html
   <!-- Text with color only -->
-  <p orgText textColor="primary">Primary colored text</p>
+  <div orgText textColor="primary">Primary colored text</div>
 
   <!-- Text with size only -->
-  <p orgText textSize="lg">Large text</p>
+  <div orgText textSize="lg">Large text</div>
 
   <!-- Text with both color and size -->
-  <p orgText textColor="danger" textSize="xl">Danger extra large text</p>
+  <div orgText textColor="danger" textSize="xl">Danger extra large text</div>
 
   <!-- Text with no styling (uses defaults) -->
-  <p orgText>Default text</p>
+  <div orgText>Default text</div>
 </div>
 \`\`\`
         `,
@@ -92,9 +92,9 @@ export const Default: Story = {
   render: (args) => ({
     props: args,
     template: `
-      <p orgText [textColor]="textColor" [textSize]="textSize">
+      <div orgText [textColor]="textColor" [textSize]="textSize">
         This is sample text with the text directive applied.
-      </p>
+      </div>
     `,
     moduleMetadata: {
       imports: [TextDirective],
@@ -117,39 +117,39 @@ export const Colors: Story = {
         currentState="Comparing all 7 semantic color options"
       >
         <org-storybook-example-container-section label="Default">
-          <p orgText>Default text color</p>
+          <div orgText>Default text color</div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Primary">
-          <p orgText textColor="primary">Primary text color</p>
+          <div orgText textColor="primary">Primary text color</div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Secondary">
-          <p orgText textColor="secondary">Secondary text color</p>
+          <div orgText textColor="secondary">Secondary text color</div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Neutral">
-          <p orgText textColor="neutral">Neutral text color</p>
+          <div orgText textColor="neutral">Neutral text color</div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Safe">
-          <p orgText textColor="safe">Safe text color</p>
+          <div orgText textColor="safe">Safe text color</div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Info">
-          <p orgText textColor="info">Info text color</p>
+          <div orgText textColor="info">Info text color</div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Caution">
-          <p orgText textColor="caution">Caution text color</p>
+          <div orgText textColor="caution">Caution text color</div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Warning">
-          <p orgText textColor="warning">Warning text color</p>
+          <div orgText textColor="warning">Warning text color</div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Danger">
-          <p orgText textColor="danger">Danger text color</p>
+          <div orgText textColor="danger">Danger text color</div>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -185,27 +185,27 @@ export const Sizes: Story = {
         currentState="Comparing all 6 size options"
       >
         <org-storybook-example-container-section label="Extra Small (xs)">
-          <p orgText textSize="xs">Extra small text (0.75rem / 12px)</p>
+          <div orgText textSize="xs">Extra small text (0.75rem / 12px)</div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Small (sm)">
-          <p orgText textSize="sm">Small text (0.875rem / 14px)</p>
+          <div orgText textSize="sm">Small text (0.875rem / 14px)</div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Base">
-          <p orgText textSize="base">Base text (1rem / 16px)</p>
+          <div orgText textSize="base">Base text (1rem / 16px)</div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Large (lg)">
-          <p orgText textSize="lg">Large text (1.125rem / 18px)</p>
+          <div orgText textSize="lg">Large text (1.125rem / 18px)</div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Extra Large (xl)">
-          <p orgText textSize="xl">Extra large text (1.25rem / 20px)</p>
+          <div orgText textSize="xl">Extra large text (1.25rem / 20px)</div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="2x Extra Large (2xl)">
-          <p orgText textSize="2xl">2xl text (1.5rem / 24px)</p>
+          <div orgText textSize="2xl">2xl text (1.5rem / 24px)</div>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -239,31 +239,31 @@ export const Combined: Story = {
         currentState="Demonstrating color and size combinations"
       >
         <org-storybook-example-container-section label="Primary + Large">
-          <p orgText textColor="primary" textSize="lg">Primary large text</p>
+          <div orgText textColor="primary" textSize="lg">Primary large text</div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Danger + Extra Large">
-          <p orgText textColor="danger" textSize="xl">Danger extra large text</p>
+          <div orgText textColor="danger" textSize="xl">Danger extra large text</div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Safe + Small">
-          <p orgText textColor="safe" textSize="sm">Safe small text</p>
+          <div orgText textColor="safe" textSize="sm">Safe small text</div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Neutral + Large">
-          <p orgText textColor="neutral" textSize="lg">Neutral large text</p>
+          <div orgText textColor="neutral" textSize="lg">Neutral large text</div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Info + 2xl">
-          <p orgText textColor="info" textSize="2xl">Info 2xl text</p>
+          <div orgText textColor="info" textSize="2xl">Info 2xl text</div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Warning + Extra Small">
-          <p orgText textColor="warning" textSize="xs">Warning extra small text</p>
+          <div orgText textColor="warning" textSize="xs">Warning extra small text</div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Secondary + Base">
-          <p orgText textColor="secondary" textSize="base">Secondary base text</p>
+          <div orgText textColor="secondary" textSize="base">Secondary base text</div>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">

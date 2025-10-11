@@ -59,7 +59,7 @@ const sampleUsers: User[] = [
 ];
 
 const meta: Meta<UsersList> = {
-  title: 'User/Users List',
+  title: 'User/Components/Users List',
   component: UsersList,
   tags: ['autodocs'],
   parameters: {
@@ -72,28 +72,28 @@ const meta: Meta<UsersList> = {
   A comprehensive table component for displaying and managing user lists with role badges, actions, and various states.
 
   ### Features
-  - Tabular display of user information
-  - Role badges with color coding (Admin = red, User = blue)
-  - Edit and delete actions for each user
-  - Loading state with spinner
+  - Tabular display of user information using custom table component
+  - Role badges with color coding (Admin = danger/red, User = info/blue)
+  - Edit and delete actions for each user via dropdown menu
+  - Loading state with message
   - Empty state message
   - Formatted date display
-  - Responsive design
+  - Scrollable table with sticky header
   - Accessible with proper ARIA labels
 
   ### User Information Displayed
   - **Name**: User's full name
   - **Email**: User's email address
-  - **Roles**: Color-coded badges for user roles (Admin, User)
+  - **Roles**: Color-coded tag badges for user roles (Admin, User)
   - **Created At**: Formatted creation date
-  - **Actions**: Edit and delete buttons
+  - **Actions**: Dropdown menu with edit and delete options
 
   ### States
-  - **Default**: Shows list of users with all information
-  - **Loading**: Displays loading spinner while fetching data
+  - **Default**: Shows list of users with all information in a table
+  - **Loading**: Displays loading message while fetching data
   - **Empty**: Shows message when no users are available
   - **Single User**: Displays table with just one user
-  - **Multiple Roles**: Users can have multiple role badges
+  - **Multiple Roles**: Users can have multiple role badges displayed
 
   ### Usage Examples
   \`\`\`html
@@ -103,6 +103,13 @@ const meta: Meta<UsersList> = {
     [isLoading]="false"
     (userEdit)="handleEdit($event)"
     (userDelete)="handleDelete($event)"
+  />
+
+  <!-- With custom container class -->
+  <org-users-list
+    [users]="userList"
+    [containerClass]="'max-w-6xl mx-auto'"
+    [tableContainerClass]="'h-[600px]'"
   />
 
   <!-- Loading state -->
@@ -132,14 +139,19 @@ const meta: Meta<UsersList> = {
   \`\`\`
 
   ### Events
-  - **userEdit**: Emitted when the edit button is clicked (emits \`User\` object)
-  - **userDelete**: Emitted when the delete button is clicked (emits \`User\` object)
+  - **userEdit**: Emitted when the edit action is clicked (emits \`User\` object)
+  - **userDelete**: Emitted when the delete action is clicked (emits \`User\` object)
+
+  ### Inputs
+  - **users**: Required array of User objects to display
+  - **isLoading**: Optional boolean to show loading state (default: false)
+  - **containerClass**: Optional CSS classes for the container element
+  - **tableContainerClass**: Optional CSS classes for the table container (default: 'h-[400px]')
 
   ### Role Types
-  - \`UserRoleName.ADMIN\`: Administrator role (red badge)
-  - \`UserRoleName.USER\`: Standard user role (blue badge)
+  - \`admin\`: Administrator role (danger/red badge)
+  - \`user\`: Standard user role (info/blue badge)
 </div>
-\`\`\`
         `,
       },
     },
@@ -153,6 +165,8 @@ export const Default: Story = {
   args: {
     users: sampleUsers,
     isLoading: false,
+    containerClass: '',
+    tableContainerClass: 'h-[400px]',
   },
   argTypes: {
     users: {
@@ -162,6 +176,14 @@ export const Default: Story = {
     isLoading: {
       control: 'boolean',
       description: 'Whether the component is in loading state',
+    },
+    containerClass: {
+      control: 'text',
+      description: 'Additional CSS classes for the container element',
+    },
+    tableContainerClass: {
+      control: 'text',
+      description: 'Additional CSS classes for the table container',
     },
     userEdit: {
       action: 'userEdit',
@@ -185,6 +207,8 @@ export const Default: Story = {
       <org-users-list
         [users]="users"
         [isLoading]="isLoading"
+        [containerClass]="containerClass"
+        [tableContainerClass]="tableContainerClass"
         (userEdit)="userEdit($event)"
         (userDelete)="userDelete($event)"
       />
@@ -223,8 +247,8 @@ export const States: Story = {
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
           <li><strong>Default</strong>: Shows full table with user data and actions</li>
-          <li><strong>Loading</strong>: Displays loading spinner while fetching data</li>
-          <li><strong>Empty</strong>: Shows "No users available" message when list is empty</li>
+          <li><strong>Loading</strong>: Displays loading message while fetching data</li>
+          <li><strong>Empty</strong>: Shows "No users found" message when list is empty</li>
         </ul>
       </org-storybook-example-container>
     `,
@@ -265,9 +289,9 @@ export const DataVariations: Story = {
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
           <li><strong>Single User</strong>: Table displays correctly with just one row</li>
-          <li><strong>Multiple Users</strong>: Full list with scrollable content if needed</li>
-          <li><strong>Multiple Roles</strong>: User can have both Admin and User badges displayed</li>
-          <li>Role badges are color-coded: Admin (red), User (blue)</li>
+          <li><strong>Multiple Users</strong>: Full list with scrollable content in table container</li>
+          <li><strong>Multiple Roles</strong>: User can have both Admin and User tag badges displayed</li>
+          <li>Role badges use tag component: Admin (danger/red), User (info/blue)</li>
         </ul>
       </org-storybook-example-container>
     `,
@@ -309,10 +333,10 @@ export const RoleTypes: Story = {
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
-          <li><strong>Admin Role</strong>: Red badge indicating administrator privileges</li>
-          <li><strong>User Role</strong>: Blue badge indicating standard user</li>
+          <li><strong>Admin Role</strong>: Danger/red tag badge indicating administrator privileges</li>
+          <li><strong>User Role</strong>: Info/blue tag badge indicating standard user</li>
           <li><strong>Mixed</strong>: Some users have one role, others have multiple</li>
-          <li>Badges are displayed inline with proper spacing</li>
+          <li>Tag badges are displayed inline with proper spacing using flex gap</li>
         </ul>
       </org-storybook-example-container>
     `,
@@ -331,7 +355,8 @@ export const Interactive: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive example with event logging. Click edit or delete buttons to see events in the log below.',
+        story:
+          'Interactive example with event logging. Click the actions menu (three dots) and select edit or delete to see events in the log below.',
       },
     },
   },
@@ -347,10 +372,12 @@ export const Interactive: Story = {
 @Component({
   selector: 'org-users-list-interactive-story',
   template: `
-    <div class="space-y-6 p-4">
-      <div class="space-y-2">
+    <div class="flex flex-col gap-6 p-4">
+      <div class="flex flex-col gap-2">
         <h3 class="text-lg font-semibold">Interactive Users List</h3>
-        <p class="text-sm text-text-subtle">Click edit or delete buttons to see event logging in action.</p>
+        <div class="text-sm text-text-subtle">
+          Click the actions menu (three dots) for a user and select edit or delete to see event logging in action.
+        </div>
       </div>
 
       <org-users-list
@@ -369,7 +396,7 @@ export const Interactive: Story = {
       </div>
 
       <!-- Event Log -->
-      <div class="space-y-2">
+      <div class="flex flex-col gap-2">
         <h4 class="font-medium">Event Log:</h4>
         <div class="p-3 bg-secondary-background-subtle rounded text-sm font-mono max-h-48 overflow-y-auto">
           @for (event of events(); track $index) {
@@ -380,7 +407,9 @@ export const Interactive: Story = {
             </div>
           }
           @if (events().length === 0) {
-            <div class="text-text-subtle">No events yet. Click edit or delete buttons to see events.</div>
+            <div class="text-text-subtle">
+              No events yet. Click the actions menu and select edit or delete to see events.
+            </div>
           }
         </div>
       </div>

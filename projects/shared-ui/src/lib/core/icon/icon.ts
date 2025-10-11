@@ -20,7 +20,7 @@ export type IconName =
   | 'trash'
   | 'pencil-simple'
   | 'gear'
-  | 'circle-notch'
+  | 'spinner'
   | 'eye'
   | 'eye-slash'
   | 'envelope'
@@ -32,7 +32,8 @@ export type IconName =
   | 'circle'
   | 'check-circle'
   | 'dots-three'
-  | 'x-circle';
+  | 'x-circle'
+  | 'sign-out';
 
 export const iconNames: IconName[] = [
   'caret-right',
@@ -52,7 +53,7 @@ export const iconNames: IconName[] = [
   'trash',
   'pencil-simple',
   'gear',
-  'circle-notch',
+  'spinner',
   'eye',
   'eye-slash',
   'envelope',
@@ -65,6 +66,7 @@ export const iconNames: IconName[] = [
   'check-circle',
   'dots-three',
   'x-circle',
+  'sign-out',
 ];
 
 export type IconSize = Extract<ComponentSize, 'sm' | 'base' | 'lg'>;

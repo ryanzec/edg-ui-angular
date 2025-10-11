@@ -9,14 +9,13 @@ import { Card } from '../../core/card/card';
 import { CardContent } from '../../core/card/card-content';
 import { CardHeader } from '../../core/card/card-header';
 import { GroupElementsDirective } from '../../core/group-elements-directive/group-elements-directive';
-import { Icon } from '../../core/icon/icon';
 import { Input } from '../../core/input/input';
 import { Button } from '../../core/button/button';
 
 @Component({
   selector: 'org-login-form',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Card, CardContent, CardHeader, Icon, Input, Button, ReactiveFormsModule, GroupElementsDirective],
+  imports: [Card, CardContent, CardHeader, Input, ReactiveFormsModule, GroupElementsDirective, Button],
   templateUrl: './login-form.html',
 })
 export class LoginForm {
@@ -59,10 +58,6 @@ export class LoginForm {
     } else {
       this.loginForm.markAllAsTouched();
     }
-  }
-
-  public togglePasswordVisibility(): void {
-    this.showPassword = !this.showPassword;
   }
 
   public getFieldError(fieldName: keyof typeof this.loginForm.controls): string | null {

@@ -4,7 +4,7 @@ import { UiThemeStoreService } from '../ui-theme-store/ui-theme-store';
 import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<UiThemeSwitcher> = {
-  title: 'UI Theme/UI Theme Switcher',
+  title: 'UI Theme/Components/UI Theme Switcher',
   component: UiThemeSwitcher,
   parameters: {
     layout: 'centered',

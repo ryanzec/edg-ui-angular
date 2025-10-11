@@ -1,0 +1,9 @@
+<span [class]="'inline-flex items-center gap-1.5 text-label-text ' + containerClass()">
+  <span>{{ label() }}</span>
+
+  @if (isLoading()) {
+    <org-loading-spinner />
+  }
+
+  <ng-content />
+</span>

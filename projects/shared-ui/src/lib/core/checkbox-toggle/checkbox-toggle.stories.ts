@@ -7,7 +7,7 @@ import { Component, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 const meta: Meta<CheckboxToggle> = {
-  title: 'Core/Components/CheckboxToggle',
+  title: 'Core/Components/Checkbox Toggle',
   component: CheckboxToggle,
   tags: ['autodocs'],
   parameters: {

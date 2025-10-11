@@ -6,14 +6,18 @@ You MUST use the following available libraries for there described usage over cu
 - `uuid`: For UUID specific use cases or when a generic id is needed
 - `zod`: For Data validation, type generation, and data structure conversion
 
-You MUST ALWAYS use these patterns when work on Angular 20 in general:
+you MUST ALWAYS follow these abbreviations rules:
+- `.cursor/partials/frontend/abbreviations.md`
+
+You MUST ALWAYS use these patterns when work in frontend code in general:
 - ALWAYS use `type` for types
 - ALWAYS explicitly use `public`, `protected`, and `private` keywords in classes
-- ALWAYS prefix `private` methods / members
+- ALWAYS prefix `private` methods / members with a `_`
 ```ts
 // MUST DO
 private _state;
 ```
+- ALWAYS add property TSDoc comment blocks for class property / methods and exports
 - ALWAYS use ALL lowercase for comments
 - ALWAYS se strict type checking
 - ALWAYS use type inference when the type is obvious
@@ -90,8 +94,11 @@ const enabled = false;
 const showDetails = false;
 ```
 - ALWAYS use patch for updating data with an api call
+- ALWAYS cast to the specific type when needed
+- ALWAYS attempt to fix circular dependencies by import the type one when possible
 
-You can NEVER use these patterns when work on Angular 20 components:
+You can NEVER use these patterns when work in frontend code in general:
+- NEVER refactor existing code that was not changed as part of your task
 - NEVER use `interface` for types
 - NEVER comment code that is self documenting
 <!--
@@ -110,3 +117,4 @@ const hideDetails = false;
 Since our tolling will auto format code, no need to waste time / money on AI to fix these.
 -->
 - NEVER fixed stylistic linting errors
+- NEVER case to `const` if there is a specific type that can be casted to

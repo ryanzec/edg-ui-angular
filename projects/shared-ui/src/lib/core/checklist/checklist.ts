@@ -41,6 +41,10 @@ export class Checklist {
     return (id: string) => this._state().expandedIds.has(id);
   });
 
+  public getTopLevelItemClass = computed(() => {
+    return 'flex w-full items-center gap-2 py-1.5 px-1 rounded-sm';
+  });
+
   public hasNestedItems(item: ChecklistItemData): boolean {
     return !!item.items && item.items.length > 0;
   }

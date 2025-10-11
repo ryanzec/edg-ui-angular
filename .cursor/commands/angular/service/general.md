@@ -9,6 +9,6 @@ Follow the rules / guidelines presented in the following files:
 - `.cursor/partials/frontend/angular/services.md`
 - `.cursor/partials/frontend/rxjs-guidelines.md`
 
-After you have finished your change, MAKE A DETAILED REVIEW OF YOUR CHANGE TO MAKE SURE ALL TEH REFERENCED GUIDELINES ARE FOLLOWED.
+After you have finished your change, MAKE A DETAILED REVIEW OF YOUR CHANGE TO MAKE SURE ALL THE REFERENCED GUIDELINES ARE FOLLOWED.
 
 While you should make sure there is a file for development storybook and unit tests as a placeholder, you must NOT write any stories or unit tests at this time.

@@ -1,0 +1,17 @@
+@reference '../../tailwind.css';
+
+@layer components {
+  /* animated gradient for skeleton loading */
+  .org-skeleton-gradient {
+    background: linear-gradient(
+      90deg,
+      var(--color-skeleton-gradient-start) 0%,
+      var(--color-skeleton-gradient-middle) 25%,
+      var(--color-skeleton-gradient-start) 50%,
+      var(--color-skeleton-gradient-middle) 75%,
+      var(--color-skeleton-gradient-start) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 2s linear infinite;
+  }
+}

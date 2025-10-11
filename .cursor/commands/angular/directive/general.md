@@ -12,4 +12,4 @@ You MUST read all of the following information and you MUST follow this HARD REQ
 - `.cursor/partials/frontend/angular/directives.md`
 - `.cursor/partials/frontend/rxjs-guidelines.md`
 
-After you have finished your change, MAKE A DETAILED REVIEW OF YOUR CHANGE TO MAKE SURE ALL TEH REFERENCED GUIDELINES ARE FOLLOWED.
+After you have finished your change, MAKE A DETAILED REVIEW OF YOUR CHANGE TO MAKE SURE ALL THE REFERENCED GUIDELINES ARE FOLLOWED.

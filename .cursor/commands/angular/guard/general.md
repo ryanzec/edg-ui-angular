@@ -9,6 +9,6 @@ Follow the rules / guidelines presented in the following files:
 - `.cursor/partials/frontend/angular/guards-interceptors.md`
 - `.cursor/partials/frontend/rxjs-guidelines.md`
 
-After you have finished your change, MAKE A DETAILED REVIEW OF YOUR CHANGE TO MAKE SURE ALL TEH REFERENCED GUIDELINES ARE FOLLOWED.
+After you have finished your change, MAKE A DETAILED REVIEW OF YOUR CHANGE TO MAKE SURE ALL THE REFERENCED GUIDELINES ARE FOLLOWED.
 
 While you should make sure there is a file for unit tests as a placeholder, you should NOT write unit tests at this time.

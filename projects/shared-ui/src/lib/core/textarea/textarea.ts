@@ -11,7 +11,9 @@ import {
   OnDestroy,
   ViewChild,
   AfterViewInit,
+  forwardRef,
 } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Icon, type IconName } from '../icon/icon';
 import { Tag } from '../tag/tag';
@@ -42,10 +44,26 @@ export type TextareaState = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Icon, Tag],
   templateUrl: './textarea.html',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => Textarea),
+      multi: true,
+    },
+  ],
 })
-export class Textarea implements OnInit, OnDestroy, AfterViewInit {
+export class Textarea implements OnInit, OnDestroy, AfterViewInit, ControlValueAccessor {
   private readonly _focusMonitor = inject(FocusMonitor);
   private readonly _elementRef = inject(ElementRef<HTMLElement>);
+
+  // control value accessor callbacks
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  private _onChange: (value: string) => void = () => {};
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  private _onTouched: () => void = () => {};
+
+  // Track if component is controlled by reactive forms
+  private _isFormControlled = false;
 
   // we need the static to match sure we can bind the dom event to properly managed the focused state
   @ViewChild('textareaRef', { static: true })
@@ -125,6 +143,11 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit {
         this.blurred.emit();
       }
     });
+
+    // Sync initial value for simple binding mode
+    if (!this._isFormControlled && this.value()) {
+      this.textareaRef.nativeElement.value = this.value();
+    }
   }
 
   public ngAfterViewInit(): void {
@@ -139,8 +162,14 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit {
 
   public handleInputChange(event: Event): void {
     const target = event.target as HTMLTextAreaElement;
+    const value = target.value;
 
-    this.valueChange.emit(target.value);
+    this._onChange(value);
+    this.valueChange.emit(value);
+  }
+
+  public handleBlur(): void {
+    this._onTouched();
   }
 
   public handleKeyDown(event: KeyboardEvent): void {
@@ -181,5 +210,27 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit {
 
   public focusTextarea(): void {
     this.textareaRef.nativeElement.focus();
+  }
+
+  // control value accessor implementation
+  public writeValue(value: string): void {
+    if (this.textareaRef?.nativeElement) {
+      this.textareaRef.nativeElement.value = value ?? '';
+    }
+  }
+
+  public registerOnChange(fn: (value: string) => void): void {
+    this._isFormControlled = true;
+    this._onChange = fn;
+  }
+
+  public registerOnTouched(fn: () => void): void {
+    this._onTouched = fn;
+  }
+
+  public setDisabledState(_isDisabled: boolean): void {
+    // the disabled state is handled via the disabled input
+    // this method is required by ControlValueAccessor but the implementation
+    // can be empty since we're using the disabled input signal
   }
 }

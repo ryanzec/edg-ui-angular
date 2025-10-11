@@ -10,8 +10,12 @@
           type="button"
           [class]="
             mergeClasses(
-              'flex w-full cursor-pointer items-center gap-2 rounded-sm bg-transparent py-0.5 px-1 text-left transition-colors duration-150',
-              'hover:bg-checklist-item-background-hover focus-visible:bg-checklist-item-background-focus'
+              getTopLevelItemClass(),
+              'cursor-pointer text-left',
+              'transition-colors duration-150',
+              'bg-transparent',
+              'hover:bg-checklist-item-background-hover',
+              'focus-visible:bg-checklist-item-background-focus'
             )
           "
           (click)="toggleExpanded(item.id)"
@@ -23,7 +27,7 @@
               <org-icon name="dots-three" size="base" class="text-checklist-status-not-started" />
             }
             @if (item.status === 'in-progress') {
-              <org-icon name="circle-notch" size="base" class="text-checklist-status-in-progress animate-spin" />
+              <org-icon name="spinner" size="base" class="text-checklist-status-in-progress animate-spin" />
             }
             @if (item.status === 'valid') {
               <org-icon name="check-circle" size="base" weight="fill" class="text-checklist-status-valid" />
@@ -47,13 +51,13 @@
           />
         </button>
       } @else {
-        <div class="flex w-full items-center gap-2 py-1.5 px-1">
+        <div [class]="getTopLevelItemClass()">
           <div class="flex shrink-0 items-center justify-center">
             @if (item.status === 'not-started') {
               <org-icon name="dots-three" size="base" class="text-checklist-status-not-started" />
             }
             @if (item.status === 'in-progress') {
-              <org-icon name="circle-notch" size="base" class="text-checklist-status-in-progress animate-spin" />
+              <org-icon name="spinner" size="base" class="text-checklist-status-in-progress animate-spin" />
             }
             @if (item.status === 'valid') {
               <org-icon name="check-circle" size="base" weight="fill" class="text-checklist-status-valid" />
@@ -77,7 +81,7 @@
                     <org-icon name="dots-three" size="base" class="text-checklist-status-not-started" />
                   }
                   @if (nestedItem.status === 'in-progress') {
-                    <org-icon name="circle-notch" size="base" class="text-checklist-status-in-progress animate-spin" />
+                    <org-icon name="spinner" size="base" class="text-checklist-status-in-progress animate-spin" />
                   }
                   @if (nestedItem.status === 'valid') {
                     <org-icon name="check-circle" size="base" weight="fill" class="text-checklist-status-valid" />

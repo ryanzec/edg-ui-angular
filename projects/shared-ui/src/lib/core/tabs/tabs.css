@@ -1,0 +1,10 @@
+@layer components {
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* internet explorer 10+ */
+    scrollbar-width: none; /* firefox */
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* safari and chrome */
+  }
+}

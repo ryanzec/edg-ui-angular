@@ -7,8 +7,10 @@ Storybook 9 Play / Testing Story Guidelines:
 
 
 - ALWAYS combine testing stories (`*.tests.stories.ts`) into one file when a directory has multiple components
-
+- ALWAYS use custom component from `projects/shared-ui/src/lib/core` instead of creating inline components
 <!--
 This is for a clean separation of stories in thw storybook interface
 -->
-- MUST end the storybook title with `/Tests`
+- ALWAYS end the storybook title with `/Tests`
+
+- NEVER EVER add TSDoc to code created only for storybook, NEVER

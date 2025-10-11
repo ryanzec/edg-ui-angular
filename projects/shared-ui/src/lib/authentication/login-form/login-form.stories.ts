@@ -349,7 +349,7 @@ class LoginFormPasswordVisibleStory implements AfterViewInit {
     <div class="space-y-6 p-4 max-w-md">
       <div class="space-y-2">
         <h3 class="text-lg font-semibold">Interactive Login Form</h3>
-        <p class="text-sm text-text-subtle">Fill out the form and submit to see event logging in action.</p>
+        <div class="text-sm text-text-subtle">Fill out the form and submit to see event logging in action.</div>
       </div>
 
       <org-login-form (loginSubmit)="onLoginSubmit($event)"></org-login-form>

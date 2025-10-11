@@ -68,7 +68,9 @@
       [attr.aria-invalid]="isInvalid()"
       [attr.aria-describedby]="hasValidationMessage() ? 'validation-message' : null"
       [attr.autofocus]="autoFocus() || null"
+      [attr.autocomplete]="autocomplete() || null"
       (input)="handleInputChange($event)"
+      (blur)="handleBlur()"
     />
     @if (hasPostIcon()) {
       <button

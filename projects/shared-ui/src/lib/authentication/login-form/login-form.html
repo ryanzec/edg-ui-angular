@@ -3,7 +3,7 @@
   <org-card-content>
     <form orgGroupElements flexDirection="col" [formGroup]="loginForm" (ngSubmit)="login()">
       <!-- @todo(!) create component for this -->
-      <div class="org-label" class="w-full">
+      <div class="w-full">
         <!-- @todo(!) create component for this -->
         <label for="email">Email</label>
         <org-input
@@ -12,44 +12,28 @@
           formControlName="email"
           placeholder="Enter your email"
           autocomplete="email"
+          [autoFocus]="true"
+          preIcon="envelope"
+          [validationMessage]="getFieldError('email') || ''"
         />
-        <org-icon matPrefix name="envelope" />
-        @if (getFieldError('email')) {
-          <!-- @todo(!) create component for this -->
-          <div>{{ getFieldError('email') }}</div>
-        }
       </div>
       <div class="w-full">
         <!-- @todo(!) create component for this -->
         <label for="password">Password</label>
         <org-input
           data-testid="password-input"
-          [type]="showPassword ? 'text' : 'password'"
+          type="password"
           formControlName="password"
           placeholder="Enter your password"
           autocomplete="current-password"
+          preIcon="lock-key"
+          [showPasswordToggle]="true"
+          [validationMessage]="getFieldError('password') || ''"
         />
-        <org-icon name="lock-key" />
-        <org-button
-          data-testid="password-toggle-button"
-          color="primary"
-          type="button"
-          (click)="togglePasswordVisibility()"
-          [attr.aria-label]="'Show password'"
-          [attr.aria-pressed]="showPassword"
-        >
-          <org-icon [name]="showPassword ? 'eye' : 'eye-slash'" />
-        </org-button>
-
-        @if (getFieldError('password')) {
-          <!-- @todo(!) create component for this -->
-          <div>{{ getFieldError('password') }}</div>
-        }
       </div>
-
-      <button data-testid="submit-button" matButton color="primary" type="submit" class="w-full submit-button">
-        Sign In
-      </button>
+      <org-button data-testid="submit-button" color="primary" type="submit" buttonClass="w-full"> Sign In </org-button>
+      <org-button color="primary" buttonClass="w-full"> Reset Password </org-button>
+      <org-button color="primary" buttonClass="w-full"> Single Sign-On </org-button>
     </form>
   </org-card-content>
 </org-card>

@@ -11,9 +11,9 @@ import { Button } from '../button/button';
   template: `
     <div class="flex flex-col gap-4">
       <div class="flex flex-col gap-2">
-        <p class="text-sm"><strong>Current Key:</strong> {{ sortingStore.key() ?? 'null' }}</p>
-        <p class="text-sm"><strong>Current Direction:</strong> {{ sortingStore.direction() ?? 'null' }}</p>
-        <p class="text-sm"><strong>Is Sorting:</strong> {{ sortingStore.isSorting() }}</p>
+        <div class="text-sm"><strong>Current Key:</strong> {{ sortingStore.key() ?? 'null' }}</div>
+        <div class="text-sm"><strong>Current Direction:</strong> {{ sortingStore.direction() ?? 'null' }}</div>
+        <div class="text-sm"><strong>Is Sorting:</strong> {{ sortingStore.isSorting() }}</div>
       </div>
 
       <div class="flex flex-wrap gap-2">

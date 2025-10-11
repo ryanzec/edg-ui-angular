@@ -9,16 +9,16 @@ import { FileUploadComponent } from './file-upload';
       <h3 class="text-lg font-semibold mb-2">File Upload Component Demo</h3>
 
       <div class="border-2 border-dashed border-border p-4 rounded-lg">
-        <p class="text-sm text-text-color mb-2">
+        <div class="text-sm text-text-color mb-2">
           Accepted file types: <strong>{{ getFileTypesDisplay() }}</strong>
-        </p>
+        </div>
         <div class="max-w-md">
           <org-file-upload [fileTypes]="fileTypes()" (fileUpload)="handleFileUpload($event)"></org-file-upload>
         </div>
       </div>
 
       <div class="text-sm text-text-color">
-        <p><strong>Expected behavior:</strong></p>
+        <div><strong>Expected behavior:</strong></div>
         <ul class="list-disc list-inside mt-1 space-y-1">
           <li>When <strong>no file types specified</strong>: All file types are accepted</li>
           <li>When <strong>prefix file types</strong> (e.g., "image/"): All files matching the prefix are accepted</li>

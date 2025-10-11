@@ -1,0 +1,24 @@
+<div [class]="mergeClasses('flex flex-col gap-2 w-[320px] pointer-events-auto', containerClass())">
+  @for (notification of notifications(); track notification.id) {
+    <org-card
+      [color]="notification.color ?? null"
+      class="org-global-notification"
+      [style.animation]="getAnimationStyle(notification.id, notification.animationDuration)"
+    >
+      <div class="flex items-start justify-between gap-2 p-2">
+        <div class="flex-1">
+          {{ notification.message }}
+        </div>
+        @if (notification.canClose) {
+          <org-button
+            icon="x"
+            variant="text"
+            color="neutral"
+            [excludeSpacing]="true"
+            (click)="handleClose(notification.id)"
+          />
+        }
+      </div>
+    </org-card>
+  }
+</div>

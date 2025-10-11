@@ -21,6 +21,14 @@ export class DataSelectionStore<T> {
     return this._state().selectedItems.has(item);
   }
 
+  public set(item: T, selected: boolean): void {
+    if (selected) {
+      this.select(item);
+    } else {
+      this.deselect(item);
+    }
+  }
+
   public select(item: T): void {
     const currentItems = this._state().selectedItems;
 
@@ -61,6 +69,14 @@ export class DataSelectionStore<T> {
     }
 
     this.select(item);
+  }
+
+  public setMultiple(items: T[], selected: boolean): void {
+    if (selected) {
+      this.selectMultiple(items);
+    } else {
+      this.deselectMultiple(items);
+    }
   }
 
   public selectMultiple(items: T[]): void {
@@ -125,5 +141,23 @@ export class DataSelectionStore<T> {
 
   public clear(): void {
     this.deselectAll();
+  }
+
+  public areAllSelected(items: T[]): boolean {
+    if (items.length === 0) {
+      return false;
+    }
+
+    return items.every((item) => this.isSelected(item));
+  }
+
+  public areSomeSelected(items: T[]): boolean {
+    const selectedCount = items.filter((item) => this.isSelected(item)).length;
+
+    return selectedCount > 0 && selectedCount < items.length;
+  }
+
+  public areNoneSelected(items: T[]): boolean {
+    return items.every((item) => !this.isSelected(item));
   }
 }

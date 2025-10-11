@@ -15,7 +15,7 @@ ALWAYS follow these tules when the use case matches:
 
 ALWAYS use the following components over bespoken inline components when appropriate:
 - avatar: user display as initials or image - `projects/shared-ui/src/lib/core/avatar`
-- avatar stack: for display multiple avatars stacked on each other - `projects/shared-ui/src/lib/core/avatar-stack`
+- avatar stack: for display multiple avatars stacked on each other - `projects/shared-ui/src/lib/core/avatar/avatar-stack`
 - button: clickable button - `projects/shared-ui/src/lib/core/button`
 - card: general purpose content container - `projects/shared-ui/src/lib/core/card`
 - checkbox: standard input checkbox - `projects/shared-ui/src/lib/core/checkbox`
@@ -34,6 +34,9 @@ ALWAYS use the following components over bespoken inline components when appropr
 ALWAYS use the following directives when valid over duplicating functionality in other components:
 - grouping elements with spacing: `projects/shared-ui/src/lib/core/grouped-elements-directive`
 
+ALWAYS use the follow code as an example on how to implement a dialog based component:
+`projects/shared-ui/src/lib/examples/dialog/dialog.ts`
+
 When you are requested or need to implement a component that will have an associated store and need to be able to support multiple instances as the same time, you MUST follow the pattern outlined in : `projects/shared-ui/src/lib/examples/parent-child-multiple-nested-communication copy`
 
 For references in how we implement a multitide of component feature, reference these files:
@@ -50,6 +53,7 @@ You MUST ALWAYS use these patterns when work on Angular 20 components:
 - ALWAYS use modern event handling using `output()`
 - ALWAYS apply best practices for accessibility
 - ALWAYS use native control flow like `@if`, `@for`, `@switch` in templates
+- ALWAYS confirm when you intend to use a non-standard / discouraged pattern before implementing such a pattern
 - ALWAYS use `rxjs` + `outputFromObservable()` when you need to determine if an output event is being listened to like this:
 ```ts
 private _preIconClicked$ = new Subject<void>();
@@ -142,8 +146,14 @@ export type TestSize = Extract<ComponentSize, 'sm' | 'base' | 'lg'>;
 ```ts
 export type TestColor = Extract<ComponentSize, 'primary' | 'danger'>;
 ```
-- ALWAYS make sure they are no rules in the component css file (`component.css) and removw that file
+- ALWAYS make sure they are NO rules in the component css file (`component.css`) and remove that file
 - ALWAYS suffix data types specific to component with `*Data`
+- ALWAYS make sure the form component properly support angular's reactive form system
+- ALWAYS abstract css class values that need to be keep in sync across multiple element in the template into a `computed()` property in the component class suffixed with `*Class`
+- ALWAYS use custom component from `projects/shared-ui/src/lib/core` instead of creating inline components
+- ALWAYS have ONLY ONE variables file per component directory even if the component directory has multiple components
+- ALWAYS suffix componnt instance with `ComponentRef` when that component is create programmatically (NOT with `@ViewChild`)
+- ALWAYS use `@HostListener` ONLY when you need to apply listeners to things that target something outside element (like the `document`)
 
 You can NEVER use these patterns when work on Angular 20 components:
 - NEVER re-create functionality that is already available in angular CDK
@@ -151,16 +161,16 @@ You can NEVER use these patterns when work on Angular 20 components:
 - NEVER use the older input pattern `@Input()` decorator
 - NEVER use the older event system pattern `@Output()` decorator
 - NEVER use old control flow pattern like `*ngIf`, `*ngFor`, `*ngSwitch` in templates
-- NEVER use the `@HostListener` decorator on component class methods
+- NEVER use the `@HostBinding` decorator on component class methods
 ```ts
 // NEVER DO
-@HostListener('keydown', ['$event'])
+@HostBinding('keydown', ['$event'])
 protected keyPress(event: KeyboardEvent): void {
 ```
 - NEVER create methods in components that output css / tailwind class names
 ```ts
 // NEVER DO
-public containerClasses() {
+public containerClass() {
   return ['container', 'flex', 'flex-col'];
 }
 ```
@@ -175,3 +185,7 @@ public containerClasses() {
 // NEVER DO
 public class = input<string>('');
 ```
+<!--
+Size inputs should always hava a default and that should also be assumed the default unless explicitly mentioned otherwised.
+-->
+- NEVER pass in a value to a `size` input UNLESS EXPLICITLY asked to do so

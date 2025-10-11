@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/angular';
 import { ApplicationNavigation } from './application-navigation';
 import { StorybookExampleContainer } from '../../private/storybook-example-container/storybook-example-container';
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
+import { IconName } from '../icon/icon';
 
 const meta: Meta<ApplicationNavigation> = {
   title: 'Core/Components/Application Navigation',
@@ -19,20 +20,20 @@ const meta: Meta<ApplicationNavigation> = {
   ### Features
   - Customizable logo display
   - Navigation items with icons and labels
-  - Settings dropdown menu
+  - Settings dropdown menu powered by Angular CDK Menu
   - User authentication display
   - Logout functionality
-  - Full keyboard navigation support (Escape to close menus)
+  - Full keyboard navigation support (Escape to close menus, arrow keys for menu items)
   - Click-outside-to-close for settings menu
-  - Accessible with proper focus management
+  - Accessible with proper focus management and ARIA attributes
 
   ### Key Capabilities
   - **Logo**: Display custom logo image at the top
   - **Navigation**: Clickable navigation items with icons and routing support
-  - **Settings**: Dropdown menu for application settings with keyboard support
+  - **Settings**: Dropdown menu powered by CDK Menu with automatic keyboard navigation and accessibility
   - **User Display**: Shows signed-in user name
   - **Logout**: Dedicated logout button at the bottom
-  - **Keyboard Navigation**: Full support with Escape key to close menus
+  - **Keyboard Navigation**: Full support with Escape key and arrow keys via CDK Menu
 
   ### Usage Examples
   \`\`\`html
@@ -70,16 +71,16 @@ export default meta;
 type Story = StoryObj<ApplicationNavigation>;
 
 const defaultNavigationItems = [
-  { id: '1', label: 'Dashboard', icon: 'circle' as const, routePath: '/dashboard' },
-  { id: '2', label: 'Projects', icon: 'check-circle' as const, routePath: '/projects' },
-  { id: '3', label: 'Tasks', icon: 'check-square' as const, routePath: '/tasks' },
-  { id: '4', label: 'Reports', icon: 'download-simple' as const, routePath: '/reports' },
+  { id: '1', label: 'Dashboard', icon: 'circle' as IconName, routePath: '/dashboard' },
+  { id: '2', label: 'Projects', icon: 'check-circle' as IconName, routePath: '/projects' },
+  { id: '3', label: 'Tasks', icon: 'check-square' as IconName, routePath: '/tasks' },
+  { id: '4', label: 'Reports', icon: 'download-simple' as IconName, routePath: '/reports' },
 ];
 
 const defaultSettingsMenuItems = [
-  { id: '1', label: 'Profile Settings', icon: 'circle' as const },
-  { id: '2', label: 'Preferences', icon: 'gear' as const },
-  { id: '3', label: 'Help & Support', icon: 'envelope' as const },
+  { id: '1', label: 'Profile Settings', icon: 'circle' as IconName },
+  { id: '2', label: 'Preferences', icon: 'gear' as IconName },
+  { id: '3', label: 'Help & Support', icon: 'envelope' as IconName },
 ];
 
 export const Default: Story = {
@@ -275,10 +276,11 @@ export const SettingsMenuVariants: Story = {
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
-          <li>Settings menu opens on button click</li>
-          <li>Menu closes when clicking outside</li>
-          <li>Menu closes when pressing Escape key</li>
-          <li>Menu closes after selecting an item</li>
+          <li>Settings menu opens on button click (CDK Menu)</li>
+          <li>Menu closes when clicking outside (CDK Menu)</li>
+          <li>Menu closes when pressing Escape key (CDK Menu)</li>
+          <li>Menu closes after selecting an item (CDK Menu)</li>
+          <li>Arrow keys navigate between menu items (CDK Menu)</li>
           <li>Settings menu items support icons</li>
         </ul>
       </org-storybook-example-container>

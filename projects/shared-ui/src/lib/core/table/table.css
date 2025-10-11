@@ -1,0 +1,15 @@
+@reference '../../tailwind.css';
+
+@layer components {
+  /* ellipsis support using css variables */
+  .org-table-ellipsis {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: var(--ellipsis-lines);
+    line-clamp: var(--ellipsis-lines);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-break: break-word;
+  }
+}

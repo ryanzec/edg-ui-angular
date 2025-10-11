@@ -1,4 +1,4 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, provideAppInitializer } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withFetch, withInterceptorsFromDi, withInterceptors } from '@angular/common/http';
 import { provideZonelessChangeDetection, provideBrowserGlobalErrorListeners } from '@angular/core';
@@ -7,6 +7,7 @@ import { environment } from '../environments/environment';
 import { BASE_API_URL, httpWithCredentialsInterceptor, unauthorizedInterceptor } from '@organization/shared-ui';
 import { CookieService } from 'ngx-cookie-service';
 // import { FeatureFlagStore } from '@organization/shared-ui';
+import { dateUtils } from '@organization/shared-utils';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,9 +22,12 @@ export const appConfig: ApplicationConfig = {
     ),
     CookieService,
     { provide: BASE_API_URL, useValue: environment.apiUrl },
-    // provideAppInitializer(() => {
-    //   const globalService = inject(FeatureFlagStore);
-    //   return globalService.initialize(LAUNCH_DARKLY_CLIENT_ID, LAUNCH_DARKLY_CONTEXT, LAUNCH_DARKLY_HASH);
-    // }),
+    provideAppInitializer(() => {
+      dateUtils.configureTimezone('UTC');
+
+      return Promise.resolve();
+      //   const globalService = inject(FeatureFlagStore);
+      //   return globalService.initialize(LAUNCH_DARKLY_CLIENT_ID, LAUNCH_DARKLY_CONTEXT, LAUNCH_DARKLY_HASH);
+    }),
   ],
 };

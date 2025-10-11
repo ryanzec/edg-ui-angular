@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { Radio } from './radio';
+import { RadioGroup } from './radio-group';
 import { StorybookExampleContainer } from '../../private/storybook-example-container/storybook-example-container';
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 import { GroupElementsDirective } from '../group-elements-directive/group-elements-directive';
@@ -17,13 +18,13 @@ const meta: Meta<Radio> = {
 <div class="docs-top-level-overview">
   ## Radio Component
 
-  A radio button component designed for use in and out of forms with custom icon-based styling.
+  A radio button component designed for use with the RadioGroup component. Features custom icon-based styling.
 
   ### Features
   - Custom icon-based visual representation (no default radio button)
   - Two states: unchecked and checked
   - Three size options: small, base, and large
-  - Form integration support with reactive forms
+  - Reactive forms integration via RadioGroup component
   - Accessible with proper ARIA attributes
   - Keyboard navigation support (Space and Enter keys)
 
@@ -38,42 +39,24 @@ const meta: Meta<Radio> = {
 
   ### Usage Examples
   \`\`\`html
-  <!-- Basic radio -->
-  <org-radio name="choice" value="option1">
-    Option 1
-  </org-radio>
-
-  <!-- Radio with checked state -->
-  <org-radio name="choice" value="option2" [checked]="true">
-    Option 2
-  </org-radio>
+  <!-- Recommended: With reactive forms using RadioGroup -->
+  <form [formGroup]="myForm">
+    <org-radio-group formControlName="preference" name="preference">
+      <org-radio value="option1">Option 1</org-radio>
+      <org-radio value="option2">Option 2</org-radio>
+      <org-radio value="option3">Option 3</org-radio>
+    </org-radio-group>
+  </form>
 
   <!-- Different sizes -->
-  <org-radio name="size-choice" value="small" size="sm">
-    Small radio
-  </org-radio>
-  <org-radio name="size-choice" value="large" size="lg">
-    Large radio
-  </org-radio>
+  <org-radio-group formControlName="size" name="size">
+    <org-radio value="small" size="sm">Small radio</org-radio>
+    <org-radio value="base" size="base">Base radio</org-radio>
+    <org-radio value="large" size="lg">Large radio</org-radio>
+  </org-radio-group>
 
-  <!-- Radio group -->
-  <div orgGroupElements flexDirection="col">
-    <org-radio name="group1" value="option1" [checked]="selectedValue === 'option1'">Option 1</org-radio>
-    <org-radio name="group1" value="option2" [checked]="selectedValue === 'option2'">Option 2</org-radio>
-    <org-radio name="group1" value="option3" [checked]="selectedValue === 'option3'">Option 3</org-radio>
-  </div>
-
-  <!-- With reactive forms -->
-  <form [formGroup]="myForm">
-    <org-radio
-      name="selection"
-      value="option1"
-      [checked]="myForm.value.selection === 'option1'"
-      (checkedChange)="myForm.patchValue({ selection: 'option1' })"
-    >
-      Option 1
-    </org-radio>
-  </form>
+  <!-- Standalone usage (for display purposes) -->
+  <org-radio value="option1">Standalone radio</org-radio>
   \`\`\`
 </div>
         `,
@@ -87,24 +70,14 @@ type Story = StoryObj<Radio>;
 
 export const Default: Story = {
   args: {
-    name: 'radio',
     value: 'value',
-    checked: false,
     size: 'base',
     containerClass: '',
   },
   argTypes: {
-    name: {
-      control: 'text',
-      description: 'Name attribute for the radio input (required)',
-    },
     value: {
       control: 'text',
       description: 'Value attribute for the radio input (required)',
-    },
-    checked: {
-      control: 'boolean',
-      description: 'Checked state',
     },
     size: {
       control: 'select',
@@ -119,7 +92,8 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default radio with all controls. Use the controls below to interact with the component.',
+        story:
+          'Default radio component. Note: For interactive usage with forms, use the RadioGroup component (see ReactiveFormIntegration story).',
       },
     },
   },
@@ -127,9 +101,7 @@ export const Default: Story = {
     props: args,
     template: `
       <org-radio
-        [name]="name"
         [value]="value"
-        [checked]="checked"
         [size]="size"
         [containerClass]="containerClass"
       >
@@ -157,19 +129,19 @@ export const Sizes: Story = {
         currentState="Comparing small, base, and large sizes"
       >
         <org-storybook-example-container-section label="Small">
-          <org-radio name="small" value="small" size="sm" [checked]="true">
+          <org-radio value="small" size="sm">
             Small radio
           </org-radio>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Base (Default)">
-          <org-radio name="base" value="base" size="base" [checked]="true">
+          <org-radio value="base" size="base">
             Base radio
           </org-radio>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Large">
-          <org-radio name="large" value="large" size="lg" [checked]="true">
+          <org-radio value="large" size="lg">
             Large radio
           </org-radio>
         </org-storybook-example-container-section>
@@ -202,20 +174,22 @@ export const States: Story = {
         currentState="Comparing unchecked and checked states"
       >
         <org-storybook-example-container-section label="Unchecked">
-          <org-radio name="unchecked" value="unchecked">
+          <org-radio value="unchecked">
             Unchecked radio
           </org-radio>
         </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section label="Checked">
-          <org-radio name="checked" value="checked" [checked]="true">
-            Checked radio
-          </org-radio>
+        <org-storybook-example-container-section label="Note">
+          <div class="text-sm text-neutral-text-subtle">
+            Radio checked states are managed by the RadioGroup component.
+            See the ReactiveFormIntegration story for interactive examples.
+          </div>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
-          <li><strong>Unchecked</strong>: Shows circle icon, clicking will check it</li>
-          <li><strong>Checked</strong>: Shows check-circle icon, cannot be unchecked by clicking (radio behavior)</li>
+          <li><strong>Unchecked</strong>: Shows circle icon (default state)</li>
+          <li><strong>Checked states</strong>: Managed by RadioGroup component in forms</li>
+          <li>For interactive radio groups, use org-radio-group with reactive forms</li>
         </ul>
       </org-storybook-example-container>
     `,
@@ -241,32 +215,18 @@ export const GroupedRadios: Story = {
       >
         <org-storybook-example-container-section label="Vertical Group (Column)">
           <div orgGroupElements flexDirection="col">
-            <org-radio name="vertical-group" value="option1">
-              Option 1
-            </org-radio>
-            <org-radio name="vertical-group" value="option2" [checked]="true">
-              Option 2 (checked)
-            </org-radio>
-            <org-radio name="vertical-group" value="option3">
-              Option 3
-            </org-radio>
-            <org-radio name="vertical-group" value="option4">
-              Option 4
-            </org-radio>
+            <org-radio value="option1">Option 1</org-radio>
+            <org-radio value="option2">Option 2</org-radio>
+            <org-radio value="option3">Option 3</org-radio>
+            <org-radio value="option4">Option 4</org-radio>
           </div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Horizontal Group (Row)">
           <div orgGroupElements flexDirection="row">
-            <org-radio name="horizontal-group" value="h-option1">
-              Option 1
-            </org-radio>
-            <org-radio name="horizontal-group" value="h-option2" [checked]="true">
-              Option 2
-            </org-radio>
-            <org-radio name="horizontal-group" value="h-option3">
-              Option 3
-            </org-radio>
+            <org-radio value="h-option1">Option 1</org-radio>
+            <org-radio value="h-option2">Option 2</org-radio>
+            <org-radio value="h-option3">Option 3</org-radio>
           </div>
         </org-storybook-example-container-section>
 
@@ -274,7 +234,7 @@ export const GroupedRadios: Story = {
           <li>Use <strong>orgGroupElements</strong> directive with <strong>flexDirection="col"</strong> for vertical spacing</li>
           <li>Use <strong>orgGroupElements</strong> directive with <strong>flexDirection="row"</strong> for horizontal spacing</li>
           <li>Provides consistent gap-2 spacing between radios</li>
-          <li>Radios with the same name attribute form a radio group (only one can be selected)</li>
+          <li>For interactive groups with selection, use <strong>org-radio-group</strong> with reactive forms</li>
         </ul>
       </org-storybook-example-container>
     `,
@@ -292,57 +252,26 @@ export const GroupedRadios: Story = {
       [currentState]="'Form Valid: ' + radioForm.valid + ', Selected Value: ' + formValueDisplay()"
     >
       <org-storybook-example-container-section label="Radio Group in Form">
-        <form [formGroup]="radioForm" orgGroupElements flexDirection="col">
-          <org-radio
-            name="preference"
-            value="email"
-            [checked]="radioForm.value.preference === 'email'"
-            (checkedChange)="onRadioChange('email')"
-          >
-            Email notifications
-          </org-radio>
-          <org-radio
-            name="preference"
-            value="sms"
-            [checked]="radioForm.value.preference === 'sms'"
-            (checkedChange)="onRadioChange('sms')"
-          >
-            SMS notifications
-          </org-radio>
-          <org-radio
-            name="preference"
-            value="push"
-            [checked]="radioForm.value.preference === 'push'"
-            (checkedChange)="onRadioChange('push')"
-          >
-            Push notifications
-          </org-radio>
-          <org-radio
-            name="preference"
-            value="none"
-            [checked]="radioForm.value.preference === 'none'"
-            (checkedChange)="onRadioChange('none')"
-          >
-            No notifications
-          </org-radio>
+        <form [formGroup]="radioForm">
+          <org-radio-group formControlName="preference" name="preference" class="flex flex-col gap-2">
+            <org-radio value="email">Email notifications</org-radio>
+            <org-radio value="sms">SMS notifications</org-radio>
+            <org-radio value="push">Push notifications</org-radio>
+            <org-radio value="none">No notifications</org-radio>
+          </org-radio-group>
         </form>
       </org-storybook-example-container-section>
 
       <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
-        <li>Radios emit <strong>checkedChange</strong> events when selected</li>
-        <li>Can be integrated with reactive forms by handling change events</li>
-        <li>Form state updates in real-time as radios are selected</li>
+        <li>Use <strong>org-radio-group</strong> with <strong>formControlName</strong> for reactive forms</li>
+        <li>RadioGroup manages the selected value and syncs all child radios</li>
+        <li>Form state updates automatically when radios are selected</li>
         <li>Only one radio can be selected at a time within a group</li>
+        <li>Much simpler than manually managing checked states</li>
       </ul>
     </org-storybook-example-container>
   `,
-  imports: [
-    Radio,
-    StorybookExampleContainer,
-    StorybookExampleContainerSection,
-    GroupElementsDirective,
-    ReactiveFormsModule,
-  ],
+  imports: [Radio, RadioGroup, StorybookExampleContainer, StorybookExampleContainerSection, ReactiveFormsModule],
 })
 class RadioReactiveFormStory {
   public radioForm = new FormGroup({
@@ -351,9 +280,10 @@ class RadioReactiveFormStory {
 
   public formValueDisplay = signal<string>(JSON.stringify(this.radioForm.value.preference));
 
-  public onRadioChange(value: string): void {
-    this.radioForm.patchValue({ preference: value });
-    this.formValueDisplay.set(JSON.stringify(this.radioForm.value.preference));
+  constructor() {
+    this.radioForm.valueChanges.subscribe(() => {
+      this.formValueDisplay.set(JSON.stringify(this.radioForm.value.preference));
+    });
   }
 }
 
@@ -361,7 +291,8 @@ export const ReactiveFormIntegration: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Example of integrating radios with Angular reactive forms.',
+        story:
+          'Example of integrating radios with Angular reactive forms using the RadioGroup component. This is the recommended approach for form integration.',
       },
     },
   },
@@ -378,86 +309,41 @@ export const ReactiveFormIntegration: Story = {
   template: `
     <org-storybook-example-container
       title="Multiple Radio Groups"
-      [currentState]="'Shipping: ' + shippingMethod() + ', Payment: ' + paymentMethod()"
+      [currentState]="'Shipping: ' + multiForm.value.shipping + ', Payment: ' + multiForm.value.payment"
     >
-      <org-storybook-example-container-section label="Shipping Method">
-        <div orgGroupElements flexDirection="col">
-          <org-radio
-            name="shipping"
-            value="standard"
-            [checked]="shippingMethod() === 'standard'"
-            (checkedChange)="onShippingChange('standard')"
-          >
-            Standard (5-7 business days)
-          </org-radio>
-          <org-radio
-            name="shipping"
-            value="express"
-            [checked]="shippingMethod() === 'express'"
-            (checkedChange)="onShippingChange('express')"
-          >
-            Express (2-3 business days)
-          </org-radio>
-          <org-radio
-            name="shipping"
-            value="overnight"
-            [checked]="shippingMethod() === 'overnight'"
-            (checkedChange)="onShippingChange('overnight')"
-          >
-            Overnight (next business day)
-          </org-radio>
-        </div>
-      </org-storybook-example-container-section>
+      <form [formGroup]="multiForm">
+        <org-storybook-example-container-section label="Shipping Method">
+          <org-radio-group formControlName="shipping" name="shipping" class="flex flex-col gap-2">
+            <org-radio value="standard">Standard (5-7 business days)</org-radio>
+            <org-radio value="express">Express (2-3 business days)</org-radio>
+            <org-radio value="overnight">Overnight (next business day)</org-radio>
+          </org-radio-group>
+        </org-storybook-example-container-section>
 
-      <org-storybook-example-container-section label="Payment Method">
-        <div orgGroupElements flexDirection="col">
-          <org-radio
-            name="payment"
-            value="credit"
-            [checked]="paymentMethod() === 'credit'"
-            (checkedChange)="onPaymentChange('credit')"
-          >
-            Credit Card
-          </org-radio>
-          <org-radio
-            name="payment"
-            value="debit"
-            [checked]="paymentMethod() === 'debit'"
-            (checkedChange)="onPaymentChange('debit')"
-          >
-            Debit Card
-          </org-radio>
-          <org-radio
-            name="payment"
-            value="paypal"
-            [checked]="paymentMethod() === 'paypal'"
-            (checkedChange)="onPaymentChange('paypal')"
-          >
-            PayPal
-          </org-radio>
-        </div>
-      </org-storybook-example-container-section>
+        <org-storybook-example-container-section label="Payment Method">
+          <org-radio-group formControlName="payment" name="payment" class="flex flex-col gap-2">
+            <org-radio value="credit">Credit Card</org-radio>
+            <org-radio value="debit">Debit Card</org-radio>
+            <org-radio value="paypal">PayPal</org-radio>
+          </org-radio-group>
+        </org-storybook-example-container-section>
+      </form>
 
       <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
-        <li>Different <strong>name</strong> attributes create separate radio groups</li>
+        <li>Each <strong>org-radio-group</strong> creates a separate radio group</li>
         <li>Each group maintains its own selection state independently</li>
         <li>Selecting a radio in one group does not affect other groups</li>
+        <li>Clean separation of concerns with RadioGroup managing each group's state</li>
       </ul>
     </org-storybook-example-container>
   `,
-  imports: [Radio, StorybookExampleContainer, StorybookExampleContainerSection, GroupElementsDirective],
+  imports: [Radio, RadioGroup, StorybookExampleContainer, StorybookExampleContainerSection, ReactiveFormsModule],
 })
 class RadioMultipleGroupsStory {
-  public shippingMethod = signal<string>('standard');
-  public paymentMethod = signal<string>('credit');
-
-  public onShippingChange(value: string): void {
-    this.shippingMethod.set(value);
-  }
-
-  public onPaymentChange(value: string): void {
-    this.paymentMethod.set(value);
-  }
+  public multiForm = new FormGroup({
+    shipping: new FormControl('standard', { nonNullable: true }),
+    payment: new FormControl('credit', { nonNullable: true }),
+  });
 }
 
 export const MultipleGroups: Story = {

@@ -8,20 +8,36 @@
   </main>
 }
 @if (authenticationManager.hasInitialized()) {
-  @if (authenticationManager.isAuthenticated()) {
-    <a routerLink="/home">Home</a>
-    <a routerLink="/users">Users</a>
-    <a routerLink="/bad-link">Bad Link</a>
-  }
-  <main>
-    <div>
+  <div
+    [class]="
+      mergeClasses('h-full w-full', {
+        flex: authenticationManager.isAuthenticated(),
+      })
+    "
+  >
+    @if (authenticationManager.isAuthenticated()) {
+      <org-application-navigation
+        [navigationItems]="[
+          { id: '1', label: 'Dashboard', icon: 'circle', routePath: '/dashboard' },
+          { id: '2', label: 'Users', icon: 'check-circle', routePath: '/users' },
+        ]"
+        [settingsMenuItems]="[
+          { id: '1', label: 'Profile Settings', icon: 'circle' },
+          { id: '2', label: 'Preferences', icon: 'gear' },
+          { id: '3', label: 'Help & Support', icon: 'envelope' },
+        ]"
+        (settingsMenuItemClicked)="handleSettingsMenuItemClick($event)"
+        (logout)="handleLogout()"
+        class="h-full"
+      />
+    }
+    <main class="flex-1">
       <div>
         <div class="flex">
           <org-ui-theme-switcher></org-ui-theme-switcher>
         </div>
       </div>
-      <div class="divider" role="separator" aria-label="Divider"></div>
       <router-outlet />
-    </div>
-  </main>
+    </main>
+  </div>
 }

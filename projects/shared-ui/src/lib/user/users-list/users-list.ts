@@ -1,49 +1,74 @@
-import { Component, ChangeDetectionStrategy, input, output, computed, signal } from '@angular/core';
-import { type User } from '@organization/shared-types';
+import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
+import { CdkMenuTrigger } from '@angular/cdk/menu';
+import { type User, type UserRoleName } from '@organization/shared-types';
 import { GroupElementsDirective } from '../../core/group-elements-directive/group-elements-directive';
-import { Icon } from '../../core/icon/icon';
 import { Button } from '../../core/button/button';
-
-type UsersListState = {
-  isLoading: boolean;
-  error: string | null;
-};
+import { Table } from '../../core/table/table';
+import { Tag, type TagColor } from '../../core/tag/tag';
+import { OverlayMenu, type OverlayMenuItem } from '../../core/overlay-menu/overlay-menu';
+import { tailwindUtils } from '@organization/shared-utils';
 
 @Component({
   selector: 'org-users-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Icon, Button, GroupElementsDirective],
+  imports: [Button, CdkMenuTrigger, GroupElementsDirective, OverlayMenu, Table, Tag],
   templateUrl: './users-list.html',
+  host: {
+    dataid: 'users-list',
+  },
 })
 export class UsersList {
-  public readonly users = input.required<User[]>();
-  public readonly isLoading = input<boolean>(false);
+  public users = input.required<User[]>();
+  public isLoading = input<boolean>(false);
+  public containerClass = input<string>('');
+  public tableContainerClass = input<string>('');
 
-  public readonly userEdit = output<User>();
-  public readonly userDelete = output<User>();
+  public userEdit = output<User>();
+  public userDelete = output<User>();
 
-  private readonly _state = signal<UsersListState>({
-    isLoading: false,
-    error: null,
-  });
+  public mergeClasses = tailwindUtils.merge;
+  public readonly menuPosition = [
+    {
+      originX: 'end',
+      originY: 'bottom',
+      overlayX: 'end',
+      overlayY: 'top',
+      offsetY: 8,
+    },
+  ];
 
-  public readonly displayedColumns = ['name', 'email', 'roles', 'createdAt', 'actions'];
-
-  public readonly state = computed(() => this._state());
-
-  public onEdit(user: User): void {
-    this.userEdit.emit(user);
+  protected getUserActionsMenuItems(_user: User): OverlayMenuItem[] {
+    return [
+      {
+        id: 'edit',
+        label: 'Edit',
+        icon: 'pencil-simple',
+      },
+      {
+        id: 'delete',
+        label: 'Delete',
+        icon: 'trash',
+      },
+    ];
   }
 
-  public onDelete(user: User): void {
-    this.userDelete.emit(user);
+  protected onUserActionMenuItemClick(menuItem: OverlayMenuItem, user: User): void {
+    if (menuItem.id === 'edit') {
+      this.userEdit.emit(user);
+    } else if (menuItem.id === 'delete') {
+      this.userDelete.emit(user);
+    }
   }
 
-  public formatDate(dateString: string): string {
+  protected formatDate(dateString: string): string {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
     });
+  }
+
+  protected getRoleColor(role: UserRoleName): TagColor {
+    return role === 'admin' ? 'danger' : 'info';
   }
 }

@@ -11,9 +11,9 @@ import { SortingStore } from '../sorting-store/sorting-store';
   template: `
     <div class="flex flex-col gap-6">
       <div class="flex flex-col gap-2 p-4 bg-background rounded">
-        <p class="text-sm"><strong>Current Sort Key:</strong> {{ sortingStore.key() ?? 'null' }}</p>
-        <p class="text-sm"><strong>Current Direction:</strong> {{ sortingStore.direction() ?? 'null' }}</p>
-        <p class="text-sm"><strong>Is Sorting:</strong> {{ sortingStore.isSorting() }}</p>
+        <div class="text-sm"><strong>Current Sort Key:</strong> {{ sortingStore.key() ?? 'null' }}</div>
+        <div class="text-sm"><strong>Current Direction:</strong> {{ sortingStore.direction() ?? 'null' }}</div>
+        <div class="text-sm"><strong>Is Sorting:</strong> {{ sortingStore.isSorting() }}</div>
       </div>
 
       <div class="flex flex-col gap-2">

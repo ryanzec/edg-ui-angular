@@ -1,8 +1,9 @@
-import { Component, ChangeDetectionStrategy, input, output, computed, ViewChild, ElementRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, computed, signal, inject } from '@angular/core';
 import { Icon, IconName } from '../icon/icon';
 import { tailwindUtils } from '@organization/shared-utils';
 import { TextDirective, TextSize } from '../text-directive/text-directive';
 import { ComponentSize } from '../types/component-types';
+import { RadioGroup } from './radio-group';
 
 export type RadioSize = Extract<ComponentSize, 'sm' | 'base' | 'lg'>;
 
@@ -19,23 +20,22 @@ export const radioSizes: RadioSize[] = ['sm', 'base', 'lg'];
   },
 })
 export class Radio {
-  @ViewChild('inputRef', { static: true })
-  public readonly inputRef!: ElementRef<HTMLInputElement>;
+  // Inject parent radio group if exists
+  private readonly _radioGroup = inject(RadioGroup, { optional: true });
 
-  // required inputs
-  public name = input.required<string>();
+  // Internal selected state (managed by radio group or standalone)
+  private readonly _selected = signal<boolean>(false);
+
+  // Required inputs
   public value = input.required<string>();
 
-  // optional inputs
-  public checked = input<boolean>(false);
+  // Optional inputs
   public size = input<RadioSize>('base');
   public containerClass = input<string>('');
 
-  // outputs
-  public checkedChange = output<boolean>();
-
-  // computed properties
-  public readonly isChecked = computed<boolean>(() => this.checked());
+  // Computed properties
+  public readonly isChecked = computed<boolean>(() => this._selected());
+  public readonly name = computed<string>(() => this._radioGroup?.name() ?? '');
   public readonly textSize = computed<TextSize>(() => {
     switch (this.size()) {
       case 'sm':
@@ -57,17 +57,28 @@ export class Radio {
 
   public mergeClasses = tailwindUtils.merge;
 
+  // Called by parent RadioGroup to set selected state
+  public _setSelected(selected: boolean): void {
+    this._selected.set(selected);
+  }
+
   protected handleClick(event: Event): void {
     event.preventDefault();
 
-    // radios can only be checked, not unchecked by clicking
+    // If part of a radio group, notify the group
+    if (this._radioGroup) {
+      this._radioGroup._onRadioSelect(this.value());
+
+      return;
+    }
+
+    // Standalone mode: just update own state (backward compatibility)
     if (!this.isChecked()) {
-      this.checkedChange.emit(true);
+      this._selected.set(true);
     }
   }
 
   protected handleKeyDown(event: KeyboardEvent): void {
-    // handle space and enter keys
     if (event.key === ' ' || event.key === 'Enter') {
       event.preventDefault();
       this.handleClick(event);

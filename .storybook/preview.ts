@@ -1,7 +1,11 @@
 import type { Preview } from '@storybook/angular';
 import { applicationConfig } from '@storybook/angular';
 import { provideHttpClient } from '@angular/common/http';
-import { provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import {
+  provideAppInitializer,
+  provideBrowserGlobalErrorListeners,
+  provideZonelessChangeDetection,
+} from '@angular/core';
 import { withInterceptorsFromDi } from '@angular/common/http';
 import { withFetch } from '@angular/common/http';
 
@@ -17,6 +21,7 @@ import '@phosphor-icons/web/fill/style.css';
 // import '@fontsource/geist-sans/600.css';
 // import '@fontsource/geist-sans/700.css';
 import '../.storybook/storybook-styles.css';
+import { dateUtils } from '@organization/shared-utils';
 
 export const globalTypes = {
   theme: {
@@ -58,6 +63,13 @@ const preview: Preview = {
         provideZonelessChangeDetection(),
         provideBrowserGlobalErrorListeners(),
         provideHttpClient(withFetch(), withInterceptorsFromDi()),
+        provideAppInitializer(() => {
+          dateUtils.configureTimezone('UTC');
+
+          return Promise.resolve();
+          //   const globalService = inject(FeatureFlagStore);
+          //   return globalService.initialize(LAUNCH_DARKLY_CLIENT_ID, LAUNCH_DARKLY_CONTEXT, LAUNCH_DARKLY_HASH);
+        }),
       ],
     }),
   ],

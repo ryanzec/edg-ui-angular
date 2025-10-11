@@ -20,7 +20,7 @@ type Story = StoryObj<EXAMPLEChildParentCallbackCommunication>;
   imports: [Button],
   template: `
     <div class="space-y-2">
-      <p class="text-sm text-text">Child Component (Using output())</p>
+      <div class="text-sm text-text">Child Component (Using output())</div>
       <org-button color="primary" (click)="messageEmitted.emit('Hello from child via output()!')">
         Send Message via Output
       </org-button>
@@ -38,7 +38,7 @@ class ChildWithOutput {
   imports: [Button],
   template: `
     <div class="space-y-2">
-      <p class="text-sm text-text">Child Component (Using callback)</p>
+      <div class="text-sm text-text">Child Component (Using callback)</div>
       <org-button color="secondary" (click)="onSendMessage()"> Send Message via Callback </org-button>
     </div>
   `,
@@ -69,8 +69,8 @@ class ChildWithCallback {
         <div class="space-y-4">
           <org-example-child-with-output (messageEmitted)="handleOutputMessage($event)" />
           <div class="rounded border border-safe-border bg-safe-background-subtle p-3">
-            <p class="text-sm font-medium text-text">Message Received:</p>
-            <p class="text-sm text-text">{{ outputMessage() }}</p>
+            <div class="text-sm font-medium text-text">Message Received:</div>
+            <div class="text-sm text-text">{{ outputMessage() }}</div>
           </div>
         </div>
       </org-storybook-example-container-section>
@@ -79,8 +79,8 @@ class ChildWithCallback {
         <div class="space-y-4">
           <org-example-child-with-callback [onMessageCallback]="handleCallbackMessage" />
           <div class="rounded border border-caution-border bg-caution-background-subtle p-3">
-            <p class="text-sm font-medium text-text">Message Received:</p>
-            <p class="text-sm text-text">{{ callbackMessage() }}</p>
+            <div class="text-sm font-medium text-text">Message Received:</div>
+            <div class="text-sm text-text">{{ callbackMessage() }}</div>
           </div>
         </div>
       </org-storybook-example-container-section>
@@ -160,9 +160,9 @@ class ParentComponent {{ '{' }}
         <div class="space-y-4">
           <org-example-child-with-output (messageEmitted)="handleMessage($event)" />
           <div class="rounded border border-border bg-background p-3">
-            <p class="text-sm font-medium text-text">Message Received:</p>
-            <p class="text-sm text-text">{{ message() }}</p>
-            <p class="mt-2 text-sm font-medium text-text">Benefits:</p>
+            <div class="text-sm font-medium text-text">Message Received:</div>
+            <div class="text-sm text-text">{{ message() }}</div>
+            <div class="mt-2 text-sm font-medium text-text">Benefits:</div>
             <ul class="mt-2 list-inside list-disc space-y-1 text-sm text-text">
               <li>No need to worry about 'this' context</li>
               <li>Better type safety</li>

@@ -13,46 +13,42 @@
         <org-list-item
           asTag="a"
           [href]="item.routePath"
-          containerClass="gap-3"
           (clicked)="handleNavigationItemClick(item)"
+          [preIcon]="item.icon"
+          [isSelected]="activeNavigationItemId() === item.id"
         >
-          <org-icon [name]="item.icon" size="base" />
-          <span class="font-medium">{{ item.label }}</span>
+          {{ item.label }}
         </org-list-item>
       }
     </org-list>
   </nav>
 
   <!-- Settings Menu -->
-  <div class="relative mt-auto">
-    <div #settingsButton class="w-full">
-      <org-button color="neutral" variant="ghost" size="base" preIcon="gear" (clicked)="handleSettingsButtonClick()">
-        Settings
-      </org-button>
-    </div>
-
-    @if (settingsMenuIsOpen()) {
-      <div
-        #settingsMenu
-        class="absolute bottom-full left-0 mb-2 w-48 bg-application-navigation-background border border-application-navigation-border rounded-md shadow-lg z-50 overflow-hidden"
-      >
-        <org-list>
-          @for (item of settingsMenuItems(); track item.id) {
-            <org-list-item asTag="button" (clicked)="handleSettingsMenuItemClick(item)">
-              <org-icon [name]="item.icon" size="base" />
-              <span class="ml-3">{{ item.label }}</span>
-            </org-list-item>
-          }
-        </org-list>
-      </div>
-    }
+  <div class="mt-auto">
+    <org-list>
+      @if (settingsMenuItems().length > 0) {
+        <org-list-item
+          [cdkMenuTriggerFor]="settingsMenu"
+          [cdkMenuPosition]="menuPosition"
+          asTag="button"
+          preIcon="gear"
+          [forceClickable]="true"
+        >
+          Settings
+        </org-list-item>
+      }
+      <org-list-item asTag="button" (clicked)="handleLogoutClick()" preIcon="sign-out">
+        <span class="font-medium">Logout</span>
+      </org-list-item>
+    </org-list>
+    <ng-template #settingsMenu>
+      <org-overlay-menu [menuItems]="settingsMenuItems()" (menuItemClicked)="handleSettingsMenuItemClick($event)" />
+    </ng-template>
   </div>
 </div>
 
 <!-- User Section -->
 <div class="p-2 border-t border-application-navigation-border flex flex-col gap-1">
-  @if (userName()) {
-    <div class="text-sm font-medium text-application-navigation-text mb-2">Signed in user: {{ userName() }}</div>
-  }
-  <org-button class="w-full" color="neutral" variant="ghost" (clicked)="handleLogoutClick()"> Logout </org-button>
+  <!-- @toodo dynamic -->
+  <org-avatar email="basire@gmail.com" label="Ryan Zec" subLabel="Organization Name" />
 </div>

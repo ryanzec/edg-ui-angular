@@ -23,6 +23,8 @@ Make sure the code follows all of the guidelines and rules in the following file
 - `.cursor/partials/frontend/storybook-development.md`
 - `.cursor/partials/frontend/storybook-testing.md`
 
+Do NOT make any changes to the files, you are ONLY to perform a review and REPORT your findings
+
 ### Output Format
 
 1.  **Overall Summary:** A brief, high-level assessment of the code's production readiness.

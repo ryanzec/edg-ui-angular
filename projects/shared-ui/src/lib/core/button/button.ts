@@ -59,7 +59,7 @@ export class Button implements OnInit, OnDestroy {
     return this._state();
   }
 
-  public color = input.required<ButtonColor>();
+  public color = input<ButtonColor>('primary');
   public size = input<ButtonSize>('base');
   public variant = input<ButtonVariant>('filled');
   public disabled = input<boolean>(false);
@@ -69,7 +69,7 @@ export class Button implements OnInit, OnDestroy {
   public icon = input<IconName | null>(null);
   public type = input<ButtonType>('button');
   public excludeSpacing = input<boolean>(false);
-  public class = input<string>('');
+  public buttonClass = input<string>('');
 
   public clicked = output<void>();
 

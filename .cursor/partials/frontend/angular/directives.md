@@ -26,10 +26,11 @@ export class ScrollAreaDirective {
   // ... 
 ```
 - ALWAYS use Renderer2 when inject html from a directive
+- ALWAYS use `@HostListener` ONLY when you need to apply listeners to things that target something outside element (like the `document`)
 
 You MUST NEVER use these patterns when work on Angular 20 directives:
 - NEVER use `Directive` in the name of the selector
-- NEVER use `@HostBinding` and `@HostListener` decorators
+- NEVER use `@HostBinding` decorators
 <!--
 This is the default 
 -->

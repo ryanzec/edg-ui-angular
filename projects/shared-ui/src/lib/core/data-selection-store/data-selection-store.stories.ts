@@ -26,13 +26,13 @@ export const USER_SELECTION_STORE_TOKEN = new InjectionToken<DataSelectionStore<
   template: `
     <div class="flex flex-col gap-4">
       <div class="flex flex-col gap-2">
-        <p class="text-sm"><strong>Selected Count:</strong> {{ selectionStore.selectedCount() }}</p>
-        <p class="text-sm"><strong>Has Selection:</strong> {{ selectionStore.hasSelection() }}</p>
-        <p class="text-sm"><strong>Select All Enabled:</strong> {{ selectionStore.selectAllEnabled() }}</p>
+        <div class="text-sm"><strong>Selected Count:</strong> {{ selectionStore.selectedCount() }}</div>
+        <div class="text-sm"><strong>Has Selection:</strong> {{ selectionStore.hasSelection() }}</div>
+        <div class="text-sm"><strong>Select All Enabled:</strong> {{ selectionStore.selectAllEnabled() }}</div>
       </div>
 
       <div class="flex flex-col gap-2">
-        <p class="text-sm font-semibold">Selected Items:</p>
+        <div class="text-sm font-semibold">Selected Items:</div>
         @if (selectionStore.hasSelection()) {
           <div class="flex flex-col gap-1">
             @for (user of selectionStore.selectedItemsArray(); track user.id) {
@@ -42,12 +42,12 @@ export const USER_SELECTION_STORE_TOKEN = new InjectionToken<DataSelectionStore<
             }
           </div>
         } @else {
-          <p class="text-sm text-neutral-text-subtle">No items selected</p>
+          <div class="text-sm text-neutral-text-subtle">No items selected</div>
         }
       </div>
 
       <div class="flex flex-col gap-2">
-        <p class="text-sm font-semibold">Available Users:</p>
+        <div class="text-sm font-semibold">Available Users:</div>
         <div class="flex flex-col gap-1">
           @for (user of users; track user.id) {
             <button

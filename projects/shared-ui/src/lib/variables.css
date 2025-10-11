@@ -10,10 +10,16 @@
 @import './core/checkbox-toggle/checkbox-toggle-variables.css';
 @import './core/checklist/checklist-variables.css';
 @import './core/code-block/code-block-variables.css';
+@import './core/empty-indicator/empty-indicator-variables.css';
 @import './core/file-upload/file-upload-variables.css';
+@import './core/global-notifications/global-notifications-variables.css';
 @import './core/indicator/indicator-variables.css';
+@import './core/label/label-variables.css';
+@import './core/markdown/markdown-variables.css';
 @import './core/radio/radio-variables.css';
+@import './core/skeleton/skeleton-variables.css';
 @import './core/tag/tag-variables.css';
+@import './core/tabs/tabs-variables.css';
 @import './core/input/input-variables.css';
 @import './core/textarea/textarea-variables.css';
 @import './core/pagination/pagination-variables.css';
@@ -27,6 +33,7 @@
   --opacity-skelton: 0.3;
   --opacity-skelton-subtle: 0.15;
   --opacity-background-subtle: 0.3;
+  --opacity-disabled: 0.4;
 
   /* Text */
   --color-text: var(--color-neutral-900);

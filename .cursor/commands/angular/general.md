@@ -19,4 +19,4 @@ You MUST read all of the following information and you MUST follow this HARD REQ
 - `.cursor/partials/frontend/storybook-development.md`
 - `.cursor/partials/frontend/storybook-testing.md`
 
-After you have finished your change, MAKE A DETAILED REVIEW OF YOUR CHANGE TO MAKE SURE ALL TEH REFERENCED GUIDELINES ARE FOLLOWED.
+After you have finished your change, MAKE A DETAILED REVIEW OF YOUR CHANGE TO MAKE SURE ALL THE REFERENCED GUIDELINES ARE FOLLOWED.

@@ -1,0 +1,20 @@
+<div
+  cdkMenu
+  [class]="
+    mergeClasses(
+      'w-[175px] rounded-md shadow-lg overflow-hidden',
+      'bg-application-navigation-background border border-application-navigation-border',
+      containerClass()
+    )
+  "
+>
+  <org-list>
+    @for (item of menuItems(); track item.id) {
+      <button cdkMenuItem (cdkMenuItemTriggered)="handleMenuItemClick(item)" class="w-full">
+        <org-list-item [forceClickable]="true" [preIcon]="item.icon">
+          {{ item.label }}
+        </org-list-item>
+      </button>
+    }
+  </org-list>
+</div>

@@ -86,7 +86,7 @@ export const Default: Story = {
     icon: null,
     type: 'button',
     excludeSpacing: false,
-    class: '',
+    buttonClass: '',
   },
   argTypes: {
     color: {
@@ -133,7 +133,7 @@ export const Default: Story = {
       control: 'boolean',
       description: 'Whether to exclude padding styles from the button',
     },
-    class: {
+    buttonClass: {
       control: 'text',
       description: 'Additional CSS classes',
     },
@@ -159,7 +159,7 @@ export const Default: Story = {
         [icon]="icon"
         [type]="type"
         [excludeSpacing]="excludeSpacing"
-        [class]="class"
+        [buttonClass]="buttonClass"
       >
         Click Me
       </org-button>

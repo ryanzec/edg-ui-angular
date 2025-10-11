@@ -11,19 +11,19 @@ import { Button } from '../button/button';
   template: `
     <div class="flex flex-col gap-4">
       <div class="flex flex-col gap-2">
-        <p class="text-sm"><strong>Current Page:</strong> {{ paginationStore.activePage() }}</p>
-        <p class="text-sm"><strong>Total Pages:</strong> {{ paginationStore.totalPages() }}</p>
-        <p class="text-sm"><strong>Total Items:</strong> {{ paginationStore.totalItems() }}</p>
-        <p class="text-sm"><strong>Items Per Page:</strong> {{ paginationStore.activeItemsPerPage() }}</p>
-        <p class="text-sm"><strong>Start Index:</strong> {{ paginationStore.startIndex() }}</p>
-        <p class="text-sm"><strong>End Index:</strong> {{ paginationStore.endIndex() }}</p>
-        <p class="text-sm"><strong>Has Previous:</strong> {{ paginationStore.hasPrevious() }}</p>
-        <p class="text-sm"><strong>Has Next:</strong> {{ paginationStore.hasNext() }}</p>
-        <p class="text-sm"><strong>Result Text:</strong> {{ paginationStore.resultText() }}</p>
+        <div class="text-sm"><strong>Current Page:</strong> {{ paginationStore.activePage() }}</div>
+        <div class="text-sm"><strong>Total Pages:</strong> {{ paginationStore.totalPages() }}</div>
+        <div class="text-sm"><strong>Total Items:</strong> {{ paginationStore.totalItems() }}</div>
+        <div class="text-sm"><strong>Items Per Page:</strong> {{ paginationStore.activeItemsPerPage() }}</div>
+        <div class="text-sm"><strong>Start Index:</strong> {{ paginationStore.startIndex() }}</div>
+        <div class="text-sm"><strong>End Index:</strong> {{ paginationStore.endIndex() }}</div>
+        <div class="text-sm"><strong>Has Previous:</strong> {{ paginationStore.hasPrevious() }}</div>
+        <div class="text-sm"><strong>Has Next:</strong> {{ paginationStore.hasNext() }}</div>
+        <div class="text-sm"><strong>Result Text:</strong> {{ paginationStore.resultText() }}</div>
       </div>
 
       <div class="flex flex-col gap-2">
-        <p class="text-sm font-semibold">Visible Pages:</p>
+        <div class="text-sm font-semibold">Visible Pages:</div>
         <div class="flex flex-wrap gap-1">
           @for (page of paginationStore.visiblePageItems(); track $index) {
             @if (page.type === 'page') {

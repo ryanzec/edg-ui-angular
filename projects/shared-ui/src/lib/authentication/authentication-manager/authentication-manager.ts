@@ -7,6 +7,7 @@ import { LogManager } from '../../core/log-manager/log-manager';
 import { LocalStorageManager } from '../../core/local-storage-manager/local-storage-manager';
 import { CookieService } from 'ngx-cookie-service';
 import { emailUtils } from '@organization/shared-utils';
+import { Router } from '@angular/router';
 
 type AuthenticationState = {
   user: User | null;
@@ -24,7 +25,7 @@ export class AuthenticationManager {
   private readonly _authenticationApi = inject(AuthenticationApi);
   private readonly _featureFlagStore = inject(FeatureFlagStore);
   private readonly _cookieService = inject(CookieService);
-
+  private readonly _router = inject(Router);
   // @todo tokenize this
   private readonly _sessionUserKey = 'sessionUser';
 
@@ -123,6 +124,8 @@ export class AuthenticationManager {
 
   public logout(): void {
     this._deauthenticateUser();
+
+    this._router.navigate(['/login']);
   }
 
   private _authenticateUser(user: User, launchDarklyHash: string): void {

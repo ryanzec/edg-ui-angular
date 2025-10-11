@@ -141,6 +141,9 @@ importers:
       '@types/node':
         specifier: 22.12.0
         version: 22.12.0
+      '@types/remarkable':
+        specifier: 2.0.8
+        version: 2.0.8
       '@types/spark-md5':
         specifier: 3.0.5
         version: 3.0.5
@@ -2945,6 +2948,9 @@ packages:
 
   '@types/react@19.1.14':
     resolution: {integrity: sha512-ukd93VGzaNPMAUPy0gRDSC57UuQbnH9Kussp7HBjM06YFi9uZTFhOvMSO2OKqXm1rSgzOE+pVx1k1PYHGwlc8Q==}
+
+  '@types/remarkable@2.0.8':
+    resolution: {integrity: sha512-eKXqPZfpQl1kOADjdKchHrp2gwn9qMnGXhH/AtZe0UrklzhGJkawJo/Y/D0AlWcdWoWamFNIum8+/nkAISQVGg==}
 
   '@types/retry@0.12.2':
     resolution: {integrity: sha512-XISRgDJ2Tc5q4TRqvgJtzsRkFYNJzZrhTdtMoGVBttwzzQJkPnS3WWTFc7kuDRoPtPakl+T+OfdEUjYJj7Jbow==}
@@ -11303,6 +11309,8 @@ snapshots:
   '@types/react@19.1.14':
     dependencies:
       csstype: 3.1.3
+
+  '@types/remarkable@2.0.8': {}
 
   '@types/retry@0.12.2': {}
 

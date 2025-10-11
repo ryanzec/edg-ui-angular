@@ -1,5 +1,11 @@
 <ng-template #contentTemplate>
+  @if (preIcon(); as preIcon) {
+    <org-icon [name]="preIcon" size="base" />
+  }
   <ng-content />
+  @if (postIcon(); as postIcon) {
+    <org-icon [name]="postIcon" size="base" />
+  }
 </ng-template>
 
 <li>
@@ -9,18 +15,18 @@
         [href]="href()"
         [target]="isExternalHref() ? '_blank' : '_self'"
         rel="noopener noreferrer"
-        [class]="containerCssClass()"
+        [class]="finalContainerClass()"
       >
         <ng-container [ngTemplateOutlet]="contentTemplate" />
       </a>
     }
     @case ('button') {
-      <button type="button" [class]="containerCssClass()" (click)="handleClick()">
+      <button type="button" [class]="finalContainerClass()" (click)="handleClick()">
         <ng-container [ngTemplateOutlet]="contentTemplate" />
       </button>
     }
     @default {
-      <div [class]="containerCssClass()">
+      <div [class]="finalContainerClass()">
         <ng-container [ngTemplateOutlet]="contentTemplate" />
       </div>
     }

@@ -11,7 +11,9 @@ import {
   OnDestroy,
   ViewChild,
   AfterViewInit,
+  forwardRef,
 } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Icon, type IconName } from '../icon/icon';
 import { Tag } from '../tag/tag';
@@ -43,10 +45,26 @@ export type InputState = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Icon, Tag],
   templateUrl: './input.html',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => Input),
+      multi: true,
+    },
+  ],
 })
-export class Input implements OnInit, OnDestroy, AfterViewInit {
+export class Input implements OnInit, OnDestroy, AfterViewInit, ControlValueAccessor {
   private readonly _focusMonitor = inject(FocusMonitor);
   private readonly _elementRef = inject(ElementRef<HTMLElement>);
+
+  // control value accessor callbacks
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  private _onChange: (value: string) => void = () => {};
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  private _onTouched: () => void = () => {};
+
+  // Track if component is controlled by reactive forms
+  private _isFormControlled = false;
 
   // we need the static to match sure we can bind the dom event to properly managed the focused state
   @ViewChild('inputRef', { static: true })
@@ -75,6 +93,7 @@ export class Input implements OnInit, OnDestroy, AfterViewInit {
   public showPasswordToggle = input<boolean>(false);
   public validationMessage = input<string>('');
   public containerClass = input<string>('');
+  public autocomplete = input<string>('');
 
   // needs in order to determine if the output event is being listened to
   private _preIconClicked$ = new Subject<void>();
@@ -140,6 +159,11 @@ export class Input implements OnInit, OnDestroy, AfterViewInit {
         this.blurred.emit();
       }
     });
+
+    // Sync initial value for simple binding mode
+    if (!this._isFormControlled && this.value()) {
+      this.inputRef.nativeElement.value = this.value();
+    }
   }
 
   public ngAfterViewInit(): void {
@@ -154,8 +178,14 @@ export class Input implements OnInit, OnDestroy, AfterViewInit {
 
   public handleInputChange(event: Event): void {
     const target = event.target as HTMLInputElement;
+    const value = target.value;
 
-    this.valueChange.emit(target.value);
+    this._onChange(value);
+    this.valueChange.emit(value);
+  }
+
+  public handleBlur(): void {
+    this._onTouched();
   }
 
   public handlePreIconClick(): void {
@@ -191,5 +221,27 @@ export class Input implements OnInit, OnDestroy, AfterViewInit {
 
   public focusInput(): void {
     this.inputRef.nativeElement.focus();
+  }
+
+  // control value accessor implementation
+  public writeValue(value: string): void {
+    if (this.inputRef?.nativeElement) {
+      this.inputRef.nativeElement.value = value ?? '';
+    }
+  }
+
+  public registerOnChange(fn: (value: string) => void): void {
+    this._isFormControlled = true;
+    this._onChange = fn;
+  }
+
+  public registerOnTouched(fn: () => void): void {
+    this._onTouched = fn;
+  }
+
+  public setDisabledState(_isDisabled: boolean): void {
+    // the disabled state is handled via the disabled input
+    // this method is required by ControlValueAccessor but the implementation
+    // can be empty since we're using the disabled input signal
   }
 }

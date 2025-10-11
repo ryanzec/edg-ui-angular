@@ -1,0 +1,23 @@
+<button
+  type="button"
+  [attr.data-tab-value]="value()"
+  [class]="
+    mergeClasses(
+      'inline-flex items-center justify-center px-2 py-1 min-h-[32px] cursor-pointer border-b-2 whitespace-nowrap',
+      'transition-colors duration-200',
+      'bg-transparent',
+      'focus-visible:outline-none focus-visible:bg-tabs-tab-background-hover',
+      {
+        'border-tabs-tab-border-active text-tabs-tab-text-active': isActive(),
+        'border-tabs-tab-border-default text-tabs-tab-text-default hover:bg-tabs-tab-background-hover':
+          !isActive() && !isDisabled(),
+        'opacity-tabs-tab-disabled cursor-not-allowed': isDisabled(),
+      },
+      tabClass()
+    )
+  "
+  [disabled]="isDisabled()"
+  (click)="handleClick()"
+>
+  <ng-content />
+</button>

@@ -1,0 +1,9 @@
+<div
+  [class]="
+    mergeClasses('flex flex-col h-full gap-4 p-6 bg-background min-w-[300px]', {
+      'rounded-md': hasRoundedCorners(),
+    })
+  "
+>
+  <ng-content />
+</div>

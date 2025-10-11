@@ -1,3 +1,9 @@
+You MUST always follow these additional rules
+- `.cursor/partials/frontend/angular/ckd.md`
+
+Example of patterns that MUST be used when implementing something similar
+- Overlay menu use Angular CDK `projects/shared-ui/src/lib/core/application-navigation`
+
 Angular 20 Hard Requirements:
 - We are using Angular version 20.3
 - Always prefer Angular 20 modern standards and patterns that might be more "popular" but are for older versions of Angular
@@ -19,9 +25,12 @@ Angular 20 Hard Requirements:
 - When managing state, make sure it is done in an immutable way to avoid side effects whenever possible
 - When import code, a projects should NEVER use the project alias or public api for importing, it should always path to the direct file needed in order to prevent circular depencdencies
 
-
 You MUST ALWAYS use these patterns when work on Angular 20 in general:
 - ALWAYS use `type` for types
 
 You can NEVER use these patterns when work on Angular 20 components:
 - NEVER use `interface` for types
+<!--
+No idea why AI likes doing this but it is un-needed as can cause issue in templates
+-->
+- NEVER use `as const` when define an icon name

@@ -51,7 +51,7 @@ const meta: Meta<Card> = {
   <!-- Basic card -->
   <org-card>
     <org-card-content>
-      <p>Simple card content</p>
+      <div>Simple card content</div>
     </org-card-content>
   </org-card>
 
@@ -59,7 +59,7 @@ const meta: Meta<Card> = {
   <org-card>
     <org-card-header title="Card Title" subtitle="Optional subtitle" />
     <org-card-content>
-      <p>Card content</p>
+      <div>Card content</div>
     </org-card-content>
   </org-card>
 
@@ -73,7 +73,7 @@ const meta: Meta<Card> = {
       [height]="200"
     />
     <org-card-content>
-      <p>Card with image</p>
+      <div>Card with image</div>
     </org-card-content>
   </org-card>
 
@@ -82,7 +82,7 @@ const meta: Meta<Card> = {
     <org-card-header title="Complete Card" subtitle="All sections" />
     <org-card-image src="image.jpg" alt="Description" [width]="400" [height]="200" />
     <org-card-content>
-      <p>Card content with all sections</p>
+      <div>Card content with all sections</div>
     </org-card-content>
     <org-card-footer alignment="end">
       <org-button color="secondary">Cancel</org-button>
@@ -126,7 +126,7 @@ export const Default: Story = {
         <org-card [color]="color">
           <org-card-header title="Card Title" subtitle="Optional subtitle" />
           <org-card-content>
-            <p>This is a card with header and content.</p>
+            <div>This is a card with header and content.</div>
           </org-card-content>
         </org-card>
       </div>
@@ -156,7 +156,7 @@ export const Colors: Story = {
             <org-card>
               <org-card-header title="Default Card" />
               <org-card-content>
-                <p>Card with no colored border.</p>
+                <div>Card with no colored border.</div>
               </org-card-content>
             </org-card>
           </div>
@@ -167,7 +167,7 @@ export const Colors: Story = {
             <org-card color="primary">
               <org-card-header title="Primary Card" />
               <org-card-content>
-                <p>Card with primary color border.</p>
+                <div>Card with primary color border.</div>
               </org-card-content>
             </org-card>
           </div>
@@ -178,7 +178,7 @@ export const Colors: Story = {
             <org-card color="secondary">
               <org-card-header title="Secondary Card" />
               <org-card-content>
-                <p>Card with secondary color border.</p>
+                <div>Card with secondary color border.</div>
               </org-card-content>
             </org-card>
           </div>
@@ -189,7 +189,7 @@ export const Colors: Story = {
             <org-card color="neutral">
               <org-card-header title="Neutral Card" />
               <org-card-content>
-                <p>Card with neutral color border.</p>
+                <div>Card with neutral color border.</div>
               </org-card-content>
             </org-card>
           </div>
@@ -200,7 +200,7 @@ export const Colors: Story = {
             <org-card color="safe">
               <org-card-header title="Safe Card" />
               <org-card-content>
-                <p>Card with safe (success) color border.</p>
+                <div>Card with safe (success) color border.</div>
               </org-card-content>
             </org-card>
           </div>
@@ -211,7 +211,7 @@ export const Colors: Story = {
             <org-card color="info">
               <org-card-header title="Info Card" />
               <org-card-content>
-                <p>Card with info color border.</p>
+                <div>Card with info color border.</div>
               </org-card-content>
             </org-card>
           </div>
@@ -222,7 +222,7 @@ export const Colors: Story = {
             <org-card color="caution">
               <org-card-header title="Caution Card" />
               <org-card-content>
-                <p>Card with caution color border.</p>
+                <div>Card with caution color border.</div>
               </org-card-content>
             </org-card>
           </div>
@@ -233,7 +233,7 @@ export const Colors: Story = {
             <org-card color="warning">
               <org-card-header title="Warning Card" />
               <org-card-content>
-                <p>Card with warning color border.</p>
+                <div>Card with warning color border.</div>
               </org-card-content>
             </org-card>
           </div>
@@ -244,7 +244,7 @@ export const Colors: Story = {
             <org-card color="danger">
               <org-card-header title="Danger Card" />
               <org-card-content>
-                <p>Card with danger (error) color border.</p>
+                <div>Card with danger (error) color border.</div>
               </org-card-content>
             </org-card>
           </div>
@@ -288,7 +288,7 @@ export const Compositions: Story = {
           <div class="max-w-sm">
             <org-card>
               <org-card-content>
-                <p>Minimal card with just content.</p>
+                <div>Minimal card with just content.</div>
               </org-card-content>
             </org-card>
           </div>
@@ -299,7 +299,7 @@ export const Compositions: Story = {
             <org-card>
               <org-card-header title="Card Title" subtitle="Optional subtitle" />
               <org-card-content>
-                <p>Card with header and content.</p>
+                <div>Card with header and content.</div>
               </org-card-content>
             </org-card>
           </div>
@@ -316,7 +316,7 @@ export const Compositions: Story = {
                 [height]="200"
               />
               <org-card-content>
-                <p>Card with header, image, and content.</p>
+                <div>Card with header, image, and content.</div>
               </org-card-content>
             </org-card>
           </div>
@@ -332,7 +332,7 @@ export const Compositions: Story = {
                 [height]="200"
               />
               <org-card-content>
-                <p>Card with image at top, no header.</p>
+                <div>Card with image at top, no header.</div>
               </org-card-content>
             </org-card>
           </div>
@@ -343,7 +343,7 @@ export const Compositions: Story = {
             <org-card>
               <org-card-header title="Action Card" />
               <org-card-content>
-                <p>Card with header, content, and footer actions.</p>
+                <div>Card with header, content, and footer actions.</div>
               </org-card-content>
               <org-card-footer alignment="end">
                 <org-button color="primary">Action</org-button>
@@ -363,7 +363,7 @@ export const Compositions: Story = {
                 [height]="200"
               />
               <org-card-content>
-                <p>Card with all available sections.</p>
+                <div>Card with all available sections.</div>
               </org-card-content>
               <org-card-footer alignment="end">
                 <org-button color="secondary">Cancel</org-button>
@@ -417,7 +417,7 @@ export const FooterAlignments: Story = {
             <org-card>
               <org-card-header title="Start Aligned" />
               <org-card-content>
-                <p>Footer buttons aligned to the start (left).</p>
+                <div>Footer buttons aligned to the start (left).</div>
               </org-card-content>
               <org-card-footer alignment="start">
                 <org-button color="primary">Action</org-button>
@@ -431,7 +431,7 @@ export const FooterAlignments: Story = {
             <org-card>
               <org-card-header title="Center Aligned" />
               <org-card-content>
-                <p>Footer buttons aligned to the center.</p>
+                <div>Footer buttons aligned to the center.</div>
               </org-card-content>
               <org-card-footer alignment="center">
                 <org-button color="primary">Action</org-button>
@@ -445,7 +445,7 @@ export const FooterAlignments: Story = {
             <org-card>
               <org-card-header title="End Aligned" />
               <org-card-content>
-                <p>Footer buttons aligned to the end (right).</p>
+                <div>Footer buttons aligned to the end (right).</div>
               </org-card-content>
               <org-card-footer alignment="end">
                 <org-button color="primary">Action</org-button>

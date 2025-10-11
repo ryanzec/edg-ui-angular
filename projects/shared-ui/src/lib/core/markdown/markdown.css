@@ -1,0 +1,159 @@
+@reference '../../tailwind.css';
+
+@layer components {
+  .org-markdown-container {
+    /* typography */
+    & h1 {
+      @apply text-3xl font-bold mb-[16px] mt-[24px];
+      @apply text-markdown-heading;
+    }
+
+    & h2 {
+      @apply text-2xl font-bold mb-[14px] mt-[20px];
+      @apply text-markdown-heading;
+    }
+
+    & h3 {
+      @apply text-xl font-bold mb-[12px] mt-[18px];
+      @apply text-markdown-heading;
+    }
+
+    & h4 {
+      @apply text-lg font-bold mb-[10px] mt-[16px];
+      @apply text-markdown-heading;
+    }
+
+    & h5 {
+      @apply text-base font-bold mb-[8px] mt-[14px];
+      @apply text-markdown-heading;
+    }
+
+    & h6 {
+      @apply text-sm font-bold mb-[6px] mt-[12px];
+      @apply text-markdown-heading;
+    }
+
+    & h1:first-child,
+    & h2:first-child,
+    & h3:first-child,
+    & h4:first-child,
+    & h5:first-child,
+    & h6:first-child {
+      @apply mt-0;
+    }
+
+    & p {
+      @apply mb-[16px];
+      @apply text-markdown-text;
+    }
+
+    & p:last-child {
+      @apply mb-0;
+    }
+
+    /* links */
+    & a {
+      @apply text-markdown-link;
+      @apply no-underline;
+    }
+
+    & a:hover {
+      @apply text-markdown-link-hover;
+      @apply underline;
+    }
+
+    /* emphasis */
+    & em {
+      @apply italic;
+    }
+
+    & strong {
+      @apply font-bold;
+    }
+
+    /* lists */
+    & ul {
+      @apply list-disc list-inside mb-[16px];
+      @apply text-markdown-text;
+    }
+
+    & ol {
+      @apply list-decimal list-inside mb-[16px];
+      @apply text-markdown-text;
+    }
+
+    & li {
+      @apply mb-[4px];
+    }
+
+    & ul ul,
+    & ol ol,
+    & ul ol,
+    & ol ul {
+      @apply ml-[24px] mb-[4px] mt-[4px];
+    }
+
+    /* code */
+    & code {
+      @apply py-[2px] px-[6px] rounded-sm font-mono text-sm;
+      @apply bg-markdown-code-background text-markdown-code-text;
+    }
+
+    & pre {
+      @apply mb-[16px] p-[12px] rounded-md border overflow-x-auto;
+      @apply bg-markdown-code-background border-markdown-code-border;
+    }
+
+    & pre code {
+      @apply p-0 bg-transparent border-none;
+    }
+
+    /* blockquotes */
+    & blockquote {
+      @apply mb-[16px] pl-[16px] border-l-[4px];
+      @apply border-markdown-blockquote-border bg-markdown-blockquote-background;
+      @apply py-[8px] pr-[8px];
+    }
+
+    & blockquote p:last-child {
+      @apply mb-0;
+    }
+
+    /* horizontal rule */
+    & hr {
+      @apply my-[24px] border-0 h-[2px];
+      @apply bg-markdown-hr;
+    }
+
+    /* tables */
+    & table {
+      @apply w-full mb-[16px] border-collapse;
+      @apply border border-markdown-table-border;
+    }
+
+    & th {
+      @apply px-[12px] py-[8px] text-left font-bold border;
+      @apply bg-markdown-table-header-background border-markdown-table-border;
+    }
+
+    & td {
+      @apply px-[12px] py-[8px] border;
+      @apply border-markdown-table-border;
+    }
+
+    /* task lists (github flavored) */
+    & input[type='checkbox'] {
+      @apply mr-[4px];
+    }
+
+    /* strikethrough (github flavored) */
+    & del {
+      @apply line-through;
+    }
+
+    /* images */
+    & img {
+      @apply max-w-full h-auto;
+    }
+  }
+}

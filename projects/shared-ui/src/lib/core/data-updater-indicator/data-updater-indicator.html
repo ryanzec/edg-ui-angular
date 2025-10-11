@@ -1,0 +1,13 @@
+<div class="flex items-center gap-2">
+  @if (isLoading()) {
+    <org-loading-spinner [iconColor]="indicatorColor()" [class]="containerClass()" />
+  } @else {
+    <org-indicator [color]="indicatorColor()" [containerClass]="containerClass()" />
+  }
+  <org-date-display
+    class="text-sm"
+    [date]="lastUpdatedAt()"
+    [dateFormat]="DateFormat.STANDARD"
+    [timeFormat]="TimeFormat.STANDARD"
+  />
+</div>

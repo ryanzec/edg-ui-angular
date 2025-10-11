@@ -1,0 +1,14 @@
+/* skeleton component tailwind theme variables */
+@theme {
+  /* skeleton colors */
+  --color-skeleton-gradient-start: var(--color-background-level1);
+  --color-skeleton-gradient-middle: var(--color-background-level2);
+  --color-skeleton-gradient-end: var(--color-background-level1);
+}
+
+body.dark-theme {
+  /* skeleton colors */
+  --color-skeleton-gradient-start: var(--color-background-level1);
+  --color-skeleton-gradient-middle: var(--color-background-level2);
+  --color-skeleton-gradient-end: var(--color-background-level1);
+}

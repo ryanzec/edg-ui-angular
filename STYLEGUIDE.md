@@ -471,3 +471,35 @@ When possible, we should create a minimal storybook example that can be used to 
 ## you will often need to update story titles to match our pattern for story organization
 
 ## BE DETAILED, if you add a new variant, you should say Update the existing variant story
+
+# Common ai mistake that need to be cleared up
+
+- putting styles in a .css file
+- organization storybook stories (by the title value) incorrect
+- storybook will sometimes implement functionality inline in the story that is already implemented in a service
+- storybook will sometimes implement functionality inline in the story that should be abstract into a service / component to prevent duplication of code
+- will sometimes use `setTimeout` in areas where it should not be used as it many case it can be flacky (like using `setTimeout` to run code after a `scrollIntoView` instead of doing an event binding like `(scrollend)="handleScrollEnd()"` on the scroll element)
+- while using `nativeElement` for things like calling `focus()` or in a directive for append dom elements, AI will sometimes use it for event binding which should almost always be handle through the host property of the `@Component` or `@Directive` or event binding on the element itself like `(scrollend)="handleScrollEnd()"`
+- if you have a default value, it will default at every step of the way instead of just as the end (making refactoring the default harder)
+
+AI will also just forget very obvious things (like placing a <ng-content />)
+
+# AI Usage / Tips and Tricks
+
+## Cursor
+
+While we have AI rule / guide files for the most popular AI tools, we have addition tooling for Cursor with custom commands.
+
+### Updating Storybook
+
+Lets say you made updates to the dialog component but now you want to make sure the stories are updated. There is a Cursor command of `/storybook/update` to do this so all you have to do is:
+
+```
+/storybook/update @dialog/
+```
+
+/angular/storybook/update-development @dialog/
+
+TODO:
+
+- make sure all command that need a references directory are guided to ask for one (`/storybook/update` does this)

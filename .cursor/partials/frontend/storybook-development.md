@@ -29,7 +29,13 @@ Helps keep better consistent for all stories.
   - directive stories MUST start with `Directives/*`
   - service stories MUST start with `Services/*`
 - ALWAYS combine development stories (`*.stories.ts`) into one file when a directory has multiple components
+<!--
+Make it easier to validate things are working as excepted
+-->
+- ALWAYS have a console log in event handlers that do nothing
+- ALWAYS use custom component from `projects/shared-ui/src/lib/core` instead of creating inline components
 
 You MUST NEVER use these patterns when work on development storybook stories:
 - NEVER write play / tests stories in the development stories file
 - NEVER USE constructor parameter injection
+- NEVER EVER add TSDoc to code created only for storybook, NEVER

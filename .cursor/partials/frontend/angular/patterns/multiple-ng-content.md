@@ -22,18 +22,18 @@ You MUST ALWAYS follow theese rules when you need to support multiple `<ng-conte
         [href]="href()"
         [target]="isExternalHref() ? '_blank' : '_self'"
         rel="noopener noreferrer"
-        [class]="containerCssClass()"
+        [class]="containerClass()"
       >
       <ng-container [ngTemplateOutlet]="contentTemplate" />
       </a>
     }
     @case ('button') {
-      <button type="button" [class]="containerCssClass()" (click)="handleClick()">
+      <button type="button" [class]="containerClass()" (click)="handleClick()">
         <ng-container [ngTemplateOutlet]="contentTemplate" />
       </button>
     }
     @default {
-      <div [class]="containerCssClass()">
+      <div [class]="containerClass()">
         <ng-container [ngTemplateOutlet]="contentTemplate" />
       </div>
     }

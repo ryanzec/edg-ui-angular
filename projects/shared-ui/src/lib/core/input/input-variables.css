@@ -1,0 +1,61 @@
+@theme {
+  /* Input border colors */
+  --color-input-border-default: var(--color-border);
+  --color-input-border-focused: var(--color-input-border-focused);
+  --color-input-border-error: var(--color-danger-border);
+
+  /* Input background colors */
+  --color-input-background-default: var(--color-input-background);
+  --color-input-background-disabled: var(--color-input-background);
+  --color-input-background-error: var(--color-danger-background-subtle);
+
+  /* Input ring colors */
+  --color-input-ring-focused: var(--color-input-border-focused);
+  --color-input-ring-error: var(--color-danger-border);
+
+  /* Input text colors */
+  --color-input-text: var(--color-text);
+  --color-input-text-placeholder: var(--color-text-subtle);
+  --color-input-text-disabled: var(--color-text-disabled);
+
+  /* Icon colors */
+  --color-input-icon: var(--color-text-subtle);
+  --color-input-icon-hover: var(--color-text);
+  --color-input-icon-focus: var(--color-primary-background-subtle);
+
+  /* Selection colors */
+  --color-input-selection: var(--color-primary-background-subtle);
+}
+
+/*
+ * NOTE: this must be kept is sync with the @theme block above tailwinds @theme block generated variables at
+ * compile time
+ */
+body.dark-theme {
+  /* Input border colors */
+  --color-input-border-default: var(--color-border);
+  --color-input-border-focused: var(--color-input-border-focused);
+  --color-input-border-error: var(--color-danger-border);
+
+  /* Input background colors */
+  --color-input-background-default: var(--color-input-background);
+  --color-input-background-disabled: var(--color-input-background);
+  --color-input-background-error: var(--color-danger-background-subtle);
+
+  /* Input ring colors */
+  --color-input-ring-focused: var(--color-input-border-focused);
+  --color-input-ring-error: var(--color-danger-border);
+
+  /* Input text colors */
+  --color-input-text: var(--color-text);
+  --color-input-text-placeholder: var(--color-text-subtle);
+  --color-input-text-disabled: var(--color-text-disabled);
+
+  /* Icon colors */
+  --color-input-icon: var(--color-text-subtle);
+  --color-input-icon-hover: var(--color-text);
+  --color-input-icon-focus: var(--color-primary-background-subtle);
+
+  /* Selection colors */
+  --color-input-selection: var(--color-primary-background-subtle);
+}

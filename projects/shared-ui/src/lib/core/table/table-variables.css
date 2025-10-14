@@ -1,0 +1,32 @@
+/* Table component Tailwind theme variables */
+@theme {
+  /* Container colors */
+  --color-table-background: var(--color-white);
+  --color-table-border: var(--color-border);
+
+  /* Header colors */
+  --color-table-header-background: var(--color-neutral-100);
+  --color-table-header-text: var(--color-text);
+  --color-table-header-border: var(--color-border);
+
+  /* Body colors */
+  --color-table-text: var(--color-text);
+  --color-table-row-border: var(--color-border-subtle);
+  --color-table-row-hover: var(--color-neutral-50);
+}
+
+body.dark-theme {
+  /* Container colors */
+  --color-table-background: var(--color-neutral-900);
+  --color-table-border: var(--color-border);
+
+  /* Header colors */
+  --color-table-header-background: var(--color-neutral-800);
+  --color-table-header-text: var(--color-text);
+  --color-table-header-border: var(--color-border);
+
+  /* Body colors */
+  --color-table-text: var(--color-text);
+  --color-table-row-border: var(--color-border-subtle);
+  --color-table-row-hover: var(--color-neutral-800);
+}

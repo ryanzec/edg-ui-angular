@@ -1,0 +1,39 @@
+<org-card class="login-card">
+  <org-card-header title="Sign In" subtitle="Please enter your credentials to continue" />
+  <org-card-content>
+    <form class="flex flex-col gap-1" [formGroup]="loginForm" (ngSubmit)="login()">
+      <!-- @todo(!) create component for this -->
+      <div class="w-full">
+        <!-- @todo(!) create component for this -->
+        <label for="email">Email</label>
+        <org-input
+          data-testid="email-input"
+          type="email"
+          formControlName="email"
+          placeholder="Enter your email"
+          autocomplete="email"
+          [autoFocus]="true"
+          preIcon="envelope"
+          [validationMessage]="getFieldError('email') || ''"
+        />
+      </div>
+      <div class="w-full">
+        <!-- @todo(!) create component for this -->
+        <label for="password">Password</label>
+        <org-input
+          data-testid="password-input"
+          type="password"
+          formControlName="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+          preIcon="lock-key"
+          [showPasswordToggle]="true"
+          [validationMessage]="getFieldError('password') || ''"
+        />
+      </div>
+      <org-button data-testid="submit-button" color="primary" type="submit" buttonClass="w-full"> Sign In </org-button>
+      <org-button color="primary" buttonClass="w-full"> Reset Password </org-button>
+      <org-button color="primary" buttonClass="w-full"> Single Sign-On </org-button>
+    </form>
+  </org-card-content>
+</org-card>

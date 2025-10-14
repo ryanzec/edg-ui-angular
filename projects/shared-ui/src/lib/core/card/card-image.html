@@ -1,0 +1,36 @@
+<span
+  [class]="
+    mergeClasses(
+      'overflow-hidden',
+      {
+        'first:mt-0 last:mb-0': this.fullWidth(),
+      },
+      class()
+    )
+  "
+>
+  @if (shouldUseOptimizedImage()) {
+    <img
+      [ngSrc]="src()"
+      [alt]="alt()"
+      [width]="width()!"
+      [height]="height()!"
+      [priority]="priority()"
+      [class]="
+        mergeClasses('object-cover', {
+          'w-full h-auto': fullWidth(),
+        })
+      "
+    />
+  } @else {
+    <img
+      [src]="src()"
+      [alt]="alt()"
+      [class]="
+        mergeClasses('object-cover', {
+          'w-full h-auto': fullWidth(),
+        })
+      "
+    />
+  }
+</span>

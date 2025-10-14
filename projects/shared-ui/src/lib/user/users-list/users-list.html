@@ -1,0 +1,77 @@
+<div [class]="mergeClasses('w-full', containerClass())">
+  @if (isLoading()) {
+    <div class="flex justify-center items-center w-full">
+      <org-skeleton type="table" class="w-full" />
+    </div>
+  } @else if (users().length === 0) {
+    <div class="flex justify-center items-center p-8">
+      <div>No users found</div>
+    </div>
+  } @else {
+    <org-table [data]="users()" [containerClass]="tableContainerClass()">
+      <ng-template #header>
+        <tr>
+          <th
+            class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
+          >
+            Name
+          </th>
+          <th
+            class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
+          >
+            Email
+          </th>
+          <th
+            class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
+          >
+            Roles
+          </th>
+          <th
+            class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
+          >
+            Created
+          </th>
+          <th
+            class="w-[50px] px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
+          ></th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-user>
+        <tr class="border-b border-table-row-border last:border-b-0 hover:bg-table-row-hover">
+          <td class="px-4 py-3 text-sm text-table-text">{{ user.name }}</td>
+          <td class="px-4 py-3 text-sm text-table-text">{{ user.email }}</td>
+          <td class="px-4 py-3 text-sm text-table-text">
+            <div class="flex flex-row gap-1.5">
+              @for (role of user.roles; track role) {
+                <org-tag [color]="getRoleColor(role)" variant="weak">
+                  {{ role }}
+                </org-tag>
+              }
+            </div>
+          </td>
+          <td class="px-4 py-3 text-sm text-table-text">{{ formatDate(user.createdAt) }}</td>
+          <td class="px-4 py-3 text-sm text-table-text">
+            <div class="flex justify-end">
+              <org-button
+                [cdkMenuTriggerFor]="userActionsMenu"
+                [cdkMenuPosition]="menuPosition"
+                color="neutral"
+                variant="ghost"
+                [icon]="'dots-three'"
+                size="sm"
+                aria-label="User actions"
+                data-testid="user-actions-button"
+              />
+              <ng-template #userActionsMenu>
+                <org-overlay-menu
+                  [menuItems]="getUserActionsMenuItems(user)"
+                  (menuItemClicked)="onUserActionMenuItemClick($event, user)"
+                />
+              </ng-template>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </org-table>
+  }
+</div>

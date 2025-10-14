@@ -1,0 +1,33 @@
+<label
+  orgText
+  [textSize]="textSize()"
+  [class]="mergeClasses('org-radio-container', 'inline-flex items-center gap-1 cursor-pointer', containerClass())"
+  (click)="handleClick($event)"
+  (keydown)="handleKeyDown($event)"
+  [attr.tabindex]="0"
+  role="radio"
+  [attr.aria-checked]="isChecked()"
+>
+  <input
+    #inputRef
+    type="radio"
+    [name]="name()"
+    [value]="value()"
+    [checked]="isChecked()"
+    [attr.aria-hidden]="true"
+    tabindex="-1"
+    class="sr-only"
+  />
+  <div
+    [class]="
+      mergeClasses('org-radio-icon-container', 'inline-flex items-center justify-center', {
+        'text-radio-icon': true,
+        'hover:text-radio-icon-hover': true,
+        'focus-visible:text-radio-icon-focus': true,
+      })
+    "
+  >
+    <org-icon [name]="currentIcon()" [size]="size()" />
+  </div>
+  <ng-content />
+</label>

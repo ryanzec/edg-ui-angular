@@ -1,0 +1,67 @@
+<button
+  [type]="type()"
+  [disabled]="isDisabled()"
+  [class]="
+    mergeClasses(
+      'inline-flex items-center justify-center rounded-md cursor-pointer focus:outline-none',
+      buttonClass(),
+      {
+        'px-2 py-1': !isIconOnly() && size() === 'sm' && !excludeSpacing(),
+        'px-2.5 py-0.5': !isIconOnly() && size() === 'base' && !excludeSpacing(),
+        'px-4 py-1': !isIconOnly() && size() === 'lg' && !excludeSpacing(),
+        'text-xs gap-1.5': !isIconOnly() && size() === 'sm',
+        'text-base gap-2': !isIconOnly() && size() === 'base',
+        'text-xl gap-2': !isIconOnly() && size() === 'lg',
+        'p-0.5': isIconOnly() && (size() === 'sm' || size() === 'base') && !excludeSpacing(),
+        'p-1': isIconOnly() && size() === 'lg' && !excludeSpacing(),
+        'opacity-50 cursor-not-allowed': isDisabled(),
+        'org-button-primary-filled': color() === 'primary' && variant() !== 'text',
+        'org-button-primary-ghost': color() === 'primary' && variant() === 'ghost',
+        'org-button-primary-text': color() === 'primary' && variant() === 'text',
+        'org-button-secondary-filled': color() === 'secondary' && variant() !== 'text',
+        'org-button-secondary-ghost': color() === 'secondary' && variant() === 'ghost',
+        'org-button-secondary-text': color() === 'secondary' && variant() === 'text',
+        'org-button-neutral-filled': color() === 'neutral' && variant() !== 'text',
+        'org-button-neutral-ghost': color() === 'neutral' && variant() === 'ghost',
+        'org-button-neutral-text': color() === 'neutral' && variant() === 'text',
+        'org-button-safe-filled': color() === 'safe' && variant() !== 'text',
+        'org-button-safe-ghost': color() === 'safe' && variant() === 'ghost',
+        'org-button-safe-text': color() === 'safe' && variant() === 'text',
+        'org-button-info-filled': color() === 'info' && variant() !== 'text',
+        'org-button-info-ghost': color() === 'info' && variant() === 'ghost',
+        'org-button-info-text': color() === 'info' && variant() === 'text',
+        'org-button-caution-filled': color() === 'caution' && variant() !== 'text',
+        'org-button-caution-ghost': color() === 'caution' && variant() === 'ghost',
+        'org-button-caution-text': color() === 'caution' && variant() === 'text',
+        'org-button-warning-filled': color() === 'warning' && variant() !== 'text',
+        'org-button-warning-ghost': color() === 'warning' && variant() === 'ghost',
+        'org-button-warning-text': color() === 'warning' && variant() === 'text',
+        'org-button-danger-filled': color() === 'danger' && variant() !== 'text',
+        'org-button-danger-ghost': color() === 'danger' && variant() === 'ghost',
+        'org-button-danger-text': color() === 'danger' && variant() === 'text',
+      }
+    )
+  "
+  (click)="handleClick()"
+  (mousedown)="handleMouseDown()"
+  (mouseup)="handleMouseUp()"
+  (mouseleave)="handleMouseLeave()"
+>
+  @if (preIcon() && !isIconOnly() && !isLoading()) {
+    <org-icon [name]="preIcon()!" [size]="size()" />
+  }
+
+  @if (isLoading()) {
+    <org-loading-spinner [size]="size()" />
+  }
+
+  @if (icon()) {
+    <org-icon [name]="icon()!" [size]="size()" />
+  } @else {
+    <ng-content />
+  }
+
+  @if (postIcon() && !isIconOnly() && !isLoading()) {
+    <org-icon [name]="postIcon()!" [size]="size()" />
+  }
+</button>

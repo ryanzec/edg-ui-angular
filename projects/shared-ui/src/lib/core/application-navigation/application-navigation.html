@@ -1,0 +1,54 @@
+<!-- Logo Section -->
+<div class="flex-1 flex flex-col gap-3">
+  @if (logo()) {
+    <div class="flex justify-center border-b border-application-navigation-border">
+      <img [src]="logo()" alt="Logo" class="w-auto" />
+    </div>
+  }
+
+  <!-- Navigation Items -->
+  <nav class="flex-1">
+    <org-list>
+      @for (item of navigationItems(); track item.id) {
+        <org-list-item
+          asTag="a"
+          [routerLink]="item.routePath"
+          (clicked)="handleNavigationItemClick(item)"
+          [preIcon]="item.icon"
+          [isSelected]="activeNavigationItemId() === item.id"
+        >
+          {{ item.label }}
+        </org-list-item>
+      }
+    </org-list>
+  </nav>
+
+  <!-- Settings Menu -->
+  <div class="mt-auto">
+    <org-list>
+      @if (settingsMenuItems().length > 0) {
+        <org-list-item
+          [cdkMenuTriggerFor]="settingsMenu"
+          [cdkMenuPosition]="menuPosition"
+          asTag="button"
+          preIcon="gear"
+          [forceClickable]="true"
+        >
+          Settings
+        </org-list-item>
+      }
+      <org-list-item asTag="button" (clicked)="handleLogoutClick()" preIcon="sign-out">
+        <span class="font-medium">Logout</span>
+      </org-list-item>
+    </org-list>
+    <ng-template #settingsMenu>
+      <org-overlay-menu [menuItems]="settingsMenuItems()" (menuItemClicked)="handleSettingsMenuItemClick($event)" />
+    </ng-template>
+  </div>
+</div>
+
+<!-- User Section -->
+<div class="p-2 border-t border-application-navigation-border flex flex-col gap-1">
+  <!-- @toodo dynamic -->
+  <org-avatar email="basire@gmail.com" label="Ryan Zec" subLabel="Organization Name" />
+</div>

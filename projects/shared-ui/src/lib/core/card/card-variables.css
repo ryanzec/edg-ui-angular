@@ -1,0 +1,96 @@
+/* Card component Tailwind theme variables */
+@theme {
+  /* Default card colors */
+  --color-card-border: var(--color-border);
+  --color-card-bg: var(--color-background);
+
+  /* Primary colors */
+  --color-card-primary-border: var(--color-primary-border);
+  --color-card-primary-bg: var(--color-primary-background-subtle);
+
+  /* Secondary colors */
+  --color-card-secondary-border: var(--color-secondary-border);
+  --color-card-secondary-bg: var(--color-secondary-background-subtle);
+
+  /* Neutral colors */
+  --color-card-neutral-border: var(--color-neutral-border);
+  --color-card-neutral-bg: var(--color-neutral-background-subtle);
+
+  /* Safe colors */
+  --color-card-safe-border: var(--color-safe-border);
+  --color-card-safe-bg: var(--color-safe-background-subtle);
+
+  /* Info colors */
+  --color-card-info-border: var(--color-info-border);
+  --color-card-info-bg: var(--color-info-background-subtle);
+
+  /* Caution colors */
+  --color-card-caution-border: var(--color-caution-border);
+  --color-card-caution-bg: var(--color-caution-background-subtle);
+
+  /* Warning colors */
+  --color-card-warning-border: var(--color-warning-border);
+  --color-card-warning-bg: var(--color-warning-background-subtle);
+
+  /* Danger colors */
+  --color-card-danger-border: var(--color-danger-border);
+  --color-card-danger-bg: var(--color-danger-background-subtle);
+
+  /* Text colors */
+  --color-card-title-text: var(--color-text);
+  --color-card-text: var(--color-text);
+  --color-card-subtitle-text: var(--color-text-subtle);
+
+  --spacing-card: 0.5rem;
+  --spacing-card-footer-top: 0.75rem;
+}
+
+/*
+ * NOTE: this must be kept is sync with the @theme block above tailwinds @theme block generated variables at
+ * compile time
+ */
+.dark-theme {
+  /* Default card colors */
+  --color-card-border: var(--color-border);
+  --color-card-bg: var(--color-background);
+
+  /* Primary colors */
+  --color-card-primary-border: var(--color-primary-border);
+  --color-card-primary-bg: var(--color-primary-background-subtle);
+
+  /* Secondary colors */
+  --color-card-secondary-border: var(--color-secondary-border);
+  --color-card-secondary-bg: var(--color-secondary-background-subtle);
+
+  /* Neutral colors */
+  --color-card-neutral-border: var(--color-neutral-border);
+  --color-card-neutral-bg: var(--color-neutral-background-subtle);
+
+  /* Safe colors */
+  --color-card-safe-border: var(--color-safe-border);
+  --color-card-safe-bg: var(--color-safe-background-subtle);
+
+  /* Info colors */
+  --color-card-info-border: var(--color-info-border);
+  --color-card-info-bg: var(--color-info-background-subtle);
+
+  /* Caution colors */
+  --color-card-caution-border: var(--color-caution-border);
+  --color-card-caution-bg: var(--color-caution-background-subtle);
+
+  /* Warning colors */
+  --color-card-warning-border: var(--color-warning-border);
+  --color-card-warning-bg: var(--color-warning-background-subtle);
+
+  /* Danger colors */
+  --color-card-danger-border: var(--color-danger-border);
+  --color-card-danger-bg: var(--color-danger-background-subtle);
+
+  /* Text colors */
+  --color-card-title-text: var(--color-text);
+  --color-card-text: var(--color-text);
+  --color-card-subtitle-text: var(--color-text-subtle);
+
+  --spacing-card: 0.5rem;
+  --spacing-card-footer-top: 0.75rem;
+}

@@ -1,0 +1,32 @@
+/* Markdown component Tailwind theme variables */
+@theme {
+  --color-markdown-text: var(--color-text);
+  --color-markdown-text-subtle: var(--color-text-subtle);
+  --color-markdown-heading: var(--color-text);
+  --color-markdown-link: var(--color-link);
+  --color-markdown-link-hover: var(--color-link-hover);
+  --color-markdown-code-background: var(--color-code-block-background);
+  --color-markdown-code-text: var(--color-code-block-text);
+  --color-markdown-code-border: var(--color-code-block-border);
+  --color-markdown-blockquote-border: var(--color-border);
+  --color-markdown-blockquote-background: var(--color-background-level1);
+  --color-markdown-table-border: var(--color-border);
+  --color-markdown-table-header-background: var(--color-background-level1);
+  --color-markdown-hr: var(--color-border);
+}
+
+body.dark-theme {
+  --color-markdown-text: var(--color-text);
+  --color-markdown-text-subtle: var(--color-text-subtle);
+  --color-markdown-heading: var(--color-text);
+  --color-markdown-link: var(--color-link);
+  --color-markdown-link-hover: var(--color-link-hover);
+  --color-markdown-code-background: var(--color-code-block-background);
+  --color-markdown-code-text: var(--color-code-block-text);
+  --color-markdown-code-border: var(--color-code-block-border);
+  --color-markdown-blockquote-border: var(--color-border);
+  --color-markdown-blockquote-background: var(--color-background-level1);
+  --color-markdown-table-border: var(--color-border);
+  --color-markdown-table-header-background: var(--color-background-level1);
+  --color-markdown-hr: var(--color-border);
+}

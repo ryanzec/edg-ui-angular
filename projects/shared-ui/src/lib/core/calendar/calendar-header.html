@@ -1,0 +1,55 @@
+<div
+  [class]="
+    mergeClasses('flex items-center justify-between gap-2 p-2', 'border-b border-calendar-header-border', headerClass())
+  "
+>
+  <org-button
+    icon="caret-left"
+    variant="ghost"
+    [excludeSpacing]="true"
+    (clicked)="handlePreviousClick()"
+    aria-label="Previous month"
+  />
+
+  <div class="flex items-center gap-2">
+    <select
+      (change)="handleMonthChange($event)"
+      [class]="
+        mergeClasses(
+          'px-2 py-1 rounded border',
+          'border-calendar-header-select-border bg-calendar-header-select-bg text-calendar-header-select-text',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-calendar-header-select-ring'
+        )
+      "
+      aria-label="Select month"
+    >
+      @for (month of monthOptions(); track month.value) {
+        <option [value]="month.value" [selected]="month.value === displayMonth()">{{ month.label }}</option>
+      }
+    </select>
+
+    <select
+      (change)="handleYearChange($event)"
+      [class]="
+        mergeClasses(
+          'px-2 py-1 rounded border',
+          'border-calendar-header-select-border bg-calendar-header-select-bg text-calendar-header-select-text',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-calendar-header-select-ring'
+        )
+      "
+      aria-label="Select year"
+    >
+      @for (year of yearOptions(); track year) {
+        <option [value]="year" [selected]="year === displayYear()">{{ year }}</option>
+      }
+    </select>
+  </div>
+
+  <org-button
+    icon="caret-right"
+    variant="ghost"
+    [excludeSpacing]="true"
+    (clicked)="handleNextClick()"
+    aria-label="Next month"
+  />
+</div>

@@ -1,0 +1,15 @@
+<div
+  [class]="
+    mergeClasses(
+      'px-card pb-card pt-card-footer-top flex gap-1',
+      {
+        'justify-start': this.alignment() === 'start',
+        'justify-center': this.alignment() === 'center',
+        'justify-end': this.alignment() === 'end',
+      },
+      this.class()
+    )
+  "
+>
+  <ng-content />
+</div>

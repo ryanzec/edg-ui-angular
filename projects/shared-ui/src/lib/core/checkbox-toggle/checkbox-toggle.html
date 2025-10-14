@@ -1,0 +1,110 @@
+<div class="org-checkbox-toggle inline-block w-full">
+  <label
+    orgText
+    [textSize]="textSize()"
+    [class]="
+      mergeClasses(
+        'org-checkbox-toggle-container',
+        'inline-flex items-center gap-2',
+        {
+          'cursor-pointer': !isDisabled(),
+          'opacity-50 cursor-not-allowed': isDisabled(),
+        },
+        containerClass()
+      )
+    "
+    (click)="handleClick($event)"
+    (keydown)="handleKeyDown($event)"
+    [attr.tabindex]="isDisabled() ? -1 : 0"
+    role="switch"
+    [attr.aria-checked]="isChecked()"
+    [attr.aria-disabled]="isDisabled()"
+    [attr.aria-invalid]="isInvalid()"
+    [attr.aria-describedby]="hasValidationMessage() ? 'validation-message' : null"
+  >
+    <input
+      #inputRef
+      type="checkbox"
+      [name]="name()"
+      [value]="value()"
+      [checked]="isChecked()"
+      [disabled]="isDisabled()"
+      [attr.aria-hidden]="true"
+      tabindex="-1"
+      class="absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0"
+      style="clip: rect(0, 0, 0, 0)"
+    />
+    <div
+      [class]="
+        mergeClasses(
+          'org-checkbox-toggle-track',
+          'relative inline-flex items-center rounded-full transition-colors duration-200',
+          {
+            'min-w-checkbox-toggle-track-width-small h-checkbox-toggle-track-height-small': size() === 'sm',
+            'min-w-checkbox-toggle-track-width-base h-checkbox-toggle-track-height-base': size() === 'base',
+            'min-w-checkbox-toggle-track-width-large h-checkbox-toggle-track-height-large': size() === 'lg',
+            'bg-checkbox-toggle-track-off': !isChecked() && !isDisabled(),
+            'bg-checkbox-toggle-track-on': isChecked() && !isDisabled(),
+            'hover:bg-checkbox-toggle-track-off-hover': !isChecked() && !isDisabled(),
+            'hover:bg-checkbox-toggle-track-on-hover': isChecked() && !isDisabled(),
+            'focus-visible:bg-checkbox-toggle-track-off-focus': !isChecked() && !isDisabled(),
+            'focus-visible:bg-checkbox-toggle-track-on-focus': isChecked() && !isDisabled(),
+            'bg-checkbox-toggle-track-disabled': isDisabled(),
+          }
+        )
+      "
+    >
+      <div
+        [class]="
+          mergeClasses(
+            'org-checkbox-toggle-thumb',
+            'absolute flex items-center justify-center rounded-full bg-checkbox-toggle-thumb transition-transform duration-200',
+            {
+              'w-checkbox-toggle-thumb-small h-checkbox-toggle-thumb-small': size() === 'sm',
+              'w-checkbox-toggle-thumb-base h-checkbox-toggle-thumb-base': size() === 'base',
+              'w-checkbox-toggle-thumb-large h-checkbox-toggle-thumb-large': size() === 'lg',
+              'translate-x-checkbox-toggle-thumb-offset': !isChecked(),
+              'translate-x-checkbox-toggle-thumb-checked-offset-small': isChecked() && size() === 'sm',
+              'translate-x-checkbox-toggle-thumb-checked-offset-base': isChecked() && size() === 'base',
+              'translate-x-checkbox-toggle-thumb-checked-offset-large': isChecked() && size() === 'lg',
+            }
+          )
+        "
+      >
+        @if (displayIcon()) {
+          <org-icon
+            [name]="displayIcon()!"
+            [size]="size() === 'sm' ? 'sm' : size() === 'lg' ? 'base' : 'sm'"
+            class="text-checkbox-toggle-icon"
+          />
+        } @else if (displayText()) {
+          <span
+            class="text-checkbox-toggle-icon"
+            [class]="
+              mergeClasses({
+                'text-[8px]': size() === 'sm',
+                'text-[10px]': size() === 'base',
+                'text-xs': size() === 'lg',
+              })
+            "
+            >{{ displayText() }}</span
+          >
+        }
+      </div>
+    </div>
+    <ng-content />
+  </label>
+  <div
+    id="validation-message"
+    [class]="
+      mergeClasses('text-validation-error-text text-sm mt-1.5', {
+        visible: hasValidationMessage(),
+        invisible: !hasValidationMessage(),
+      })
+    "
+    role="alert"
+    aria-live="polite"
+  >
+    {{ validationMessage() || 'No validation message' }}
+  </div>
+</div>

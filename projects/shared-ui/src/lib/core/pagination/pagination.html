@@ -1,0 +1,69 @@
+<div class="org-pagination">
+  <div [class]="mergeClasses('flex items-center gap-4', class())">
+    <!-- Result text -->
+    <div class="text-sm text-pagination-text whitespace-nowrap">
+      {{ resultText() }}
+    </div>
+
+    <!-- Navigation controls -->
+    <div class="flex items-center gap-2">
+      <!-- Previous button -->
+      <org-button
+        size="sm"
+        color="neutral"
+        icon="caret-left"
+        [disabled]="disabled() || !hasPrevious()"
+        (clicked)="previousPage()"
+      />
+
+      <!-- Page numbers -->
+      @for (page of visiblePageItems(); track page.value || 'ellipsis-' + $index) {
+        @if (page.type === 'ellipsis') {
+          <span class="px-2 py-1 text-sm text-pagination-text-ellipsis select-none">...</span>
+        } @else {
+          <org-button
+            size="sm"
+            [color]="page.isActive ? 'primary' : 'neutral'"
+            [disabled]="disabled()"
+            (clicked)="goToPage(page.value!)"
+          >
+            {{ page.value }}
+          </org-button>
+        }
+      }
+
+      <!-- Next button -->
+      <org-button
+        size="sm"
+        color="neutral"
+        icon="caret-right"
+        [disabled]="disabled() || !hasNext()"
+        (clicked)="nextPage()"
+      />
+    </div>
+
+    <!-- Items per page selector -->
+    <div class="flex items-center gap-2 text-sm whitespace-nowrap">
+      <span class="text-pagination-text">Items per page:</span>
+      <select
+        [class]="
+          mergeClasses(
+            'px-2 py-1 text-sm border rounded-md',
+            'border-pagination-select-border bg-pagination-select-background text-pagination-select-text',
+            'focus:outline-none focus:ring-2 focus:ring-pagination-select-ring-focused focus:border-pagination-select-border-focused',
+            {
+              'opacity-50 cursor-not-allowed bg-pagination-select-background-disabled': disabled(),
+              'cursor-pointer': !disabled(),
+            }
+          )
+        "
+        [disabled]="disabled()"
+        (change)="setItemsPerPage(+$any($event.target).value)"
+      >
+        @for (option of itemsPerPageOptions(); track option) {
+          <option [value]="option" [selected]="option === activeItemsPerPage()">{{ option }}</option>
+        }
+      </select>
+    </div>
+  </div>
+</div>

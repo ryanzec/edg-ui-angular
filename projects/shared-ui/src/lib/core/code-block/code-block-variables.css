@@ -1,0 +1,18 @@
+/* Code Block component Tailwind theme variables */
+@theme {
+  /* Code Block colors */
+  --color-code-block-background: var(--color-secondary-background-subtle);
+  --color-code-block-text: var(--color-text);
+  --color-code-block-border: var(--color-border);
+  --color-code-block-copy-icon: var(--color-text);
+  --color-code-block-copy-icon-hover: var(--color-text);
+}
+
+body.dark-theme {
+  /* Code Block colors */
+  --color-code-block-background: var(--color-secondary-background-subtle);
+  --color-code-block-text: var(--color-text);
+  --color-code-block-border: var(--color-border);
+  --color-code-block-copy-icon: var(--color-text);
+  --color-code-block-copy-icon-hover: var(--color-text);
+}

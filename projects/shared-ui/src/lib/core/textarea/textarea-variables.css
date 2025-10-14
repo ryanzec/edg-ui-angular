@@ -1,0 +1,57 @@
+@theme {
+  /* Textarea border colors */
+  --color-textarea-border-default: var(--color-border);
+  --color-textarea-border-focused: var(--color-input-border-focused);
+  --color-textarea-border-error: var(--color-danger-border);
+
+  /* Textarea background colors */
+  --color-textarea-background-default: var(--color-input-background);
+  --color-textarea-background-disabled: var(--color-input-background-subtle);
+  --color-textarea-background-error: var(--color-danger-background-subtle);
+
+  /* Textarea ring colors */
+  --color-textarea-ring-focused: var(--color-input-border-focused);
+  --color-textarea-ring-error: var(--color-danger-border);
+
+  /* Textarea text colors */
+  --color-textarea-text: var(--color-text);
+  --color-textarea-text-placeholder: var(--color-text-subtle);
+  --color-textarea-text-disabled: var(--color-text-disabled);
+
+  /* Icon colors */
+  --color-textarea-icon: var(--color-text-subtle);
+  --color-textarea-icon-hover: var(--color-text);
+  --color-textarea-icon-focus: var(--color-primary-background-subtle);
+
+  /* Selection colors */
+  --color-textarea-selection: var(--color-primary-background-subtle);
+}
+
+.dark-theme {
+  /* Textarea border colors */
+  --color-textarea-border-default: var(--color-border);
+  --color-textarea-border-focused: var(--color-input-border-focused);
+  --color-textarea-border-error: var(--color-danger-border);
+
+  /* Textarea background colors */
+  --color-textarea-background-default: var(--color-input-background);
+  --color-textarea-background-disabled: var(--color-input-background-subtle);
+  --color-textarea-background-error: var(--color-danger-background-subtle);
+
+  /* Textarea ring colors */
+  --color-textarea-ring-focused: var(--color-input-border-focused);
+  --color-textarea-ring-error: var(--color-danger-border);
+
+  /* Textarea text colors */
+  --color-textarea-text: var(--color-text);
+  --color-textarea-text-placeholder: var(--color-text-subtle);
+  --color-textarea-text-disabled: var(--color-text-disabled);
+
+  /* Icon colors */
+  --color-textarea-icon: var(--color-text-subtle);
+  --color-textarea-icon-hover: var(--color-text);
+  --color-textarea-icon-focus: var(--color-primary-background-subtle);
+
+  /* Selection colors */
+  --color-textarea-selection: var(--color-primary-background-subtle);
+}

@@ -1,0 +1,46 @@
+<ng-template #contentTemplate>
+  @if (preIcon(); as preIcon) {
+    <org-icon [name]="preIcon" size="base" />
+  }
+  <ng-content />
+  @if (postIcon(); as postIcon) {
+    <org-icon [name]="postIcon" size="base" />
+  }
+</ng-template>
+
+<li>
+  @switch (asTag()) {
+    @case ('a') {
+      <a
+        [routerLink]="routerLink()"
+        [href]="href()"
+        [target]="isExternalHref() ? '_blank' : '_self'"
+        rel="noopener noreferrer"
+        [class]="finalContainerClass()"
+        [attr.aria-disabled]="disabled() ? 'true' : null"
+        (click)="handleClick($event)"
+      >
+        <ng-container [ngTemplateOutlet]="contentTemplate" />
+      </a>
+    }
+    @case ('button') {
+      <!--
+      because the default disabled attribute can have issues with CDKs overlay functionality, we only set the
+      aria disabled property and handle the disabled state in the click handler itself
+      -->
+      <button
+        type="button"
+        [class]="finalContainerClass()"
+        [attr.aria-disabled]="disabled() ? 'true' : null"
+        (click)="handleClick($event)"
+      >
+        <ng-container [ngTemplateOutlet]="contentTemplate" />
+      </button>
+    }
+    @default {
+      <div [class]="finalContainerClass()">
+        <ng-container [ngTemplateOutlet]="contentTemplate" />
+      </div>
+    }
+  }
+</li>

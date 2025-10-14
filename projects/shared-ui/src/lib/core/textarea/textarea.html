@@ -1,0 +1,113 @@
+<div class="org-textarea inline-block w-full">
+  <div
+    [class]="
+      mergeClasses(
+        'relative inline-flex w-full px-1.5 py-0.5 gap-1 min-h-[70px]',
+        'focus-within:ring-1 focus-within:ring-textarea-ring-focused',
+        {
+          'border rounded-md bg-textarea-background-default border-textarea-border-default': variant() === 'bordered',
+          'focus-within:border-textarea-border-focused': variant() === 'bordered',
+          'border-textarea-border-error': variant() === 'bordered' && isInvalid() && !isFocused(),
+          'border-textarea-border-error focus-within:ring-1 focus-within:ring-textarea-ring-error':
+            variant() === 'bordered' && isInvalid() && isFocused(),
+          'bg-textarea-background-disabled border-textarea-border-default cursor-not-allowed opacity-50':
+            variant() === 'bordered' && isDisabled(),
+          'border-0 bg-textarea-background-default': variant() === 'borderless',
+          'ring-textarea-ring-error': variant() === 'borderless' && isInvalid() && !isFocused(),
+          'bg-textarea-background-disabled cursor-not-allowed opacity-50': variant() === 'borderless' && isDisabled(),
+        },
+        containerClass()
+      )
+    "
+  >
+    @for (item of inlineItems(); track item.id) {
+      <org-tag
+        color="primary"
+        variant="weak"
+        [removable]="!!(item.removable && !isDisabled() && !isReadonly())"
+        (removed)="handleInlineItemRemove(item)"
+      >
+        {{ item.label }}
+      </org-tag>
+    }
+    @if (hasPreIcon()) {
+      <button
+        type="button"
+        [class]="
+          mergeClasses(
+            'inline-flex flex-shrink-0 text-textarea-icon focus-visible:bg-textarea-icon-focus focus-visible:rounded',
+            {
+              'cursor-pointer hover:text-textarea-icon-hover': isPreIconClickable() && !isDisabled() && !isReadonly(),
+              'self-start': preIconAlignment() === 'start',
+              'self-center': preIconAlignment() === 'center',
+              'self-end': preIconAlignment() === 'end',
+            }
+          )
+        "
+        (click)="handlePreIconClick()"
+        [disabled]="isDisabled() || isReadonly()"
+        [attr.aria-label]="'Pre icon'"
+      >
+        <org-icon [name]="preIcon()!" size="base" />
+      </button>
+    }
+    <textarea
+      #textareaRef
+      [class]="
+        mergeClasses(
+          'flex-1 border-0 outline-none placeholder-textarea-text-placeholder text-base resize-none bg-transparent',
+          'selection:bg-textarea-selection',
+          {
+            'cursor-not-allowed': isDisabled(),
+            'cursor-default': isReadonly(),
+          }
+        )
+      "
+      [value]="value()"
+      [placeholder]="placeholder()"
+      [disabled]="isDisabled()"
+      [readonly]="isReadonly()"
+      [rows]="rows()"
+      [attr.aria-invalid]="isInvalid()"
+      [attr.aria-describedby]="hasValidationMessage() ? 'validation-message' : null"
+      [attr.autofocus]="autoFocus() || null"
+      (input)="handleInputChange($event)"
+      (blur)="handleBlur()"
+      (keydown)="handleKeyDown($event)"
+    ></textarea>
+    @if (hasPostIcon()) {
+      <button
+        type="button"
+        [class]="
+          mergeClasses(
+            'inline-flex flex-shrink-0 text-textarea-icon focus-visible:bg-textarea-icon-focus focus-visible:rounded',
+            {
+              'cursor-pointer hover:text-textarea-icon-hover': isPostIconClickable() && !isDisabled() && !isReadonly(),
+              'self-start': postIconAlignment() === 'start',
+              'self-center': postIconAlignment() === 'center',
+              'self-end': postIconAlignment() === 'end',
+            }
+          )
+        "
+        (click)="handlePostIconClick()"
+        [disabled]="isDisabled() || isReadonly()"
+        [attr.aria-label]="'Post icon'"
+      >
+        <org-icon [name]="postIcon()!" size="base" />
+      </button>
+    }
+  </div>
+  <div
+    id="validation-message"
+    [class]="
+      mergeClasses('text-validation-error-text text-sm mt-1.5', {
+        visible: hasValidationMessage(),
+        invisible: !hasValidationMessage(),
+      })
+    "
+    role="alert"
+    aria-live="polite"
+  >
+    {{ validationMessage() || 'No validation message' }}
+  </div>
+</div>

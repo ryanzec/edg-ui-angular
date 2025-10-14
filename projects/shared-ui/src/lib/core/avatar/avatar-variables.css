@@ -1,0 +1,10 @@
+/* Avatar component Tailwind theme variables */
+@theme {
+  --color-avatar-background: var(--color-primary-background);
+  --color-avatar-text: var(--color-text-inverse);
+}
+
+body.dark-theme {
+  --color-avatar-background: var(--color-primary-background);
+  --color-avatar-text: var(--color-text-inverse);
+}

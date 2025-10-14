@@ -1,0 +1,20 @@
+<div
+  [class]="
+    mergeClasses(
+      'border rounded-md flex flex-col gap-1 overflow-hidden',
+      'border-card-border bg-card-bg text-card-text',
+      {
+        'border-card-primary-border bg-card-primary-bg': color() === 'primary',
+        'border-card-secondary-border bg-card-secondary-bg': color() === 'secondary',
+        'border-card-neutral-border bg-card-neutral-bg': color() === 'neutral',
+        'border-card-safe-border bg-card-safe-bg': color() === 'safe',
+        'border-card-info-border bg-card-info-bg': color() === 'info',
+        'border-card-caution-border bg-card-caution-bg': color() === 'caution',
+        'border-card-warning-border bg-card-warning-bg': color() === 'warning',
+        'border-card-danger-border bg-card-danger-bg': color() === 'danger',
+      }
+    )
+  "
+>
+  <ng-content />
+</div>

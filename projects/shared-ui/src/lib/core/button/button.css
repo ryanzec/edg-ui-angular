@@ -1,0 +1,411 @@
+@reference '../../tailwind.css';
+
+@layer components {
+  /* Primary filled variant */
+  .org-button-primary-filled {
+    @apply bg-button-primary-background text-button-primary-text border border-button-primary;
+  }
+
+  .org-button-primary-filled:hover:not(:disabled) {
+    @apply bg-button-primary-hover border-button-primary-hover;
+  }
+
+  .org-button-primary-filled:focus-visible:not(:disabled) {
+    @apply bg-button-primary-focus border-button-primary-focus;
+  }
+
+  .org-button-primary-filled:active:not(:disabled) {
+    @apply bg-button-primary-active border-button-primary-active;
+  }
+
+  /* Primary ghost variant */
+  .org-button-primary-ghost {
+    @apply bg-button-ghost-primary-background text-button-ghost-primary-text border border-button-ghost-primary-border;
+  }
+
+  .org-button-primary-ghost:hover:not(:disabled) {
+    @apply text-button-ghost-primary-text-hover;
+  }
+
+  .org-button-primary-ghost:focus-visible:not(:disabled) {
+    @apply text-button-ghost-primary-text-focus;
+  }
+
+  .org-button-primary-ghost:active:not(:disabled) {
+    @apply text-button-ghost-primary-text-active;
+  }
+
+  /* Secondary filled variant */
+  .org-button-secondary-filled {
+    @apply bg-button-secondary-background text-button-secondary-text border border-button-secondary;
+  }
+
+  .org-button-secondary-filled:hover:not(:disabled) {
+    @apply bg-button-secondary-hover border-button-secondary-hover;
+  }
+
+  .org-button-secondary-filled:focus-visible:not(:disabled) {
+    @apply bg-button-secondary-focus border-button-secondary-hover;
+  }
+
+  .org-button-secondary-filled:active:not(:disabled) {
+    @apply bg-button-secondary-active border-button-secondary-hover;
+  }
+
+  /* Secondary ghost variant */
+  .org-button-secondary-ghost {
+    @apply bg-button-ghost-secondary-background text-button-ghost-secondary-text border border-button-ghost-secondary-border;
+  }
+
+  .org-button-secondary-ghost:hover:not(:disabled) {
+    @apply text-button-ghost-secondary-text-hover;
+  }
+
+  .org-button-secondary-ghost:focus-visible:not(:disabled) {
+    @apply text-button-ghost-secondary-text-focus;
+  }
+
+  .org-button-secondary-ghost:active:not(:disabled) {
+    @apply text-button-ghost-secondary-text-active;
+  }
+
+  /* Neutral filled variant */
+  .org-button-neutral-filled {
+    @apply bg-button-neutral-background text-button-neutral-text border border-button-neutral;
+  }
+
+  .org-button-neutral-filled:hover:not(:disabled) {
+    @apply bg-button-neutral-hover border-button-neutral-hover;
+  }
+
+  .org-button-neutral-filled:focus-visible:not(:disabled) {
+    @apply bg-button-neutral-focus border-button-neutral-focus;
+  }
+
+  .org-button-neutral-filled:active:not(:disabled) {
+    @apply bg-button-neutral-active border-button-neutral-active;
+  }
+
+  /* Neutral ghost variant */
+  .org-button-neutral-ghost {
+    @apply bg-button-ghost-neutral-background text-button-ghost-neutral-text border border-button-ghost-neutral-border;
+  }
+
+  .org-button-neutral-ghost:hover:not(:disabled) {
+    @apply text-button-ghost-neutral-text-hover;
+  }
+
+  .org-button-neutral-ghost:focus-visible:not(:disabled) {
+    @apply text-button-ghost-neutral-text-focus;
+  }
+
+  .org-button-neutral-ghost:active:not(:disabled) {
+    @apply text-button-ghost-neutral-text-active;
+  }
+
+  /* Safe filled variant */
+  .org-button-safe-filled {
+    @apply bg-button-safe-background text-button-safe-text border border-button-safe;
+  }
+
+  .org-button-safe-filled:hover:not(:disabled) {
+    @apply bg-button-safe-hover border-button-safe-hover;
+  }
+
+  .org-button-safe-filled:focus-visible:not(:disabled) {
+    @apply bg-button-safe-focus border-button-safe-focus;
+  }
+
+  .org-button-safe-filled:active {
+    @apply bg-button-safe-active border-button-safe-active;
+  }
+
+  /* Safe ghost variant */
+  .org-button-safe-ghost {
+    @apply bg-button-ghost-safe-background text-button-ghost-safe-text border border-button-ghost-safe-border;
+  }
+
+  .org-button-safe-ghost:hover:not(:disabled) {
+    @apply text-button-ghost-safe-text-hover;
+  }
+
+  .org-button-safe-ghost:focus-visible:not(:disabled) {
+    @apply text-button-ghost-safe-text-focus;
+  }
+
+  .org-button-safe-ghost:active:not(:disabled) {
+    @apply text-button-ghost-safe-text-active;
+  }
+
+  /* Info filled variant */
+  .org-button-info-filled {
+    @apply bg-button-info-background text-button-info-text border border-button-info;
+  }
+
+  .org-button-info-filled:hover:not(:disabled) {
+    @apply bg-button-info-hover border-button-info-hover;
+  }
+
+  .org-button-info-filled:focus-visible:not(:disabled) {
+    @apply bg-button-info-focus border-button-info-focus;
+  }
+
+  .org-button-info-filled:active:not(:disabled) {
+    @apply bg-button-info-active border-button-info-active;
+  }
+
+  /* Info ghost variant */
+  .org-button-info-ghost {
+    @apply bg-button-ghost-info-background text-button-ghost-info-text border border-button-ghost-info-border;
+  }
+
+  .org-button-info-ghost:hover:not(:disabled) {
+    @apply text-button-ghost-info-text-hover;
+  }
+
+  .org-button-info-ghost:focus-visible:not(:disabled) {
+    @apply text-button-ghost-info-text-focus;
+  }
+
+  .org-button-info-ghost:active:not(:disabled) {
+    @apply text-button-ghost-info-text-active;
+  }
+
+  /* Caution filled variant */
+  .org-button-caution-filled {
+    @apply bg-button-caution-background text-button-caution-text border border-button-caution;
+  }
+
+  .org-button-caution-filled:hover:not(:disabled) {
+    @apply bg-button-caution-hover border-button-caution-hover;
+  }
+
+  .org-button-caution-filled:focus-visible:not(:disabled) {
+    @apply bg-button-caution-focus border-button-caution-focus;
+  }
+
+  .org-button-caution-filled:active:not(:disabled) {
+    @apply bg-button-caution-active border-button-caution-active;
+  }
+
+  /* Caution ghost variant */
+  .org-button-caution-ghost {
+    @apply bg-button-ghost-caution-background text-button-ghost-caution-text border border-button-ghost-caution-border;
+  }
+
+  .org-button-caution-ghost:hover:not(:disabled) {
+    @apply text-button-ghost-caution-text-hover;
+  }
+
+  .org-button-caution-ghost:focus-visible:not(:disabled) {
+    @apply text-button-ghost-caution-text-focus;
+  }
+
+  .org-button-caution-ghost:active:not(:disabled) {
+    @apply text-button-ghost-caution-text-active;
+  }
+
+  /* Warning filled variant */
+  .org-button-warning-filled {
+    @apply bg-button-warning-background text-button-warning-text border border-button-warning;
+  }
+
+  .org-button-warning-filled:hover:not(:disabled) {
+    @apply bg-button-warning-hover border-button-warning-hover;
+  }
+
+  .org-button-warning-filled:focus-visible:not(:disabled) {
+    @apply bg-button-warning-focus border-button-warning-focus;
+  }
+
+  .org-button-warning-filled:active:not(:disabled) {
+    @apply bg-button-warning-active border-button-warning-active;
+  }
+
+  /* Warning ghost variant */
+  .org-button-warning-ghost {
+    @apply bg-button-ghost-warning-background text-button-ghost-warning-text border border-button-ghost-warning-border;
+  }
+
+  .org-button-warning-ghost:hover:not(:disabled) {
+    @apply text-button-ghost-warning-text-hover;
+  }
+
+  .org-button-warning-ghost:focus-visible:not(:disabled) {
+    @apply text-button-ghost-warning-text-focus;
+  }
+
+  .org-button-warning-ghost:active:not(:disabled) {
+    @apply text-button-ghost-warning-text-active;
+  }
+
+  /* Danger filled variant */
+  .org-button-danger-filled {
+    @apply bg-button-danger-background text-button-danger-text border border-button-danger;
+  }
+
+  .org-button-danger-filled:hover:not(:disabled) {
+    @apply bg-button-danger-hover border-button-danger-hover;
+  }
+
+  .org-button-danger-filled:focus-visible:not(:disabled) {
+    @apply bg-button-danger-focus border-button-danger-focus;
+  }
+
+  .org-button-danger-filled:active:not(:disabled) {
+    @apply bg-button-danger-active border-button-danger-active;
+  }
+
+  /* Danger ghost variant */
+  .org-button-danger-ghost {
+    @apply bg-button-ghost-danger-background text-button-ghost-danger-text border border-button-ghost-danger-border;
+  }
+
+  .org-button-danger-ghost:hover:not(:disabled) {
+    @apply text-button-ghost-danger-text-hover;
+  }
+
+  .org-button-danger-ghost:focus-visible:not(:disabled) {
+    @apply text-button-ghost-danger-text-focus;
+  }
+
+  .org-button-danger-ghost:active:not(:disabled) {
+    @apply text-button-ghost-danger-text-active;
+  }
+
+  /* Text variant - Primary */
+  .org-button-primary-text {
+    @apply bg-button-text-primary-background text-button-text-primary-text border border-button-text-primary-border;
+  }
+
+  .org-button-primary-text:hover:not(:disabled) {
+    @apply text-button-text-primary-text-hover;
+  }
+
+  .org-button-primary-text:focus-visible:not(:disabled) {
+    @apply text-button-text-primary-text-focus;
+  }
+
+  .org-button-primary-text:active:not(:disabled) {
+    @apply text-button-text-primary-text-active;
+  }
+
+  /* Text variant - Secondary */
+  .org-button-secondary-text {
+    @apply bg-button-text-secondary-background text-button-text-secondary-text border border-button-text-secondary-border;
+  }
+
+  .org-button-secondary-text:hover:not(:disabled) {
+    @apply text-button-text-secondary-text-hover;
+  }
+
+  .org-button-secondary-text:focus-visible:not(:disabled) {
+    @apply text-button-text-secondary-text-focus;
+  }
+
+  .org-button-secondary-text:active:not(:disabled) {
+    @apply text-button-text-secondary-text-active;
+  }
+
+  /* Text variant - Neutral */
+  .org-button-neutral-text {
+    @apply bg-button-text-neutral-background text-button-text-neutral-text border border-button-text-neutral-border;
+  }
+
+  .org-button-neutral-text:hover:not(:disabled) {
+    @apply text-button-text-neutral-text-hover;
+  }
+
+  .org-button-neutral-text:focus-visible:not(:disabled) {
+    @apply text-button-text-neutral-text-focus;
+  }
+
+  .org-button-neutral-text:active:not(:disabled) {
+    @apply text-button-text-neutral-text-active;
+  }
+
+  /* Text variant - Safe */
+  .org-button-safe-text {
+    @apply bg-button-text-safe-background text-button-text-safe-text border border-button-text-safe-border;
+  }
+
+  .org-button-safe-text:hover:not(:disabled) {
+    @apply text-button-text-safe-text-hover;
+  }
+
+  .org-button-safe-text:focus-visible:not(:disabled) {
+    @apply text-button-text-safe-text-focus;
+  }
+
+  .org-button-safe-text:active:not(:disabled) {
+    @apply text-button-text-safe-text-active;
+  }
+
+  /* Text variant - Info */
+  .org-button-info-text {
+    @apply bg-button-text-info-background text-button-text-info-text border border-button-text-info-border;
+  }
+
+  .org-button-info-text:hover:not(:disabled) {
+    @apply text-button-text-info-text-hover;
+  }
+
+  .org-button-info-text:focus-visible:not(:disabled) {
+    @apply text-button-text-info-text-focus;
+  }
+
+  .org-button-info-text:active:not(:disabled) {
+    @apply text-button-text-info-text-active;
+  }
+
+  /* Text variant - Caution */
+  .org-button-caution-text {
+    @apply bg-button-text-caution-background text-button-text-caution-text border border-button-text-caution-border;
+  }
+
+  .org-button-caution-text:hover:not(:disabled) {
+    @apply text-button-text-caution-text-hover;
+  }
+
+  .org-button-caution-text:focus-visible:not(:disabled) {
+    @apply text-button-text-caution-text-focus;
+  }
+
+  .org-button-caution-text:active:not(:disabled) {
+    @apply text-button-text-caution-text-active;
+  }
+
+  /* Text variant - Warning */
+  .org-button-warning-text {
+    @apply bg-button-text-warning-background text-button-text-warning-text border border-button-text-warning-border;
+  }
+
+  .org-button-warning-text:hover:not(:disabled) {
+    @apply text-button-text-warning-text-hover;
+  }
+
+  .org-button-warning-text:focus-visible:not(:disabled) {
+    @apply text-button-text-warning-text-focus;
+  }
+
+  .org-button-warning-text:active:not(:disabled) {
+    @apply text-button-text-warning-text-active;
+  }
+
+  /* Text variant - Danger */
+  .org-button-danger-text {
+    @apply bg-button-text-danger-background text-button-text-danger-text border border-button-text-danger-border;
+  }
+
+  .org-button-danger-text:hover:not(:disabled) {
+    @apply text-button-text-danger-text-hover;
+  }
+
+  .org-button-danger-text:focus-visible:not(:disabled) {
+    @apply text-button-text-danger-text-focus;
+  }
+
+  .org-button-danger-text:active:not(:disabled) {
+    @apply text-button-text-danger-text-active;
+  }
+}

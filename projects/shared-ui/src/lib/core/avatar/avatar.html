@@ -1,0 +1,46 @@
+<button [class]="mergeClasses('org-avatar flex items-center text-left gap-2')" (click)="handleMouseClick($event)">
+  <div
+    [class]="
+      mergeClasses(
+        'org-avatar-circle flex items-center justify-center rounded-full overflow-hidden text-avatar-text bg-avatar-background',
+        {
+          'w-[24px] h-[24px] text-xs': size() === 'sm',
+          'w-[32px] h-[32px] text-sm': size() === 'base',
+          'w-[48px] h-[48px] text-base': size() === 'lg',
+        },
+        circleClass()
+      )
+    "
+  >
+    @if (shouldShowImage()) {
+      <img [src]="imageSrc()" [alt]="label() || ''" class="w-full h-full object-cover" (error)="handleImageError()" />
+    } @else if (initials()) {
+      <span class="font-medium">{{ initials() }}</span>
+    }
+  </div>
+
+  @if (showLabel() && (label() || subLabel())) {
+    <div class="flex flex-col">
+      @if (label()) {
+        <span
+          [class]="
+            mergeClasses('font-medium text-text', {
+              'text-sm': size() === 'sm',
+            })
+          "
+          >{{ label() }}</span
+        >
+      }
+      @if (subLabel()) {
+        <span
+          [class]="
+            mergeClasses('text-sm text-secondary', {
+              'text-xs': size() === 'sm',
+            })
+          "
+          >{{ subLabel() }}</span
+        >
+      }
+    </div>
+  }
+</button>

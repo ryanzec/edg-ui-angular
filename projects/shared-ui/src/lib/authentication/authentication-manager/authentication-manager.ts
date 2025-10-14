@@ -1,0 +1,163 @@
+import { Injectable, signal, computed, inject } from '@angular/core';
+import { AuthenticationApi } from '../authentication-api/authentication-api';
+import { AuthenticationAuthenticateRequest, ErrorMessage, User } from '@organization/shared-types';
+import { catchError, of, tap, map, Observable, delay } from 'rxjs';
+import { FeatureFlagStore } from '../../core/feature-flag-store/feature-flag-store';
+import { LogManager } from '../../core/log-manager/log-manager';
+import { LocalStorageManager } from '../../core/local-storage-manager/local-storage-manager';
+import { CookieService } from 'ngx-cookie-service';
+import { emailUtils } from '@organization/shared-utils';
+import { Router } from '@angular/router';
+
+type AuthenticationState = {
+  user: User | null;
+  isLoading: boolean;
+  error: string | null;
+  hasInitialized: boolean;
+};
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthenticationManager {
+  private readonly _logManager = inject(LogManager);
+  private readonly _localStorageManager = inject(LocalStorageManager);
+  private readonly _authenticationApi = inject(AuthenticationApi);
+  private readonly _featureFlagStore = inject(FeatureFlagStore);
+  private readonly _cookieService = inject(CookieService);
+  private readonly _router = inject(Router);
+  // @todo tokenize this
+  private readonly _sessionUserKey = 'sessionUser';
+
+  private readonly _state = signal<AuthenticationState>({
+    isLoading: false,
+    hasInitialized: false,
+    user: null,
+    error: null,
+  });
+
+  public readonly user = computed(() => this._state().user);
+  public readonly isLoading = computed(() => this._state().isLoading);
+  public readonly error = computed(() => this._state().error);
+  public readonly isAuthenticated = computed(() => !!this._state().user);
+  public readonly hasInitialized = computed(() => this._state().hasInitialized);
+
+  public check(): void {
+    this.checkAsync().subscribe();
+  }
+
+  public checkAsync(): Observable<boolean> {
+    const user = this._localStorageManager.get<User>(this._sessionUserKey);
+
+    if (!user) {
+      // if the user is not locally stored we assume this is not previous logged in session so no error messaged nedded
+      this._deauthenticateUser();
+
+      return of(false);
+    }
+
+    this._state.update((state) => ({ ...state, isLoading: true, error: null }));
+
+    return this._authenticationApi.check().pipe(
+      delay(2000),
+      map((response) => {
+        const { data } = response ?? {};
+
+        if (data?.status !== 'ok') {
+          this._logManager.error({
+            type: 'authentication-check-error',
+            message: 'authentication check responded with a success but not ok status',
+            response,
+          });
+
+          // @todo refactor this
+          throw new Error(ErrorMessage.UNKNOWN);
+        }
+
+        this._authenticateUser(user, data.launchDarklyHash);
+
+        return true;
+      }),
+      catchError((error) => {
+        this._logManager.error({
+          type: 'authentication-check-error',
+          message: 'authentication check failed',
+          error,
+        });
+
+        this._deauthenticateUser(error.message || ErrorMessage.UNKNOWN);
+
+        return of(false);
+      })
+    );
+  }
+
+  public authenticate(request: AuthenticationAuthenticateRequest): void {
+    this._state.update((state) => ({ ...state, isLoading: true, error: null }));
+
+    this._authenticationApi
+      .authenticate(request)
+      .pipe(
+        tap((response) => {
+          const { data } = response ?? {};
+
+          if (!data?.user) {
+            this._logManager.error({
+              type: 'authentication-authenticate-error',
+              message: 'authentication authenticate responded with a success but no user',
+              error: response,
+            });
+
+            throw new Error(ErrorMessage.UNKNOWN);
+          }
+
+          this._authenticateUser(data.user, data.launchDarklyHash);
+        }),
+        catchError((error) => {
+          this._deauthenticateUser(error.message || ErrorMessage.UNKNOWN);
+
+          return of(null);
+        })
+      )
+      .subscribe();
+  }
+
+  public logout(): void {
+    this._deauthenticateUser();
+
+    this._router.navigate(['/login']);
+  }
+
+  private _authenticateUser(user: User, launchDarklyHash: string): void {
+    const launchDarklyContext = {
+      kind: 'multi',
+      user: {
+        key: user.id,
+        emailDomain: emailUtils.getDomain(user.email),
+      },
+      organization: {
+        key: user.organizationId,
+      },
+    };
+
+    this._localStorageManager.set<User>(this._sessionUserKey, user);
+    // @todo tokenize this
+    this._featureFlagStore.initialize('688bca950d275b098948a2d0', launchDarklyContext, launchDarklyHash);
+    this._state.update((state) => ({ ...state, user, isLoading: false, hasInitialized: true, error: null }));
+  }
+
+  private _deauthenticateUser(error?: string): void {
+    this._state.update((state) => ({
+      ...state,
+      isLoading: false,
+      hasInitialized: true,
+      user: null,
+      error: error || null,
+    }));
+    this._localStorageManager.remove(this._sessionUserKey);
+    // @todo tokenize this
+    // @todo(research) can't seem to delete the cookie but it does not really need to be deleted anyways so leave it
+    // @todo(research) for later
+    // this._cookieService.delete('jwt');
+  }
+}

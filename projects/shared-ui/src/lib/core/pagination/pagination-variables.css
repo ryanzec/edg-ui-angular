@@ -1,0 +1,31 @@
+@theme {
+  /* Pagination text colors */
+  --color-pagination-text: var(--color-text-subtle);
+  --color-pagination-text-ellipsis: var(--color-text-subtle);
+
+  /* Select dropdown colors */
+  --color-pagination-select-background: var(--color-input-background);
+  --color-pagination-select-border: var(--color-border);
+  --color-pagination-select-border-focused: var(--color-input-border-focused);
+  --color-pagination-select-ring-focused: var(--color-input-border-focused);
+  --color-pagination-select-text: var(--color-text);
+  --color-pagination-select-background-disabled: var(--color-secondary-background-subtle);
+}
+
+/*
+ * NOTE: this must be kept is sync with the @theme block above tailwinds @theme block generated variables at
+ * compile time
+ */
+body.dark-theme {
+  /* Pagination text colors */
+  --color-pagination-text: var(--color-text-subtle);
+  --color-pagination-text-ellipsis: var(--color-text-subtle);
+
+  /* Select dropdown colors */
+  --color-pagination-select-background: var(--color-input-background);
+  --color-pagination-select-border: var(--color-border);
+  --color-pagination-select-border-focused: var(--color-input-border-focused);
+  --color-pagination-select-ring-focused: var(--color-input-border-focused);
+  --color-pagination-select-text: var(--color-text);
+  --color-pagination-select-background-disabled: var(--color-secondary-background-subtle);
+}

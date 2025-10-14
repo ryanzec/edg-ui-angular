@@ -1,0 +1,14 @@
+/* Radio component Tailwind theme variables */
+@theme {
+  /* Default (light mode) colors */
+  --color-radio-icon: var(--color-neutral-700);
+  --color-radio-icon-hover: var(--color-primary-background);
+  --color-radio-icon-focus: var(--color-primary-background);
+}
+
+body.dark-theme {
+  /* Dark mode colors */
+  --color-radio-icon: var(--color-neutral-300);
+  --color-radio-icon-hover: var(--color-primary-background);
+  --color-radio-icon-focus: var(--color-primary-background);
+}

@@ -1,0 +1,37 @@
+@theme {
+  /* tabs border colors */
+  --color-tabs-border-default: var(--color-border);
+
+  /* tab border colors */
+  --color-tabs-tab-border-default: var(--color-border);
+  --color-tabs-tab-border-active: var(--color-border-bold);
+
+  /* tab text colors */
+  --color-tabs-tab-text-default: var(--color-text-subtle);
+  --color-tabs-tab-text-active: var(--color-text);
+
+  /* tab background colors */
+  --color-tabs-tab-background-hover: var(--color-background-hover);
+
+  /* tab opacity */
+  --opacity-tabs-tab-disabled: var(--opacity-disabled);
+}
+
+.dark-theme {
+  /* tabs border colors */
+  --color-tabs-border-default: var(--color-border);
+
+  /* tab border colors */
+  --color-tabs-tab-border-default: var(--color-border);
+  --color-tabs-tab-border-active: var(--color-border-bold);
+
+  /* tab text colors */
+  --color-tabs-tab-text-default: var(--color-text-subtle);
+  --color-tabs-tab-text-active: var(--color-text);
+
+  /* tab background colors */
+  --color-tabs-tab-background-hover: var(--color-background-hover);
+
+  /* tab opacity */
+  --opacity-tabs-tab-disabled: var(--opacity-disabled);
+}

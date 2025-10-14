@@ -1,0 +1,86 @@
+@import 'tailwindcss';
+
+@source '../../../**/*.{html,js,jsx,ts,tsx}';
+
+@theme {
+  --animate-spin: spin 1s linear infinite;
+
+  /* angular material colors */
+  --color-primary: var(--mat-sys-primary);
+  --color-on-primary: var(--mat-sys-on-primary);
+  --color-primary-container: var(--mat-sys-primary-container);
+  --color-on-primary-container: var(--mat-sys-on-primary-container);
+
+  --color-secondary: var(--mat-sys-secondary);
+  --color-on-secondary: var(--mat-sys-on-secondary);
+  --color-secondary-container: var(--mat-sys-secondary-container);
+  --color-on-secondary-container: var(--mat-sys-on-secondary-container);
+
+  --color-tertiary: var(--mat-sys-tertiary);
+  --color-on-tertiary: var(--mat-sys-on-tertiary);
+  --color-tertiary-container: var(--mat-sys-tertiary-container);
+  --color-on-tertiary-container: var(--mat-sys-on-tertiary-container);
+
+  --color-error: var(--mat-sys-error);
+  --color-on-error: var(--mat-sys-on-error);
+  --color-error-container: var(--mat-sys-error-container);
+  --color-on-error-container: var(--mat-sys-on-error-container);
+
+  --color-surface: var(--mat-sys-surface);
+  --color-on-surface: var(--mat-sys-on-surface);
+  --color-surface-variant: var(--mat-sys-surface-variant);
+  --color-on-surface-variant: var(--mat-sys-on-surface-variant);
+  --color-surface-dim: var(--mat-sys-surface-dim);
+  --color-surface-bright: var(--mat-sys-surface-bright);
+  --color-surface-container: var(--mat-sys-surface-container);
+  --color-surface-container-low: var(--mat-sys-surface-container-low);
+  --color-surface-container-lowest: var(--mat-sys-surface-container-lowest);
+  --color-surface-container-high: var(--mat-sys-surface-container-high);
+  --color-surface-container-highest: var(--mat-sys-surface-container-highest);
+
+  --color-background: var(--mat-sys-surface);
+  --color-on-background: var(--mat-sys-on-surface);
+
+  --color-outline: var(--mat-sys-outline);
+  --color-outline-variant: var(--mat-sys-outline-variant);
+
+  --color-shadow: var(--mat-sys-shadow);
+  --color-scrim: var(--mat-sys-scrim);
+  --color-inverse-surface: var(--mat-sys-inverse-surface);
+  --color-inverse-on-surface: var(--mat-sys-inverse-on-surface);
+  --color-inverse-primary: var(--mat-sys-inverse-primary);
+
+  /* common default to have */
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* font size overrides */
+  --text-xs: 0.625rem; /* 10px */
+  --text-sm: 0.75rem; /* 12px */
+  --text-base: 0.875rem; /* 14px */
+
+  /* line height configurations */
+  --leading-xs: 0.875rem; /* 14px - 1.4x font size */
+  --leading-sm: 1rem; /* 16px - 1.33x font size */
+  --leading: 1.25rem; /* 20px - 1.43x font size */
+}
+
+html {
+  /* including tailwind causes a weird issue so this resolved */
+  .mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field
+    .mdc-notched-outline__notch {
+    border-right: 0;
+  }
+}
+
+@import './variables.css';
+
+body {
+  @apply bg-[#f8f8f8] text-[#000000] scheme-light;
+  @apply scheme-light;
+}
+
+body.dark-theme {
+  @apply bg-[#121212] text-[#ffffff];
+  @apply scheme-dark;
+}

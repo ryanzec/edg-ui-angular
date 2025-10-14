@@ -1,0 +1,116 @@
+<div class="org-input inline-block w-full">
+  <div
+    [class]="
+      mergeClasses(
+        'relative inline-flex items-center flex-wrap w-full px-1.5 py-0.5 gap-1 min-h-[30px]',
+        'focus-within:ring-1 focus-within:ring-input-ring-focused',
+        {
+          'border rounded-md bg-input-background-default border-input-border-default': variant() === 'bordered',
+          'focus-within:border-input-border-focused': variant() === 'bordered',
+          'border-input-border-error': variant() === 'bordered' && isInvalid() && !isFocused(),
+          'border-input-border-error focus-within:ring-1 focus-within:ring-input-ring-error':
+            variant() === 'bordered' && isInvalid() && isFocused(),
+          'bg-input-background-disabled border-input-border-default cursor-not-allowed opacity-50':
+            variant() === 'bordered' && isDisabled(),
+          'border-0 bg-input-background-default': variant() === 'borderless',
+          'ring-input-ring-error': variant() === 'borderless' && isInvalid() && !isFocused(),
+          'bg-input-background-disabled cursor-not-allowed opacity-50': variant() === 'borderless' && isDisabled(),
+        },
+        containerClass()
+      )
+    "
+  >
+    @for (item of inlineItems(); track item.id) {
+      <org-tag
+        color="primary"
+        variant="weak"
+        [removable]="!!(item.removable && !isDisabled() && !isReadonly())"
+        (removed)="handleInlineItemRemove(item)"
+      >
+        {{ item.label }}
+      </org-tag>
+    }
+    @if (hasPreIcon()) {
+      <button
+        type="button"
+        [class]="
+          mergeClasses(
+            'inline-flex flex-shrink-0 text-input-icon focus-visible:bg-input-icon-focus focus-visible:rounded',
+            {
+              'cursor-pointer hover:text-input-icon-hover': isPreIconClickable() && !isDisabled(),
+            }
+          )
+        "
+        (click)="handlePreIconClick($event)"
+        [disabled]="isDisabled()"
+        [attr.aria-label]="'Pre icon'"
+        [tabindex]="isPreIconClickable() === false || isDisabled() ? -1 : 0"
+      >
+        <org-icon [name]="preIcon()!" size="base" />
+      </button>
+    }
+    <input
+      #inputRef
+      [class]="
+        mergeClasses(
+          'flex-1 bg-transparent border-0 outline-none placeholder-input-text-placeholder text-base',
+          'selection:bg-input-selection',
+          {
+            'cursor-not-allowed': isDisabled(),
+            'cursor-default': isReadonly(),
+          }
+        )
+      "
+      [type]="currentInputType()"
+      [value]="value()"
+      [placeholder]="placeholder()"
+      [disabled]="isDisabled()"
+      [readonly]="isReadonly()"
+      [attr.aria-invalid]="isInvalid()"
+      [attr.aria-describedby]="hasValidationMessage() ? 'validation-message' : null"
+      [attr.autofocus]="autoFocus() || null"
+      [attr.autocomplete]="autocomplete() || null"
+      (input)="handleInputChange($event)"
+      (blur)="handleBlur()"
+    />
+    @if (hasPostIcon()) {
+      <button
+        type="button"
+        [class]="
+          mergeClasses(
+            'inline-flex flex-shrink-0 text-input-icon focus-visible:bg-input-icon-focus focus-visible:rounded',
+            {
+              'cursor-pointer hover:text-input-icon-hover':
+                (showPasswordToggle() || isPostIconClickable()) && !isDisabled(),
+            }
+          )
+        "
+        (click)="handlePostIconClick($event)"
+        [disabled]="isDisabled()"
+        [attr.aria-label]="
+          showPasswordToggle() && type() === 'password'
+            ? showPassword()
+              ? 'Hide password'
+              : 'Show password'
+            : 'Post icon'
+        "
+        [tabindex]="(showPasswordToggle() === false && isPostIconClickable()) === false || isDisabled() ? -1 : 0"
+      >
+        <org-icon [name]="currentPostIcon()!" size="base" />
+      </button>
+    }
+  </div>
+  <div
+    id="validation-message"
+    [class]="
+      mergeClasses('text-validation-error-text text-sm mt-1.5', {
+        visible: hasValidationMessage(),
+        invisible: !hasValidationMessage(),
+      })
+    "
+    role="alert"
+    aria-live="polite"
+  >
+    {{ validationMessage() || 'No validation message' }}
+  </div>
+</div>

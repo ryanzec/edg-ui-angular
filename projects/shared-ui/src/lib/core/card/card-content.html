@@ -1,0 +1,10 @@
+<div
+  [class]="
+    mergeClasses(
+      'px-card text-card-text leading-relaxed first:pt-card [&:not(:has(~org-card-footer))]:pb-card',
+      class()
+    )
+  "
+>
+  <ng-content />
+</div>

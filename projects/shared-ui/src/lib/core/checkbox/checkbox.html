@@ -1,0 +1,66 @@
+<div class="org-checkbox inline-flex w-full">
+  <label
+    orgText
+    [textSize]="textSize()"
+    [class]="
+      mergeClasses(
+        'org-checkbox-container',
+        'inline-flex items-center gap-1',
+        {
+          'cursor-pointer': !isDisabled(),
+          'opacity-50 cursor-not-allowed': isDisabled(),
+        },
+        containerClass()
+      )
+    "
+    (click)="handleClick($event)"
+    (keydown)="handleKeyDown($event)"
+    [attr.tabindex]="isDisabled() ? -1 : 0"
+    role="checkbox"
+    [attr.aria-checked]="isIndeterminate() ? 'mixed' : isChecked()"
+    [attr.aria-disabled]="isDisabled()"
+    [attr.aria-invalid]="isInvalid()"
+    [attr.aria-describedby]="hasValidationMessage() ? 'validation-message' : null"
+  >
+    <input
+      #inputRef
+      type="checkbox"
+      [name]="name()"
+      [value]="value()"
+      [checked]="isChecked()"
+      [disabled]="isDisabled()"
+      [indeterminate]="isIndeterminate()"
+      [attr.aria-hidden]="true"
+      tabindex="-1"
+      class="sr-only"
+    />
+    <div
+      [class]="
+        mergeClasses('org-checkbox-icon-container', 'inline-flex items-center justify-center', {
+          'text-checkbox-icon': !isDisabled(),
+          'text-checkbox-icon-disabled': isDisabled(),
+          'hover:text-checkbox-icon-hover': !isDisabled(),
+          'focus-visible:text-checkbox-icon-focus': !isDisabled(),
+        })
+      "
+    >
+      <org-icon [name]="currentIcon()" [size]="size()" />
+    </div>
+    <ng-content />
+  </label>
+  @if (useValidation()) {
+    <div
+      id="validation-message"
+      [class]="
+        mergeClasses('text-validation-error-text text-sm mt-1.5', {
+          visible: hasValidationMessage(),
+          invisible: !hasValidationMessage(),
+        })
+      "
+      role="alert"
+      aria-live="polite"
+    >
+      {{ validationMessage() || 'No validation message' }}
+    </div>
+  }
+</div>

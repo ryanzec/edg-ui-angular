@@ -1,0 +1,8 @@
+/* global-notifications component Tailwind theme variables */
+@theme {
+  /* uses card component variables, no custom colors needed */
+}
+
+body.dark-theme {
+  /* uses card component variables, no custom colors needed */
+}

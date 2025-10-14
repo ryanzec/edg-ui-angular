@@ -1,0 +1,18 @@
+<i
+  [class]="
+    mergeClasses('inline-flex', weight() === 'regular' ? 'ph' : 'ph-' + weight(), 'ph-' + name(), {
+      'text-sm': size() === 'sm',
+      'text-lg': size() === 'base',
+      'text-xl': size() === 'lg',
+      'text-primary-text': color() === 'primary',
+      'text-secondary-text': color() === 'secondary',
+      'text-neutral-text': color() === 'neutral',
+      'text-safe-text': color() === 'safe',
+      'text-info-text': color() === 'info',
+      'text-caution-text': color() === 'caution',
+      'text-warning-text': color() === 'warning',
+      'text-danger-text': color() === 'danger',
+    })
+  "
+  aria-hidden="true"
+></i>

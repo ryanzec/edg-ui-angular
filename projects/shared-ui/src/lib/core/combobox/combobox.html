@@ -1,0 +1,103 @@
+<div [class]="mergeClasses('relative w-full', containerClass())">
+  <!-- Input with overlay origin -->
+  <div cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+    <org-input
+      #inputComponent
+      [placeholder]="placeholder()"
+      [value]="currentInputValue()"
+      [disabled]="isDisabled()"
+      [inlineItems]="inlineItems()"
+      [validationMessage]="validationMessage()"
+      postIcon="caret-down"
+      (valueChange)="handleInputValueChange($event)"
+      (focused)="handleInputFocus()"
+      (blurred)="handleInputBlur()"
+      (inlineItemRemoved)="handleInlineItemRemove($event)"
+      (keydown)="handleKeyDown($event)"
+      (click)="handleInputClick()"
+    />
+  </div>
+
+  <!-- Options overlay -->
+  <ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="trigger"
+    [cdkConnectedOverlayOpen]="isOpened()"
+    [cdkConnectedOverlayPositions]="overlayPositions"
+    [cdkConnectedOverlayHasBackdrop]="false"
+    [cdkConnectedOverlayPanelClass]="'org-combobox-overlay'"
+  >
+    <div
+      #optionsContainer
+      orgScrollArea
+      [scrollAreaEnabled]="isScrollNeeded()"
+      [scrollAreaDirection]="'vertical'"
+      [class]="
+        mergeClasses(
+          'combobox-options-menu',
+          'border border-combobox-menu-border rounded-md shadow-md max-w-[600px]',
+          'focus:outline-none',
+          'bg-list-item-background',
+          {
+            'max-h-[400px]': hasFilteredOptions(),
+          }
+        )
+      "
+      [attr.role]="'listbox'"
+      [attr.aria-label]="'Options'"
+    >
+      @if (hasFilteredOptions()) {
+        @if (!isGroupingEnabled()) {
+          <!-- Ungrouped options -->
+          <org-list>
+            @for (option of filteredOptions(); track option.value) {
+              <org-list-item
+                asTag="button"
+                [isSelected]="focusedOption()?.value === option.value"
+                [attr.data-option-value]="option.value"
+                (mousedown)="handleOptionMouseDown($event, option)"
+                (mouseenter)="handleOptionMouseEnter($event, option)"
+                (mouseleave)="handleOptionMouseLeave($event, option)"
+                [disabled]="option.disabled"
+              >
+                {{ option.label }}
+              </org-list-item>
+            }
+          </org-list>
+        } @else {
+          <!-- Grouped options -->
+          <div>
+            @for (group of filteredGroupedOptions(); track group.groupLabel) {
+              <div class="py-1">
+                <div class="px-2.5 py-1 text-sm text-combobox-group-header bg-combobox-group-header-background">
+                  {{ group.groupLabel }}
+                </div>
+                <org-list>
+                  @for (option of group.options; track option.value) {
+                    <org-list-item
+                      asTag="button"
+                      [isSelected]="focusedOption()?.value === option.value"
+                      [attr.data-option-value]="option.value"
+                      [attr.aria-disabled]="option.disabled"
+                      (mousedown)="handleOptionMouseDown($event, option)"
+                      (mouseenter)="handleOptionMouseEnter($event, option)"
+                      (mouseleave)="handleOptionMouseLeave($event, option)"
+                      [forceClickable]="option.disabled === false"
+                    >
+                      {{ option.label }}
+                    </org-list-item>
+                  }
+                </org-list>
+              </div>
+            }
+          </div>
+        }
+      } @else {
+        <!-- No options message -->
+        <org-list>
+          <org-list-item> No options available </org-list-item>
+        </org-list>
+      }
+    </div>
+  </ng-template>
+</div>

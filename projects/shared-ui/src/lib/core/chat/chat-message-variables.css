@@ -1,0 +1,32 @@
+/* Chat message component Tailwind theme variables */
+@theme {
+  /* User message colors */
+  --color-chat-message-user-background: var(--color-background-level2);
+  --color-chat-message-user-text: var(--color-text);
+
+  /* AI message colors */
+  --color-chat-message-ai-background: var(--color-background-level2);
+  --color-chat-message-ai-text: var(--color-text);
+
+  /* System message colors */
+  --color-chat-message-system-text: var(--color-text);
+
+  /* Metadata colors */
+  --color-chat-message-metadata-text: var(--color-text-subtle);
+}
+
+body.dark-theme {
+  /* User message colors */
+  --color-chat-message-user-background: var(--color-background-level2);
+  --color-chat-message-user-text: var(--color-text);
+
+  /* AI message colors */
+  --color-chat-message-ai-background: var(--color-background-level2);
+  --color-chat-message-ai-text: var(--color-text);
+
+  /* System message colors */
+  --color-chat-message-system-text: var(--color-text);
+
+  /* Metadata colors */
+  --color-chat-message-metadata-text: var(--color-text-subtle);
+}

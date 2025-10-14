@@ -1,0 +1,30 @@
+/* Combobox component Tailwind theme variables */
+@theme {
+  /* Menu colors */
+  --color-combobox-menu-background: var(--color-input-background);
+  --color-combobox-menu-border: var(--color-border);
+
+  /* Group header colors */
+  --color-combobox-group-header: var(--color-text-subtle);
+  --color-combobox-group-header-background: var(--color-neutral-background-subtle);
+
+  /* Empty state text */
+  --color-combobox-empty-text: var(--color-text-subtle);
+}
+
+/*
+ * NOTE: this must be kept is sync with the @theme block above tailwinds @theme block generated variables at
+ * compile time
+ */
+body.dark-theme {
+  /* Menu colors */
+  --color-combobox-menu-background: var(--color-input-background);
+  --color-combobox-menu-border: var(--color-border);
+
+  /* Group header colors */
+  --color-combobox-group-header: var(--color-text-subtle);
+  --color-combobox-group-header-background: var(--color-neutral-background-subtle);
+
+  /* Empty state text */
+  --color-combobox-empty-text: var(--color-text-subtle);
+}

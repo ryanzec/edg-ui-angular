@@ -1,0 +1,49 @@
+<div [class]="mergeClasses('p-2', datesClass())">
+  <!-- day of week labels -->
+  <div class="grid grid-cols-7 gap-1 mb-2">
+    @for (label of dayLabels(); track $index) {
+      <div class="flex items-center justify-center text-sm font-bold text-calendar-dates-day-label h-[32px]">
+        {{ label }}
+      </div>
+    }
+  </div>
+
+  <!-- calendar dates grid -->
+  <div class="grid grid-cols-7 gap-1">
+    @for (week of calendarDates(); track $index) {
+      @for (dateData of week; track dateData.date.toISO()) {
+        <button
+          type="button"
+          (click)="handleDateClick(dateData)"
+          (mouseenter)="handleDateHover(dateData)"
+          [disabled]="dateData.isDisabled"
+          [attr.aria-label]="dateData.date.toFormat('MMMM d, yyyy')"
+          [attr.aria-selected]="dateData.isSelected"
+          [attr.aria-disabled]="dateData.isDisabled"
+          [class]="
+            mergeClasses(
+              'flex items-center justify-center rounded h-[32px] w-[32px] text-sm',
+              'transition-colors duration-200',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-calendar-dates-cell-ring',
+              {
+                'opacity-[var(--opacity-subtle)]': !dateData.isCurrentMonth && !dateData.isDisabled,
+                'opacity-[var(--opacity-disabled)] cursor-not-allowed': dateData.isDisabled,
+                'bg-calendar-dates-cell-selected-bg text-calendar-dates-cell-selected-text':
+                  dateData.isSelected && !dateData.isDisabled,
+                'bg-calendar-dates-cell-in-range-bg text-calendar-dates-cell-in-range-text':
+                  dateData.isInRange && !dateData.isDisabled && !dateData.isSelected,
+                'bg-calendar-dates-cell-bg text-calendar-dates-cell-text':
+                  !dateData.isSelected && !dateData.isInRange && !dateData.isDisabled,
+                'hover:bg-calendar-dates-cell-hover-bg':
+                  !dateData.isDisabled && !dateData.isSelected && !dateData.isInRange,
+                'ring-2 ring-calendar-dates-cell-focused-ring': dateData.isFocused,
+              }
+            )
+          "
+        >
+          {{ getDay(dateData) }}
+        </button>
+      }
+    }
+  </div>
+</div>

@@ -1,0 +1,8 @@
+/* empty indicator component tailwind theme variables */
+@theme {
+  --color-empty-indicator-border: var(--color-border);
+}
+
+body.dark-theme {
+  --color-empty-indicator-border: var(--color-border);
+}

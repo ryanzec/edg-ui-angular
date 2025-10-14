@@ -1,0 +1,45 @@
+<div [class]="mergeClasses('relative w-full', containerClass())" (keydown)="handleKeyDown($event)" tabindex="-1">
+  <div cdkOverlayOrigin #trigger="cdkOverlayOrigin">
+    <org-input
+      #inputComponent
+      [value]="displayValue()"
+      [placeholder]="placeholder()"
+      [autoFocus]="autoFocus()"
+      [validationMessage]="validationMessage()"
+      [disabled]="isDisabled()"
+      [readonly]="true"
+      preIcon="calendar"
+      postIcon="caret-down"
+      (postIconClicked)="handlePostIconClick()"
+      (click)="handleInputClick()"
+      (keydown)="handleInputKeyDown($event)"
+    />
+  </div>
+
+  <ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="trigger"
+    [cdkConnectedOverlayOpen]="isOverlayOpen()"
+    [cdkConnectedOverlayPositions]="overlayPositions"
+    [cdkConnectedOverlayHasBackdrop]="true"
+    [cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'"
+    [cdkConnectedOverlayPanelClass]="'org-date-picker-input-overlay'"
+    (backdropClick)="handleBackdropClick()"
+    (attach)="handleOverlayAttach()"
+    (detach)="handleOverlayDetach()"
+  >
+    <org-calendar
+      #calendarComponent
+      [defaultDisplayDate]="defaultDisplayDate()"
+      [startYear]="startYear()"
+      [endYear]="endYear()"
+      [selectedStartDate]="currentSelectedStartDate()"
+      [selectedEndDate]="currentSelectedEndDate()"
+      [allowRangeSelection]="allowRangeSelection()"
+      [disableBefore]="disableBefore()"
+      [disableAfter]="disableAfter()"
+      [allowedDateRange]="allowedDateRange()"
+      (dateSelected)="handleDateSelected($event)"
+    />
+  </ng-template>
+</div>

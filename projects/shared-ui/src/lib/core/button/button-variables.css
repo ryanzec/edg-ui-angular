@@ -1,0 +1,360 @@
+/* Button component Tailwind theme variables */
+@theme {
+  /* Primary colors */
+  --color-button-primary: var(--color-primary-background);
+  --color-button-primary-background: var(--color-primary-background);
+  --color-button-primary-text: var(--color-text-inverse);
+  --color-button-primary-hover: var(--color-primary-background-hover);
+  --color-button-primary-focus: var(--color-primary-background-hover);
+  --color-button-primary-active: var(--color-primary-background-pressed);
+
+  /* Secondary colors */
+  --color-button-secondary: var(--color-border);
+  --color-button-secondary-background: var(--color-secondary-background);
+  --color-button-secondary-text: var(--color-text-inverse);
+  --color-button-secondary-hover: var(--color-secondary-background-hover);
+  --color-button-secondary-focus: var(--color-secondary-background-hover);
+  --color-button-secondary-active: var(--color-secondary-background-pressed);
+
+  /* Neutral colors */
+  --color-button-neutral: var(--color-neutral-background);
+  --color-button-neutral-background: var(--color-neutral-background);
+  --color-button-neutral-text: var(--color-text-inverse);
+  --color-button-neutral-hover: var(--color-neutral-background-hover);
+  --color-button-neutral-focus: var(--color-neutral-background-hover);
+  --color-button-neutral-active: var(--color-neutral-background-pressed);
+
+  /* Safe colors */
+  --color-button-safe: var(--color-safe-background);
+  --color-button-safe-background: var(--color-safe-background);
+  --color-button-safe-text: var(--color-text-inverse);
+  --color-button-safe-hover: var(--color-safe-background-hover);
+  --color-button-safe-focus: var(--color-safe-background-hover);
+  --color-button-safe-active: var(--color-safe-background-pressed);
+
+  /* Info colors */
+  --color-button-info: var(--color-info-background);
+  --color-button-info-background: var(--color-info-background);
+  --color-button-info-text: var(--color-text-inverse);
+  --color-button-info-hover: var(--color-info-background-hover);
+  --color-button-info-focus: var(--color-info-background-hover);
+  --color-button-info-active: var(--color-info-background-pressed);
+
+  /* Caution colors */
+  --color-button-caution: var(--color-caution-background);
+  --color-button-caution-background: var(--color-caution-background);
+  --color-button-caution-text: var(--color-text-inverse);
+  --color-button-caution-hover: var(--color-caution-background-hover);
+  --color-button-caution-focus: var(--color-caution-background-hover);
+  --color-button-caution-active: var(--color-caution-background-pressed);
+
+  /* Warning colors */
+  --color-button-warning: var(--color-warning-background);
+  --color-button-warning-background: var(--color-warning-background);
+  --color-button-warning-text: var(--color-text-inverse);
+  --color-button-warning-hover: var(--color-warning-background-hover);
+  --color-button-warning-focus: var(--color-warning-background-hover);
+  --color-button-warning-active: var(--color-warning-background-pressed);
+
+  /* Danger colors */
+  --color-button-danger: var(--color-danger-background);
+  --color-button-danger-background: var(--color-danger-background);
+  --color-button-danger-text: var(--color-text-inverse);
+  --color-button-danger-hover: var(--color-danger-background-hover);
+  --color-button-danger-focus: var(--color-danger-background-hover);
+  --color-button-danger-active: var(--color-danger-background-pressed);
+
+  /* Ghost variant colors - transparent backgrounds in default state */
+  --color-button-ghost-primary-background: transparent;
+  --color-button-ghost-primary-border: transparent;
+  --color-button-ghost-primary-text: var(--color-primary-background);
+  --color-button-ghost-primary-text-hover: var(--color-text-inverse);
+  --color-button-ghost-primary-text-focus: var(--color-text-inverse);
+  --color-button-ghost-primary-text-active: var(--color-text-inverse);
+
+  --color-button-ghost-secondary-background: transparent;
+  --color-button-ghost-secondary-border: transparent;
+  --color-button-ghost-secondary-text: var(--color-text);
+  --color-button-ghost-secondary-text-hover: var(--color-text-inverse);
+  --color-button-ghost-secondary-text-focus: var(--color-text-inverse);
+  --color-button-ghost-secondary-text-active: var(--color-text-inverse);
+
+  --color-button-ghost-neutral-background: transparent;
+  --color-button-ghost-neutral-border: transparent;
+  --color-button-ghost-neutral-text: var(--color-neutral-background);
+  --color-button-ghost-neutral-text-hover: var(--color-text-inverse);
+  --color-button-ghost-neutral-text-focus: var(--color-text-inverse);
+  --color-button-ghost-neutral-text-active: var(--color-text-inverse);
+
+  --color-button-ghost-safe-background: transparent;
+  --color-button-ghost-safe-border: transparent;
+  --color-button-ghost-safe-text: var(--color-safe-background);
+  --color-button-ghost-safe-text-hover: var(--color-text-inverse);
+  --color-button-ghost-safe-text-focus: var(--color-text-inverse);
+  --color-button-ghost-safe-text-active: var(--color-text-inverse);
+
+  --color-button-ghost-info-background: transparent;
+  --color-button-ghost-info-border: transparent;
+  --color-button-ghost-info-text: var(--color-info-background);
+  --color-button-ghost-info-text-hover: var(--color-text-inverse);
+  --color-button-ghost-info-text-focus: var(--color-text-inverse);
+  --color-button-ghost-info-text-active: var(--color-text-inverse);
+
+  --color-button-ghost-caution-background: transparent;
+  --color-button-ghost-caution-border: transparent;
+  --color-button-ghost-caution-text: var(--color-caution-background);
+  --color-button-ghost-caution-text-hover: var(--color-text-inverse);
+  --color-button-ghost-caution-text-focus: var(--color-text-inverse);
+  --color-button-ghost-caution-text-active: var(--color-text-inverse);
+
+  --color-button-ghost-warning-background: transparent;
+  --color-button-ghost-warning-border: transparent;
+  --color-button-ghost-warning-text: var(--color-warning-background);
+  --color-button-ghost-warning-text-hover: var(--color-text-inverse);
+  --color-button-ghost-warning-text-focus: var(--color-text-inverse);
+  --color-button-ghost-warning-text-active: var(--color-text-inverse);
+
+  --color-button-ghost-danger-background: transparent;
+  --color-button-ghost-danger-border: transparent;
+  --color-button-ghost-danger-text: var(--color-danger-background);
+  --color-button-ghost-danger-text-hover: var(--color-text-inverse);
+  --color-button-ghost-danger-text-focus: var(--color-text-inverse);
+  --color-button-ghost-danger-text-active: var(--color-text-inverse);
+
+  /* Text variant colors - transparent backgrounds in all states */
+  --color-button-text-primary-background: transparent;
+  --color-button-text-primary-border: transparent;
+  --color-button-text-primary-text: var(--color-primary-text);
+  --color-button-text-primary-text-hover: var(--color-primary-text-bold);
+  --color-button-text-primary-text-focus: var(--color-primary-text-bold);
+  --color-button-text-primary-text-active: var(--color-primary-text-bold);
+
+  --color-button-text-secondary-background: transparent;
+  --color-button-text-secondary-border: transparent;
+  --color-button-text-secondary-text: var(--color-secondary-text);
+  --color-button-text-secondary-text-hover: var(--color-secondary-text-bold);
+  --color-button-text-secondary-text-focus: var(--color-secondary-text-bold);
+  --color-button-text-secondary-text-active: var(--color-secondary-text-bold);
+
+  --color-button-text-neutral-background: transparent;
+  --color-button-text-neutral-border: transparent;
+  --color-button-text-neutral-text: var(--color-neutral-text);
+  --color-button-text-neutral-text-hover: var(--color-neutral-text-bold);
+  --color-button-text-neutral-text-focus: var(--color-neutral-text-bold);
+  --color-button-text-neutral-text-active: var(--color-neutral-text-bold);
+
+  --color-button-text-safe-background: transparent;
+  --color-button-text-safe-border: transparent;
+  --color-button-text-safe-text: var(--color-safe-text);
+  --color-button-text-safe-text-hover: var(--color-safe-text-bold);
+  --color-button-text-safe-text-focus: var(--color-safe-text-bold);
+  --color-button-text-safe-text-active: var(--color-safe-text-bold);
+
+  --color-button-text-info-background: transparent;
+  --color-button-text-info-border: transparent;
+  --color-button-text-info-text: var(--color-info-text);
+  --color-button-text-info-text-hover: var(--color-info-text-bold);
+  --color-button-text-info-text-focus: var(--color-info-text-bold);
+  --color-button-text-info-text-active: var(--color-info-text-bold);
+
+  --color-button-text-caution-background: transparent;
+  --color-button-text-caution-border: transparent;
+  --color-button-text-caution-text: var(--color-caution-text);
+  --color-button-text-caution-text-hover: var(--color-caution-text-bold);
+  --color-button-text-caution-text-focus: var(--color-caution-text-bold);
+  --color-button-text-caution-text-active: var(--color-caution-text-bold);
+
+  --color-button-text-warning-background: transparent;
+  --color-button-text-warning-border: transparent;
+  --color-button-text-warning-text: var(--color-warning-text);
+  --color-button-text-warning-text-hover: var(--color-warning-text-bold);
+  --color-button-text-warning-text-focus: var(--color-warning-text-bold);
+  --color-button-text-warning-text-active: var(--color-warning-text-bold);
+
+  --color-button-text-danger-background: transparent;
+  --color-button-text-danger-border: transparent;
+  --color-button-text-danger-text: var(--color-danger-text);
+  --color-button-text-danger-text-hover: var(--color-danger-text-bold);
+  --color-button-text-danger-text-focus: var(--color-danger-text-bold);
+  --color-button-text-danger-text-active: var(--color-danger-text-bold);
+}
+
+body.dark-theme {
+  /* Primary colors */
+  --color-button-primary: var(--color-primary-background);
+  --color-button-primary-background: var(--color-primary-background);
+  --color-button-primary-text: var(--color-text);
+  --color-button-primary-hover: var(--color-primary-background-hover);
+  --color-button-primary-focus: var(--color-primary-background-hover);
+  --color-button-primary-active: var(--color-primary-background-pressed);
+
+  /* Secondary colors */
+  --color-button-secondary: var(--color-border);
+  --color-button-secondary-background: var(--color-secondary-background);
+  --color-button-secondary-text: var(--color-text);
+  --color-button-secondary-hover: var(--color-secondary-background-hover);
+  --color-button-secondary-focus: var(--color-secondary-background-hover);
+  --color-button-secondary-active: var(--color-secondary-background-pressed);
+
+  /* Neutral colors */
+  --color-button-neutral: var(--color-neutral-background);
+  --color-button-neutral-background: var(--color-neutral-background);
+  --color-button-neutral-text: var(--color-text);
+  --color-button-neutral-hover: var(--color-neutral-background-hover);
+  --color-button-neutral-focus: var(--color-neutral-background-hover);
+  --color-button-neutral-active: var(--color-neutral-background-pressed);
+
+  /* Safe colors */
+  --color-button-safe: var(--color-safe-background);
+  --color-button-safe-background: var(--color-safe-background);
+  --color-button-safe-text: var(--color-text);
+  --color-button-safe-hover: var(--color-safe-background-hover);
+  --color-button-safe-focus: var(--color-safe-background-hover);
+  --color-button-safe-active: var(--color-safe-background-pressed);
+
+  /* Info colors */
+  --color-button-info: var(--color-info-background);
+  --color-button-info-background: var(--color-info-background);
+  --color-button-info-text: var(--color-text);
+  --color-button-info-hover: var(--color-info-background-hover);
+  --color-button-info-focus: var(--color-info-background-hover);
+  --color-button-info-active: var(--color-info-background-pressed);
+
+  /* Caution colors */
+  --color-button-caution: var(--color-caution-background);
+  --color-button-caution-background: var(--color-caution-background);
+  --color-button-caution-text: var(--color-text);
+  --color-button-caution-hover: var(--color-caution-background-hover);
+  --color-button-caution-focus: var(--color-caution-background-hover);
+  --color-button-caution-active: var(--color-caution-background-pressed);
+
+  /* Warning colors */
+  --color-button-warning: var(--color-warning-background);
+  --color-button-warning-background: var(--color-warning-background);
+  --color-button-warning-text: var(--color-text);
+  --color-button-warning-hover: var(--color-warning-background-hover);
+  --color-button-warning-focus: var(--color-warning-background-hover);
+  --color-button-warning-active: var(--color-warning-background-pressed);
+
+  /* Danger colors */
+  --color-button-danger: var(--color-danger-background);
+  --color-button-danger-background: var(--color-danger-background);
+  --color-button-danger-text: var(--color-text);
+  --color-button-danger-hover: var(--color-danger-background-hover);
+  --color-button-danger-focus: var(--color-danger-background-hover);
+  --color-button-danger-active: var(--color-danger-background-pressed);
+
+  /* Ghost variant colors - transparent backgrounds in default state */
+  --color-button-ghost-primary-background: transparent;
+  --color-button-ghost-primary-border: transparent;
+  --color-button-ghost-primary-text: var(--color-primary-background);
+  --color-button-ghost-primary-text-hover: var(--color-text);
+  --color-button-ghost-primary-text-focus: var(--color-text);
+  --color-button-ghost-primary-text-active: var(--color-text);
+
+  --color-button-ghost-secondary-background: transparent;
+  --color-button-ghost-secondary-border: transparent;
+  --color-button-ghost-secondary-text: var(--color-text);
+  --color-button-ghost-secondary-text-hover: var(--color-text);
+  --color-button-ghost-secondary-text-focus: var(--color-text);
+  --color-button-ghost-secondary-text-active: var(--color-text);
+
+  --color-button-ghost-neutral-background: transparent;
+  --color-button-ghost-neutral-border: transparent;
+  --color-button-ghost-neutral-text: var(--color-neutral-text);
+  --color-button-ghost-neutral-text-hover: var(--color-text);
+  --color-button-ghost-neutral-text-focus: var(--color-text);
+  --color-button-ghost-neutral-text-active: var(--color-text);
+
+  --color-button-ghost-safe-background: transparent;
+  --color-button-ghost-safe-border: transparent;
+  --color-button-ghost-safe-text: var(--color-safe-background);
+  --color-button-ghost-safe-text-hover: var(--color-text);
+  --color-button-ghost-safe-text-focus: var(--color-text);
+  --color-button-ghost-safe-text-active: var(--color-text);
+
+  --color-button-ghost-info-background: transparent;
+  --color-button-ghost-info-border: transparent;
+  --color-button-ghost-info-text: var(--color-info-background);
+  --color-button-ghost-info-text-hover: var(--color-text);
+  --color-button-ghost-info-text-focus: var(--color-text);
+  --color-button-ghost-info-text-active: var(--color-text);
+
+  --color-button-ghost-caution-background: transparent;
+  --color-button-ghost-caution-border: transparent;
+  --color-button-ghost-caution-text: var(--color-caution-background);
+  --color-button-ghost-caution-text-hover: var(--color-text);
+  --color-button-ghost-caution-text-focus: var(--color-text);
+  --color-button-ghost-caution-text-active: var(--color-text);
+
+  --color-button-ghost-warning-background: transparent;
+  --color-button-ghost-warning-border: transparent;
+  --color-button-ghost-warning-text: var(--color-warning-background);
+  --color-button-ghost-warning-text-hover: var(--color-text);
+  --color-button-ghost-warning-text-focus: var(--color-text);
+  --color-button-ghost-warning-text-active: var(--color-text);
+
+  --color-button-ghost-danger-background: transparent;
+  --color-button-ghost-danger-border: transparent;
+  --color-button-ghost-danger-text: var(--color-danger-background);
+  --color-button-ghost-danger-text-hover: var(--color-text);
+  --color-button-ghost-danger-text-focus: var(--color-text);
+  --color-button-ghost-danger-text-active: var(--color-text);
+
+  /* Text variant colors - transparent backgrounds in all states */
+  --color-button-text-primary-background: transparent;
+  --color-button-text-primary-border: transparent;
+  --color-button-text-primary-text: var(--color-primary-text);
+  --color-button-text-primary-text-hover: var(--color-primary-text-bold);
+  --color-button-text-primary-text-focus: var(--color-primary-text-bold);
+  --color-button-text-primary-text-active: var(--color-primary-text-bold);
+
+  --color-button-text-secondary-background: transparent;
+  --color-button-text-secondary-border: transparent;
+  --color-button-text-secondary-text: var(--color-secondary-text);
+  --color-button-text-secondary-text-hover: var(--color-secondary-text-bold);
+  --color-button-text-secondary-text-focus: var(--color-secondary-text-bold);
+  --color-button-text-secondary-text-active: var(--color-secondary-text-bold);
+
+  --color-button-text-neutral-background: transparent;
+  --color-button-text-neutral-border: transparent;
+  --color-button-text-neutral-text: var(--color-neutral-text);
+  --color-button-text-neutral-text-hover: var(--color-neutral-text-bold);
+  --color-button-text-neutral-text-focus: var(--color-neutral-text-bold);
+  --color-button-text-neutral-text-active: var(--color-neutral-text-bold);
+
+  --color-button-text-safe-background: transparent;
+  --color-button-text-safe-border: transparent;
+  --color-button-text-safe-text: var(--color-safe-text);
+  --color-button-text-safe-text-hover: var(--color-safe-text-bold);
+  --color-button-text-safe-text-focus: var(--color-safe-text-bold);
+  --color-button-text-safe-text-active: var(--color-safe-text-bold);
+
+  --color-button-text-info-background: transparent;
+  --color-button-text-info-border: transparent;
+  --color-button-text-info-text: var(--color-info-text);
+  --color-button-text-info-text-hover: var(--color-info-text-bold);
+  --color-button-text-info-text-focus: var(--color-info-text-bold);
+  --color-button-text-info-text-active: var(--color-info-text-bold);
+
+  --color-button-text-caution-background: transparent;
+  --color-button-text-caution-border: transparent;
+  --color-button-text-caution-text: var(--color-caution-text);
+  --color-button-text-caution-text-hover: var(--color-caution-text-bold);
+  --color-button-text-caution-text-focus: var(--color-caution-text-bold);
+  --color-button-text-caution-text-active: var(--color-caution-text-bold);
+
+  --color-button-text-warning-background: transparent;
+  --color-button-text-warning-border: transparent;
+  --color-button-text-warning-text: var(--color-warning-text);
+  --color-button-text-warning-text-hover: var(--color-warning-text-bold);
+  --color-button-text-warning-text-focus: var(--color-warning-text-bold);
+  --color-button-text-warning-text-active: var(--color-warning-text-bold);
+
+  --color-button-text-danger-background: transparent;
+  --color-button-text-danger-border: transparent;
+  --color-button-text-danger-text: var(--color-danger-text);
+  --color-button-text-danger-text-hover: var(--color-danger-text-bold);
+  --color-button-text-danger-text-focus: var(--color-danger-text-bold);
+  --color-button-text-danger-text-active: var(--color-danger-text-bold);
+}

@@ -1,0 +1,10 @@
+{
+  // this is because we use tailwind which has a number @ calls specific to it
+  "css.lint.unknownAtRules": "ignore",
+  "tailwindCSS.classAttributes": [
+    "class",
+    "className",
+    "ngClass",
+    ".*Class"
+  ]
+}

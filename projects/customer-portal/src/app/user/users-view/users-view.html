@@ -1,0 +1,16 @@
+<div class="p-6">
+  <h1>Users</h1>
+
+  @if (error()) {
+    <div>
+      <div>ERROR:{{ error() }}</div>
+    </div>
+  }
+  <org-users-list
+    [users]="users()"
+    [isLoading]="loading()"
+    (userEdit)="onUserEdit($event)"
+    (userDelete)="onUserDelete($event)"
+  >
+  </org-users-list>
+</div>

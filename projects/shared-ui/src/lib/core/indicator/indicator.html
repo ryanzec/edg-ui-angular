@@ -1,0 +1,24 @@
+<div
+  [class]="
+    mergeClasses(
+      'org-indicator inline-flex items-center justify-center rounded-full text-text-inverse',
+      containerClass(),
+      {
+        'min-w-[14px] min-h-[14px]': !hasNumber(),
+        'min-w-[24px] min-h-[24px] px-1.5 py-0.5 text-xs font-medium leading-none': hasNumber(),
+        'bg-indicator-primary': color() === 'primary',
+        'bg-indicator-secondary': color() === 'secondary',
+        'bg-indicator-neutral': color() === 'neutral',
+        'bg-indicator-safe': color() === 'safe',
+        'bg-indicator-info': color() === 'info',
+        'bg-indicator-caution': color() === 'caution',
+        'bg-indicator-warning': color() === 'warning',
+        'bg-indicator-danger': color() === 'danger',
+      }
+    )
+  "
+>
+  @if (hasNumber()) {
+    <span>{{ displayValue() }}</span>
+  }
+</div>

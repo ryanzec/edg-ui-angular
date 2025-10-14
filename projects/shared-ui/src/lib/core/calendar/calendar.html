@@ -1,0 +1,34 @@
+<div
+  #calendarContainer
+  [class]="
+    mergeClasses(
+      'border rounded-md w-[266px]',
+      'border-calendar-border bg-calendar-bg focus:outline-none',
+      containerClass()
+    )
+  "
+  (keydown)="handleKeyDown($event)"
+  tabindex="0"
+  role="application"
+  aria-label="Calendar"
+>
+  <org-calendar-header
+    [displayYear]="displayYear()"
+    [displayMonth]="displayMonth()"
+    [yearOptions]="yearOptions()"
+    [monthOptions]="monthOptions()"
+    (yearChanged)="handleYearChange($event)"
+    (monthChanged)="handleMonthChange($event)"
+    (previousMonth)="handlePreviousMonth()"
+    (nextMonth)="handleNextMonth()"
+  />
+
+  <org-calendar-dates
+    [calendarDates]="calendarDates()"
+    [dayLabels]="dayLabels"
+    (dateClick)="handleDateClick($event)"
+    (dateHover)="handleDateHover($event)"
+  />
+
+  <ng-content select="org-calendar-footer" />
+</div>

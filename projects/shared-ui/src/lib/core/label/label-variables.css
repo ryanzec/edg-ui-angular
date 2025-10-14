@@ -1,0 +1,9 @@
+@theme {
+  /* label text colors */
+  --color-label-text: var(--color-text);
+}
+
+body.dark-theme {
+  /* label text colors */
+  --color-label-text: var(--color-text);
+}

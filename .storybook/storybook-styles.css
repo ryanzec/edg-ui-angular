@@ -1,0 +1,68 @@
+@reference '../projects/shared-ui/src/lib/tailwind.css';
+
+/**
+ * Not sure of a better way to get the storybook generated docs to play well with our dark mode
+ */
+.sbdocs.sbdocs-wrapper {
+  @apply bg-background text-on-background;
+
+  .sbdocs-title,
+  .docblock-argstable-head,
+  .docblock-argstable-head th,
+  .docblock-code-toggle,
+  .docblock-argstable-body,
+  .docblock-argstable-body > tr > td,
+  .docblock-argstable-body > tr > td span,
+  .docblock-argstable-body > tr > td button,
+  .docblock-argstable-body > tr > td select,
+  .docblock-argstable-body > tr > td textarea,
+  .sbdocs-preview,
+  .sbdocs-content h2,
+  .sbdocs-content .sb-anchor > h3,
+  .sbdocs-content .sb-anchor > p,
+  .sb-bar,
+  .docs-story > *,
+  .docs-top-level-overview > *,
+  .docs-top-level-overview > * li,
+  .docs-top-level-overview > * .prismjs,
+  .docs-top-level-overview > * code {
+    @apply text-text! bg-background! border-border!;
+  }
+
+  .docs-top-level-overview .css-1dnv2kn * .token.operator {
+    @apply text-text!;
+  }
+
+  .docs-top-level-overview .css-1dnv2kn * .token.attr-name,
+  .docs-top-level-overview .css-1dnv2kn * .token.tag,
+  .docs-top-level-overview .css-1dnv2kn * .token.string {
+    @apply text-danger-text!;
+  }
+
+  .docs-top-level-overview .css-1dnv2kn * .token.punctuation {
+    @apply text-text!;
+  }
+
+  .docs-top-level-overview .css-1dnv2kn * .token.comment,
+  .docs-top-level-overview .css-1dnv2kn * .token.builtin,
+  .docs-top-level-overview .css-1dnv2kn * .token.class-name {
+    @apply text-safe-text!;
+  }
+
+  .docs-top-level-overview .css-1dnv2kn * .token.function,
+  .docs-top-level-overview .css-1dnv2kn * .token.keyword {
+    @apply text-info-text!;
+  }
+
+  .docblock-argstable-body input:checked ~ span:last-of-type,
+  .docblock-argstable-body input:not(:checked) ~ span:first-of-type {
+    @apply bg-gray-300;
+  }
+}
+
+.dark-theme .sbdocs.sbdocs-wrapper {
+  .docblock-argstable-body input:checked ~ span:last-of-type,
+  .docblock-argstable-body input:not(:checked) ~ span:first-of-type {
+    @apply bg-gray-600;
+  }
+}

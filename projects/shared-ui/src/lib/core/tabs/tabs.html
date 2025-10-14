@@ -1,0 +1,41 @@
+<div class="flex gap-1">
+  @if (scrollable()) {
+    <org-button
+      color="neutral"
+      variant="ghost"
+      icon="caret-left"
+      [disabled]="!canScrollLeft()"
+      (clicked)="handleScrollLeft()"
+      buttonClass="shrink-0 self-center"
+    />
+  }
+
+  <div
+    #tabsContainerRef
+    [class]="
+      mergeClasses(
+        'scrollbar-hide flex',
+        {
+          'overflow-x-auto scrollbar-hide': scrollable(),
+          'flex-1': scrollable(),
+        },
+        tabsClass()
+      )
+    "
+    (scroll)="handleScroll()"
+    (scrollend)="handleScrollEnd()"
+  >
+    <ng-content />
+  </div>
+
+  @if (scrollable()) {
+    <org-button
+      color="neutral"
+      variant="ghost"
+      icon="caret-right"
+      [disabled]="!canScrollRight()"
+      (clicked)="handleScrollRight()"
+      buttonClass="shrink-0 self-center"
+    />
+  }
+</div>

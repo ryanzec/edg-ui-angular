@@ -1,0 +1,102 @@
+<div [class]="mergeClasses('org-checklist flex flex-col gap-0.5', containerClass())">
+  @for (item of items(); track item.id) {
+    <div
+      [class]="
+        mergeClasses('flex flex-col rounded-sm', { 'bg-checklist-item-background-expanded': isExpanded()(item.id) })
+      "
+    >
+      @if (hasNestedItems(item)) {
+        <button
+          type="button"
+          [class]="
+            mergeClasses(
+              getTopLevelItemClass(),
+              'cursor-pointer text-left',
+              'transition-colors duration-150',
+              'bg-transparent',
+              'hover:bg-checklist-item-background-hover',
+              'focus-visible:bg-checklist-item-background-focus'
+            )
+          "
+          (click)="toggleExpanded(item.id)"
+          [attr.aria-expanded]="isExpanded()(item.id)"
+          [attr.aria-label]="item.label + ' - ' + (isExpanded()(item.id) ? 'Collapse' : 'Expand')"
+        >
+          <div class="flex shrink-0 items-center justify-center">
+            @if (item.status === 'not-started') {
+              <org-icon name="dots-three" size="base" class="text-checklist-status-not-started" />
+            }
+            @if (item.status === 'in-progress') {
+              <org-icon name="spinner" size="base" class="text-checklist-status-in-progress animate-spin" />
+            }
+            @if (item.status === 'valid') {
+              <org-icon name="check-circle" size="base" weight="fill" class="text-checklist-status-valid" />
+            }
+            @if (item.status === 'invalid') {
+              <org-icon name="x-circle" size="base" weight="fill" class="text-checklist-status-invalid" />
+            }
+          </div>
+
+          <span class="text-checklist-item-text flex-1 text-base">
+            {{ item.label }}
+            @if (getNestedItemCount(item) > 0) {
+              <span>({{ getNestedItemCount(item) }})</span>
+            }
+          </span>
+
+          <org-icon
+            [name]="isExpanded()(item.id) ? 'caret-down' : 'caret-right'"
+            size="sm"
+            class="text-checklist-expand-icon-text ml-auto shrink-0"
+          />
+        </button>
+      } @else {
+        <div [class]="getTopLevelItemClass()">
+          <div class="flex shrink-0 items-center justify-center">
+            @if (item.status === 'not-started') {
+              <org-icon name="dots-three" size="base" class="text-checklist-status-not-started" />
+            }
+            @if (item.status === 'in-progress') {
+              <org-icon name="spinner" size="base" class="text-checklist-status-in-progress animate-spin" />
+            }
+            @if (item.status === 'valid') {
+              <org-icon name="check-circle" size="base" weight="fill" class="text-checklist-status-valid" />
+            }
+            @if (item.status === 'invalid') {
+              <org-icon name="x-circle" size="base" weight="fill" class="text-checklist-status-invalid" />
+            }
+          </div>
+
+          <span class="text-checklist-item-text flex-1 text-base">{{ item.label }}</span>
+        </div>
+      }
+
+      @if (hasNestedItems(item) && isExpanded()(item.id)) {
+        <div class="flex flex-col pl-6">
+          @for (nestedItem of item.items; track nestedItem.id) {
+            <div class="flex flex-col">
+              <div class="flex items-center gap-2 py-0.5 px-1">
+                <div class="flex shrink-0 items-center justify-center">
+                  @if (nestedItem.status === 'not-started') {
+                    <org-icon name="dots-three" size="base" class="text-checklist-status-not-started" />
+                  }
+                  @if (nestedItem.status === 'in-progress') {
+                    <org-icon name="spinner" size="base" class="text-checklist-status-in-progress animate-spin" />
+                  }
+                  @if (nestedItem.status === 'valid') {
+                    <org-icon name="check-circle" size="base" weight="fill" class="text-checklist-status-valid" />
+                  }
+                  @if (nestedItem.status === 'invalid') {
+                    <org-icon name="x-circle" size="base" weight="fill" class="text-checklist-status-invalid" />
+                  }
+                </div>
+
+                <span class="text-checklist-item-text flex-1 text-base">{{ nestedItem.label }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

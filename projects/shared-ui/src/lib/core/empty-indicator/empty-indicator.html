@@ -1,0 +1,19 @@
+<div
+  [class]="
+    mergeClasses(
+      'flex flex-col items-center justify-center w-full min-h-[200px] gap-3',
+      {
+        'border border-empty-indicator-border rounded-md p-6': hasBorder(),
+      },
+      containerClass()
+    )
+  "
+>
+  <div class="text-base text-text-subtle">{{ title() }}</div>
+
+  @if (hasActionButton()) {
+    <org-button color="primary" (clicked)="handleActionClick()">
+      {{ actionLabel() }}
+    </org-button>
+  }
+</div>

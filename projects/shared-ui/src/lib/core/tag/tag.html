@@ -1,0 +1,70 @@
+<div class="org-tag inline-block">
+  <span
+    [class]="
+      mergeClasses('inline-flex items-center rounded-xl border text-sm font-medium gap-1.5 px-2 py-1 leading-[14px]', {
+        'bg-tag-primary-strong-bg text-tag-primary-strong-text border-tag-primary-strong-border':
+          color() === 'primary' && variant() === 'strong',
+        'bg-tag-primary-weak-bg text-tag-primary-weak-text border-tag-primary-weak-border':
+          color() === 'primary' && variant() === 'weak',
+        'bg-tag-secondary-strong-bg text-tag-secondary-strong-text border-tag-secondary-strong-border':
+          color() === 'secondary' && variant() === 'strong',
+        'bg-tag-secondary-weak-bg text-tag-secondary-weak-text border-tag-secondary-weak-border':
+          color() === 'secondary' && variant() === 'weak',
+        'bg-tag-neutral-strong-bg text-tag-neutral-strong-text border-tag-neutral-strong-border':
+          color() === 'neutral' && variant() === 'strong',
+        'bg-tag-neutral-weak-bg text-tag-neutral-weak-text border-tag-neutral-weak-border':
+          color() === 'neutral' && variant() === 'weak',
+        'bg-tag-safe-strong-bg text-tag-safe-strong-text border-tag-safe-strong-border':
+          color() === 'safe' && variant() === 'strong',
+        'bg-tag-safe-weak-bg text-tag-safe-weak-text border-tag-safe-weak-border':
+          color() === 'safe' && variant() === 'weak',
+        'bg-tag-info-strong-bg text-tag-info-strong-text border-tag-info-strong-border':
+          color() === 'info' && variant() === 'strong',
+        'bg-tag-info-weak-bg text-tag-info-weak-text border-tag-info-weak-border':
+          color() === 'info' && variant() === 'weak',
+        'bg-tag-caution-strong-bg text-tag-caution-strong-text border-tag-caution-strong-border':
+          color() === 'caution' && variant() === 'strong',
+        'bg-tag-caution-weak-bg text-tag-caution-weak-text border-tag-caution-weak-border':
+          color() === 'caution' && variant() === 'weak',
+        'bg-tag-warning-strong-bg text-tag-warning-strong-text border-tag-warning-strong-border':
+          color() === 'warning' && variant() === 'strong',
+        'bg-tag-warning-weak-bg text-tag-warning-weak-text border-tag-warning-weak-border':
+          color() === 'warning' && variant() === 'weak',
+        'bg-tag-danger-strong-bg text-tag-danger-strong-text border-tag-danger-strong-border':
+          color() === 'danger' && variant() === 'strong',
+        'bg-tag-danger-weak-bg text-tag-danger-weak-text border-tag-danger-weak-border':
+          color() === 'danger' && variant() === 'weak',
+      })
+    "
+  >
+    @if (hasPreIcon()) {
+      <button
+        type="button"
+        [class]="
+          mergeClasses('inline-flex flex-shrink-0', {
+            'cursor-pointer hover:opacity-80': isPreIconClickable(),
+          })
+        "
+        (click)="handlePreIconClick()"
+        [attr.aria-label]="'Pre icon'"
+      >
+        <org-icon [name]="preIcon()!" size="sm" />
+      </button>
+    }
+    <ng-content />
+    @if (hasPostIcon()) {
+      <button
+        type="button"
+        [class]="
+          mergeClasses('inline-flex flex-shrink-0', {
+            'cursor-pointer hover:opacity-80': isPostIconClickable(),
+          })
+        "
+        (click)="handlePostIconClick()"
+        [attr.aria-label]="removable() ? 'Remove tag' : 'Post icon'"
+      >
+        <org-icon [name]="currentPostIcon()!" size="sm" />
+      </button>
+    }
+  </span>
+</div>

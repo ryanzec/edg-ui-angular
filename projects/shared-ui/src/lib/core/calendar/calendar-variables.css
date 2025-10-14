@@ -1,0 +1,55 @@
+@theme {
+  /* Calendar container */
+  --color-calendar-border: var(--color-border);
+  --color-calendar-bg: var(--color-background);
+
+  /* Calendar header */
+  --color-calendar-header-border: var(--color-border-subtle);
+  --color-calendar-header-select-border: var(--color-input-border);
+  --color-calendar-header-select-bg: var(--color-input-background);
+  --color-calendar-header-select-text: var(--color-text);
+  --color-calendar-header-select-ring: var(--color-input-border-focused);
+
+  /* Calendar dates */
+  --color-calendar-dates-day-label: var(--color-text);
+  --color-calendar-dates-cell-bg: transparent;
+  --color-calendar-dates-cell-text: var(--color-text);
+  --color-calendar-dates-cell-hover-bg: var(--color-neutral-background-subtle);
+  --color-calendar-dates-cell-selected-bg: var(--color-primary-background);
+  --color-calendar-dates-cell-selected-text: var(--color-text-inverse);
+  --color-calendar-dates-cell-in-range-bg: var(--color-primary-background-subtle);
+  --color-calendar-dates-cell-in-range-text: var(--color-text);
+  --color-calendar-dates-cell-ring: var(--color-input-border-focused);
+  --color-calendar-dates-cell-focused-ring: var(--color-primary-border);
+
+  /* Calendar footer */
+  --color-calendar-footer-border: var(--color-border-subtle);
+}
+
+body.dark-theme {
+  /* Calendar container */
+  --color-calendar-border: var(--color-border);
+  --color-calendar-bg: var(--color-background);
+
+  /* Calendar header */
+  --color-calendar-header-border: var(--color-border-subtle);
+  --color-calendar-header-select-border: var(--color-input-border);
+  --color-calendar-header-select-bg: var(--color-input-background);
+  --color-calendar-header-select-text: var(--color-text);
+  --color-calendar-header-select-ring: var(--color-input-border-focused);
+
+  /* Calendar dates */
+  --color-calendar-dates-day-label: var(--color-text);
+  --color-calendar-dates-cell-bg: transparent;
+  --color-calendar-dates-cell-text: var(--color-text);
+  --color-calendar-dates-cell-hover-bg: var(--color-neutral-background-subtle);
+  --color-calendar-dates-cell-selected-bg: var(--color-primary-background);
+  --color-calendar-dates-cell-selected-text: var(--color-text-inverse);
+  --color-calendar-dates-cell-in-range-bg: var(--color-primary-background-subtle);
+  --color-calendar-dates-cell-in-range-text: var(--color-text);
+  --color-calendar-dates-cell-ring: var(--color-input-border-focused);
+  --color-calendar-dates-cell-focused-ring: var(--color-primary-border);
+
+  /* Calendar footer */
+  --color-calendar-footer-border: var(--color-border-subtle);
+}

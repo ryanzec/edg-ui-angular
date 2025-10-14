@@ -1,0 +1,50 @@
+/* CheckboxToggle component Tailwind theme variables */
+@theme {
+  /* Default (light mode) colors */
+  --color-checkbox-toggle-track-off: var(--color-neutral-400);
+  --color-checkbox-toggle-track-off-hover: var(--color-neutral-500);
+  --color-checkbox-toggle-track-off-focus: var(--color-neutral-500);
+  --color-checkbox-toggle-track-on: var(--color-primary-background);
+  --color-checkbox-toggle-track-on-hover: var(--color-primary-background-hover);
+  --color-checkbox-toggle-track-on-focus: var(--color-primary-background-focus);
+  --color-checkbox-toggle-track-disabled: var(--color-neutral-300);
+  --color-checkbox-toggle-thumb: var(--color-neutral-50);
+  --color-checkbox-toggle-icon: var(--color-neutral-700);
+
+  /* Size variables */
+  --spacing-checkbox-toggle-thumb-offset: 3px;
+  --spacing-checkbox-toggle-track-width-small: 28px;
+  --spacing-checkbox-toggle-track-width-base: 36px;
+  --spacing-checkbox-toggle-track-width-large: 44px;
+  --spacing-checkbox-toggle-track-height-small: 14px;
+  --spacing-checkbox-toggle-track-height-base: 18px;
+  --spacing-checkbox-toggle-track-height-large: 22px;
+  --spacing-checkbox-toggle-thumb-small: calc(var(--spacing-checkbox-toggle-track-height-small) - 6px);
+  --spacing-checkbox-toggle-thumb-base: calc(var(--spacing-checkbox-toggle-track-height-base) - 6px);
+  --spacing-checkbox-toggle-thumb-large: calc(var(--spacing-checkbox-toggle-track-height-large) - 6px);
+  --spacing-checkbox-toggle-thumb-checked-offset-small: calc(
+    var(--spacing-checkbox-toggle-track-width-small) - var(--spacing-checkbox-toggle-thumb-small) -
+      var(--spacing-checkbox-toggle-thumb-offset)
+  );
+  --spacing-checkbox-toggle-thumb-checked-offset-base: calc(
+    var(--spacing-checkbox-toggle-track-width-base) - var(--spacing-checkbox-toggle-thumb-base) -
+      var(--spacing-checkbox-toggle-thumb-offset)
+  );
+  --spacing-checkbox-toggle-thumb-checked-offset-large: calc(
+    var(--spacing-checkbox-toggle-track-width-large) - var(--spacing-checkbox-toggle-thumb-large) -
+      var(--spacing-checkbox-toggle-thumb-offset)
+  );
+}
+
+body.dark-theme {
+  /* Dark mode colors */
+  --color-checkbox-toggle-track-off: var(--color-neutral-600);
+  --color-checkbox-toggle-track-off-hover: var(--color-neutral-500);
+  --color-checkbox-toggle-track-off-focus: var(--color-neutral-500);
+  --color-checkbox-toggle-track-on: var(--color-primary-background);
+  --color-checkbox-toggle-track-on-hover: var(--color-primary-background-hover);
+  --color-checkbox-toggle-track-on-focus: var(--color-primary-background-focus);
+  --color-checkbox-toggle-track-disabled: var(--color-neutral-700);
+  --color-checkbox-toggle-thumb: var(--color-neutral-100);
+  --color-checkbox-toggle-icon: var(--color-neutral-800);
+}

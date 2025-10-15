@@ -1,4 +1,4 @@
-import { inject, Injectable, InjectionToken } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   CreateUser,
   CreateUserResponse,
@@ -13,9 +13,7 @@ import { LogManager } from '../../core/log-manager/log-manager';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-
-export const USERS_API_URL = new InjectionToken<string>('Users API URL');
-
+import { USERS_API_URL } from '../../core/injectable-tokens';
 @Injectable({
   providedIn: 'root',
 })

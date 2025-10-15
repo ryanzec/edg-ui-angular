@@ -1,4 +1,4 @@
-import { Injectable, signal, computed, inject, InjectionToken } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
 import { AuthenticationApi } from '../authentication-api/authentication-api';
 import { AuthenticationAuthenticateRequest, ErrorMessage, User } from '@organization/shared-types';
 import { catchError, of, tap, map, Observable, delay } from 'rxjs';
@@ -7,6 +7,7 @@ import { LogManager } from '../../core/log-manager/log-manager';
 import { LocalStorageManager } from '../../core/local-storage-manager/local-storage-manager';
 import { emailUtils } from '@organization/shared-utils';
 import { Router } from '@angular/router';
+import { LAUNCH_DARKLY_CLIENT_ID, LOCAL_STORAGE_SESSION_USER_KEY } from '../../core/injectable-tokens';
 
 type AuthenticationState = {
   user: User | null;
@@ -14,9 +15,6 @@ type AuthenticationState = {
   error: string | null;
   hasInitialized: boolean;
 };
-
-export const LOCAL_STORAGE_SESSION_USER_KEY = new InjectionToken<string>('Local Storage Session User Key');
-export const LAUNCH_DARKLY_CLIENT_ID = new InjectionToken<string>('Launch Darkly Client ID');
 
 @Injectable({
   providedIn: 'root',

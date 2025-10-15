@@ -7,4 +7,5 @@ export const environment: UiEnvironment = {
   usersApiUrl: 'https://localhost:3000/users',
   jetCookieName: 'internal-jwt',
   launchDarklyClientId: '688bca950d275b098948a2d0',
+  localStorageSessionUserKey: 'sessionUser',
 };

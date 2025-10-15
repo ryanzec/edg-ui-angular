@@ -331,32 +331,41 @@ class ReactiveFormDemoComponent {
       currentState="All form controls work with simple two-way binding"
     >
       <org-storybook-example-container-section label="Complete Form Example">
-        <form (ngSubmit)="onSubmit()" class="flex flex-col gap-1 max-w-[500px]">
+        <form (submit)="onSubmit($event)" class="flex flex-col gap-1 max-w-[500px]">
           <!-- input field -->
           <div class="flex flex-col gap-1">
             <label for="username" class="text-sm font-medium">Username *</label>
-            <org-input [(value)]="username" name="username" placeholder="Enter your username" />
-            @if (submitted() && !username().trim()) {
-              <div class="text-sm text-danger-text">Username is required</div>
-            }
+            <org-input
+              [(value)]="username"
+              name="username"
+              placeholder="Enter your username"
+              [validationMessage]="usernameError()"
+            />
           </div>
 
           <!-- email input field -->
           <div class="flex flex-col gap-1">
             <label for="email" class="text-sm font-medium">Email *</label>
-            <org-input type="email" [(value)]="email" name="email" placeholder="Enter your email" preIcon="envelope" />
-            @if (submitted() && !isValidEmail()) {
-              <div class="text-sm text-danger-text">Please enter a valid email address</div>
-            }
+            <org-input
+              type="email"
+              [(value)]="email"
+              name="email"
+              placeholder="Enter your email"
+              preIcon="envelope"
+              [validationMessage]="emailError()"
+            />
           </div>
 
           <!-- textarea field -->
           <div class="flex flex-col gap-1">
-            <label for="bio" class="text-sm font-medium">Bio (max 200 chars)</label>
-            <org-textarea [(value)]="bio" name="bio" placeholder="Tell us about yourself..." [rows]="4" />
-            @if (submitted() && bio().length > 200) {
-              <div class="text-sm text-danger-text">Bio must be less than 200 characters</div>
-            }
+            <label for="bio" class="text-sm font-medium">Bio *</label>
+            <org-textarea
+              [(value)]="bio"
+              name="bio"
+              placeholder="Tell us about yourself..."
+              [rows]="4"
+              [validationMessage]="bioError()"
+            />
           </div>
 
           <!-- checkbox field -->
@@ -381,8 +390,9 @@ class ReactiveFormDemoComponent {
               offIcon="bell-slash"
               onText="On"
               offText="Off"
+              [validationMessage]="notificationsError()"
             >
-              Enable notifications
+              Enable notifications *
             </org-checkbox-toggle>
           </div>
 
@@ -421,11 +431,9 @@ class ReactiveFormDemoComponent {
               [selectedStartDate]="startDate()"
               [selectedEndDate]="endDate()"
               placeholder="Select date range..."
+              [validationMessage]="dateRangeError()"
               (dateSelected)="handleDateSelected($event)"
             />
-            @if (submitted() && dateRangeError()) {
-              <div class="text-sm text-danger-text">{{ dateRangeError() }}</div>
-            }
           </div>
 
           <!-- submit button -->
@@ -461,13 +469,16 @@ class ReactiveFormDemoComponent {
 
       <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
         <li><strong>Input</strong>: Two-way binding with [(value)], displays validation on submit</li>
-        <li><strong>Textarea</strong>: Multi-line text input with character limit validation</li>
-        <li><strong>Checkbox</strong>: Boolean control with [(checked)] two-way binding</li>
-        <li><strong>Checkbox Toggle</strong>: Alternative checkbox style with icon/text support</li>
-        <li><strong>Radio Group</strong>: Radio button group with [(value)] two-way binding</li>
-        <li><strong>Combobox</strong>: Multi-select autocomplete with event binding and signals</li>
-        <li><strong>Date Picker</strong>: Date range selection with event binding and signal-based validation</li>
-        <li><strong>Validation</strong>: Simple validation logic on form submission</li>
+        <li><strong>Textarea</strong>: Multi-line text input with required validation</li>
+        <li><strong>Checkbox</strong>: Boolean control with [(checked)] two-way binding and required validation</li>
+        <li>
+          <strong>Checkbox Toggle</strong>: Alternative checkbox style with icon/text support and required validation
+        </li>
+        <li><strong>Radio Group</strong>: Radio button group with [(value)] two-way binding and required validation</li>
+        <li><strong>Combobox</strong>: Multi-select autocomplete with event binding and required validation</li>
+        <li><strong>Date Picker</strong>: Date range selection with event binding and required validation</li>
+        <li><strong>Validation</strong>: All fields show errors after form submission attempt</li>
+        <li><strong>Form Submission</strong>: Prevented when form has validation errors</li>
         <li><strong>Form Values</strong>: Live display updates as you type/interact using signals</li>
         <li><strong>No FormControl needed</strong>: Uses signals and two-way binding instead</li>
       </ul>
@@ -477,56 +488,77 @@ class ReactiveFormDemoComponent {
 class SimpleBindingDemoComponent {
   public readonly skillOptions = skillOptions;
 
-  // Form values as signals
+  // form values as signals
   public username = signal('');
   public email = signal('');
   public bio = signal('');
   public agreeToTerms = signal(false);
-  public notifications = signal(true);
+  public notifications = signal(false);
   public contactMethod = signal('');
   public skills = signal<(string | number)[]>([]);
   public startDate = signal<DateTime | null>(null);
   public endDate = signal<DateTime | null>(null);
   public submitted = signal(false);
 
-  // Computed validation
-  public isValidEmail = computed(() => {
+  // computed validation helpers
+  public isValidEmail = computed<boolean>(() => {
     const emailValue = this.email();
+
+    if (!emailValue.trim()) {
+      return false;
+    }
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     return emailRegex.test(emailValue);
   });
 
-  public isFormValid = computed(() => {
-    return (
-      this.username().trim().length >= 3 &&
-      this.isValidEmail() &&
-      this.bio().length <= 200 &&
-      this.agreeToTerms() &&
-      this.contactMethod().trim().length > 0 &&
-      this.skills().length > 0 &&
-      this.startDate() !== null &&
-      this.endDate() !== null
-    );
-  });
+  // computed validation errors
+  public usernameError = computed<string>(() => {
+    if (!this.submitted()) {
+      return '';
+    }
 
-  public skillsError = computed(() => {
-    if (this.submitted() && this.skills().length === 0) {
-      return 'At least one skill is required';
+    if (!this.username().trim()) {
+      return 'Username is required';
+    }
+
+    if (this.username().trim().length < 3) {
+      return 'Username must be at least 3 characters';
     }
 
     return '';
   });
 
-  public dateRangeError = computed(() => {
-    if (this.submitted() && (!this.startDate() || !this.endDate())) {
-      return 'Both start and end dates are required';
+  public emailError = computed<string>(() => {
+    if (!this.submitted()) {
+      return '';
+    }
+
+    if (!this.email().trim()) {
+      return 'Email is required';
+    }
+
+    if (!this.isValidEmail()) {
+      return 'Please enter a valid email address';
     }
 
     return '';
   });
 
-  public agreeToTermsError = computed(() => {
+  public bioError = computed<string>(() => {
+    if (!this.submitted()) {
+      return '';
+    }
+
+    if (!this.bio().trim()) {
+      return 'Bio is required';
+    }
+
+    return '';
+  });
+
+  public agreeToTermsError = computed<string>(() => {
     if (this.submitted() && !this.agreeToTerms()) {
       return 'You must agree to the terms and conditions';
     }
@@ -534,7 +566,15 @@ class SimpleBindingDemoComponent {
     return '';
   });
 
-  public contactMethodError = computed(() => {
+  public notificationsError = computed<string>(() => {
+    if (this.submitted() && !this.notifications()) {
+      return 'You must enable notifications';
+    }
+
+    return '';
+  });
+
+  public contactMethodError = computed<string>(() => {
     if (this.submitted() && !this.contactMethod().trim()) {
       return 'Please select a contact method';
     }
@@ -542,24 +582,79 @@ class SimpleBindingDemoComponent {
     return '';
   });
 
-  public onSubmit(): void {
+  public skillsError = computed<string>(() => {
+    if (this.submitted() && this.skills().length === 0) {
+      return 'At least one skill is required';
+    }
+
+    return '';
+  });
+
+  public dateRangeError = computed<string>(() => {
+    if (!this.submitted()) {
+      return '';
+    }
+
+    if (!this.startDate() || !this.endDate()) {
+      return 'Both start and end dates are required';
+    }
+
+    return '';
+  });
+
+  public isFormValid = computed<boolean>(() => {
+    return (
+      this.username().trim().length >= 3 &&
+      this.isValidEmail() &&
+      this.bio().trim().length > 0 &&
+      this.agreeToTerms() &&
+      this.notifications() &&
+      this.contactMethod().trim().length > 0 &&
+      this.skills().length > 0 &&
+      this.startDate() !== null &&
+      this.endDate() !== null
+    );
+  });
+
+  public onSubmit(event: Event): void {
+    event.preventDefault();
     this.submitted.set(true);
 
-    if (this.isFormValid()) {
-      console.log('Form submitted:', {
-        username: this.username(),
-        email: this.email(),
-        bio: this.bio(),
-        agreeToTerms: this.agreeToTerms(),
-        notifications: this.notifications(),
-        contactMethod: this.contactMethod(),
-        skills: this.skills(),
-        startDate: this.startDate()?.toISO(),
-        endDate: this.endDate()?.toISO(),
-      });
-    } else {
-      console.log('Form is invalid');
+    console.log('Form validation state:', {
+      username: this.username(),
+      usernameValid: this.username().trim().length >= 3,
+      email: this.email(),
+      emailValid: this.isValidEmail(),
+      bio: this.bio(),
+      bioValid: this.bio().trim().length > 0,
+      agreeToTerms: this.agreeToTerms(),
+      notifications: this.notifications(),
+      contactMethod: this.contactMethod(),
+      contactMethodValid: this.contactMethod().trim().length > 0,
+      skills: this.skills(),
+      skillsValid: this.skills().length > 0,
+      startDate: this.startDate(),
+      endDate: this.endDate(),
+      isFormValid: this.isFormValid(),
+    });
+
+    if (!this.isFormValid()) {
+      console.log('Form is invalid - submission prevented');
+
+      return;
     }
+
+    console.log('Form submitted successfully:', {
+      username: this.username(),
+      email: this.email(),
+      bio: this.bio(),
+      agreeToTerms: this.agreeToTerms(),
+      notifications: this.notifications(),
+      contactMethod: this.contactMethod(),
+      skills: this.skills(),
+      startDate: this.startDate()?.toISO(),
+      endDate: this.endDate()?.toISO(),
+    });
   }
 
   public handleDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {

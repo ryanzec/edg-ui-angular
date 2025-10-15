@@ -487,6 +487,10 @@ AI will also just forget very obvious things (like placing a <ng-content />)
 
 # AI Usage / Tips and Tricks
 
+## Do full testing and give full information if asking AI to resolve the issue
+
+Be sure to give as much information as possible, tell it form in not validating properly and that alone with
+
 ## Cursor
 
 While we have AI rule / guide files for the most popular AI tools, we have addition tooling for Cursor with custom commands.

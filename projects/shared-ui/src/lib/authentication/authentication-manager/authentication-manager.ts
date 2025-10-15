@@ -1,11 +1,10 @@
-import { Injectable, signal, computed, inject } from '@angular/core';
+import { Injectable, signal, computed, inject, InjectionToken } from '@angular/core';
 import { AuthenticationApi } from '../authentication-api/authentication-api';
 import { AuthenticationAuthenticateRequest, ErrorMessage, User } from '@organization/shared-types';
 import { catchError, of, tap, map, Observable, delay } from 'rxjs';
 import { FeatureFlagStore } from '../../core/feature-flag-store/feature-flag-store';
 import { LogManager } from '../../core/log-manager/log-manager';
 import { LocalStorageManager } from '../../core/local-storage-manager/local-storage-manager';
-import { CookieService } from 'ngx-cookie-service';
 import { emailUtils } from '@organization/shared-utils';
 import { Router } from '@angular/router';
 
@@ -16,6 +15,9 @@ type AuthenticationState = {
   hasInitialized: boolean;
 };
 
+export const LOCAL_STORAGE_SESSION_USER_KEY = new InjectionToken<string>('Local Storage Session User Key');
+export const LAUNCH_DARKLY_CLIENT_ID = new InjectionToken<string>('Launch Darkly Client ID');
+
 @Injectable({
   providedIn: 'root',
 })
@@ -24,10 +26,9 @@ export class AuthenticationManager {
   private readonly _localStorageManager = inject(LocalStorageManager);
   private readonly _authenticationApi = inject(AuthenticationApi);
   private readonly _featureFlagStore = inject(FeatureFlagStore);
-  private readonly _cookieService = inject(CookieService);
   private readonly _router = inject(Router);
-  // @todo tokenize this
-  private readonly _sessionUserKey = 'sessionUser';
+  private readonly _sessionUserKey = inject(LOCAL_STORAGE_SESSION_USER_KEY);
+  private readonly _launchDarklyClientId = inject(LAUNCH_DARKLY_CLIENT_ID);
 
   private readonly _state = signal<AuthenticationState>({
     isLoading: false,
@@ -81,7 +82,6 @@ export class AuthenticationManager {
       catchError((error) => {
         this._logManager.error({
           type: 'authentication-check-error',
-          message: 'authentication check failed',
           error,
         });
 
@@ -141,8 +141,7 @@ export class AuthenticationManager {
     };
 
     this._localStorageManager.set<User>(this._sessionUserKey, user);
-    // @todo tokenize this
-    this._featureFlagStore.initialize('688bca950d275b098948a2d0', launchDarklyContext, launchDarklyHash);
+    this._featureFlagStore.initialize(this._launchDarklyClientId, launchDarklyContext, launchDarklyHash);
     this._state.update((state) => ({ ...state, user, isLoading: false, hasInitialized: true, error: null }));
   }
 
@@ -155,9 +154,5 @@ export class AuthenticationManager {
       error: error || null,
     }));
     this._localStorageManager.remove(this._sessionUserKey);
-    // @todo tokenize this
-    // @todo(research) can't seem to delete the cookie but it does not really need to be deleted anyways so leave it
-    // @todo(research) for later
-    // this._cookieService.delete('jwt');
   }
 }

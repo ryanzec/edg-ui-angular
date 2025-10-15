@@ -140,7 +140,7 @@ const main = async () => {
   let moduleName = '';
 
   if (forceModuleSelectionTypes.includes(generateType)) {
-    moduleName = await question(`Enter module name: `);
+    moduleName = await question(`Enter module / feature name: `);
 
     if (!moduleName) {
       console.error('Module name is required');

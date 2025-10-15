@@ -7,10 +7,11 @@ import { environment } from '../environments/environment';
 import {
   AUTHENTICATION_API_URL,
   httpWithCredentialsInterceptor,
+  LAUNCH_DARKLY_CLIENT_ID,
+  LOCAL_STORAGE_SESSION_USER_KEY,
   unauthorizedInterceptor,
   USERS_API_URL,
 } from '@organization/shared-ui';
-import { CookieService } from 'ngx-cookie-service';
 // import { FeatureFlagStore } from '@organization/shared-ui';
 import { dateUtils } from '@organization/shared-utils';
 
@@ -25,9 +26,10 @@ export const appConfig: ApplicationConfig = {
       withInterceptorsFromDi(),
       withInterceptors([httpWithCredentialsInterceptor, unauthorizedInterceptor])
     ),
-    CookieService,
     { provide: AUTHENTICATION_API_URL, useValue: environment.authenticationApiUrl },
     { provide: USERS_API_URL, useValue: environment.usersApiUrl },
+    { provide: LOCAL_STORAGE_SESSION_USER_KEY, useValue: environment.localStorageSessionUserKey },
+    { provide: LAUNCH_DARKLY_CLIENT_ID, useValue: environment.launchDarklyClientId },
     provideAppInitializer(() => {
       dateUtils.configureTimezone('UTC');
 

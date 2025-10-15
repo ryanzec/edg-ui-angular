@@ -28,7 +28,6 @@ export const loggedInGuard: CanActivateFn = (route) => {
       if (!routeData?.unauthenticatedRedirect) {
         logManager.error({
           type: 'unauthenticated-redirect-not-found',
-          message: 'No unauthenticated redirect route data found',
           context: { routeData },
         });
 

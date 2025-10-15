@@ -182,6 +182,7 @@ export type TestColor = Extract<ComponentSize, 'primary' | 'danger'>;
 - ALWAYS call instance based stores `initialize()` method in the component's `constructor` that is creating the instance
 - ALWAYS use `@organization/shared-ui` when importing something from the `shared-ui` project but is NOT in the `shared-ui` project
 - ALWAYS use `@organization/shared-types` when importing something from the `shared-types` project but is NOT in the `shared-types` project
+- ALWAYS use `(submit)` for form element UNLESS it is a reactive form
 
 You can NEVER use these patterns when work on Angular 20 components:
 - NEVER re-create functionality that is already available in angular CDK
@@ -217,5 +218,6 @@ public class = input<string>('');
 Size inputs should always hava a default and that should also be assumed the default unless explicitly mentioned otherwised.
 -->
 - NEVER pass in a value to a `size` input UNLESS EXPLICITLY asked to do so
+- NEVER use `(ngSubmit)` for form element UNLESS also using a reactive form
 
 ALWAYS ASK ABOUT ACCESSIBILITY FEATURES IF NO GUIDE GIVEN ON IT OR GUIDE GIVEN IS INCOMPLETE

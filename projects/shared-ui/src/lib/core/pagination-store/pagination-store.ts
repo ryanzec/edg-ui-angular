@@ -63,24 +63,26 @@ export class PaginationStore {
   public readonly hasNext = computed<boolean>(() => this._state().currentPage < this.totalPages());
 
   public readonly visiblePageItems = computed<VisiblePage[]>(() => {
-    const total = this.totalPages();
-    const current = this._state().currentPage;
-    let visible = this._config().visiblePages;
+    const totalPages = this.totalPages();
+    const currentPage = this._state().currentPage;
+    let visiblePages = this._config().visiblePages;
 
     // log warning for even visiblePages and adjust
-    if (visible % 2 === 0) {
-      this._logManager.warn(
-        `visiblePages is even (${visible}). It is recommended to use an odd number. Adding extra page on the left.`
-      );
-      visible = visible + 1; // add extra page on the left
+    if (visiblePages % 2 === 0) {
+      this._logManager.warn({
+        type: 'pagination-store-visible-pages-even',
+        message: `it is recommended to use an odd number to avoid uneven numbers of the left / right`,
+        setVisiblePages: visiblePages,
+      });
+      visiblePages = visiblePages + 1; // add extra page on the left
     }
 
     // show all pages if total is within visible limit
-    if (total <= visible) {
-      return Array.from({ length: total }, (_, i) => ({
+    if (totalPages <= visiblePages) {
+      return Array.from({ length: totalPages }, (_, i) => ({
         type: 'page',
         value: i + 1,
-        isActive: i + 1 === current,
+        isActive: i + 1 === currentPage,
       }));
     }
 
@@ -90,23 +92,23 @@ export class PaginationStore {
     pages.push({
       type: 'page',
       value: 1,
-      isActive: current === 1,
+      isActive: currentPage === 1,
     });
 
     // calculate how many pages we can show in the middle (excluding first and last)
-    const middlePages = visible - 2; // reserve space for first and last page
+    const middlePages = visiblePages - 2; // reserve space for first and last page
     const halfMiddle = Math.floor(middlePages / 2);
 
     // determine the range of pages to show around current
-    let startPage = Math.max(2, current - halfMiddle);
-    let endPage = Math.min(total - 1, current + halfMiddle);
+    let startPage = Math.max(2, currentPage - halfMiddle);
+    let endPage = Math.min(totalPages - 1, currentPage + halfMiddle);
 
     // adjust range to always show exactly middlePages when possible
     if (endPage - startPage + 1 < middlePages) {
       if (startPage === 2) {
         // we're at the beginning, extend to the right
-        endPage = Math.min(total - 1, startPage + middlePages - 1);
-      } else if (endPage === total - 1) {
+        endPage = Math.min(totalPages - 1, startPage + middlePages - 1);
+      } else if (endPage === totalPages - 1) {
         // we're at the end, extend to the left
         startPage = Math.max(2, endPage - middlePages + 1);
       }
@@ -126,12 +128,12 @@ export class PaginationStore {
       pages.push({
         type: 'page',
         value: i,
-        isActive: i === current,
+        isActive: i === currentPage,
       });
     }
 
     // add ellipsis before last page if needed
-    if (endPage < total - 1) {
+    if (endPage < totalPages - 1) {
       pages.push({
         type: 'ellipsis',
         value: null,
@@ -140,11 +142,11 @@ export class PaginationStore {
     }
 
     // always show last page (if different from first)
-    if (total > 1) {
+    if (totalPages > 1) {
       pages.push({
         type: 'page',
-        value: total,
-        isActive: current === total,
+        value: totalPages,
+        isActive: currentPage === totalPages,
       });
     }
 

@@ -39,7 +39,7 @@ export class LocalStorageManager {
         return storedData.value;
       }
     } catch (error: unknown) {
-      this._logManager.warn({
+      this._logManager.error({
         type: 'local-storage-manager-error',
         message: 'a value was stored in localStorage but it was invalid JSON',
         error,

@@ -489,7 +489,7 @@ AI will also just forget very obvious things (like placing a <ng-content />)
 
 ## Do full testing and give full information if asking AI to resolve the issue
 
-Be sure to give as much information as possible, tell it form in not validating properly and that alone with
+Be sure to give as much information as possible, telling it a form is not validating properly and that alone can have the AI go down a path trying to look at and modify all the input components instead of looking at the form but if you say one worm does and but another does not, that can avoid this (then again sometimes is need to be told to use `(submit)` instead of `(ngSubmit)`).
 
 ## Cursor
 

@@ -5,7 +5,7 @@ import { tailwindUtils } from '@organization/shared-utils';
 import { NgTemplateOutlet } from '@angular/common';
 import { Icon, type IconName } from '../icon/icon';
 import { RouterLink } from '@angular/router';
-import { LogManager } from '@organization/shared-ui';
+import { LogManager } from '../log-manager/log-manager';
 
 @Component({
   selector: 'org-list-item',
@@ -56,7 +56,7 @@ export class ListItem {
         'focus-visible:bg-list-item-hover': !this.isSelected() && this.isClickable(),
         'bg-list-item-selected': this.isSelected(),
         'text-list-item-text-disabled bg-list-item-background-disabled cursor-not-allowed': this.disabled(),
-        'pointer-events-auto text-[red]': this.disabled(),
+        'pointer-events-auto': this.disabled(),
       }
     )
   );

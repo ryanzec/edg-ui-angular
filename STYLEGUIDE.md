@@ -349,7 +349,7 @@ There are a nubmer of pattern example in the `shared-ui` examples module (usuall
 
 More compllex example can be referenced:
 
-- Search the codebase for `BASE_API_URL` to be a pattern for adding configuable options for a root provided service
+- Search the codebase for `USERS_API_URL` to be a pattern for adding configuable options for a root provided service
 
 # Typing
 
@@ -481,6 +481,7 @@ When possible, we should create a minimal storybook example that can be used to 
 - will sometimes use `setTimeout` in areas where it should not be used as it many case it can be flacky (like using `setTimeout` to run code after a `scrollIntoView` instead of doing an event binding like `(scrollend)="handleScrollEnd()"` on the scroll element or using a `setTimeout` instead of a angular lifecycle hook)
 - while using `nativeElement` for things like calling `focus()` or in a directive for append dom elements, AI will sometimes use it for event binding which should almost always be handle through the host property of the `@Component` or `@Directive` or event binding on the element itself like `(scrollend)="handleScrollEnd()"`
 - if you have a default value, it will default at every step of the way instead of just as the end (making refactoring the default harder)
+- you need to be explicitly on when you have checks on data trigger certain action and be clear if it should happen whenever the data changes (that would be an `effect()`) or only on that (which should be in an `ngOninit()` method)
 
 AI will also just forget very obvious things (like placing a <ng-content />)
 

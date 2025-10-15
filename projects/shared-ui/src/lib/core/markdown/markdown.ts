@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, input, computed, inject } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Remarkable } from 'remarkable';
+import { linkify } from 'remarkable/linkify';
 import { tailwindUtils } from '@organization/shared-utils';
 
 @Component({
@@ -18,9 +19,8 @@ export class Markdown {
   private readonly _remarkable = new Remarkable({
     html: true,
     breaks: true,
-    linkify: true,
     typographer: true,
-  });
+  }).use(linkify);
 
   public markdown = input.required<string>();
   public containerClass = input<string>('');

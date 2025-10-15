@@ -3,7 +3,8 @@ import { type UiEnvironment } from '@organization/shared-types';
 export const environment: UiEnvironment = {
   mode: 'production',
   applicationName: 'customer-portal',
-  apiUrl: 'https://localhost:3000',
+  authenticationApiUrl: 'https://localhost:3000/authentication',
+  usersApiUrl: 'https://localhost:3000/users',
   jetCookieName: 'jwt',
   launchDarklyClientId: '688bca950d275b098948a2d0',
 };

@@ -10,7 +10,7 @@ import { tailwindUtils } from '@organization/shared-utils';
   },
 })
 export class Dialog {
-  protected readonly hasRoundedCorners = input<boolean>(true);
+  public readonly hasRoundedCorners = input<boolean>(true);
 
   protected mergeClasses = tailwindUtils.merge;
 }

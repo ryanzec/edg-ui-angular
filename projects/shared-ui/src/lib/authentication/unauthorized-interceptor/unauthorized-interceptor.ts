@@ -3,12 +3,12 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { AuthenticationManager } from '../authentication-manager/authentication-manager';
-import { BASE_API_URL } from '../../core/utils';
+import { AUTHENTICATION_API_URL } from '../public-api';
 
 export const unauthorizedInterceptor: HttpInterceptorFn = (request, next) => {
   const authenticationManager = inject(AuthenticationManager);
   const router = inject(Router);
-  const baseUrl = inject(BASE_API_URL);
+  const baseUrl = inject(AUTHENTICATION_API_URL);
 
   return next(request).pipe(
     catchError((error: HttpErrorResponse) => {

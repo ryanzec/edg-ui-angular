@@ -9,7 +9,6 @@ export type IndicatorColor = ComponentColor;
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   templateUrl: './indicator.html',
-  styleUrl: './indicator.css',
   host: {
     dataid: 'indicator',
     class: 'inline-flex',

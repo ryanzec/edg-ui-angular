@@ -8,7 +8,6 @@ import {
   ViewChild,
   ElementRef,
   forwardRef,
-  effect,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Icon, IconName } from '../icon/icon';
@@ -116,12 +115,6 @@ export class Checkbox implements ControlValueAccessor {
   public readonly isInvalid = computed<boolean>(() => this.hasValidationMessage());
 
   public mergeClasses = tailwindUtils.merge;
-
-  constructor() {
-    effect(() => {
-      console.log('useValidation', this.useValidation());
-    });
-  }
 
   protected handleClick(event: Event): void {
     if (this.isDisabled()) {

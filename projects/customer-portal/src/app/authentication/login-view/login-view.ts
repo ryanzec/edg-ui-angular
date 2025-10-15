@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject, effect } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, effect, computed } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginForm, AuthenticationManager } from '@organization/shared-ui';
 import { AuthenticationAuthenticateRequest } from '@organization/shared-types';
@@ -12,6 +12,8 @@ import { AuthenticationAuthenticateRequest } from '@organization/shared-types';
 export class LoginView {
   private readonly router = inject(Router);
   private readonly authenticationManager = inject(AuthenticationManager);
+
+  protected readonly isProcessing = computed(() => this.authenticationManager.isLoading());
 
   constructor() {
     effect(() => {

@@ -1,8 +1,6 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
-import { ComponentColor } from '../types/component-types';
-
-export type CardColor = ComponentColor;
+import type { CardColor } from '../card/card';
 
 export type GlobalNotificationData = {
   id: string;

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, output } from '@angular/core';
+import { Component, ChangeDetectionStrategy, output, input } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   authenticationAuthenticateRequestSchema,
@@ -18,6 +18,8 @@ import { Button } from '../../core/button/button';
   templateUrl: './login-form.html',
 })
 export class LoginForm {
+  public readonly isProcessing = input<boolean>(false);
+
   public readonly loginSubmit = output<AuthenticationAuthenticateRequest>();
 
   public readonly loginForm = new FormGroup({

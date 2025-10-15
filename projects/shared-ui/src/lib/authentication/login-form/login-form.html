@@ -31,9 +31,17 @@
           [validationMessage]="getFieldError('password') || ''"
         />
       </div>
-      <org-button data-testid="submit-button" color="primary" type="submit" buttonClass="w-full"> Sign In </org-button>
-      <org-button color="primary" buttonClass="w-full"> Reset Password </org-button>
-      <org-button color="primary" buttonClass="w-full"> Single Sign-On </org-button>
+      <org-button
+        data-testid="submit-button"
+        color="primary"
+        type="submit"
+        buttonClass="w-full"
+        [loading]="isProcessing()"
+      >
+        Sign In
+      </org-button>
+      <org-button color="primary" buttonClass="w-full" [disabled]="isProcessing()"> Reset Password </org-button>
+      <org-button color="primary" buttonClass="w-full" [disabled]="isProcessing()"> Single Sign-On </org-button>
     </form>
   </org-card-content>
 </org-card>

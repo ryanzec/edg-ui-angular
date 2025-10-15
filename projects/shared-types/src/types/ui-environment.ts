@@ -5,7 +5,8 @@ export type ApplicationName = 'customer-portal' | 'internal-portal';
 export type UiEnvironment = {
   mode: EnvironmentMode;
   applicationName: ApplicationName;
-  apiUrl: string;
+  authenticationApiUrl: string;
+  usersApiUrl: string;
   jetCookieName: string;
   launchDarklyClientId: string;
 };

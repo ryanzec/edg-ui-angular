@@ -10,6 +10,12 @@ import { DialogFooter } from '../../core/dialog/dialog-footer';
 import { Dialog } from '../../core/dialog/dialog';
 import { DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
 
+export type EXAMPLEDialogData = {
+  title: string;
+  message: string;
+  hasRoundedCorners: boolean;
+};
+
 @Component({
   standalone: true,
   selector: 'org-example-dialog',
@@ -32,10 +38,10 @@ import { DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
 class EXAMPLEDialog {
   private readonly _dialogRef = inject(DialogRef<DialogContent>);
 
-  protected readonly data = inject<EXAMPLEDialog>(DIALOG_DATA);
+  protected readonly data = inject<EXAMPLEDialogData>(DIALOG_DATA);
 
   protected handleCancel(): void {
-    console.log('cancel button clicked');
+    console.log('cancel button clicked', this.data);
     this._dialogRef.close();
   }
 

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input, output, effect } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
 import { Button } from '../button/button';
 import { tailwindUtils } from '@organization/shared-utils';
 
@@ -32,13 +32,6 @@ export class CalendarHeader {
   public nextMonth = output<void>();
 
   public mergeClasses = tailwindUtils.merge;
-
-  constructor() {
-    effect(() => {
-      console.log('displayYear', this.displayYear());
-      console.log('displayMonth', this.displayMonth());
-    });
-  }
 
   /**
    * handles year dropdown change

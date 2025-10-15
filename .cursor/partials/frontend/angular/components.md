@@ -180,6 +180,8 @@ export type TestColor = Extract<ComponentSize, 'primary' | 'danger'>;
 - ALWAYS suffix componnt instance with `ComponentRef` when that component is create programmatically (NOT with `@ViewChild`)
 - ALWAYS use `@HostListener` ONLY when you need to apply listeners to things that target something outside element (like the `document`)
 - ALWAYS call instance based stores `initialize()` method in the component's `constructor` that is creating the instance
+- ALWAYS use `@organization/shared-ui` when importing something from the `shared-ui` project but is NOT in the `shared-ui` project
+- ALWAYS use `@organization/shared-types` when importing something from the `shared-types` project but is NOT in the `shared-types` project
 
 You can NEVER use these patterns when work on Angular 20 components:
 - NEVER re-create functionality that is already available in angular CDK

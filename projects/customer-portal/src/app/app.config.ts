@@ -4,7 +4,12 @@ import { provideHttpClient, withFetch, withInterceptorsFromDi, withInterceptors 
 import { provideZonelessChangeDetection, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { routes } from './app.routes';
 import { environment } from '../environments/environment';
-import { BASE_API_URL, httpWithCredentialsInterceptor, unauthorizedInterceptor } from '@organization/shared-ui';
+import {
+  AUTHENTICATION_API_URL,
+  httpWithCredentialsInterceptor,
+  unauthorizedInterceptor,
+  USERS_API_URL,
+} from '@organization/shared-ui';
 import { CookieService } from 'ngx-cookie-service';
 // import { FeatureFlagStore } from '@organization/shared-ui';
 import { dateUtils } from '@organization/shared-utils';
@@ -21,7 +26,8 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([httpWithCredentialsInterceptor, unauthorizedInterceptor])
     ),
     CookieService,
-    { provide: BASE_API_URL, useValue: environment.apiUrl },
+    { provide: AUTHENTICATION_API_URL, useValue: environment.authenticationApiUrl },
+    { provide: USERS_API_URL, useValue: environment.usersApiUrl },
     provideAppInitializer(() => {
       dateUtils.configureTimezone('UTC');
 

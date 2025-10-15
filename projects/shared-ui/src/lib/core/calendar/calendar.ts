@@ -356,7 +356,7 @@ export class Calendar {
     // no selection yet - set as start date (00:00:00)
     if (!currentStart) {
       const startDate = clickedDate.startOf('day');
-      this.dateSelected.emit({ startDate, endDate: null });
+      this.dateSelected.emit({ startDate, endDate: currentEnd });
 
       return;
     }

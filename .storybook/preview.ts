@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { withInterceptorsFromDi } from '@angular/common/http';
 import { withFetch } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
 
 // @todo(refactor) for some reason the inclusion of the tailwind css in the styles.scss files does not get
 // @todo(refactor) applied to storybook but including it here does so while this feels hack, the hack is in storybook
@@ -63,6 +64,7 @@ const preview: Preview = {
         provideZonelessChangeDetection(),
         provideBrowserGlobalErrorListeners(),
         provideHttpClient(withFetch(), withInterceptorsFromDi()),
+        provideRouter([]),
         provideAppInitializer(() => {
           dateUtils.configureTimezone('UTC');
 

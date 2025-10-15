@@ -365,7 +365,7 @@ class ReactiveFormDemoComponent {
               [(checked)]="agreeToTerms"
               name="agreeToTerms"
               value="agree"
-              [validationMessage]="getFieldError('agreeToTerms')"
+              [validationMessage]="agreeToTermsError()"
             >
               I agree to the terms and conditions *
             </org-checkbox>
@@ -393,7 +393,7 @@ class ReactiveFormDemoComponent {
               [(value)]="contactMethod"
               name="contactMethod"
               class="flex flex-col gap-2"
-              [validationMessage]="getFieldError('contactMethod')"
+              [validationMessage]="contactMethodError()"
             >
               <org-radio value="email">Email</org-radio>
               <org-radio value="phone">Phone</org-radio>
@@ -521,6 +521,22 @@ class SimpleBindingDemoComponent {
   public dateRangeError = computed(() => {
     if (this.submitted() && (!this.startDate() || !this.endDate())) {
       return 'Both start and end dates are required';
+    }
+
+    return '';
+  });
+
+  public agreeToTermsError = computed(() => {
+    if (this.submitted() && !this.agreeToTerms()) {
+      return 'You must agree to the terms and conditions';
+    }
+
+    return '';
+  });
+
+  public contactMethodError = computed(() => {
+    if (this.submitted() && !this.contactMethod().trim()) {
+      return 'Please select a contact method';
     }
 
     return '';

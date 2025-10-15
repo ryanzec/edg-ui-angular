@@ -44,4 +44,4 @@ export * from './tag/tag';
 export * from './tabs/tabs';
 export * from './tabs/tab';
 export * from './types/public-api';
-export * from './utils';
+export * from './global-notification-manager/global-notification-manager';

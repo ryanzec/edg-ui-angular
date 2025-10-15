@@ -77,10 +77,6 @@ export class Table<T = unknown> {
         });
       }
     });
-
-    effect(() => {
-      console.log('isScrollNeeded', this.isScrollNeeded());
-    });
   }
 
   /**

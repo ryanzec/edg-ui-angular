@@ -3,6 +3,8 @@ import { tailwindUtils } from '@organization/shared-utils';
 import { ComponentColor, componentColors, ComponentSize } from '../types/component-types';
 
 export type IconName =
+  | 'bell'
+  | 'bell-slash'
   | 'calendar'
   | 'caret-right'
   | 'caret-left'
@@ -37,6 +39,8 @@ export type IconName =
   | 'sign-out';
 
 export const iconNames: IconName[] = [
+  'bell',
+  'bell-slash',
   'calendar',
   'caret-right',
   'caret-left',

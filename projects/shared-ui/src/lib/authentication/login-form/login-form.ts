@@ -1,15 +1,15 @@
 import { Component, ChangeDetectionStrategy, output, input } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
   authenticationAuthenticateRequestSchema,
   type AuthenticationAuthenticateRequest,
 } from '@organization/shared-types';
-import { z } from 'zod';
 import { Card } from '../../core/card/card';
 import { CardContent } from '../../core/card/card-content';
 import { CardHeader } from '../../core/card/card-header';
 import { Input } from '../../core/input/input';
 import { Button } from '../../core/button/button';
+import { validationUtils } from '@organization/shared-ui';
 
 @Component({
   selector: 'org-login-form',
@@ -20,18 +20,18 @@ import { Button } from '../../core/button/button';
 export class LoginForm {
   public readonly isProcessing = input<boolean>(false);
 
-  public readonly loginSubmit = output<AuthenticationAuthenticateRequest>();
+  public readonly loginSubmitted = output<AuthenticationAuthenticateRequest>();
 
   public readonly loginForm = new FormGroup({
     email: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required, Validators.email],
-      updateOn: 'submit',
+      validators: [validationUtils.zodValidator(authenticationAuthenticateRequestSchema.shape.email)],
+      updateOn: 'change',
     }),
     password: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required],
-      updateOn: 'submit',
+      validators: [validationUtils.zodValidator(authenticationAuthenticateRequestSchema.shape.password)],
+      updateOn: 'change',
     }),
   });
 
@@ -41,21 +41,7 @@ export class LoginForm {
     if (this.loginForm.valid) {
       const formValue = this.loginForm.getRawValue();
 
-      try {
-        const validatedData = authenticationAuthenticateRequestSchema.parse(formValue);
-
-        this.loginSubmit.emit(validatedData);
-      } catch (error) {
-        if (error instanceof z.ZodError) {
-          error.issues.forEach((err) => {
-            const field = err.path[0] as keyof typeof this.loginForm.controls;
-
-            if (field && this.loginForm.controls[field]) {
-              this.loginForm.controls[field].setErrors({ zodError: err.message });
-            }
-          });
-        }
-      }
+      this.loginSubmitted.emit(formValue);
     } else {
       this.loginForm.markAllAsTouched();
     }
@@ -64,24 +50,14 @@ export class LoginForm {
   public getFieldError(fieldName: keyof typeof this.loginForm.controls): string | null {
     const field = this.loginForm.get(fieldName);
 
-    if (field?.errors && (field.dirty || field.touched)) {
-      if (field.errors['required']) {
-        return `${this.getFieldLabel(fieldName)} is required`;
-      }
-
-      if (field.errors['email']) {
-        return 'Please enter a valid email address';
-      }
-
-      if (field.errors['zodError']) {
-        return field.errors['zodError'];
-      }
+    if (!field?.errors || field.touched === false) {
+      return null;
     }
 
-    return null;
+    return validationUtils.getFormErrorMessage(field.errors, this.getFieldLabel(fieldName));
   }
 
-  private getFieldLabel(fieldName: string): string {
+  protected getFieldLabel(fieldName: string): string {
     const labels: Record<string, string> = {
       email: 'Email',
       password: 'Password',

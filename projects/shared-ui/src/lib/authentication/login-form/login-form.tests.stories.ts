@@ -3,7 +3,7 @@ import { LoginForm } from './login-form';
 import { AuthenticationAuthenticateRequest } from '@organization/shared-types';
 import { expect, userEvent } from 'storybook/test';
 
-const loginSubmit = (requestData: AuthenticationAuthenticateRequest) => {
+const loginSubmitted = (requestData: AuthenticationAuthenticateRequest) => {
   console.log(requestData);
 };
 
@@ -20,7 +20,7 @@ const meta: Meta<LoginForm> = {
     },
   },
   argTypes: {
-    loginSubmit: {
+    loginSubmitted: {
       action: 'loginSubmitted',
       description: 'Emits when the form is successfully submitted with valid credentials',
     },
@@ -32,11 +32,11 @@ type Story = StoryObj<LoginForm>;
 
 export const WithValidationErrors: Story = {
   args: {
-    loginSubmit: loginSubmit,
+    loginSubmitted: loginSubmitted,
   },
   render: (args) => ({
     props: args,
-    template: `<org-login-form (loginSubmit)="loginSubmit($event)"></org-login-form>`,
+    template: `<org-login-form (loginSubmitted)="loginSubmitted($event)"></org-login-form>`,
     moduleMetadata: {
       imports: [LoginForm],
     },
@@ -59,11 +59,11 @@ export const WithValidationErrors: Story = {
 
 export const PasswordNotVisible: Story = {
   args: {
-    loginSubmit: loginSubmit,
+    loginSubmitted: loginSubmitted,
   },
   render: (args) => ({
     props: args,
-    template: `<org-login-form (loginSubmit)="loginSubmit($event)"></org-login-form>`,
+    template: `<org-login-form (loginSubmitted)="loginSubmitted($event)"></org-login-form>`,
     moduleMetadata: {
       imports: [LoginForm],
     },
@@ -84,11 +84,11 @@ export const PasswordNotVisible: Story = {
 
 export const PasswordVisible: Story = {
   args: {
-    loginSubmit: loginSubmit,
+    loginSubmitted: loginSubmitted,
   },
   render: (args) => ({
     props: args,
-    template: `<org-login-form (loginSubmit)="loginSubmit($event)"></org-login-form>`,
+    template: `<org-login-form (loginSubmitted)="loginSubmitted($event)"></org-login-form>`,
     moduleMetadata: {
       imports: [LoginForm],
     },

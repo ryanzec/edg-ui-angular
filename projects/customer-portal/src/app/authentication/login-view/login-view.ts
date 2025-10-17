@@ -10,20 +10,20 @@ import { AuthenticationAuthenticateRequest } from '@organization/shared-types';
   templateUrl: './login-view.html',
 })
 export class LoginView {
-  private readonly router = inject(Router);
-  private readonly authenticationManager = inject(AuthenticationManager);
+  private readonly _router = inject(Router);
+  private readonly _authenticationManager = inject(AuthenticationManager);
 
-  protected readonly isProcessing = computed(() => this.authenticationManager.isLoading());
+  protected readonly isProcessing = computed(() => this._authenticationManager.isLoading());
 
   constructor() {
     effect(() => {
-      if (this.authenticationManager.isAuthenticated()) {
-        this.router.navigate(['/home']);
+      if (this._authenticationManager.isAuthenticated()) {
+        this._router.navigate(['/home']);
       }
     });
 
     effect(() => {
-      const error = this.authenticationManager.error();
+      const error = this._authenticationManager.error();
 
       if (error) {
         // @todo(!) something
@@ -32,6 +32,6 @@ export class LoginView {
   }
 
   public onLoginSubmit(request: AuthenticationAuthenticateRequest): void {
-    this.authenticationManager.authenticate(request);
+    this._authenticationManager.authenticate(request);
   }
 }

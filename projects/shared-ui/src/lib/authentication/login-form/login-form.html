@@ -5,7 +5,7 @@
       <!-- @todo(!) create component for this -->
       <div class="w-full">
         <!-- @todo(!) create component for this -->
-        <label for="email">Email</label>
+        <label for="email">{{ getFieldLabel('email') }}</label>
         <org-input
           data-testid="email-input"
           type="email"
@@ -19,7 +19,7 @@
       </div>
       <div class="w-full">
         <!-- @todo(!) create component for this -->
-        <label for="password">Password</label>
+        <label for="password">{{ getFieldLabel('password') }}</label>
         <org-input
           data-testid="password-input"
           type="password"

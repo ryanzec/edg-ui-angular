@@ -116,7 +116,7 @@ describe('LoginView', () => {
       expect(authenticationManager.authenticate).toHaveBeenCalledWith(loginRequest);
     });
 
-    it('should be called when login form emits loginSubmit event', () => {
+    it('should be called when login form emits loginSubmitted event', () => {
       const loginRequest: AuthenticationAuthenticateRequest = {
         email: 'user@example.com',
         password: 'securepassword',
@@ -126,7 +126,7 @@ describe('LoginView', () => {
       fixture.detectChanges();
 
       const loginForm = fixture.nativeElement.querySelector('org-login-form');
-      loginForm.dispatchEvent(new CustomEvent('loginSubmit', { detail: loginRequest }));
+      loginForm.dispatchEvent(new CustomEvent('loginSubmitted', { detail: loginRequest }));
 
       expect(component.onLoginSubmit).toHaveBeenCalledWith(loginRequest);
     });

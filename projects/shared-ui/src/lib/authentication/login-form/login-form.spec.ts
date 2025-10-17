@@ -68,8 +68,8 @@ describe('LoginForm', () => {
     expect(component.showPassword).toBe(false);
   });
 
-  it('should emit loginSubmit event when form is valid', () => {
-    vi.spyOn(component.loginSubmit, 'emit');
+  it('should emit loginSubmitted event when form is valid', () => {
+    vi.spyOn(component.loginSubmitted, 'emit');
 
     component.loginForm.patchValue({
       email: 'test@example.com',
@@ -78,14 +78,14 @@ describe('LoginForm', () => {
 
     component.login();
 
-    expect(component.loginSubmit.emit).toHaveBeenCalledWith({
+    expect(component.loginSubmitted.emit).toHaveBeenCalledWith({
       email: 'test@example.com',
       password: 'password123',
     });
   });
 
-  it('should not emit loginSubmit event when form is invalid', () => {
-    vi.spyOn(component.loginSubmit, 'emit');
+  it('should not emit loginSubmitted event when form is invalid', () => {
+    vi.spyOn(component.loginSubmitted, 'emit');
 
     component.loginForm.patchValue({
       email: '',
@@ -94,7 +94,7 @@ describe('LoginForm', () => {
 
     component.login();
 
-    expect(component.loginSubmit.emit).not.toHaveBeenCalled();
+    expect(component.loginSubmitted.emit).not.toHaveBeenCalled();
   });
 
   it('should mark all fields as touched when form is invalid on submit', () => {

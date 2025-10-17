@@ -39,7 +39,7 @@ const meta: Meta<LoginForm> = {
   \`\`\`html
   <!-- Basic login form -->
   <org-login-form
-    (loginSubmit)="handleLogin($event)"
+    (loginSubmitted)="handleLogin($event)"
   />
   \`\`\`
 
@@ -56,7 +56,7 @@ const meta: Meta<LoginForm> = {
   \`\`\`
 
   ### Events
-  - **loginSubmit**: Emitted when the form is successfully submitted with valid credentials (emits \`AuthenticationAuthenticateRequest\`)
+  - **loginSubmitted**: Emitted when the form is successfully submitted with valid credentials (emits \`AuthenticationAuthenticateRequest\`)
 
   ### Form Structure
   The form uses Angular Reactive Forms with the following controls:
@@ -74,16 +74,16 @@ const meta: Meta<LoginForm> = {
 export default meta;
 type Story = StoryObj<LoginForm>;
 
-const loginSubmit = (requestData: AuthenticationAuthenticateRequest) => {
+const loginSubmitted = (requestData: AuthenticationAuthenticateRequest) => {
   console.log('Login submitted:', requestData);
 };
 
 export const Default: Story = {
   args: {
-    loginSubmit: loginSubmit,
+    loginSubmitted: loginSubmitted,
   },
   argTypes: {
-    loginSubmit: {
+    loginSubmitted: {
       action: 'loginSubmitted',
       description: 'Emits when the form is successfully submitted with valid credentials',
     },
@@ -99,7 +99,7 @@ export const Default: Story = {
   render: (args) => ({
     props: args,
     template: `
-      <org-login-form (loginSubmit)="loginSubmit($event)"></org-login-form>
+      <org-login-form (loginSubmitted)="loginSubmitted($event)"></org-login-form>
     `,
     moduleMetadata: {
       imports: [LoginForm],
@@ -215,7 +215,7 @@ export const Interactive: Story = {
 // Helper components for stories
 @Component({
   selector: 'org-login-form-validation-empty-story',
-  template: `<org-login-form (loginSubmit)="onSubmit($event)"></org-login-form>`,
+  template: `<org-login-form (loginSubmitted)="onSubmit($event)"></org-login-form>`,
   imports: [LoginForm],
 })
 class LoginFormValidationEmptyStory implements AfterViewInit {
@@ -239,7 +239,7 @@ class LoginFormValidationEmptyStory implements AfterViewInit {
 
 @Component({
   selector: 'org-login-form-validation-invalid-story',
-  template: `<org-login-form (loginSubmit)="onSubmit($event)"></org-login-form>`,
+  template: `<org-login-form (loginSubmitted)="onSubmit($event)"></org-login-form>`,
   imports: [LoginForm],
 })
 class LoginFormValidationInvalidStory implements AfterViewInit {
@@ -266,7 +266,7 @@ class LoginFormValidationInvalidStory implements AfterViewInit {
 
 @Component({
   selector: 'org-login-form-validation-valid-story',
-  template: `<org-login-form (loginSubmit)="onSubmit($event)"></org-login-form>`,
+  template: `<org-login-form (loginSubmitted)="onSubmit($event)"></org-login-form>`,
   imports: [LoginForm],
 })
 class LoginFormValidationValidStory implements AfterViewInit {
@@ -292,7 +292,7 @@ class LoginFormValidationValidStory implements AfterViewInit {
 
 @Component({
   selector: 'org-login-form-password-hidden-story',
-  template: `<org-login-form (loginSubmit)="onSubmit($event)"></org-login-form>`,
+  template: `<org-login-form (loginSubmitted)="onSubmit($event)"></org-login-form>`,
   imports: [LoginForm],
 })
 class LoginFormPasswordHiddenStory implements AfterViewInit {
@@ -318,7 +318,7 @@ class LoginFormPasswordHiddenStory implements AfterViewInit {
 
 @Component({
   selector: 'org-login-form-password-visible-story',
-  template: `<org-login-form (loginSubmit)="onSubmit($event)"></org-login-form>`,
+  template: `<org-login-form (loginSubmitted)="onSubmit($event)"></org-login-form>`,
   imports: [LoginForm],
 })
 class LoginFormPasswordVisibleStory implements AfterViewInit {
@@ -352,7 +352,7 @@ class LoginFormPasswordVisibleStory implements AfterViewInit {
         <div class="text-sm text-text-subtle">Fill out the form and submit to see event logging in action.</div>
       </div>
 
-      <org-login-form (loginSubmit)="onLoginSubmit($event)"></org-login-form>
+      <org-login-form (loginSubmitted)="onLoginSubmit($event)"></org-login-form>
 
       <!-- Event Log -->
       <div class="space-y-2">

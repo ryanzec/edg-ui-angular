@@ -482,6 +482,7 @@ When possible, we should create a minimal storybook example that can be used to 
 - while using `nativeElement` for things like calling `focus()` or in a directive for append dom elements, AI will sometimes use it for event binding which should almost always be handle through the host property of the `@Component` or `@Directive` or event binding on the element itself like `(scrollend)="handleScrollEnd()"`
 - if you have a default value, it will default at every step of the way instead of just as the end (making refactoring the default harder)
 - you need to be explicitly on when you have checks on data trigger certain action and be clear if it should happen whenever the data changes (that would be an `effect()`) or only on that (which should be in an `ngOninit()` method)
+- when dealing with a form, indicate if there is a zod schema that should be used with the validation piece
 
 AI will also just forget very obvious things (like placing a <ng-content />)
 

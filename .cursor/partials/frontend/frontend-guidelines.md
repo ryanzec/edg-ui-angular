@@ -103,6 +103,7 @@ const showDetails = false;
 - ALWAYS use patch for updating data with an api call
 - ALWAYS cast to the specific type when needed
 - ALWAYS attempt to fix circular dependencies by import the type one when possible
+- ALWAYS omit option values if you are just setting it to the default value
 
 You can NEVER use these patterns when work in frontend code in general:
 - NEVER refactor existing code that was not changed as part of your task

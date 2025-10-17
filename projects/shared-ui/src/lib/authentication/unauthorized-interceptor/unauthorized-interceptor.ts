@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { AuthenticationManager } from '../authentication-manager/authentication-manager';
-import { AUTHENTICATION_API_URL } from '../public-api';
+import { AUTHENTICATION_API_URL } from '../../core/injectable-tokens';
 
 export const unauthorizedInterceptor: HttpInterceptorFn = (request, next) => {
   const authenticationManager = inject(AuthenticationManager);

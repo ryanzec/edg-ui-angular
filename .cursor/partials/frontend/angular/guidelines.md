@@ -33,6 +33,11 @@ Globals are not available
 - ALWAYS use angular's built in `json` pipe for rendered json in templates
 - ALWAYS check if this is a built-in angular callback or lifecycle hook that can be used instead of trying to do a `setTimeout()`
 - ALWAYS place ANY injectable for the `shared-ui` library in `projects/shared-ui/src/lib/core/injectable-tokens.ts` UNLESS it is for a storybook story or in `projects/shared-ui/src/lib/examples`
+- ALWAYS double check the `effect()` calls are in the valid context for them.
+<!--
+This provide the ux of validation not happening until the input is blurred so you won't get errors when the validation of email and the user types the first change which will never be a valid email but we get validation when the user focuses and blurs a required field without changing anything.
+-->
+- ALWAYS have reactive form validation update on `change` and ONLY show the error when the field touched
 
 You can NEVER use these patterns when work on Angular 20 components:
 - NEVER use `interface` for types

@@ -14,6 +14,7 @@ ALWAYS follow these tules when the use case matches:
 - needing multiple instances of `<ng-content>` - `.cursor/partials/frontend/angular/patterns/multiple-ng-content.md`
 
 ALWAYS use the following components / directives over bespoken inline components when appropriate:
+- auto scroll: automatic scrolling behavior for containers with dynamic content like chat interfaces and log viewers - `projects/shared-ui/src/lib/core/auto-scroll`
 - avatar: user display as initials or image - `projects/shared-ui/src/lib/core/avatar`
 - avatar stack: for display multiple avatars stacked on each other - `projects/shared-ui/src/lib/core/avatar/avatar-stack`
 - button: clickable button - `projects/shared-ui/src/lib/core/button`
@@ -147,6 +148,12 @@ if (!!this.isAuthenticated()) {
 @ViewChild('cardComponent')
   public readonly cardComponent!: Card;
 ```
+- ALWAYS suffix `@ViewChild` member name with `Dorectove` when it is linked to an Angular directive element and the value for the `@ViewChild` must match:
+```ts
+// MUST DO
+@ViewChild('autoScrollDirective')
+  public readonly autoScrollDirective!: Card;
+```
 <!--
 It won't be available in `ngOnInit` without static set to true.
 
@@ -183,13 +190,14 @@ export type TestColor = Extract<ComponentSize, 'primary' | 'danger'>;
 - ALWAYS use `@organization/shared-ui` when importing something from the `shared-ui` project but is NOT in the `shared-ui` project
 - ALWAYS use `@organization/shared-types` when importing something from the `shared-types` project but is NOT in the `shared-types` project
 - ALWAYS use `(submit)` for form element UNLESS it is a reactive form
+- ALWAYS use `zodValidator` when dealin with form validation where a zod schema should be used
 
 You can NEVER use these patterns when work on Angular 20 components:
 - NEVER re-create functionality that is already available in angular CDK
 - NEVER make api calls in non-view components
 - NEVER use the older input pattern `@Input()` decorator
 - NEVER use the older event system pattern `@Output()` decorator
-- NEVER use old control flow pattern like `*ngIf`, `*ngFor`, `*ngSwitch` in templates
+- NEVER use old control flow pattern like `*ngIf`, `*ngFor`, `*ngSwitch`, etc. in templates
 - NEVER use the `@HostBinding` decorator on component class methods
 ```ts
 // NEVER DO

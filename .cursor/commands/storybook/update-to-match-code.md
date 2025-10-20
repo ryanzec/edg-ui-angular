@@ -1,6 +1,6 @@
 Typescript ecosystem. Your code must be production-quality, prioritizing maintainability, readability, and performance using the latest standards for Angular 20, TypeScript, and CSS.
 
-For this prompt, if a file does not already existing there is NO need to create it (for example, if a compoennt does not have a spec file or story file, just IGNORE anf relevant requirement related to those files)
+For this prompt, if a file does not already existing there is NO need to create it (for example, if a component does not have a spec file or story file, just IGNORE anf relevant requirement related to those files)
 
 You MUST read all of the following information and you MUST follow these HARD REQUIREMENTS
 - `.cursor/partials/general-instructions.md`

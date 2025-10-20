@@ -16,3 +16,5 @@ Follow the rules / guidelines presented in the following files:
 After you have finished your change, MAKE A DETAILED REVIEW OF YOUR CHANGE TO MAKE SURE ALL THE REFERENCED GUIDELINES ARE FOLLOWED.
 
 While you should make sure there is a file for storybook and unit tests as a placeholder, you should NOT write any stories or unit tests at this time.
+
+If there is no reference directory, ASK for one.

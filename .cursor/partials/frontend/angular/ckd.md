@@ -13,4 +13,3 @@ You MUST NEVER use these patterns when work on Angular 20 directives:
 This is the default 
 -->
 - NEVER use `standalone: true` in the `@Directive` decorator
-- 

@@ -1,4 +1,4 @@
-For references on how we structure our stroybook files and implement a number of feature, reference these files:
+For references on how we structure our storybook files and implement a number of feature, reference these files:
 - `projects/shared-ui/src/lib/core/button/button.stories.ts`
 - `projects/shared-ui/src/lib/core/input/input.stories.ts`
 - `projects/shared-ui/src/lib/core/tag/tag.stories.ts`

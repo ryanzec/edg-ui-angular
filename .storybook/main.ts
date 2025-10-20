@@ -9,7 +9,7 @@ const config: StorybookConfig = {
     name: '@storybook/angular',
     options: {},
   },
-  // this is required to avoud having to restart stroybook to get sass changes (still need to refresh page)
+  // this is required to avoud having to restart storybook to get sass changes (still need to refresh page)
   webpackFinal: async (config) => {
     // Define the absolute path to your global stylesheet.
     const globalStylePath = path.resolve(__dirname, '../projects/shared-ui/src/lib/styles.css');

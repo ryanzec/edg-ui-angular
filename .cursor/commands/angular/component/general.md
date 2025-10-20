@@ -16,3 +16,5 @@ You MUST read all of the following information BEFORE planning your work and you
 - `.cursor/partials/frontend/storybook-development.md`
 
 After you have finished your change, MAKE A DETAILED REVIEW OF YOUR CHANGE TO MAKE SURE ALL THE REFERENCED GUIDELINES ARE FOLLOWED.
+
+If there is no reference directory, ASK for one.

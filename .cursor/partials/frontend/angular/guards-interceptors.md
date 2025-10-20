@@ -1,5 +1,11 @@
-Angular 20 Guard / Interceptor Hard Requirements:
-- Make sure it is returning proper types (`Observable`, `Promise`, `boolean`, `UrlTree`)
-- Make sure async logic is handled correctly and efficiently
-- Make sure the code is highly performant (in the case of angular guards / interceptors, performances in more important than readability as they can run often but make sure to comment on code that is being optomized for performance and explain any complexity that might be needed)
-- Make sure there are no unavoidable side effects
+
+You MUST ALWAYS use these patterns when work on Angular 20 guards / interceptors:
+- ALWAYS make sure it is returning proper types (`Observable`, `Promise`, `boolean`, `UrlTree`)
+- ALWAYS make sure async logic is handled correctly and efficiently
+<!--
+Since this code can runn very often, performance is more of a concern than normal
+-->
+- ALWAYS Make sure the code is highly performant
+
+You MUST NEVER use these patterns when work on Angular 20 guards / interceptors:
+- NEVER have side effect unless 100% NECESSARY

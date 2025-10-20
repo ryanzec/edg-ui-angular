@@ -11,3 +11,5 @@ Follow the rules / guidelines presented in the following files:
 - `.cursor/partials/frontend/storybook-development.md`
 
 After you have finished your change, MAKE A DETAILED REVIEW OF YOUR CHANGE TO MAKE SURE ALL THE REFERENCED GUIDELINES ARE FOLLOWED.
+
+If there is no reference directory, ASK for one.

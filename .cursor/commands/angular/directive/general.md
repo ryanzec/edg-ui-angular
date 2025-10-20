@@ -13,3 +13,5 @@ You MUST read all of the following information and you MUST follow these HARD RE
 - `.cursor/partials/frontend/rxjs-guidelines.md`
 
 After you have finished your change, MAKE A DETAILED REVIEW OF YOUR CHANGE TO MAKE SURE ALL THE REFERENCED GUIDELINES ARE FOLLOWED.
+
+If there is no reference directory, ASK for one.

@@ -12,15 +12,25 @@ In general, the internal parts of angular material component should only be over
 
 ## Tailwind
 
-Tailwind has been configured can can be used to add inline styles. This should be the primary method for styling custom component. Tailwind's color palette has been removed and replaced with the color palette from angular material.
-
-## SASS over CSS
-
-While tailwind should be able to handle most cases of customer component styling, if we need something more powerful, we should use SASS. Angular material still heavily uses SASS so it will probably just make things easier to also use SASS when needed.
+Tailwind has been configured can can be used to add inline styles. This should be the primary method for styling custom component. While tailwind default color palette is available, we should try to only use the specific design system color token from `projects/shared-ui/src/lib/variables.css` to avoid using to many different color and they support light / dark mode by default.
 
 # Package management / tooling
 
-# Always use --skip-install for `ng generate` when available
+For almost everything (if not everything) you should be using moon for any tooling commands (dev servers, testing, installing packages), some specific points to call out
+
+## Always use `moon :pnpm -- ...`
+
+In order to make sure the same version of node / pnpm is used, we need `moon :pnpm -- ...` to manage packages so to add a package it would be:
+
+```
+moon :pnpm -- add --save-exact --save zod
+```
+
+## Always install package with `--save-exact`
+
+This avoid hard to debug issues or expliots that can happen with automatic updates.
+
+## Always use --skip-install for `ng generate` when available
 
 - ✅ `moon :generate` handles this automatically
 
@@ -45,6 +55,8 @@ For storybook this standard does not apply for ease of development of DX code.
 
 Modules are more or less a legacy system that is not longer needed and whenever possible should be avoided. Component should be create as standalone and services that are truly global can be created with `providedIn: 'root'`.
 
+While `moon :generate` does ask for a "module / feature", is it used for code organization only (which is still recommended).
+
 # Split out development stories from testing stories
 
 Splitting out the testing stories from the development stories provides 2 benefits:
@@ -56,17 +68,13 @@ Splitting out the testing stories from the development stories provides 2 benefi
 
 Signal have been around for years and is now stable in Angular 20 and generally is a simplier and more optimized solution for state management (especially for component state / properties) and should be preferred over rxjs.
 
-Rxjs should only be used for things like api request and when the complexity of the situation requires it.
+Rxjs should only be used for things like api requests and when the complexity of the situation requires it.
 
 # Single responsibility
 
 We will always want make sure each to following the single responsibility rule, especially for services, to make the code as re-usable and maintainable as possible.
 
 For example an authentication system needs to make api requests and store state locally and while the two can be seen also closely related, that should be 2 services, an `AuthenticationApiService` and an `AuthenticationStateService`. While the `AuthenticationStateService` might be the only things to call the `AuthenticationApiService` splitting them up make is clear one related to state management (and methods the related to it) and the other is specically for calling backend apis. This also means if there is a case for make an authentication api request outside of `AuthenticationStateService`, it is easy to do.
-
-# Types over interfaces (lint error)
-
-Types are generally more flexible and avoid "magic" merging issues so always use types (tooling has a command to generate new types).
 
 # Only use classes for Angular specific code
 
@@ -76,42 +84,17 @@ While we need to use classes for Angular specific code, for our own data, we sho
 
 In almost al use cases we should be able to store component state on the component class itself.
 
-Int he rare case where that does not work, you can create a store service for it however this is a last resort and class state is preferred and should work in nearly all use cases.
-
-## Exposing component state to parent
-
-When a parent needs access to a child's component state, there are 2 main pattern for this.
-
-### Direct child
-
-When the child is directly in the parent component, you can use the `@ViewChild` decorator since this is the simplest and mmost performant pattern.
-
-### Nested chid
-
-When the child is nested at least one from the parent, you need to use a registry pattern where the child component registers itself (and a registry services is available) and the parent who needs the access provides the registry service
+In the rare case where that does not work, you can create a store service for it however this is a last resort and class state is preferred and should work in nearly all use cases.
 
 # Naming
 
+- ✅ mostly handling in tooling
+
 ## Files
 
-With the recent version(s) of angular, they have moved away from certain patterns for some thing (like removing `.component` and `.service` in generated file name) but kept other patterns (like guard files automatically having `-guard` in it) so these are some patterns to help make it easier to know what something is just by the file name.
+For the most part, naming conventions are handled with `moon :generate` but some that are not:
 
-## Modules directories
-
-While we don't use angualr modules (as the are effective deprecated), we use modules in the context of directories so modules should be singular in nature.
-
-```
-❌ bad
-
-projects/shared-ui/src/lib/users
-projects/shared-ui/src/lib/projects
-
-projects/customer-portal/src/app/dashboards
-
-✅ good
-```
-
-## Components
+### View Components
 
 In general component should be named as what they are but some special cases are:
 
@@ -119,7 +102,7 @@ In general component should be named as what they are but some special cases are
 
 ## Services
 
-make more specific to avoid confusion on if something is a service vs component
+Make more specific to avoid confusion on if something is a service vs component
 
 - `*-api`: API services (ex. `users-api`)
 - `*-admin-api`: API services design for only internal usage (ex. `users-admin-api`)
@@ -127,24 +110,8 @@ make more specific to avoid confusion on if something is a service vs component
 - `*-manager`: A service that is used to manage a global level feature (ex. `logger-manager` or `global-notification-manager`, `authentication-store`)
 - `*-store`: Management of a pariticular feature or instance of a feature that has state associated (ex. `pagi`)
   - `[COMPONENT_NAME]-store`: This should be used as a last resort.
-- `*data-store`: Management of api related data.
-- `*-registry`: A registry component used for component to register themselves that allow for parent multiple levels up the tree to access those child component's public apis.
 
-## Pipes
-
-`*-tranformer`
-
-## Guard
-
-`*-guard`
-
-## Directives
-
-- ✅ automatically handling in tooling
-
-- `*-directive`
-
-# Observable `$` suffix
+## Observable `$` suffix
 
 It is widely adopted (in both RxJS and Angualt) to have a $ suffix in the name of observables and so shall we.
 
@@ -152,31 +119,21 @@ It is widely adopted (in both RxJS and Angualt) to have a $ suffix in the name o
 
 Instead of just having one publis-api.ts file, each module should have its own and the top level one just exported those files. This is to make it so the top level files does not get too large to be easily managed.
 
-# Angular Material
-
-## `camelCase` instead of `kabob-case` directives
-
-While they work on some thing, for angular material directives you need to use `camelCase` instead of `kabob-case` as certain feature will not work (like default options for components).
-
-## Favor property value over
-
-# Avoid relying on parent for injectable of child provider, use the registry pattern instead
-
 # Storybook example classes should be prefixed with EXAMPLE
 
-This is to make is easy to see if we ware importing these in production code
+This is to make is easy to see if we ware importing these in production code (even though they are not exported, this is just incase).
 
-## TODO: move this into it own project that way it can be made impossible to import into production code
+# Explicit access modifiers
 
-# be explicit with public / protected / private
+Always be explicit with the `public` / `protected` / `private` access modidier just to make the code easier to read.
 
-# prifex private with `_`
+# Prefix private with `_`
 
-This make it easy to identify private data and make it easy in naming if there also need to be a `private` or `protected` equivlant (which would be the name without the `_`)
+This makes it easy to identify private data and make it easy in naming if there also need to be a `public` or `protected` equivlant (which would be the name without the `_`)
 
-# component data encapsulation
+# Component data encapsulation
 
-Data on a component should be made private and prefix with `_` and then if it needs to be exposed, use a public or protected field that maps to a readonly version (signals have a helper method for this) that way modification of this data can be better controlled.
+Data on a component should be made protected and then if it needs to be exposed, use a public api mapped to a readonly version (signals have a helper method for this) that way modification of this data can be better controlled and debugged.
 
 # Types over interfaces whenever possible
 
@@ -226,7 +183,7 @@ The one thing the interfaces can do the types can't is add to an existing interf
 
 If a 3rd aprt requires you to add to an interface, that is fine, but that should be the only use case for using interfaces
 
-# Use unified signals whenever possinle
+# Use unified signals whenever possible
 
 Instead of doing something like this in a class:
 
@@ -274,82 +231,79 @@ In order to best get AI to generate working but also good code the flow should b
 - use `moon :generate` to generate the scalfolding for the component, services, etc
 - after that you can give a detailed prompt to ai passing reference to where code should go and other references , like:
 
-```
-I would like you to create a login form utilizing angular material and the native reactive forms in Angular in @login-form/. this should be using the @authenticationAuthenticateRequestSchema and associated type for form validation and typing. This code should not directly interact with the authentication api / store but instead is should have an `output()` (modern) define that will emit events for login when the form is valid and submitted
-```
-
-- review the code and refactor as needed
-
 ## Enable auto ai rules / guidelines inclusion
 
 Some editors might require you to configure the that that ai files in the repository are added as context when interacting with it so make sure do to do otherwise the generated code will not be upto the standard we want it to be.
 
 # exporting / public for unit test
 
-If something is being exported or made public for the sole purpose of allow better and easier testing, is should have a `TSDoc` block that has at a minimum a @internal line explaining why is it being exported / made public and it should be prefixed with `_` to make it easy to identify in code.
-
-# Directives should be assumed to also be on the element
-
-With how certain feature of Angular and directives work (like `@HostBinding`), when a directive is added to a component, that directive should always be on the component until the component itself is destoried. If the directive need a `off` state, the directive should have a fasely value that can be used to turn it `off` instead of dynamically adding and removing the directive.
-
-# Style based components
-
-When you want to have a styled based component, while in frameworks like React or SolidJS you would create a component that applies the styles and re-use that component, the Angular idomatic way to handle this is instead to create a directive. Not only is this idomatic in Angular, it also has the benifit of avoiding complexity when you want to be able to apply these styles on multiple types of elements and this method can be used on any element by default.
-
-## Use `@HostBinding` whenever possible instead of `Renderer2`
-
-When creating these directives, we should always opt for `@HostBinding` instead of `Renderer2`. It automatically handles cleanup of classes and that results in far less boilerplate code and mistakes from being introduced.
-
-```tsx
-// ❌ not opitomal
-import { Directive, ElementRef, OnDestroy, OnInit, Renderer2, inject } from '@angular/core';
-
-@Directive({
-  selector: '[orgFormFields]',
-})
-export class FormFieldsDirective implements OnInit, OnDestroy {
-  private el = inject(ElementRef);
-  private renderer = inject(Renderer2);
-
-  public ngOnInit(): void {
-    this.renderer.addClass(this.el.nativeElement, 'flex');
-    this.renderer.addClass(this.el.nativeElement, 'flex-col');
-    this.renderer.addClass(this.el.nativeElement, 'gap-form-fields');
-  }
-
-  public ngOnDestroy(): void {
-    this.renderer.removeClass(this.el.nativeElement, 'flex');
-    this.renderer.removeClass(this.el.nativeElement, 'flex-col');
-    this.renderer.removeClass(this.el.nativeElement, 'gap-form-fields');
-  }
-}
-
-// ✅ generally preferred
-import { Directive, HostBinding } from '@angular/core';
-
-@Directive({
-  selector: '[orgFormFields]',
-  standalone: true, // Modern directives should be standalone
-})
-export class FormFieldsDirective {
-  @HostBinding('class')
-  readonly classes = 'flex flex-col gap-form-fields';
-}
-```
+If something is being exported or made public for the sole purpose of allow better and easier testing, is should have a `TSDoc` block that has at a minimum a `@internal` line explaining why is it being exported / made public and it should be prefixed with `_` to make it easy to identify in code.
 
 # AI
 
+Most of the common ai tooling should have a "rules" file(s) that at a minimum references all the partial rule files that have been generated so should result is relatively consisteny code generation.
+
+If the tool you use require you to tell it about rule rules, MAKESURE TO CONFIGURE IT, while it should generate functional code without it, it will most certainly not be consistent with the rest of the codebase.
+
+## Cursor
+
+For cursor, we also have explicit commands manually used to minimize the context set based ont he text mainly to save of token usage but also to make certain tasks easier.
+
+### Updating Storybook
+
+Lets say you made updates to the dialog component but now you want to make sure the stories are updated. There is a Cursor command of `/storybook/update` to do this so all you have to do is:
+
+```
+/storybook/update @dialog/
+```
+
+## Ask for question for larger requests.
+
+When you are doing a larger request it is recommend guide the AI to ask question to avoid unexcepted implementation details by adding something like this to the end of the prompt:
+
+```
+If you have any questions about the present functionality or ideas for functionality that should be considered, present those questions before fully planning the coding work.
+```
+
+I would also add this line for each time you reply to any questions to make sure your anwsers did not produce and other questions.
+
+### Cursor Shortcut
+
+Cursor has a command for this to make it easier where you can do:
+
+```
+/angular/component/general @dialog/
+
+[YOUT PROMPT]
+
+/ask-me-questions
+```
+
 ## Thing to watch out for
 
-- When though ai it told to use Angular material and avoid unneeded custom css, it will often add tailwind padding for things like padding on angualr material components that already have padding (often in nested elements) create extra padding
+While the AI should have extensive rules around stuff, it does not always following them, these more common issue I have experienced:
+
+- ai will sometimes putting styles in a `*.css` files, while variables need to go into a `*-variables.css` files, styling should just be using tailwind in the template, if this happen just tell the ai to move those styles into template files as tailwind and it usually works well
+- organization storybook stories (by the title name) incorrectly (just manually update)
+- storybook will sometimes implement functionality inline in the story that is already implemented in a service
+- storybook will sometimes implement functionality inline in the story that should be abstract into a service / component to prevent duplication of code
+- will sometimes use `setTimeout` in areas where it should not be used as in many cases it can be flacky (like using `setTimeout` to run code after a `scrollIntoView` instead of doing an event binding like `(scrollend)="handleScrollEnd()"` on the scroll element or using a `setTimeout` instead of a angular lifecycle hook)
+- while using `nativeElement` for things like calling `focus()` or in a directive for appendind dom elements, AI will sometimes use it for event binding which should almost always be handle through the host property of the `@Component` or `@Directive` or event binding on the element itself like `(scrollend)="handleScrollEnd()"`
+- if you have a default value, it will default at every step of the way instead of just at the end (making refactoring the default harder)
+- you need to be explicitly on when you have checks on data triggering certain action and be clear if it should happen whenever the data changes (that would be an `effect()`) or only on that (which should be in an `ngOninit()` method)
+- when dealing with a forms, indicate if there is a zod schema that should be used with the validation piece
+
+## Check for custom AI implementation of truely general logic
+
+Sometimes AI will create custom implementation of thing where a 3rd part library would be far better (like creating a md5 hashing solution that ironically indefinately loops), make sure to look out this this in AI generated code.
+
+## Do full testing and give full information if asking AI to resolve the issue
+
+Be sure to give as much information as possible, telling it a form is not validating properly and that alone can have the AI go down a path trying to look at and modify all the input components instead of looking at the form but if you say one worm does and but another does not, that can avoid this (then again sometimes is need to be told to use `(submit)` instead of `(ngSubmit)`).
 
 # Pattern Examples
 
-There are a nubmer of pattern example in the `shared-ui` examples module (usually in a storybook file).
-
-More compllex example can be referenced:
-
-- Search the codebase for `USERS_API_URL` to be a pattern for adding configuable options for a root provided service
+There are a number of pattern example in the `shared-ui` examples module (usually in a storybook file).
 
 # Typing
 
@@ -390,47 +344,23 @@ export const createUserSchema = userSchema.pick({
 });
 ```
 
-## This make the schemas / types more explicit as it would be harder to accidently add a properly that should not be there and is make that type easier to read as the omit pattern does not really tell you what is there, just want it not.
+This make the schemas / types more explicit as it would be harder to accidently add a properly that should not be there and is make that type easier to read as the omit pattern does not really tell you what is there, just want it not.
+
+# Things to improve
+
+## Root level package file
+
+While using a root only package.json files is generally no recommended with moonrepos, it is the easiest option that I know works for this setup, we can investigate cleaning this up if it every becomes a problem.
 
 ---
 
 ---
-
-Patterns to implement:
-
-- loading state for table views
-
-NOTES:
-
-- editor weirdness (sass files)
-- custom scrip to get angular cli to not install on generate as it can't easily use moonrepo;s version of pnpm (and the process of move that around)
-- access pnpm feels hacky
-- using a root only package.json files is generally no recommended but the easiest option that I know works
-- does not have https in local development (will leave as is until it is an issue)
-- pnpm usage is weird (in order to make sure it uses the moonrepo version)
-- still need to figure out node version with moon tasks
-- moon task seem to be running for everything instead of just the project named (moon shared-ui:lint show message for cusotmer-portal)
-- making sure all ng command are represented in moon (for ng is accessing correct version of moon toolchain)
-- added component with ng generate --module does not update the module automatically
-- a little weirdness with moonrepo and angular also providing it own level on moonrepo support
-- need to run moon sync hook
-- need to manually refresh storybook to get style changes sometimes
-- if using web ai client, make sure to pass in ai file as context to the prompt to have it generate better code
--
-
-# References:
-
-- karma based testing: https://gemini.google.com/app/6dcecc1c94590766
-
-# To Look Into
-
-- storybook autodocs
 
 # AI Examples
 
 ## Simple
 
-If the example can be expressed relatively easily in the code snippit, just inline the code snipper to the ai file
+If the example can be expressed relatively easily in the code snippit, just inline the code snippet to the ai as it avoid providing too context that can cost more token and some cause confusion.
 
 ## Complex
 
@@ -438,7 +368,7 @@ If the example is more complex, just reference a location where it is being used
 
 When possible, we should create a minimal storybook example that can be used to reference it so that we feed minial context into the ai and also have a manual example we can reference in the future.
 
-# Good bad code example template
+# Good / Ok / Bad code example template
 
 ```ts
 // ❌ bad
@@ -450,76 +380,22 @@ When possible, we should create a minimal storybook example that can be used to 
 
 # Tips
 
-## `inline-flex` to fix weird extra spacing
+## Weird extra bottom spacing
 
-## `min-h-0` / `min-w-0` to child overflowing their `flex` based parent
+Sometimes an element will have seemingly random extra spacing at the bottom as adding `inline-flex` will often fix that issue
 
-## AI can sometimes create custom implementation of thing where a 3rd part library would be better (like creating a md5 hashing solution that ironically indefinately loops)
+## Flexbox child overflowing
 
-## refactoring names in component typescript code does not auto update template code
+It is a known issue the flexbox child can often overflow their parent which is almost never wanted, add `min-h-0` or `min-w-0` (depends on flex direction) to child overflowing their `flex` based parent will resolve this issue.
 
-## Only create directive when the styles being applied are true generic
+## Refactoring angular component class code
 
-## will sometimes miss required proeprty in storybook file which does not have template validation
+Refactoring names in component typescript code does not auto update template code so you will have to make sure to do that manually (tooling will error about this).
 
-- added rule to ai rules
+## Storybook component templates don't have linting erros
 
-## seems to often want to use the seconard color in general for dark mode, not sure why our how best to guide the api about this
+Not sure why or if there is a way to handle to handle this but storybook template does have in editor linting error which can be annoying.
 
-- TODO: add to add rules
+## Storybook titles
 
-## you will often need to update story titles to match our pattern for story organization
-
-## BE DETAILED, if you add a new variant, you should say Update the existing variant story
-
-# Common ai mistake that need to be cleared up
-
-- putting styles in a .css file
-- organization storybook stories (by the title value) incorrect
-- storybook will sometimes implement functionality inline in the story that is already implemented in a service
-- storybook will sometimes implement functionality inline in the story that should be abstract into a service / component to prevent duplication of code
-- will sometimes use `setTimeout` in areas where it should not be used as it many case it can be flacky (like using `setTimeout` to run code after a `scrollIntoView` instead of doing an event binding like `(scrollend)="handleScrollEnd()"` on the scroll element or using a `setTimeout` instead of a angular lifecycle hook)
-- while using `nativeElement` for things like calling `focus()` or in a directive for append dom elements, AI will sometimes use it for event binding which should almost always be handle through the host property of the `@Component` or `@Directive` or event binding on the element itself like `(scrollend)="handleScrollEnd()"`
-- if you have a default value, it will default at every step of the way instead of just as the end (making refactoring the default harder)
-- you need to be explicitly on when you have checks on data trigger certain action and be clear if it should happen whenever the data changes (that would be an `effect()`) or only on that (which should be in an `ngOninit()` method)
-- when dealing with a form, indicate if there is a zod schema that should be used with the validation piece
-
-AI will also just forget very obvious things (like placing a <ng-content />)
-
-# AI Usage / Tips and Tricks
-
-## Do full testing and give full information if asking AI to resolve the issue
-
-Be sure to give as much information as possible, telling it a form is not validating properly and that alone can have the AI go down a path trying to look at and modify all the input components instead of looking at the form but if you say one worm does and but another does not, that can avoid this (then again sometimes is need to be told to use `(submit)` instead of `(ngSubmit)`).
-
-## Cursor
-
-While we have AI rule / guide files for the most popular AI tools, we have addition tooling for Cursor with custom commands.
-
-### Updating Storybook
-
-Lets say you made updates to the dialog component but now you want to make sure the stories are updated. There is a Cursor command of `/storybook/update` to do this so all you have to do is:
-
-```
-/storybook/update @dialog/
-```
-
-## Ask for question for larger requests.
-
-When you are doing a larger request it is recommend guide the AI to ask question to avoid unexcepted implementation details by adding something like this to the end of the prompt:
-
-```
-If you have any questions about the present functionality or ideas for functionality that should be considered, present those questions before fully planning the coding work.
-```
-
-I would also add this line for each time you reply to any question to make sure your anwsers did not produce and other questions.
-
-As answer previous may trigger new questions.
-
-TODO:
-
-- make sure all command that need a references directory are guided to ask for one (`/storybook/update` does this)
-
-## always pass the context of the error
-
-Just passing an error message alone can often have the ai think the error is related to the code it generated in previous prompts but the error might be somewhere completely unrelated
+While AI will sometimes title things properly, sometimes it will not and you will need to update story titles to match our pattern for story organization

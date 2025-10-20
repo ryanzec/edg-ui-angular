@@ -1,5 +1,7 @@
-Angular 20 View (page level) Component Hard Requirements:
-- Mostly utilize the set of component available in `projects/shared-ui` library
-- Should have minimal custom styling, pretty much limit to structural styling (spacing, size, etc.) of the element in this component itself
-- If a change is needed in a component from the `projects/shared-ui` library, make the change in the shared-ui library instead of one off in the view component
-- Make sure to add a new route for the view
+View component are components in an application that are designed to be a page level component that mostly combination other components
+
+You MUST ALWAYS use these patterns when work on Angular 20 view component:
+- ALWAYS utilize available components in `projects/shared-ui` project instead of acreate bespken component for the view
+- ALWAYS make sure to add the route for a new view component if a route is not already configured
+- ALWAYS ask if you need to make a new component if the new component should be created in the `shared-ui` project
+- ALWAYS ask if a customization is needed to a component in `shared-ui` if that change should be made in the `shared-ui` component instead of one of in the view component

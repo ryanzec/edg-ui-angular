@@ -99,8 +99,9 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
   public isGroupingEnabled = input<boolean>(false);
   public options = input<ComboboxOptionInput[]>([]);
   public disabled = input<boolean>(false);
-  public validationMessage = input<string>('');
+  public validationMessage = input<string | null>(null);
   public containerClass = input<string>('');
+  public name = input.required<string>();
 
   // output events - proxy from store
   public inputValueChanged = outputFromObservable(this._store.inputValueChanged$);
@@ -123,6 +124,7 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
   public readonly selectedOptions = computed<ComboboxOption[]>(() => this._store.selectedOptions());
   public readonly focusedOption = computed<ComboboxOption | null>(() => this._store.focusedOption());
   public readonly inputValue = computed<string>(() => this._store.inputValue());
+  public readonly hasValidationMessage = computed<boolean>(() => !!this.validationMessage()?.trim());
   public readonly hasFilteredOptions = computed<boolean>(() => this.filteredOptions().length > 0);
   public readonly isDisabled = computed<boolean>(() => this.disabled());
 

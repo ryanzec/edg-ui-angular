@@ -1,5 +1,5 @@
 <span [class]="'inline-flex items-center gap-1.5 text-label-text ' + containerClass()">
-  <span>{{ label() }}</span>
+  <label [for]="for()">{{ label() }}</label>
 
   @if (isLoading()) {
     <org-loading-spinner />

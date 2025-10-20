@@ -74,6 +74,7 @@
       (input)="handleInputChange($event)"
       (blur)="handleBlur()"
       (keydown)="handleKeyDown($event)"
+      [name]="name()"
     ></textarea>
     @if (hasPostIcon()) {
       <button

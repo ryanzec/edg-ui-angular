@@ -44,26 +44,28 @@ const meta: Meta<Input> = {
   ### Usage Examples
   \`\`\`html
   <!-- Basic input -->
-  <org-input placeholder="Enter text..." />
+  <org-input name="basic-input" placeholder="Enter text..." />
 
   <!-- Input with variant -->
-  <org-input variant="borderless" placeholder="Borderless input" />
+  <org-input name="borderless-input" variant="borderless" placeholder="Borderless input" />
 
   <!-- Input with icons -->
-  <org-input preIcon="gear" placeholder="Settings" />
-  <org-input postIcon="arrow-right" placeholder="Submit" />
+  <org-input name="pre-icon-input" preIcon="gear" placeholder="Settings" />
+  <org-input name="post-icon-input" postIcon="arrow-right" placeholder="Submit" />
 
   <!-- Password with toggle -->
-  <org-input type="password" [showPasswordToggle]="true" placeholder="Password" />
+  <org-input name="password-input" type="password" [showPasswordToggle]="true" placeholder="Password" />
 
   <!-- Input with validation -->
   <org-input
+    name="email-input"
     placeholder="Email"
     validationMessage="Please enter a valid email"
   />
 
   <!-- Input with inline items (tags) -->
   <org-input
+    name="inline-items-input"
     placeholder="Add tags..."
     [inlineItems]="[
       { id: '1', label: 'React', removable: true },
@@ -73,6 +75,7 @@ const meta: Meta<Input> = {
 
   <!-- Input with select all on focus -->
   <org-input
+    name="select-all-on-focus-input"
     [selectAllOnFocus]="true"
     value="Select this text"
   />
@@ -190,11 +193,11 @@ export const Variants: Story = {
         currentState="Comparing bordered and borderless variants"
       >
         <org-storybook-example-container-section label="Bordered (default)">
-          <org-input variant="bordered" placeholder="Bordered input" />
+          <org-input name="bordered-input" variant="bordered" placeholder="Bordered input" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Borderless">
-          <org-input variant="borderless" placeholder="Borderless input" />
+          <org-input name="borderless-input" variant="borderless" placeholder="Borderless input" />
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -224,27 +227,27 @@ export const InputTypes: Story = {
         currentState="Comparing different HTML input types"
       >
         <org-storybook-example-container-section label="Text (default)">
-          <org-input type="text" placeholder="Enter text" />
+          <org-input name="text-input" type="text" placeholder="Enter text" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Password">
-          <org-input type="password" placeholder="Enter password" value="secretpassword" />
+          <org-input name="password-input" type="password" placeholder="Enter password" value="secretpassword" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Email">
-          <org-input type="email" placeholder="Enter email" />
+          <org-input name="email-input" type="email" placeholder="Enter email" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Number">
-          <org-input type="number" placeholder="Enter number" />
+          <org-input name="number-input" type="number" placeholder="Enter number" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Tel">
-          <org-input type="tel" placeholder="Enter phone number" />
+          <org-input name="tel-input" type="tel" placeholder="Enter phone number" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="URL">
-          <org-input type="url" placeholder="Enter URL" />
+          <org-input name="url-input" type="url" placeholder="Enter URL" />
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -278,19 +281,19 @@ export const WithIcons: Story = {
         currentState="Comparing inputs with different icon configurations"
       >
         <org-storybook-example-container-section label="No icons">
-          <org-input placeholder="No icons" />
+          <org-input name="no-icons-input" placeholder="No icons" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Pre icon only">
-          <org-input preIcon="gear" placeholder="Settings" />
+          <org-input name="pre-icon-input" preIcon="gear" placeholder="Settings" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Post icon only">
-          <org-input postIcon="arrow-right" placeholder="Submit" />
+          <org-input name="post-icon-input" postIcon="arrow-right" placeholder="Submit" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Both icons">
-          <org-input preIcon="gear" postIcon="arrow-right" placeholder="Both icons" />
+          <org-input name="both-icons-input" preIcon="gear" postIcon="arrow-right" placeholder="Both icons" />
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -321,11 +324,12 @@ export const PasswordToggle: Story = {
         currentState="Password input with show/hide functionality"
       >
         <org-storybook-example-container-section label="Without toggle">
-          <org-input type="password" placeholder="Enter password" value="secretpassword" />
+          <org-input name="without-toggle-input" type="password" placeholder="Enter password" value="secretpassword" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="With toggle (click eye icon)">
           <org-input
+            name="with-toggle-input"
             type="password"
             [showPasswordToggle]="true"
             placeholder="Enter password"
@@ -361,11 +365,12 @@ export const InlineItems: Story = {
         currentState="Input with tags displayed inline"
       >
         <org-storybook-example-container-section label="Without inline items">
-          <org-input placeholder="Add tags..." />
+          <org-input name="without-inline-items-input" placeholder="Add tags..." />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="With inline items (removable)">
           <org-input
+            name="with-inline-items-input"
             placeholder="Add more tags..."
             [inlineItems]="[
               { id: '1', label: 'React', removable: true },
@@ -377,6 +382,7 @@ export const InlineItems: Story = {
 
         <org-storybook-example-container-section label="With non-removable items">
           <org-input
+            name="with-non-removable-items-input"
             placeholder="Type here..."
             [inlineItems]="[
               { id: '1', label: 'TypeScript', removable: false },
@@ -413,15 +419,15 @@ export const States: Story = {
         currentState="Comparing disabled, readonly, and normal states"
       >
         <org-storybook-example-container-section label="Normal (enabled)">
-          <org-input placeholder="Normal input" value="Editable text" />
+          <org-input name="normal-input" placeholder="Normal input" value="Editable text" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Disabled">
-          <org-input [disabled]="true" placeholder="Disabled input" value="Cannot edit" />
+          <org-input name="disabled-input" [disabled]="true" placeholder="Disabled input" value="Cannot edit" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Readonly">
-          <org-input [readonly]="true" placeholder="Readonly input" value="Cannot edit but can focus" />
+          <org-input name="readonly-input" [readonly]="true" placeholder="Readonly input" value="Cannot edit but can focus" />
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -452,11 +458,12 @@ export const Validation: Story = {
         currentState="Comparing valid and invalid inputs"
       >
         <org-storybook-example-container-section label="Valid (no error)">
-          <org-input placeholder="Valid input" value="valid@example.com" />
+          <org-input name="valid-input" placeholder="Valid input" value="valid@example.com" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Invalid (with error message)">
           <org-input
+            name="invalid-input"
             placeholder="Invalid input"
             value="invalid@"
             validationMessage="Please enter a valid email address"
@@ -465,6 +472,7 @@ export const Validation: Story = {
 
         <org-storybook-example-container-section label="Borderless with error">
           <org-input
+            name="borderless-with-error-input"
             variant="borderless"
             placeholder="Required field"
             validationMessage="This field is required"
@@ -473,6 +481,7 @@ export const Validation: Story = {
 
         <org-storybook-example-container-section label="With icon and error">
           <org-input
+            name="with-icon-and-error-input"
             preIcon="envelope"
             placeholder="Email"
             value="invalid"
@@ -509,11 +518,12 @@ export const SpecialBehaviors: Story = {
         currentState="Demonstrating select all on focus behavior"
       >
         <org-storybook-example-container-section label="Normal focus behavior">
-          <org-input placeholder="Click to focus" value="Normal focus behavior" />
+          <org-input name="normal-focus-input" placeholder="Click to focus" value="Normal focus behavior" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Select all on focus">
           <org-input
+            name="select-all-on-focus-input"
             [selectAllOnFocus]="true"
             placeholder="Click to focus"
             value="Text will be selected on focus"

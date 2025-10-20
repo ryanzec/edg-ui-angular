@@ -100,7 +100,8 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
   // proxied input properties - input component
   public placeholder = input<string>('Select date...');
   public autoFocus = input<boolean>(false);
-  public validationMessage = input<string>('');
+  public validationMessage = input<string | null>(null);
+  public name = input.required<string>();
 
   // proxied input properties - calendar component
   public defaultDisplayDate = input<DateTime>(DateTime.now());
@@ -126,6 +127,7 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
 
   // computed properties
   public readonly isOverlayOpen = this._isOverlayOpen.asReadonly();
+  public readonly hasValidationMessage = computed<boolean>(() => !!this.validationMessage()?.trim());
   public readonly isDisabled = computed<boolean>(() => {
     if (this._isFormControlled) {
       return this._state().disabled;

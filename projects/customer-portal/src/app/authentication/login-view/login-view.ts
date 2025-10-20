@@ -18,7 +18,7 @@ export class LoginView {
   constructor() {
     effect(() => {
       if (this._authenticationManager.isAuthenticated()) {
-        this._router.navigate(['/home']);
+        this._authenticationManager.redirectAfterAuthentication();
       }
     });
 

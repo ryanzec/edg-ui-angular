@@ -27,6 +27,7 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
       (inlineItemRemoved)="onInlineItemRemoved($event)"
       (focused)="onFocused()"
       (blurred)="onBlurred()"
+      [name]="name"
     />
   `,
 })
@@ -44,7 +45,7 @@ class TestHostComponent {
   public autoFocus = false;
   public showPasswordToggle = false;
   public validationMessage = '';
-
+  public name = 'test-input';
   public onValueChange = vi.fn();
   public onPreIconClicked = vi.fn();
   public onPostIconClicked = vi.fn();

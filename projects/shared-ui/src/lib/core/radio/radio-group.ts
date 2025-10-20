@@ -44,7 +44,7 @@ export class RadioGroup implements ControlValueAccessor {
   public value = input<string>('');
   public disabled = input<boolean>(false);
   public name = input<string>('');
-  public validationMessage = input<string>('');
+  public validationMessage = input<string | null>(null);
 
   // Outputs
   public valueChange = output<string>();
@@ -60,7 +60,7 @@ export class RadioGroup implements ControlValueAccessor {
     return this.value();
   });
 
-  public readonly hasValidationMessage = computed<boolean>(() => !!this.validationMessage().trim());
+  public readonly hasValidationMessage = computed<boolean>(() => !!this.validationMessage()?.trim());
   public readonly isInvalid = computed<boolean>(() => this.hasValidationMessage());
 
   public mergeClasses = tailwindUtils.merge;

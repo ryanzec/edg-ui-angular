@@ -89,10 +89,11 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit, ControlValueA
   public inlineItems = input<InlineItem[]>([]);
   public selectAllOnFocus = input<boolean>(false);
   public autoFocus = input<boolean>(false);
-  public validationMessage = input<string>('');
+  public validationMessage = input<string | null>(null);
   public containerClass = input<string>('');
   public inverseEnter = input<boolean>(false);
   public rows = input<number>(3);
+  public name = input.required<string>();
 
   // needs in order to determine if the output event is being listened to
   private _preIconClicked$ = new Subject<void>();
@@ -116,7 +117,7 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit, ControlValueA
   public readonly hasPreIcon = computed<boolean>(() => !!this.preIcon());
   public readonly hasPostIcon = computed<boolean>(() => !!this.postIcon());
   public readonly hasInlineItems = computed<boolean>(() => this.inlineItems().length > 0);
-  public readonly hasValidationMessage = computed<boolean>(() => !!this.validationMessage().trim());
+  public readonly hasValidationMessage = computed<boolean>(() => !!this.validationMessage()?.trim());
   public readonly isInvalid = computed<boolean>(() => this.hasValidationMessage());
   public readonly isPreIconClickable = computed(() => this._preIconClicked$.observed);
   public readonly isPostIconClickable = computed(() => this._postIconClicked$.observed);

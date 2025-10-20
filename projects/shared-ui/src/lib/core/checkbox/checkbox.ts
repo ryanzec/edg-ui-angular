@@ -63,7 +63,7 @@ export class Checkbox implements ControlValueAccessor {
   public disabled = input<boolean>(false);
   public size = input<CheckboxSize>('base');
   public containerClass = input<string>('');
-  public validationMessage = input<string>('');
+  public validationMessage = input<string | null>(null);
   public useValidation = input<boolean>(true);
 
   // outputs
@@ -111,7 +111,7 @@ export class Checkbox implements ControlValueAccessor {
     return 'square';
   });
 
-  public readonly hasValidationMessage = computed<boolean>(() => !!this.validationMessage().trim());
+  public readonly hasValidationMessage = computed<boolean>(() => !!this.validationMessage()?.trim());
   public readonly isInvalid = computed<boolean>(() => this.hasValidationMessage());
 
   public mergeClasses = tailwindUtils.merge;

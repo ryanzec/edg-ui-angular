@@ -65,7 +65,7 @@ export class CheckboxToggle implements ControlValueAccessor {
   public offIcon = input<IconName | null>(null);
   public onText = input<string | null>(null);
   public offText = input<string | null>(null);
-  public validationMessage = input<string>('');
+  public validationMessage = input<string | null>(null);
 
   // outputs
   public checkedChange = output<boolean>();
@@ -108,7 +108,7 @@ export class CheckboxToggle implements ControlValueAccessor {
     return this.offText();
   });
 
-  public readonly hasValidationMessage = computed<boolean>(() => !!this.validationMessage().trim());
+  public readonly hasValidationMessage = computed<boolean>(() => !!this.validationMessage()?.trim());
   public readonly isInvalid = computed<boolean>(() => this.hasValidationMessage());
 
   public mergeClasses = tailwindUtils.merge;

@@ -13,6 +13,15 @@ Things you might want to indicate in your prompt for creating component:
 ALWAYS follow these tules when the use case matches:
 - needing multiple instances of `<ng-content>` - `.cursor/partials/frontend/angular/patterns/multiple-ng-content.md`
 
+ALWAYS use the follow component instead of the native html ones:
+- checkbox: standard input checkbox - `projects/shared-ui/src/lib/core/checkbox`
+- input: standard text input field - `projects/shared-ui/src/lib/core/input`
+- label: general purpose label field for form inputs - `projects/shared-ui/src/lib/core/label`
+- list: standard component foor listing data - `projects/shared-ui/src/lib/core/list`
+- radio: general purpose radio input - `projects/shared-ui/src/lib/core/radio`
+- table: general purpose table functionality - `projects/shared-ui/src/lib/core/table`
+- textarea: standard textarea input field `projects/shared-ui/src/lib/core/textarea`
+
 ALWAYS use the following components / directives over bespoken inline components when appropriate:
 - auto scroll: automatic scrolling behavior for containers with dynamic content like chat interfaces and log viewers - `projects/shared-ui/src/lib/core/auto-scroll`
 - avatar: user display as initials or image - `projects/shared-ui/src/lib/core/avatar`

@@ -28,6 +28,7 @@ export class Radio {
 
   // Required inputs
   public value = input.required<string>();
+  public name = input.required<string>();
 
   // Optional inputs
   public size = input<RadioSize>('base');
@@ -35,7 +36,7 @@ export class Radio {
 
   // Computed properties
   public readonly isChecked = computed<boolean>(() => this._selected());
-  public readonly name = computed<string>(() => this._radioGroup?.name() ?? '');
+  public readonly finalName = computed<string>(() => this._radioGroup?.name() ?? this.name() ?? '');
   public readonly textSize = computed<TextSize>(() => {
     switch (this.size()) {
       case 'sm':

@@ -380,28 +380,28 @@ export const RealWorldExample: Story = {
               <org-label label="Full Name">
                 <span class="text-danger-text">*</span>
               </org-label>
-              <org-input type="text" placeholder="John Doe" />
+              <org-input name="full-name" type="text" placeholder="John Doe" />
             </div>
 
             <div class="flex flex-col gap-1">
               <org-label label="Email Address">
                 <span class="text-danger-text">*</span>
               </org-label>
-              <org-input type="email" placeholder="john@example.com" />
+              <org-input name="email-address" type="email" placeholder="john@example.com" />
             </div>
 
             <div class="flex flex-col gap-1">
               <org-label label="Phone Number">
                 <span class="text-text-subtle">(optional)</span>
               </org-label>
-              <org-input type="tel" placeholder="+1 (555) 000-0000" />
+              <org-input name="phone-number" type="tel" placeholder="+1 (555) 000-0000" />
             </div>
 
             <div class="flex flex-col gap-1">
               <org-label label="Company">
                 <span class="text-text-subtle">(optional)</span>
               </org-label>
-              <org-input type="text" placeholder="Acme Inc." />
+              <org-input name="company" type="text" placeholder="Acme Inc." />
             </div>
 
             <org-button color="primary" (clicked)="handleSubmit()">

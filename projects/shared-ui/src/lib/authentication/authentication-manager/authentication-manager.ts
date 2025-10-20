@@ -7,7 +7,7 @@ import { LogManager } from '../../core/log-manager/log-manager';
 import { LocalStorageManager } from '../../core/local-storage-manager/local-storage-manager';
 import { emailUtils } from '@organization/shared-utils';
 import { Router } from '@angular/router';
-import { LAUNCH_DARKLY_CLIENT_ID, LOCAL_STORAGE_SESSION_USER_KEY } from '../../core/injectable-tokens';
+import { DEFAULT_ROUTE, LAUNCH_DARKLY_CLIENT_ID, LOCAL_STORAGE_SESSION_USER_KEY } from '../../core/injectable-tokens';
 
 type AuthenticationState = {
   user: User | null;
@@ -27,6 +27,9 @@ export class AuthenticationManager {
   private readonly _router = inject(Router);
   private readonly _sessionUserKey = inject(LOCAL_STORAGE_SESSION_USER_KEY);
   private readonly _launchDarklyClientId = inject(LAUNCH_DARKLY_CLIENT_ID);
+  private readonly _defaultRouteToken = inject(DEFAULT_ROUTE);
+
+  private _afterAuthenticationRedirectToUrl: string | null = null;
 
   private readonly _state = signal<AuthenticationState>({
     isLoading: false,
@@ -40,6 +43,10 @@ export class AuthenticationManager {
   public readonly error = computed(() => this._state().error);
   public readonly isAuthenticated = computed(() => !!this._state().user);
   public readonly hasInitialized = computed(() => this._state().hasInitialized);
+
+  public setAfterAuthenticationRedirectToUrl(url: string): void {
+    this._afterAuthenticationRedirectToUrl = url;
+  }
 
   public check(): void {
     this.checkAsync().subscribe();
@@ -118,6 +125,10 @@ export class AuthenticationManager {
         })
       )
       .subscribe();
+  }
+
+  public redirectAfterAuthentication(): void {
+    this._router.navigate([this._afterAuthenticationRedirectToUrl || this._defaultRouteToken]);
   }
 
   public logout(): void {

@@ -519,3 +519,7 @@ As answer previous may trigger new questions.
 TODO:
 
 - make sure all command that need a references directory are guided to ask for one (`/storybook/update` does this)
+
+## always pass the context of the error
+
+Just passing an error message alone can often have the ai think the error is related to the code it generated in previous prompts but the error might be somewhere completely unrelated

@@ -36,6 +36,7 @@ const fruitOptions: ComboboxOptionInput[] = [
       <org-storybook-example-container-section label="Input & Options">
         <div class="flex flex-col gap-3 max-w-[500px]">
           <org-input
+            name="combobox-input"
             [value]="store.inputValue()"
             (input)="onInputChange($event)"
             placeholder="Type to filter options..."
@@ -176,6 +177,7 @@ class ComboboxStoreSingleSelectDemo {
       <org-storybook-example-container-section label="Input & Options">
         <div class="flex flex-col gap-3 max-w-[500px]">
           <org-input
+            name="combobox-store-multi-select-demo-input"
             [value]="store.inputValue()"
             (input)="onInputChange($event)"
             (keydown.enter)="onEnterKey()"
@@ -324,6 +326,7 @@ class ComboboxStoreMultiSelectDemo {
       <org-storybook-example-container-section label="Input">
         <div class="max-w-[500px]">
           <org-input
+            name="combobox-store-grouped-demo-input"
             [value]="store.inputValue()"
             (input)="onInputChange($event)"
             placeholder="Type to filter options..."
@@ -582,6 +585,7 @@ class ComboboxStoreDynamicOptionsDemo {
       <org-storybook-example-container-section label="Combobox Dropdown">
         <div class="max-w-[500px]">
           <org-input
+            name="combobox-store-opened-state-demo-input"
             [value]="store.inputValue()"
             (input)="onInputChange($event)"
             (click)="store.open()"
@@ -684,6 +688,7 @@ class ComboboxStoreOpenedStateDemo {
       <org-storybook-example-container-section label="Input">
         <div class="max-w-[500px]">
           <org-input
+            name="combobox-store-grouping-state-demo-input"
             [value]="store.inputValue()"
             (input)="onInputChange($event)"
             placeholder="Type to filter options..."

@@ -6,7 +6,7 @@ import { inject } from '@angular/core';
 import { AuthenticationManager } from '../authentication-manager/authentication-manager';
 import { CanActivateFn } from '@angular/router';
 
-export const loggedInGuard: CanActivateFn = (route) => {
+export const loggedInGuard: CanActivateFn = (route, state) => {
   const authenticationManager = inject(AuthenticationManager);
   const router = inject(Router);
   const logManager = inject(LogManager);
@@ -33,6 +33,8 @@ export const loggedInGuard: CanActivateFn = (route) => {
 
         return router.createUrlTree(['/']);
       }
+
+      authenticationManager.setAfterAuthenticationRedirectToUrl(state.url);
 
       return router.createUrlTree([routeData.unauthenticatedRedirect]);
     })

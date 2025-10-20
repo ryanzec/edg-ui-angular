@@ -713,7 +713,7 @@ const meta: Meta = {
 
   \`\`\`html
   <form [formGroup]="form" (ngSubmit)="submit()">
-    <org-input formControlName="username" placeholder="Username" />
+    <org-input formControlName="username" placeholder="Username" name="username" />
     <org-textarea formControlName="description" placeholder="Description" />
     <org-checkbox formControlName="agreeToTerms" name="terms" value="agree">
       I agree to terms

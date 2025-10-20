@@ -91,9 +91,10 @@ export class Input implements OnInit, OnDestroy, AfterViewInit, ControlValueAcce
   public selectAllOnFocus = input<boolean>(false);
   public autoFocus = input<boolean>(false);
   public showPasswordToggle = input<boolean>(false);
-  public validationMessage = input<string>('');
+  public validationMessage = input<string | null>(null);
   public containerClass = input<string>('');
   public autocomplete = input<string>('');
+  public name = input.required<string>();
 
   // needs in order to determine if the output event is being listened to
   private _preIconClicked$ = new Subject<void>();
@@ -132,7 +133,7 @@ export class Input implements OnInit, OnDestroy, AfterViewInit, ControlValueAcce
   public readonly hasPreIcon = computed(() => !!this.preIcon());
   public readonly hasPostIcon = computed(() => !!this.currentPostIcon());
   public readonly hasInlineItems = computed(() => this.inlineItems().length > 0);
-  public readonly hasValidationMessage = computed(() => !!this.validationMessage().trim());
+  public readonly hasValidationMessage = computed(() => !!this.validationMessage()?.trim());
   public readonly isInvalid = computed(() => this.hasValidationMessage());
   public readonly isPreIconClickable = computed(() => this._preIconClicked$.observed);
   public readonly isPostIconClickable = computed(() => this._postIconClicked$.observed);

@@ -12,6 +12,7 @@ export * from './card/card-content';
 export * from './card/card-footer';
 export * from './card/card-header';
 export * from './card/card-image';
+export * from './chart/chart';
 export * from './chat/chat';
 export * from './chat/chat-message';
 export * from './checklist/checklist';

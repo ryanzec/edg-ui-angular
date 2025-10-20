@@ -1,0 +1,28 @@
+<div [class]="mergeClasses('relative w-full', containerClass())">
+  @if (isLoading()) {
+    <div class="flex items-center justify-center" style="aspect-ratio: 16/9">
+      <org-loading-spinner size="lg" />
+    </div>
+  }
+
+  @if (isEmpty()) {
+    <div style="aspect-ratio: 16/9">
+      <org-empty-indicator title="no chart data available" />
+    </div>
+  }
+
+  @if (hasError()) {
+    <div
+      class="flex items-center justify-center rounded border border-danger-500 bg-danger-50 p-4 text-danger-700"
+      style="aspect-ratio: 16/9"
+    >
+      <p class="text-sm">{{ error() }}</p>
+    </div>
+  }
+
+  @if (shouldShowChart()) {
+    <div class="relative w-full" style="aspect-ratio: 16/9">
+      <canvas #canvasRef></canvas>
+    </div>
+  }
+</div>

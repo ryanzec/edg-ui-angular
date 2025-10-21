@@ -35,7 +35,7 @@ export class GlobalNotificationManager {
     const id = uuidv4();
     const newNotification: GlobalNotificationData = {
       animationDuration: 0.3,
-      autoCloseIn: 2000,
+      autoCloseIn: 3000,
       ...notification,
       id,
     };

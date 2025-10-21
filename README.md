@@ -2,7 +2,10 @@
 
 # Local Development Setup
 
-TBD
+- `moon setup`
+- `moon :deps`
+- `moon sync hooks`
+- `moon :setup-certs`
 
 # Projects
 

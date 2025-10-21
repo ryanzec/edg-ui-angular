@@ -107,6 +107,7 @@ type Story = StoryObj<Combobox>;
 
 export const Default: Story = {
   args: {
+    name: 'combobox',
     options: simpleOptions,
     placeholder: 'Select...',
     isMultiSelect: false,
@@ -118,6 +119,10 @@ export const Default: Story = {
     containerClass: '',
   },
   argTypes: {
+    name: {
+      control: 'text',
+      description: 'The name attribute for the combobox input element',
+    },
     options: {
       control: 'object',
       description: 'Array of options to display',
@@ -159,6 +164,7 @@ export const Default: Story = {
     props: args,
     template: `
       <org-combobox
+        [name]="name"
         [options]="options"
         [placeholder]="placeholder"
         [isMultiSelect]="isMultiSelect"
@@ -186,6 +192,7 @@ export const Default: Story = {
         <div class="max-w-[400px]">
           <org-combobox
             #combobox
+            name="single-select"
             [options]="options"
             placeholder="Select a fruit..."
             (selectedValuesChanged)="handleSelectedValuesChange($event)"
@@ -262,6 +269,7 @@ export const SingleSelect: Story = {
         <div class="max-w-[400px]">
           <org-combobox
             #combobox
+            name="multi-select"
             [options]="options"
             [isMultiSelect]="true"
             placeholder="Select multiple fruits..."
@@ -340,6 +348,7 @@ export const MultiSelect: Story = {
       <org-storybook-example-container-section label="Combobox">
         <div class="max-w-[400px]">
           <org-combobox
+            name="grouped-options"
             [options]="options"
             [isGroupingEnabled]="true"
             placeholder="Select from grouped options..."
@@ -391,6 +400,7 @@ export const GroupedOptions: Story = {
       <org-storybook-example-container-section label="Combobox">
         <div class="max-w-[400px]">
           <org-combobox
+            name="custom-filter"
             [options]="options"
             [optionFilter]="customFilter"
             placeholder="Type to filter (starts with)..."
@@ -455,6 +465,7 @@ export const CustomFilter: Story = {
       <org-storybook-example-container-section label="Combobox with FormControl">
         <div class="max-w-[400px]">
           <org-combobox
+            name="reactive-form"
             [formControl]="formControl"
             [options]="options"
             [isMultiSelect]="true"
@@ -511,6 +522,7 @@ class ComboboxReactiveFormsDemo {
         <div class="max-w-[400px]">
           <org-combobox
             #combobox
+            name="simple-form"
             [options]="options"
             [isMultiSelect]="true"
             placeholder="Select options..."
@@ -575,19 +587,24 @@ export const Forms: Story = {
     <org-storybook-example-container title="States">
       <org-storybook-example-container-section label="Default">
         <div class="max-w-[300px]">
-          <org-combobox [options]="options" placeholder="Default state" />
+          <org-combobox name="state-default" [options]="options" placeholder="Default state" />
         </div>
       </org-storybook-example-container-section>
 
       <org-storybook-example-container-section label="Disabled">
         <div class="max-w-[300px]">
-          <org-combobox [options]="options" [disabled]="true" placeholder="Disabled state" />
+          <org-combobox name="state-disabled" [options]="options" [disabled]="true" placeholder="Disabled state" />
         </div>
       </org-storybook-example-container-section>
 
       <org-storybook-example-container-section label="With Auto Show Disabled">
         <div class="max-w-[300px]">
-          <org-combobox [options]="options" [autoShowOption]="false" placeholder="Auto show disabled" />
+          <org-combobox
+            name="state-no-auto"
+            [options]="options"
+            [autoShowOption]="false"
+            placeholder="Auto show disabled"
+          />
         </div>
       </org-storybook-example-container-section>
 
@@ -622,6 +639,7 @@ export const States: Story = {
         <div class="max-w-[400px]">
           <org-combobox
             #combobox
+            name="validation"
             [options]="options"
             [isMultiSelect]="true"
             placeholder="Select at least one option..."
@@ -664,8 +682,8 @@ export const States: Story = {
 class ComboboxValidationDemo {
   protected options = fruitOptions;
   protected selectedValues = signal<(string | number)[]>([]);
-  protected validationMessage = signal<string>('');
-  protected hasError = computed<boolean>(() => !!this.validationMessage().trim());
+  protected validationMessage = signal<string | null>(null);
+  protected hasError = computed<boolean>(() => !!this.validationMessage()?.trim());
 
   protected handleSelectedValuesChange(values: (string | number)[]): void {
     console.log('Selected values changed:', values);
@@ -714,6 +732,7 @@ const largeDatasetOptions: ComboboxOptionInput[] = Array.from({ length: 100 }, (
         <div class="max-w-[400px]">
           <org-combobox
             #combobox
+            name="scrolling"
             [options]="options"
             [isMultiSelect]="true"
             placeholder="Select options..."

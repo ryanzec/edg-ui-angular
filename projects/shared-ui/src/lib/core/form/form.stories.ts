@@ -136,6 +136,7 @@ const skillOptions: ComboboxOptionInput[] = [
               [isMultiSelect]="true"
               placeholder="Select your skills..."
               [validationMessage]="getFieldError('skills')"
+              name="skills"
             />
           </div>
 
@@ -144,6 +145,7 @@ const skillOptions: ComboboxOptionInput[] = [
             <label for="dateRange" class="text-sm font-medium">Date Range *</label>
             <org-date-picker-input
               formControlName="dateRange"
+              name="dateRange"
               [allowRangeSelection]="true"
               placeholder="Select date range..."
               [validationMessage]="getFieldError('dateRange')"
@@ -420,6 +422,7 @@ class ReactiveFormDemoComponent {
               placeholder="Select your skills..."
               [validationMessage]="skillsError()"
               (selectedValuesChanged)="skills.set($event)"
+              name="skills"
             />
           </div>
 
@@ -433,6 +436,7 @@ class ReactiveFormDemoComponent {
               placeholder="Select date range..."
               [validationMessage]="dateRangeError()"
               (dateSelected)="handleDateSelected($event)"
+              name="dateRange"
             />
           </div>
 

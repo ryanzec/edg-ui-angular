@@ -6,7 +6,7 @@ import { routes } from './app.routes';
 import { environment } from '../environments/environment';
 import {
   AUTHENTICATION_API_URL,
-  DEFAULT_ROUTE,
+  DEFAULT_VIEW_ROUTE,
   httpWithCredentialsInterceptor,
   LAUNCH_DARKLY_CLIENT_ID,
   LOCAL_STORAGE_SESSION_USER_KEY,
@@ -31,7 +31,7 @@ export const appConfig: ApplicationConfig = {
     { provide: USERS_API_URL, useValue: environment.usersApiUrl },
     { provide: LOCAL_STORAGE_SESSION_USER_KEY, useValue: environment.localStorageSessionUserKey },
     { provide: LAUNCH_DARKLY_CLIENT_ID, useValue: environment.launchDarklyClientId },
-    { provide: DEFAULT_ROUTE, useValue: '/home' },
+    { provide: DEFAULT_VIEW_ROUTE, useValue: '/home' },
     provideAppInitializer(() => {
       dateUtils.configureTimezone('UTC');
 

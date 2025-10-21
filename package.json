@@ -47,7 +47,6 @@
     "@storybook/test-runner": "0.23.0",
     "@stylistic/eslint-plugin": "5.4.0",
     "@tailwindcss/postcss": "4.1.13",
-    "@types/chart.js": "4.0.1",
     "@types/jasmine": "5.1.0",
     "@types/luxon": "3.7.1",
     "@types/node": "22.12.0",

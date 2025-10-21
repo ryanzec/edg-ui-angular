@@ -19,6 +19,14 @@ tasks:
     options:
       runFromWorkspaceRoot: true
 
+  setup-certs:
+    command: 'sh -c "rm -f *.pem && mkcert -install -key-file ./ssl-key.pem -cert-file ./ssl-cert.pem localhost"'
+    local: true
+    env:
+      NODE_ENV: 'development'
+    options:
+      runFromWorkspaceRoot: true
+
   storybook:
     command: '$workspaceRoot/node_modules/.bin/ng run storybook-host:storybook'
     inputs:

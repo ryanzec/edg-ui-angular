@@ -1,9 +1,10 @@
-import { Component, ChangeDetectionStrategy, input, computed, signal, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, computed, signal, inject, OnInit } from '@angular/core';
 import { Icon, IconName } from '../icon/icon';
 import { tailwindUtils } from '@organization/shared-utils';
 import { TextDirective, TextSize } from '../text-directive/text-directive';
 import { ComponentSize } from '../types/component-types';
 import { RadioGroup } from './radio-group';
+import { LogManager } from '../log-manager/log-manager';
 
 export type RadioSize = Extract<ComponentSize, 'sm' | 'base' | 'lg'>;
 
@@ -19,7 +20,9 @@ export const radioSizes: RadioSize[] = ['sm', 'base', 'lg'];
     class: 'inline-flex',
   },
 })
-export class Radio {
+export class Radio implements OnInit {
+  private readonly _logManager = inject(LogManager);
+
   // Inject parent radio group if exists
   private readonly _radioGroup = inject(RadioGroup, { optional: true });
 
@@ -28,7 +31,7 @@ export class Radio {
 
   // Required inputs
   public value = input.required<string>();
-  public name = input.required<string>();
+  public name = input<string>('');
 
   // Optional inputs
   public size = input<RadioSize>('base');
@@ -36,7 +39,7 @@ export class Radio {
 
   // Computed properties
   public readonly isChecked = computed<boolean>(() => this._selected());
-  public readonly finalName = computed<string>(() => this._radioGroup?.name() ?? this.name() ?? '');
+  public readonly finalName = computed<string>(() => this._radioGroup?.name() ?? this.name());
   public readonly textSize = computed<TextSize>(() => {
     switch (this.size()) {
       case 'sm':
@@ -57,6 +60,17 @@ export class Radio {
   });
 
   public mergeClasses = tailwindUtils.merge;
+
+  public ngOnInit(): void {
+    const groupName = this._radioGroup?.name() ?? '';
+    const radioName = this.name();
+
+    if (!groupName && !radioName) {
+      this._logManager.error(
+        'Radio component requires a name either directly on the radio or from a parent radio-group'
+      );
+    }
+  }
 
   // Called by parent RadioGroup to set selected state
   public _setSelected(selected: boolean): void {

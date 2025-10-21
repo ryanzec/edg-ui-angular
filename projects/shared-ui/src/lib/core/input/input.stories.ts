@@ -92,6 +92,7 @@ type Story = StoryObj<Input>;
 
 export const Default: Story = {
   args: {
+    name: 'input',
     variant: 'bordered',
     type: 'text',
     placeholder: 'Enter text...',
@@ -108,6 +109,10 @@ export const Default: Story = {
     containerClass: '',
   },
   argTypes: {
+    name: {
+      control: 'text',
+      description: 'The name attribute for the input element',
+    },
     variant: {
       control: 'select',
       options: inputVariants,

@@ -4,4 +4,4 @@ export const AUTHENTICATION_API_URL = new InjectionToken<string>('Authentication
 export const LOCAL_STORAGE_SESSION_USER_KEY = new InjectionToken<string>('Local Storage Session User Key');
 export const LAUNCH_DARKLY_CLIENT_ID = new InjectionToken<string>('Launch Darkly Client ID');
 export const USERS_API_URL = new InjectionToken<string>('Users API URL');
-export const DEFAULT_ROUTE = new InjectionToken<string>('Default Route');
+export const DEFAULT_VIEW_ROUTE = new InjectionToken<string>('Default View Route');

@@ -15,5 +15,5 @@ export class Label {
   public label = input.required<string>();
   public isLoading = input<boolean>(false);
   public containerClass = input<string>('');
-  public for = input.required<string>();
+  public htmlFor = input.required<string>();
 }

@@ -78,6 +78,7 @@ type Story = StoryObj<DatePickerInput>;
 
 export const Default: Story = {
   args: {
+    name: 'date-picker',
     dateFormat: DateFormat.STANDARD,
     timeFormat: TimeFormat.STANDARD,
     allowPartialRangeSelection: false,
@@ -97,6 +98,10 @@ export const Default: Story = {
     containerClass: '',
   },
   argTypes: {
+    name: {
+      control: 'text',
+      description: 'The name attribute for the input element',
+    },
     dateFormat: {
       control: 'select',
       options: Object.values(DateFormat),
@@ -137,6 +142,7 @@ export const Default: Story = {
     template: `
       <div class="max-w-[400px]">
         <org-date-picker-input
+          [name]="name"
           [dateFormat]="dateFormat"
           [timeFormat]="timeFormat"
           [allowPartialRangeSelection]="allowPartialRangeSelection"
@@ -173,6 +179,7 @@ export const Default: Story = {
         <div class="max-w-[400px]">
           <org-date-picker-input
             #datePicker
+            name="single-date"
             placeholder="Select a date..."
             [selectedStartDate]="selectedDate()"
             (dateSelected)="handleDateSelected($event)"
@@ -256,6 +263,7 @@ export const SingleSelect: Story = {
       <org-storybook-example-container-section label="Date Picker">
         <div class="max-w-[400px]">
           <org-date-picker-input
+            name="date-range"
             placeholder="Select date range..."
             [allowRangeSelection]="true"
             [selectedStartDate]="startDate()"
@@ -347,6 +355,7 @@ export const RangeSelect: Story = {
       <org-storybook-example-container-section label="Date Picker">
         <div class="max-w-[400px]">
           <org-date-picker-input
+            name="partial-range"
             placeholder="Select date range..."
             [allowRangeSelection]="true"
             [allowPartialRangeSelection]="true"
@@ -441,6 +450,7 @@ export const PartialRangeSelect: Story = {
       <org-storybook-example-container-section label="Date Picker with FormControl">
         <div class="max-w-[400px]">
           <org-date-picker-input
+            name="reactive-form-date"
             [formControl]="formControl"
             [allowRangeSelection]="true"
             placeholder="Select date range..."
@@ -519,6 +529,7 @@ export const ReactiveForms: Story = {
         <div class="max-w-[400px]">
           <org-date-picker-input
             #datePicker
+            name="simple-form-date"
             placeholder="Select date range..."
             [allowRangeSelection]="true"
             [selectedStartDate]="startDate()"
@@ -600,6 +611,7 @@ export const SimpleForms: Story = {
       <org-storybook-example-container-section label="Date Picker with Validation">
         <div class="max-w-[400px]">
           <org-date-picker-input
+            name="validation-single"
             placeholder="Select a date..."
             [selectedStartDate]="selectedDate()"
             [validationMessage]="validationMessage()"
@@ -638,8 +650,8 @@ export const SimpleForms: Story = {
 })
 class DatePickerInputValidationSingleDemo {
   protected selectedDate = signal<DateTime | null>(null);
-  protected validationMessage = signal<string>('');
-  protected hasError = computed<boolean>(() => !!this.validationMessage().trim());
+  protected validationMessage = signal<string | null>(null);
+  protected hasError = computed<boolean>(() => !!this.validationMessage()?.trim());
 
   protected handleDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
     console.log('Date selected:', dates);
@@ -688,6 +700,7 @@ export const ValidationSingleRequired: Story = {
       <org-storybook-example-container-section label="Date Picker with Validation">
         <div class="max-w-[400px]">
           <org-date-picker-input
+            name="validation-range-either"
             placeholder="Select at least one date..."
             [allowRangeSelection]="true"
             [allowPartialRangeSelection]="true"
@@ -733,8 +746,8 @@ export const ValidationSingleRequired: Story = {
 class DatePickerInputValidationRangeEitherDemo {
   protected startDate = signal<DateTime | null>(null);
   protected endDate = signal<DateTime | null>(null);
-  protected validationMessage = signal<string>('');
-  protected hasError = computed<boolean>(() => !!this.validationMessage().trim());
+  protected validationMessage = signal<string | null>(null);
+  protected hasError = computed<boolean>(() => !!this.validationMessage()?.trim());
 
   protected handleDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
     console.log('Dates selected:', dates);
@@ -785,6 +798,7 @@ export const ValidationRangeEitherRequired: Story = {
       <org-storybook-example-container-section label="Date Picker with Validation">
         <div class="max-w-[400px]">
           <org-date-picker-input
+            name="validation-range-both"
             placeholder="Select both dates..."
             [allowRangeSelection]="true"
             [selectedStartDate]="startDate()"
@@ -829,8 +843,8 @@ export const ValidationRangeEitherRequired: Story = {
 class DatePickerInputValidationRangeBothDemo {
   protected startDate = signal<DateTime | null>(null);
   protected endDate = signal<DateTime | null>(null);
-  protected validationMessage = signal<string>('');
-  protected hasError = computed<boolean>(() => !!this.validationMessage().trim());
+  protected validationMessage = signal<string | null>(null);
+  protected hasError = computed<boolean>(() => !!this.validationMessage()?.trim());
 
   protected handleDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
     console.log('Dates selected:', dates);

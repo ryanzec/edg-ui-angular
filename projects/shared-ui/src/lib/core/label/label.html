@@ -1,9 +1,11 @@
 <span [class]="'inline-flex items-center gap-1.5 text-label-text ' + containerClass()">
-  <label [for]="for()">{{ label() }}</label>
+  <label [for]="htmlFor()">
+    {{ label() }}
 
-  @if (isLoading()) {
-    <org-loading-spinner />
-  }
+    @if (isLoading()) {
+      <org-loading-spinner />
+    }
 
-  <ng-content />
+    <ng-content />
+  </label>
 </span>

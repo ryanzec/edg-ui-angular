@@ -7,7 +7,11 @@ import { LogManager } from '../../core/log-manager/log-manager';
 import { LocalStorageManager } from '../../core/local-storage-manager/local-storage-manager';
 import { emailUtils } from '@organization/shared-utils';
 import { Router } from '@angular/router';
-import { DEFAULT_ROUTE, LAUNCH_DARKLY_CLIENT_ID, LOCAL_STORAGE_SESSION_USER_KEY } from '../../core/injectable-tokens';
+import {
+  DEFAULT_VIEW_ROUTE,
+  LAUNCH_DARKLY_CLIENT_ID,
+  LOCAL_STORAGE_SESSION_USER_KEY,
+} from '../../core/injectable-tokens';
 
 type AuthenticationState = {
   user: User | null;
@@ -27,7 +31,7 @@ export class AuthenticationManager {
   private readonly _router = inject(Router);
   private readonly _sessionUserKey = inject(LOCAL_STORAGE_SESSION_USER_KEY);
   private readonly _launchDarklyClientId = inject(LAUNCH_DARKLY_CLIENT_ID);
-  private readonly _defaultRouteToken = inject(DEFAULT_ROUTE);
+  private readonly _defaultViewRoute = inject(DEFAULT_VIEW_ROUTE);
 
   private _afterAuthenticationRedirectToUrl: string | null = null;
 
@@ -46,6 +50,10 @@ export class AuthenticationManager {
 
   public setAfterAuthenticationRedirectToUrl(url: string): void {
     this._afterAuthenticationRedirectToUrl = url;
+  }
+
+  public redirectAfterAuthentication(): void {
+    this._router.navigate([this._afterAuthenticationRedirectToUrl || this._defaultViewRoute]);
   }
 
   public check(): void {
@@ -125,10 +133,6 @@ export class AuthenticationManager {
         })
       )
       .subscribe();
-  }
-
-  public redirectAfterAuthentication(): void {
-    this._router.navigate([this._afterAuthenticationRedirectToUrl || this._defaultRouteToken]);
   }
 
   public logout(): void {

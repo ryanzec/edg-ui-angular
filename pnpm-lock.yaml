@@ -129,9 +129,6 @@ importers:
       '@tailwindcss/postcss':
         specifier: 4.1.13
         version: 4.1.13
-      '@types/chart.js':
-        specifier: 4.0.1
-        version: 4.0.1
       '@types/jasmine':
         specifier: 5.1.0
         version: 5.1.0
@@ -2870,10 +2867,6 @@ packages:
 
   '@types/chai@5.2.2':
     resolution: {integrity: sha512-8kB30R7Hwqf40JPiKhVzodJs2Qc1ZJ5zuT3uzw5Hq/dhNCl3G3l83jfpdI1e20BP348+fV7VIL/+FxaXkqBmWg==}
-
-  '@types/chart.js@4.0.1':
-    resolution: {integrity: sha512-OwXJ6Eg14eFpCsTG6sljiGnvVpit5R9rapG7nwDnQlljsdplVIOYVuCSwy07IduCtihrOwvOnbhXKLyp3nvPcw==}
-    deprecated: This is a stub types definition. chart.js provides its own type definitions, so you do not need this installed.
 
   '@types/connect-history-api-fallback@1.5.4':
     resolution: {integrity: sha512-n6Cr2xS1h4uAulPRdlw6Jl6s1oG8KrVilPN2yUITEs+K48EzMJJ3W1xy8K5eWuFvjp3R74AOIGSmp2UfBJ8HFw==}
@@ -11225,10 +11218,6 @@ snapshots:
   '@types/chai@5.2.2':
     dependencies:
       '@types/deep-eql': 4.0.2
-
-  '@types/chart.js@4.0.1':
-    dependencies:
-      chart.js: 4.5.0
 
   '@types/connect-history-api-fallback@1.5.4':
     dependencies:

@@ -69,11 +69,17 @@ type Story = StoryObj<Radio>;
 
 export const Default: Story = {
   args: {
+    name: 'radio',
     value: 'value',
     size: 'base',
     containerClass: '',
   },
   argTypes: {
+    name: {
+      control: 'text',
+      description:
+        'The name attribute for the radio input element (optional, but recommended when not using RadioGroup)',
+    },
     value: {
       control: 'text',
       description: 'Value attribute for the radio input (required)',
@@ -100,6 +106,7 @@ export const Default: Story = {
     props: args,
     template: `
       <org-radio
+        [name]="name"
         [value]="value"
         [size]="size"
         [containerClass]="containerClass"
@@ -128,19 +135,19 @@ export const Sizes: Story = {
         currentState="Comparing small, base, and large sizes"
       >
         <org-storybook-example-container-section label="Small">
-          <org-radio value="small" size="sm">
+          <org-radio name="radio-sizes" value="small" size="sm">
             Small radio
           </org-radio>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Base (Default)">
-          <org-radio value="base" size="base">
+          <org-radio name="radio-sizes" value="base" size="base">
             Base radio
           </org-radio>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Large">
-          <org-radio value="large" size="lg">
+          <org-radio name="radio-sizes" value="large" size="lg">
             Large radio
           </org-radio>
         </org-storybook-example-container-section>
@@ -173,7 +180,7 @@ export const States: Story = {
         currentState="Comparing unchecked and checked states"
       >
         <org-storybook-example-container-section label="Unchecked">
-          <org-radio value="unchecked">
+          <org-radio name="radio-states" value="unchecked">
             Unchecked radio
           </org-radio>
         </org-storybook-example-container-section>
@@ -214,18 +221,18 @@ export const GroupedRadios: Story = {
       >
         <org-storybook-example-container-section label="Vertical Group (Column)">
           <div class="flex flex-col gap-1">
-            <org-radio value="option1">Option 1</org-radio>
-            <org-radio value="option2">Option 2</org-radio>
-            <org-radio value="option3">Option 3</org-radio>
-            <org-radio value="option4">Option 4</org-radio>
+            <org-radio name="radio-vertical" value="option1">Option 1</org-radio>
+            <org-radio name="radio-vertical" value="option2">Option 2</org-radio>
+            <org-radio name="radio-vertical" value="option3">Option 3</org-radio>
+            <org-radio name="radio-vertical" value="option4">Option 4</org-radio>
           </div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Horizontal Group (Row)">
           <div class="flex flex-row gap-1">
-            <org-radio value="h-option1">Option 1</org-radio>
-            <org-radio value="h-option2">Option 2</org-radio>
-            <org-radio value="h-option3">Option 3</org-radio>
+            <org-radio name="radio-horizontal" value="h-option1">Option 1</org-radio>
+            <org-radio name="radio-horizontal" value="h-option2">Option 2</org-radio>
+            <org-radio name="radio-horizontal" value="h-option3">Option 3</org-radio>
           </div>
         </org-storybook-example-container-section>
       </org-storybook-example-container>

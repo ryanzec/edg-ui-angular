@@ -41,17 +41,18 @@ const meta: Meta<Textarea> = {
   ### Usage Examples
   \`\`\`html
   <!-- Basic textarea -->
-  <org-textarea placeholder="Enter text..." />
+  <org-textarea name="textarea" placeholder="Enter text..." />
 
   <!-- Textarea with variant -->
-  <org-textarea variant="borderless" placeholder="Borderless textarea" />
+  <org-textarea name="textarea" variant="borderless" placeholder="Borderless textarea" />
 
   <!-- Textarea with icons -->
-  <org-textarea preIcon="gear" placeholder="Settings" />
-  <org-textarea postIcon="arrow-right" placeholder="Submit" />
+  <org-textarea name="textarea" preIcon="gear" placeholder="Settings" />
+  <org-textarea name="textarea" postIcon="arrow-right" placeholder="Submit" />
 
   <!-- Textarea with icon alignment -->
   <org-textarea
+    name="textarea"
     postIcon="arrow-right"
     postIconAlignment="end"
     placeholder="Icon at bottom"
@@ -59,12 +60,14 @@ const meta: Meta<Textarea> = {
 
   <!-- Textarea with validation -->
   <org-textarea
+    name="textarea"
     placeholder="Description"
     validationMessage="This field is required"
   />
 
   <!-- Textarea with inline items (tags) -->
   <org-textarea
+    name="textarea"
     placeholder="Add tags..."
     [inlineItems]="[
       { id: '1', label: 'React', removable: true },
@@ -74,12 +77,13 @@ const meta: Meta<Textarea> = {
 
   <!-- Textarea with inverse enter behavior -->
   <org-textarea
+    name="textarea"
     [inverseEnter]="true"
     placeholder="Press Enter to submit, Shift+Enter for new line"
   />
 
   <!-- Textarea with custom rows -->
-  <org-textarea [rows]="5" placeholder="Larger textarea" />
+  <org-textarea name="textarea" [rows]="5" placeholder="Larger textarea" />
 </div>
 \`\`\`
         `,
@@ -93,6 +97,7 @@ type Story = StoryObj<Textarea>;
 
 export const Default: Story = {
   args: {
+    name: 'textarea',
     variant: 'bordered',
     placeholder: 'Enter text...',
     value: '',
@@ -111,6 +116,10 @@ export const Default: Story = {
     rows: 3,
   },
   argTypes: {
+    name: {
+      control: 'text',
+      description: 'The name attribute for the textarea element',
+    },
     variant: {
       control: 'select',
       options: textareaVariants,
@@ -205,11 +214,11 @@ export const Variants: Story = {
         currentState="Comparing bordered and borderless variants"
       >
         <org-storybook-example-container-section label="Bordered (default)">
-          <org-textarea variant="bordered" placeholder="Bordered textarea" />
+          <org-textarea name="textarea" variant="bordered" placeholder="Bordered textarea" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Borderless">
-          <org-textarea variant="borderless" placeholder="Borderless textarea" />
+          <org-textarea name="textarea" variant="borderless" placeholder="Borderless textarea" />
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -239,19 +248,19 @@ export const WithIcons: Story = {
         currentState="Comparing textareas with different icon configurations"
       >
         <org-storybook-example-container-section label="No icons">
-          <org-textarea placeholder="No icons" />
+          <org-textarea name="textarea" placeholder="No icons" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Pre icon only">
-          <org-textarea preIcon="gear" placeholder="Settings" />
+          <org-textarea name="textarea" preIcon="gear" placeholder="Settings" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Post icon only">
-          <org-textarea postIcon="arrow-right" placeholder="Submit" />
+          <org-textarea name="textarea" postIcon="arrow-right" placeholder="Submit" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Both icons">
-          <org-textarea preIcon="gear" postIcon="arrow-right" placeholder="Both icons" />
+          <org-textarea name="textarea" preIcon="gear" postIcon="arrow-right" placeholder="Both icons" />
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -287,6 +296,7 @@ export const IconAlignment: Story = {
             postIconAlignment="start"
             placeholder="Icon at top"
             [rows]="5"
+            name="textarea"
           />
         </org-storybook-example-container-section>
 
@@ -296,6 +306,7 @@ export const IconAlignment: Story = {
             postIconAlignment="center"
             placeholder="Icon at center"
             [rows]="5"
+            name="textarea"
           />
         </org-storybook-example-container-section>
 
@@ -305,6 +316,7 @@ export const IconAlignment: Story = {
             postIconAlignment="end"
             placeholder="Icon at bottom"
             [rows]="5"
+            name="textarea"
           />
         </org-storybook-example-container-section>
 
@@ -314,6 +326,7 @@ export const IconAlignment: Story = {
             preIconAlignment="start"
             placeholder="Icon at top"
             [rows]="5"
+            name="textarea"
           />
         </org-storybook-example-container-section>
 
@@ -349,6 +362,7 @@ export const EnterBehavior: Story = {
           <org-textarea
             placeholder="Enter = new line, Shift+Enter = submit"
             [rows]="3"
+            name="textarea"
           />
         </org-storybook-example-container-section>
 
@@ -357,6 +371,7 @@ export const EnterBehavior: Story = {
             [inverseEnter]="true"
             placeholder="Enter = submit, Shift+Enter = new line"
             [rows]="3"
+            name="textarea"
           />
         </org-storybook-example-container-section>
 
@@ -388,11 +403,12 @@ export const InlineItems: Story = {
         currentState="Textarea with tags displayed inline"
       >
         <org-storybook-example-container-section label="Without inline items">
-          <org-textarea placeholder="Add tags..." />
+          <org-textarea name="textarea" placeholder="Add tags..." />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="With inline items (removable)">
           <org-textarea
+            name="textarea"
             placeholder="Add more tags..."
             [inlineItems]="[
       { id: '1', label: 'React', removable: true },
@@ -404,6 +420,7 @@ export const InlineItems: Story = {
 
         <org-storybook-example-container-section label="With non-removable items">
           <org-textarea
+            name="textarea"
             placeholder="Type here..."
             [inlineItems]="[
               { id: '1', label: 'TypeScript', removable: false },
@@ -440,15 +457,16 @@ export const States: Story = {
         currentState="Comparing disabled, readonly, and normal states"
       >
         <org-storybook-example-container-section label="Normal (enabled)">
-          <org-textarea placeholder="Normal textarea" value="Editable text" />
+          <org-textarea name="textarea" placeholder="Normal textarea" value="Editable text" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Disabled">
-          <org-textarea [disabled]="true" placeholder="Disabled textarea" value="Cannot edit" />
+          <org-textarea name="textarea" [disabled]="true" placeholder="Disabled textarea" value="Cannot edit" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Readonly">
           <org-textarea
+            name="textarea"
             [readonly]="true"
             placeholder="Readonly textarea"
             value="Cannot edit but can focus"
@@ -483,11 +501,12 @@ export const Validation: Story = {
         currentState="Comparing valid and invalid textareas"
       >
         <org-storybook-example-container-section label="Valid (no error)">
-          <org-textarea placeholder="Valid textarea" value="This is valid content" />
+          <org-textarea name="textarea" placeholder="Valid textarea" value="This is valid content" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Invalid (with error message)">
           <org-textarea
+            name="textarea"
             placeholder="Invalid textarea"
             value="Too short"
             validationMessage="Description must be at least 20 characters"
@@ -496,6 +515,7 @@ export const Validation: Story = {
 
         <org-storybook-example-container-section label="Borderless with error">
           <org-textarea
+            name="textarea"
             variant="borderless"
             placeholder="Required field"
             validationMessage="This field is required"
@@ -504,6 +524,7 @@ export const Validation: Story = {
 
         <org-storybook-example-container-section label="With icon and error">
           <org-textarea
+            name="textarea"
             preIcon="gear"
             placeholder="Description"
             value="Invalid"
@@ -540,19 +561,19 @@ export const RowSizes: Story = {
         currentState="Comparing different row counts"
       >
         <org-storybook-example-container-section label="Small (2 rows)">
-          <org-textarea [rows]="2" placeholder="Small textarea with 2 rows" />
+          <org-textarea name="textarea" [rows]="2" placeholder="Small textarea with 2 rows" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Default (3 rows)">
-          <org-textarea [rows]="3" placeholder="Default textarea with 3 rows" />
+          <org-textarea name="textarea" [rows]="3" placeholder="Default textarea with 3 rows" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Medium (5 rows)">
-          <org-textarea [rows]="5" placeholder="Medium textarea with 5 rows" />
+          <org-textarea name="textarea" [rows]="5" placeholder="Medium textarea with 5 rows" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Large (8 rows)">
-          <org-textarea [rows]="8" placeholder="Large textarea with 8 rows" />
+          <org-textarea name="textarea" [rows]="8" placeholder="Large textarea with 8 rows" />
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -583,11 +604,12 @@ export const SpecialBehaviors: Story = {
         currentState="Demonstrating select all on focus behavior"
       >
         <org-storybook-example-container-section label="Normal focus behavior">
-          <org-textarea placeholder="Click to focus" value="Normal focus behavior" />
+          <org-textarea name="textarea" placeholder="Click to focus" value="Normal focus behavior" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Select all on focus">
             <org-textarea
+            name="textarea"
             [selectAllOnFocus]="true"
             placeholder="Click to focus"
             value="Text will be selected on focus"

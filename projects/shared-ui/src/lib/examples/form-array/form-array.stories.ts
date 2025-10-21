@@ -85,7 +85,7 @@ const itemSchema = z.object({
             <div class="text-sm font-semibold mb-1">Profile</div>
 
             <div class="flex flex-col gap-1">
-              <org-label for="nested-profile-name" class="text-sm font-medium">Name *</org-label>
+              <org-label htmlFor="nested-profile-name" class="text-sm font-medium" label="Name *" />
               <org-input
                 formControlName="name"
                 name="nested-profile-name"
@@ -95,7 +95,7 @@ const itemSchema = z.object({
             </div>
 
             <div class="flex flex-col gap-1">
-              <org-label for="nested-profile-description" class="text-sm font-medium">Description *</org-label>
+              <org-label htmlFor="nested-profile-description" class="text-sm font-medium" label="Description *" />
               <org-textarea
                 formControlName="description"
                 name="nested-profile-description"
@@ -106,7 +106,7 @@ const itemSchema = z.object({
             </div>
 
             <div class="flex flex-col gap-1">
-              <org-label for="nested-profile-category" class="text-sm font-medium">Category *</org-label>
+              <org-label htmlFor="nested-profile-category" class="text-sm font-medium" label="Category *" />
               <org-combobox
                 formControlName="category"
                 name="nested-profile-category"
@@ -144,7 +144,7 @@ const itemSchema = z.object({
             </div>
 
             <div class="flex flex-col gap-1">
-              <org-label for="nested-profile-priority" class="text-sm font-medium">Priority *</org-label>
+              <org-label htmlFor="nested-profile-priority" class="text-sm font-medium" label="Priority *" />
               <org-radio-group
                 formControlName="priority"
                 name="nested-profile-priority"
@@ -157,7 +157,7 @@ const itemSchema = z.object({
             </div>
 
             <div class="flex flex-col gap-1">
-              <org-label for="nested-profile-dateRange" class="text-sm font-medium">Date Range *</org-label>
+              <org-label htmlFor="nested-profile-dateRange" class="text-sm font-medium" label="Date Range *" />
               <org-date-picker-input
                 formControlName="dateRange"
                 name="nested-profile-dateRange"
@@ -330,7 +330,7 @@ class NestedObjectDemoComponent {
             <div class="text-sm font-semibold mb-1">Profile</div>
 
             <div class="flex flex-col gap-1">
-              <org-label for="nested-defaults-profile-name" class="text-sm font-medium">Name *</org-label>
+              <org-label htmlFor="nested-defaults-profile-name" class="text-sm font-medium" label="Name *" />
               <org-input
                 formControlName="name"
                 name="nested-defaults-profile-name"
@@ -340,7 +340,11 @@ class NestedObjectDemoComponent {
             </div>
 
             <div class="flex flex-col gap-1">
-              <org-label for="nested-defaults-profile-description" class="text-sm font-medium">Description *</org-label>
+              <org-label
+                htmlFor="nested-defaults-profile-description"
+                class="text-sm font-medium"
+                label="Description *"
+              />
               <org-textarea
                 formControlName="description"
                 name="nested-defaults-profile-description"
@@ -351,7 +355,7 @@ class NestedObjectDemoComponent {
             </div>
 
             <div class="flex flex-col gap-1">
-              <org-label for="nested-defaults-profile-category" class="text-sm font-medium">Category *</org-label>
+              <org-label htmlFor="nested-defaults-profile-category" class="text-sm font-medium" label="Category *" />
               <org-combobox
                 formControlName="category"
                 name="nested-defaults-profile-category"
@@ -389,7 +393,7 @@ class NestedObjectDemoComponent {
             </div>
 
             <div class="flex flex-col gap-1">
-              <org-label for="nested-defaults-profile-priority" class="text-sm font-medium">Priority *</org-label>
+              <org-label htmlFor="nested-defaults-profile-priority" class="text-sm font-medium" label="Priority *" />
               <org-radio-group
                 formControlName="priority"
                 name="nested-defaults-profile-priority"
@@ -402,7 +406,7 @@ class NestedObjectDemoComponent {
             </div>
 
             <div class="flex flex-col gap-1">
-              <org-label for="nested-defaults-profile-dateRange" class="text-sm font-medium">Date Range *</org-label>
+              <org-label htmlFor="nested-defaults-profile-dateRange" class="text-sm font-medium" label="Date Range *" />
               <org-date-picker-input
                 formControlName="dateRange"
                 name="nested-defaults-profile-dateRange"
@@ -892,7 +896,7 @@ class ArrayOfTextWithDefaultsDemoComponent {
                 </div>
 
                 <div class="flex flex-col gap-1">
-                  <org-label [for]="'item-' + $index + '-name'" class="text-sm font-medium">Name *</org-label>
+                  <org-label [htmlFor]="'item-' + $index + '-name'" class="text-sm font-medium" label="Name *" />
                   <org-input
                     formControlName="name"
                     [name]="'item-' + $index + '-name'"
@@ -902,9 +906,11 @@ class ArrayOfTextWithDefaultsDemoComponent {
                 </div>
 
                 <div class="flex flex-col gap-1">
-                  <org-label [for]="'item-' + $index + '-description'" class="text-sm font-medium"
-                    >Description *</org-label
-                  >
+                  <org-label
+                    [htmlFor]="'item-' + $index + '-description'"
+                    class="text-sm font-medium"
+                    label="Description *"
+                  />
                   <org-textarea
                     formControlName="description"
                     [name]="'item-' + $index + '-description'"
@@ -915,7 +921,11 @@ class ArrayOfTextWithDefaultsDemoComponent {
                 </div>
 
                 <div class="flex flex-col gap-1">
-                  <org-label [for]="'item-' + $index + '-category'" class="text-sm font-medium">Category *</org-label>
+                  <org-label
+                    [htmlFor]="'item-' + $index + '-category'"
+                    class="text-sm font-medium"
+                    label="Category *"
+                  />
                   <org-combobox
                     formControlName="category"
                     [name]="'item-' + $index + '-category'"
@@ -953,7 +963,11 @@ class ArrayOfTextWithDefaultsDemoComponent {
                 </div>
 
                 <div class="flex flex-col gap-1">
-                  <org-label [for]="'item-' + $index + '-priority'" class="text-sm font-medium">Priority *</org-label>
+                  <org-label
+                    [htmlFor]="'item-' + $index + '-priority'"
+                    class="text-sm font-medium"
+                    label="Priority *"
+                  />
                   <org-radio-group
                     formControlName="priority"
                     [name]="'item-' + $index + '-priority'"
@@ -966,7 +980,7 @@ class ArrayOfTextWithDefaultsDemoComponent {
                 </div>
 
                 <div class="flex flex-col gap-1">
-                  <org-label [for]="'item-' + $index + '-date'" class="text-sm font-medium">Date *</org-label>
+                  <org-label [htmlFor]="'item-' + $index + '-date'" class="text-sm font-medium" label="Date *" />
                   <org-date-picker-input
                     formControlName="date"
                     [name]="'item-' + $index + '-date'"
@@ -1169,7 +1183,11 @@ class ArrayOfObjectsDemoComponent {
                 </div>
 
                 <div class="flex flex-col gap-1">
-                  <org-label [for]="'item-defaults-' + $index + '-name'" class="text-sm font-medium">Name *</org-label>
+                  <org-label
+                    [htmlFor]="'item-defaults-' + $index + '-name'"
+                    class="text-sm font-medium"
+                    label="Name *"
+                  />
                   <org-input
                     formControlName="name"
                     [name]="'item-defaults-' + $index + '-name'"
@@ -1179,9 +1197,11 @@ class ArrayOfObjectsDemoComponent {
                 </div>
 
                 <div class="flex flex-col gap-1">
-                  <org-label [for]="'item-defaults-' + $index + '-description'" class="text-sm font-medium"
-                    >Description *</org-label
-                  >
+                  <org-label
+                    [htmlFor]="'item-defaults-' + $index + '-description'"
+                    class="text-sm font-medium"
+                    label="Description *"
+                  />
                   <org-textarea
                     formControlName="description"
                     [name]="'item-defaults-' + $index + '-description'"
@@ -1192,9 +1212,11 @@ class ArrayOfObjectsDemoComponent {
                 </div>
 
                 <div class="flex flex-col gap-1">
-                  <org-label [for]="'item-defaults-' + $index + '-category'" class="text-sm font-medium"
-                    >Category *</org-label
-                  >
+                  <org-label
+                    [htmlFor]="'item-defaults-' + $index + '-category'"
+                    class="text-sm font-medium"
+                    label="Category *"
+                  />
                   <org-combobox
                     formControlName="category"
                     [name]="'item-defaults-' + $index + '-category'"
@@ -1232,9 +1254,11 @@ class ArrayOfObjectsDemoComponent {
                 </div>
 
                 <div class="flex flex-col gap-1">
-                  <org-label [for]="'item-defaults-' + $index + '-priority'" class="text-sm font-medium"
-                    >Priority *</org-label
-                  >
+                  <org-label
+                    [htmlFor]="'item-defaults-' + $index + '-priority'"
+                    class="text-sm font-medium"
+                    label="Priority *"
+                  />
                   <org-radio-group
                     formControlName="priority"
                     [name]="'item-defaults-' + $index + '-priority'"
@@ -1247,7 +1271,11 @@ class ArrayOfObjectsDemoComponent {
                 </div>
 
                 <div class="flex flex-col gap-1">
-                  <org-label [for]="'item-defaults-' + $index + '-date'" class="text-sm font-medium">Date *</org-label>
+                  <org-label
+                    [htmlFor]="'item-defaults-' + $index + '-date'"
+                    class="text-sm font-medium"
+                    label="Date *"
+                  />
                   <org-date-picker-input
                     formControlName="date"
                     [name]="'item-defaults-' + $index + '-date'"

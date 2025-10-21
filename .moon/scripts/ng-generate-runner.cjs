@@ -75,6 +75,7 @@ const duplicateNameAsDirectory = [
 
 const addTypeToDirectory = [
   'pipe',
+  'guard',
 ];
 
 const typeSuffixMap = {

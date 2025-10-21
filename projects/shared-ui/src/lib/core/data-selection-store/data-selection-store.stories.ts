@@ -10,7 +10,7 @@ type User = {
 };
 
 // example: create an InjectionToken for the store
-export const USER_SELECTION_STORE_TOKEN = new InjectionToken<DataSelectionStore<User>>('UserSelectionStore');
+const USER_SELECTION_STORE_TOKEN = new InjectionToken<DataSelectionStore<User>>('UserSelectionStore');
 
 @Component({
   selector: 'org-data-selection-demo',

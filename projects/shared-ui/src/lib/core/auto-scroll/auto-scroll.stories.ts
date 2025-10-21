@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { Component, signal, ViewChild, afterNextRender, ElementRef } from '@angular/core';
+import { Component, signal, ViewChild, afterNextRender, ElementRef, input } from '@angular/core';
 import { AutoScroll, AutoScrollState } from './auto-scroll';
 import { StorybookExampleContainer } from '../../private/storybook-example-container/storybook-example-container';
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
@@ -7,7 +7,7 @@ import { ScrollAreaDirective } from '../scroll-area-directive/scroll-area-direct
 import { Button } from '../button/button';
 
 const meta: Meta<AutoScroll> = {
-  title: 'Components/Auto Scroll',
+  title: 'Core/Components/Auto Scroll',
   component: AutoScroll,
   tags: ['autodocs'],
   parameters: {
@@ -413,7 +413,7 @@ class AutoScrollDefaultDemoComponent {
   @ViewChild('autoScrollComponent')
   public autoScrollComponent!: AutoScroll;
 
-  public autoScrollEnabled = true;
+  public autoScrollEnabled = input<boolean>(true);
 
   public getAutoScrollState(): string {
     return this.autoScrollComponent?.getAutoScrollState() || 'unknown';

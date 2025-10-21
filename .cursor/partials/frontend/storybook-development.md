@@ -39,3 +39,4 @@ You MUST NEVER use these patterns when work on development storybook stories:
 - NEVER write play / tests stories in the development stories file
 - NEVER USE constructor parameter injection
 - NEVER EVER add TSDoc to code created only for storybook, NEVER
+- NEVER export component created in storybook files

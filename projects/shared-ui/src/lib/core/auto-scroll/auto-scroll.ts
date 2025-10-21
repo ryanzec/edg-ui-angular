@@ -27,7 +27,7 @@ export type AutoScrollState = 'enabled' | 'disabled' | 'forced-disabled';
  * options for scrolling to bottom
  */
 export type AutoScrollScrollToBottomOptions = {
-  onAfterScroll: () => void;
+  onAfterScroll?: () => void;
 };
 
 export const AUTO_SCROLL_ENABLED_DEFAULT = true;

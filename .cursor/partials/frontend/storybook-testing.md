@@ -19,3 +19,4 @@ This is for a clean separation of stories in thw storybook interface
 - ALWAYS end the storybook title with `/Tests`
 
 - NEVER EVER add TSDoc to code created only for storybook, NEVER
+- NEVER export component created in storybook files

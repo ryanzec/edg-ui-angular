@@ -18,6 +18,14 @@ public focusRequest$ = this._focusRequestSubject.asObservable();
 - ALWAYS make sur error handling is robust
 - ALWAYS make sure streams properly composed to avoid nested subscriptions whenever possible
 - ALWAYS use the async / await version of calling RxJS Observables
+- ALWAYS log error in `catchError()` using the `LogManager.warn()` like:
+```ts
+this._logManager.warn({
+  type: 'some-error-type',
+  message: this._logManager.getErrorMessage(error),
+  error,
+});
+```
 
 You can NEVER use these patterns when work on RxJS code:
 - NEVER expose a subject as `public`

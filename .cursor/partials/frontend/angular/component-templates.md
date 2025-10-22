@@ -8,6 +8,18 @@ This button component is a better choice for accessability and it already unstyl
 -->
 - ALWAYS use the `buttom` component when needing to create an element that has clickbility
 - ALWAYS use the `projects/shared-ui/src/lib/core/logger-pipe` pipe to log things in an angular template
+- ALWAYS use `@let` to provide typing for templates that use `let-*` in like this:
+```html
+<ng-template #body let-tempUser>
+  @let user = asUser(tempUser);
+  <!-- ... -->
+</ng-template>
+```
+```ts
+  protected asUser(tempUser: unknown): User {
+    return tempUser as User;
+  }
+```
 
 You MUST NEVER use these patterns when work on Angular 20 component templates:
 - NEVER use `[value]` for select elemts

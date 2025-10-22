@@ -1,11 +1,12 @@
 import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
 import { CdkMenuTrigger } from '@angular/cdk/menu';
+import { DateTime } from 'luxon';
 import { type User, type UserRoleName } from '@organization/shared-types';
 import { Button } from '../../core/button/button';
 import { Table } from '../../core/table/table';
 import { Tag, type TagColor } from '../../core/tag/tag';
 import { OverlayMenu, type OverlayMenuItem } from '../../core/overlay-menu/overlay-menu';
-import { tailwindUtils } from '@organization/shared-utils';
+import { tailwindUtils, DateFormat } from '@organization/shared-utils';
 import { Skeleton } from '../../core/skeleton/skeleton';
 
 @Component({
@@ -61,14 +62,14 @@ export class UsersList {
   }
 
   protected formatDate(dateString: string): string {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    });
+    return DateTime.fromISO(dateString).toFormat(DateFormat.STANDARD);
   }
 
   protected getRoleColor(role: UserRoleName): TagColor {
     return role === 'admin' ? 'danger' : 'info';
+  }
+
+  protected asUser(tempUser: unknown): User {
+    return tempUser as User;
   }
 }

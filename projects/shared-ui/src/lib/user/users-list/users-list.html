@@ -36,7 +36,8 @@
           ></th>
         </tr>
       </ng-template>
-      <ng-template #body let-user>
+      <ng-template #body let-tempUser>
+        @let user = asUser(tempUser);
         <tr class="border-b border-table-row-border last:border-b-0 hover:bg-table-row-hover">
           <td class="px-4 py-3 text-sm text-table-text">{{ user.name }}</td>
           <td class="px-4 py-3 text-sm text-table-text">{{ user.email }}</td>

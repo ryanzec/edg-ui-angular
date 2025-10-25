@@ -83,10 +83,12 @@ export class Button implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this._focusMonitor.monitor(this._elementRef.nativeElement).subscribe((origin) => {
-      this._state.update((state) => ({
-        ...state,
-        isFocused: !!origin,
-      }));
+      queueMicrotask(() => {
+        this._state.update((state) => ({
+          ...state,
+          isFocused: !!origin,
+        }));
+      });
     });
   }
 

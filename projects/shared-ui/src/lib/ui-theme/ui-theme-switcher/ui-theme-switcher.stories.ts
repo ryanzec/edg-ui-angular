@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { UiThemeSwitcher } from './ui-theme-switcher';
-import { UiThemeStoreService } from '../ui-theme-store/ui-theme-store';
+import { UiThemeManager } from '../ui-theme-manager/ui-theme-manager';
 import { importProvidersFrom } from '@angular/core';
 
 const meta: Meta<UiThemeSwitcher> = {
@@ -12,7 +12,7 @@ const meta: Meta<UiThemeSwitcher> = {
   decorators: [
     (story) => ({
       ...story(),
-      providers: [importProvidersFrom(UiThemeStoreService)],
+      providers: [importProvidersFrom(UiThemeManager)],
     }),
   ],
 };

@@ -102,7 +102,9 @@ public preIconClicked = outputFromObservable(this._preIconClicked$);
 - ALWAYS have an input for `class` that is placed on the wrapping element for the component
 - ALWAYS have selector be prefixed with `org-`
 - ALWAYS ask for the name of the selector if one has not been explicitly given to you
-<!-- Because of the reactive nature of Angular's new signals system, the overhead of something like `computed()` and generally not worth worrying about is order to provide a cleaner api -->
+<!-- 
+Because of the reactive nature of Angular's new signals system, the overhead of something like `computed()` and generally not worth worrying about is order to provide a cleaner api
+-->
 - ALWAYS wrap private state access in `computed()` methods
 ```ts
 // ✅ MUST DO
@@ -134,7 +136,9 @@ if (!!this.isAuthenticated()) {
   //...
 })
 ```
-<!-- this will provide better type safety and a clear api, this also always the component to only allow a subset of the directive input values if needed -->
+<!-- 
+this will provide better type safety and a clear api, this also always the component to only allow a subset of the directive input values if needed 
+-->
 - ALWAYS explicitly define the input(s) that the directive defines on the component itself when adding a `hostDirective` to a component
 - ALWAYS add icon to `IconName` in `projects/shared-ui/src/lib/core/icon/icon.ts` if request but not available
 - ALWAYS prefix any input with `default*` when it is only used to default internal state
@@ -200,6 +204,11 @@ export type TestColor = Extract<ComponentSize, 'primary' | 'danger'>;
 - ALWAYS use `@organization/shared-types` when importing something from the `shared-types` project but is NOT in the `shared-types` project
 - ALWAYS use `(submit)` for form element UNLESS it is a reactive form
 - ALWAYS use `zodValidator` when dealin with form validation where a zod schema should be used
+- ALWAYS use the `DialogController` when implementing a dialog component
+<!--
+While there are other patterns for child -> pattern communication, this is the generally recommended one as it provide a simplier implementation and leads to more re-usable components
+-->
+- ALWAYS communicate child internal state changes to parent components with an `output()` event unless EXPLICITLY told otherwise
 
 You can NEVER use these patterns when work on Angular 20 components:
 - NEVER re-create functionality that is already available in angular CDK

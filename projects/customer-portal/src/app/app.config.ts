@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideAppInitializer } from '@angular/core';
+import { ApplicationConfig, inject, provideAppInitializer } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient, withFetch, withInterceptorsFromDi, withInterceptors } from '@angular/common/http';
 import { provideZonelessChangeDetection, provideBrowserGlobalErrorListeners } from '@angular/core';
@@ -10,6 +10,7 @@ import {
   httpWithCredentialsInterceptor,
   LAUNCH_DARKLY_CLIENT_ID,
   LOCAL_STORAGE_SESSION_USER_KEY,
+  UiThemeManager,
   unauthorizedInterceptor,
   USERS_API_URL,
 } from '@organization/shared-ui';
@@ -33,6 +34,9 @@ export const appConfig: ApplicationConfig = {
     { provide: LAUNCH_DARKLY_CLIENT_ID, useValue: environment.launchDarklyClientId },
     { provide: DEFAULT_VIEW_ROUTE, useValue: '/home' },
     provideAppInitializer(() => {
+      // inject to trigger the constructor which initializes the initial theme based on the system preferences
+      inject(UiThemeManager);
+
       dateUtils.configureTimezone('UTC');
 
       return Promise.resolve();

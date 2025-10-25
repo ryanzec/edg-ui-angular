@@ -95,6 +95,7 @@ export class Input implements OnInit, OnDestroy, AfterViewInit, ControlValueAcce
   public containerClass = input<string>('');
   public autocomplete = input<string>('');
   public name = input.required<string>();
+  public inputClass = input<string>('');
 
   // needs in order to determine if the output event is being listened to
   private _preIconClicked$ = new Subject<void>();

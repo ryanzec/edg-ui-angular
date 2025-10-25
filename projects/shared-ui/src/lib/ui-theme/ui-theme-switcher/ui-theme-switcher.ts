@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, computed } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Button } from '../../core/button/button';
-import { UiThemeStoreService } from '../ui-theme-store/ui-theme-store';
+import { UiThemeManager } from '../ui-theme-manager/ui-theme-manager';
 
 @Component({
   selector: 'org-ui-theme-switcher',
@@ -9,7 +9,7 @@ import { UiThemeStoreService } from '../ui-theme-store/ui-theme-store';
   templateUrl: './ui-theme-switcher.html',
 })
 export class UiThemeSwitcher implements OnInit {
-  private readonly themeStoreService = inject(UiThemeStoreService);
+  private readonly themeStoreService = inject(UiThemeManager);
 
   private readonly document = inject(DOCUMENT);
 

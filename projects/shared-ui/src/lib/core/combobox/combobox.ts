@@ -450,6 +450,10 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
 
   // control value accessor implementation
   public writeValue(value: (string | number)[]): void {
+    // there seem to be cases where the options are updated for the component but not the store to this ensure
+    // that works properly
+    this._store.setOptions(this.options());
+
     if (value) {
       this._store.setSelectedValues(value);
     } else {

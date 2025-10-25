@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {
   UiThemeSwitcher,
@@ -18,6 +18,9 @@ export class App {
   public readonly authenticationManager = inject(AuthenticationManager);
 
   protected readonly title = signal('customer-portal');
+
+  protected readonly isAuthenticated = computed(() => this.authenticationManager.isAuthenticated());
+  protected readonly hasInitialized = computed(() => this.authenticationManager.hasInitialized());
 
   protected mergeClasses = tailwindUtils.merge;
 

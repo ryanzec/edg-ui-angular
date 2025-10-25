@@ -5,7 +5,7 @@ import { DOCUMENT } from '@angular/common';
   // makes the service a singleton available app-wide
   providedIn: 'root',
 })
-export class UiThemeStoreService {
+export class UiThemeManager {
   private readonly document = inject(DOCUMENT);
 
   readonly isDarkMode = signal<boolean>(false);

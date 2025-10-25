@@ -1,4 +1,4 @@
-@if (authenticationManager.hasInitialized() === false) {
+@if (hasInitialized() === false) {
   <main>
     <div>
       <!-- loading this as hidden so the the theme is properly initialized while the application is loading -->
@@ -7,15 +7,15 @@
     </div>
   </main>
 }
-@if (authenticationManager.hasInitialized()) {
+@if (hasInitialized()) {
   <div
     [class]="
       mergeClasses('h-full w-full', {
-        flex: authenticationManager.isAuthenticated(),
+        flex: isAuthenticated(),
       })
     "
   >
-    @if (authenticationManager.isAuthenticated()) {
+    @if (isAuthenticated()) {
       <org-application-navigation
         logo="https://placehold.co/225x60/4F46E5/white?text=MyApp"
         [navigationItems]="[

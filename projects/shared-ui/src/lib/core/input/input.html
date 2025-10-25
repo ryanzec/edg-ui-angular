@@ -38,7 +38,8 @@
             'inline-flex flex-shrink-0 text-input-icon focus-visible:bg-input-icon-focus focus-visible:rounded',
             {
               'cursor-pointer hover:text-input-icon-hover': isPreIconClickable() && !isDisabled(),
-            }
+            },
+            inputClass()
           )
         "
         (click)="handlePreIconClick($event)"

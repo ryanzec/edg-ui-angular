@@ -6,10 +6,6 @@ Some of the points here are the same as the official documentation but also prov
 
 # Styling
 
-## Overriding angular material
-
-In general, the internal parts of angular material component should only be overriden at the global level, we want to avoud one off overrides in order to keep the styling consistent within the application.
-
 ## Tailwind
 
 Tailwind has been configured can can be used to add inline styles. This should be the primary method for styling custom component. While tailwind default color palette is available, we should try to only use the specific design system color token from `projects/shared-ui/src/lib/variables.css` to avoid using to many different color and they support light / dark mode by default.
@@ -284,6 +280,7 @@ Cursor has a command for this to make it easier where you can do:
 While the AI should have extensive rules around stuff, it does not always following them, these more common issue I have experienced:
 
 - ai will sometimes putting styles in a `*.css` files, while variables need to go into a `*-variables.css` files, styling should just be using tailwind in the template, if this happen just tell the ai to move those styles into template files as tailwind and it usually works well
+- wll sometime create a component method that just returns tailwind classes instead of just inlining them for easier readability
 - organization storybook stories (by the title name) incorrectly (just manually update)
 - storybook will sometimes implement functionality inline in the story that is already implemented in a service
 - storybook will sometimes implement functionality inline in the story that should be abstract into a service / component to prevent duplication of code

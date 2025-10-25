@@ -270,6 +270,7 @@ export class ComboboxStore {
           type: 'combobox-store-invalid-values',
           message: 'attempted to select values that do not exist in options',
           invalidValues,
+          options: state.options,
         });
         finalValues = finalValues.filter((value) => validValues.has(value));
       }

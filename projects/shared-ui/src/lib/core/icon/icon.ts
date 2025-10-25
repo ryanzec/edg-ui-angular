@@ -3,76 +3,78 @@ import { tailwindUtils } from '@organization/shared-utils';
 import { ComponentColor, componentColors, ComponentSize } from '../types/component-types';
 
 export type IconName =
+  | 'arrow-down'
+  | 'arrow-left'
+  | 'arrow-right'
+  | 'arrow-up'
+  | 'arrows-down-up'
   | 'bell'
   | 'bell-slash'
   | 'calendar'
-  | 'caret-right'
-  | 'caret-left'
-  | 'caret-up'
   | 'caret-down'
-  | 'arrow-up'
-  | 'arrow-down'
-  | 'arrows-down-up'
-  | 'plus'
+  | 'caret-left'
+  | 'caret-right'
+  | 'caret-up'
   | 'check'
-  | 'x'
-  | 'arrow-right'
-  | 'arrow-left'
+  | 'check-circle'
+  | 'check-square'
+  | 'circle'
+  | 'copy'
+  | 'dots-three'
   | 'download-simple'
-  | 'upload-simple'
-  | 'trash'
-  | 'pencil-simple'
-  | 'gear'
-  | 'spinner'
+  | 'envelope'
   | 'eye'
   | 'eye-slash'
-  | 'envelope'
+  | 'gear'
   | 'lock-key'
-  | 'copy'
-  | 'square'
-  | 'check-square'
+  | 'minus-circle'
   | 'minus-square'
-  | 'circle'
-  | 'check-circle'
-  | 'dots-three'
-  | 'x-circle'
-  | 'sign-out';
+  | 'pencil-simple'
+  | 'plus'
+  | 'sign-out'
+  | 'spinner'
+  | 'square'
+  | 'trash'
+  | 'upload-simple'
+  | 'x'
+  | 'x-circle';
 
 export const iconNames: IconName[] = [
+  'arrow-down',
+  'arrow-left',
+  'arrow-right',
+  'arrow-up',
+  'arrows-down-up',
   'bell',
   'bell-slash',
   'calendar',
-  'caret-right',
-  'caret-left',
-  'caret-up',
   'caret-down',
-  'arrow-up',
-  'arrow-down',
-  'arrows-down-up',
-  'plus',
+  'caret-left',
+  'caret-right',
+  'caret-up',
   'check',
-  'x',
-  'arrow-right',
-  'arrow-left',
+  'check-circle',
+  'check-square',
+  'circle',
+  'copy',
+  'dots-three',
   'download-simple',
-  'upload-simple',
-  'trash',
-  'pencil-simple',
-  'gear',
-  'spinner',
+  'envelope',
   'eye',
   'eye-slash',
-  'envelope',
+  'gear',
   'lock-key',
-  'copy',
-  'square',
-  'check-square',
+  'minus-circle',
   'minus-square',
-  'circle',
-  'check-circle',
-  'dots-three',
-  'x-circle',
+  'pencil-simple',
+  'plus',
   'sign-out',
+  'spinner',
+  'square',
+  'trash',
+  'upload-simple',
+  'x',
+  'x-circle',
 ];
 
 export type IconSize = Extract<ComponentSize, 'sm' | 'base' | 'lg'>;

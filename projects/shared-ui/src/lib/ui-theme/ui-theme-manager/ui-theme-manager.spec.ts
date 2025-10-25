@@ -2,10 +2,10 @@ import { TestBed } from '@angular/core/testing';
 import { DOCUMENT } from '@angular/common';
 import { vi, beforeEach, describe, it, expect } from 'vitest';
 
-import { UiThemeStoreService } from './ui-theme-store';
+import { UiThemeManager } from './ui-theme-manager';
 
-describe('UiThemeStoreService', () => {
-  let uiThemeStore: UiThemeStoreService;
+describe('UiThemeManager', () => {
+  let uiThemeStore: UiThemeManager;
   let mockDocument: Document;
   let mockBody: HTMLBodyElement;
 
@@ -24,7 +24,7 @@ describe('UiThemeStoreService', () => {
     TestBed.configureTestingModule({
       providers: [{ provide: DOCUMENT, useValue: mockDocument }],
     });
-    uiThemeStore = TestBed.inject(UiThemeStoreService);
+    uiThemeStore = TestBed.inject(UiThemeManager);
   });
 
   it('should be created', () => {

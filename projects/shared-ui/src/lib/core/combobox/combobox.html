@@ -16,6 +16,7 @@
       (keydown)="handleKeyDown($event)"
       (click)="handleInputClick()"
       [name]="name()"
+      class="min-w-0"
     />
   </div>
 
@@ -36,7 +37,7 @@
       [class]="
         mergeClasses(
           'combobox-options-menu',
-          'border border-combobox-menu-border rounded-md shadow-md max-w-[600px]',
+          'border border-combobox-menu-border rounded-md shadow-md max-w-[600px] overflow-hidden',
           'focus:outline-none',
           'bg-list-item-background',
           {

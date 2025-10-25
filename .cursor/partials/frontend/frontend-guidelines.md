@@ -57,21 +57,17 @@ class UsersApi = {
 - ALWAYS use `undefined` when it should be allowed to omit passing a value completely
 - ALWAYS allow both `null` and `undefined` should be allowed if both use case are valid
 - ALWAYS co-locate the types in the main file that is using them when they are tightly coupled, pattern example"
-```
+```ts
 // MUST DO
 export const IconName = 'caret-right' | 'caret-left';
 
-export const iconNames = ['caret-right', 'caret-left'];
+export const iconNames = ['caret-right', 'caret-left'] as const;
 // ...
 export class Icon {
   public name = input.required<IconName>();
   // ...
 ```
 - ALWAYS create generic types that can be use in many locates (like a `User`) should be placed in there own file
-<!--
-This produce simplier more predeictable runtime code is is more flexible as a tpye of `'red' | 'green'` can be passed to a type of `'red' | 'green' | 'blue'` where if they where 2 explicit types, you would have to do type casting and such.
-
-There will be edge cases where an const "enum" is better when you want to reference a longer sting by a shorting key (like for error messages) and only in those case use you use that like this:
 ```ts
 export const ErrorMessage = {
   UNKNOWN: 'An unknown error occurred',
@@ -81,13 +77,27 @@ export const ErrorMessage = {
 
 export type ErrorMessage = (typeof ErrorMessage)[keyof typeof ErrorMessage];
 ```
+<!--
+This produce simplier more predeictable runtime code is is more flexible as a type of `'red' | 'green'` can be passed to a type of `'red' | 'green' | 'blue'` where if they where 2 explicit types, you would have to do type casting and such.
+
+There will be edge cases where an const "enum" is better when you want to reference a longer sting by a shorting key (like for error messages) and only in those case use you use that like this:
 -->
 - ALWAYS use a string literal union type over an enum
 ```ts
 // ALWAY do this
 export const IconName = 'caret-right' | 'caret-left';
 
-export const iconNames = ['caret-right', 'caret-left'];
+export const iconNames = ['caret-right', 'caret-left'] as const;
+```
+<!---
+This is for zod to be able to do proper / better type inference and is useful for stories to list all values and make it easier to keep in sync
+->
+- ALWAYS create const array for all value for string literal union types
+```ts
+export const IconName = 'caret-right' | 'caret-left';
+
+// ALWAY do this
+export const iconNames = ['caret-right', 'caret-left'] as const;
 ```
 - ALWAYS use `unknown` over `any` whenever possible
 - ALWAYS return early instead of nesting the continue logic
@@ -105,6 +115,13 @@ const showDetails = false;
 - ALWAYS attempt to fix circular dependencies by import the type one when possible
 - ALWAYS omit option values if you are just setting it to the default value
 - ALWAYS write code to cleanup when needed (like cleaning up a timeout, a subscription, etc.)
+- ALWAYS type parameters to the minimum needed using `Pick<>` on the base type
+```ts
+const logUser = (user: Pick<User, 'name'>) => {
+  console.log(user.name);
+}
+```
+- ALWAYS use early return over else / else if conditionals
 
 You can NEVER use these patterns when work in frontend code in general:
 - NEVER refactor existing code that was not changed as part of your task
@@ -123,3 +140,7 @@ Since our tolling will auto format code, no need to waste time / money on AI to 
 -->
 - NEVER fixed stylistic linting errors
 - NEVER case to `const` if there is a specific type that can be casted to
+<!--
+This is to favor early returns
+-->
+- NEVER use else / else if conditionals

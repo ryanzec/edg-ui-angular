@@ -1,4 +1,39 @@
-<div [class]="mergeClasses('w-full', containerClass())">
+<div [class]="mergeClasses('flex flex-col gap-2 w-full', containerClass())">
+  @if (enableFilters()) {
+    <div class="flex flex-col gap-2">
+      <form [formGroup]="filterForm">
+        <org-form-fields [reserveValidationSpace]="false">
+          <org-form-field>
+            <org-input formControlName="nameSearch" name="users-list-name-search" placeholder="Search by name..." />
+          </org-form-field>
+          <org-form-field>
+            <org-form-fields [reserveValidationSpace]="false" containerClass="flex-row">
+              <org-form-field containerClass="w-auto">
+                <org-combobox
+                  formControlName="dateField"
+                  name="users-list-date-field"
+                  [options]="dateFieldOptions"
+                  placeholder="Select date field..."
+                  containerClass="w-[200px]"
+                />
+              </org-form-field>
+              <org-form-field containerClass="flex-1">
+                <org-date-picker-input
+                  formControlName="dateValue"
+                  name="users-list-date-value"
+                  [allowRangeSelection]="true"
+                  [allowPartialRangeSelection]="true"
+                  placeholder="Select date range..."
+                  class="flex-1"
+                />
+              </org-form-field>
+            </org-form-fields>
+          </org-form-field>
+        </org-form-fields>
+      </form>
+    </div>
+  }
+
   @if (isLoading()) {
     <div class="flex justify-center items-center w-full">
       <org-skeleton type="table" class="w-full" />
@@ -8,11 +43,13 @@
       <div>No users found</div>
     </div>
   } @else {
-    <org-table [data]="users()" [containerClass]="tableContainerClass()">
+    <org-table [data]="users()" [containerClass]="tableContainerClass()" [isBackgroundLoading]="isBackgroundLoading()">
       <ng-template #header>
         <tr>
           <th
             class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
+            [orgSortable]="'name'"
+            [sortableEnabled]="enableSorting()"
           >
             Name
           </th>
@@ -28,6 +65,8 @@
           </th>
           <th
             class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
+            [orgSortable]="'createdAt'"
+            [sortableEnabled]="enableSorting()"
           >
             Created
           </th>
@@ -50,7 +89,7 @@
               }
             </div>
           </td>
-          <td class="px-4 py-3 text-sm text-table-text">{{ formatDate(user.createdAt) }}</td>
+          <td class="px-4 py-3 text-sm text-table-text"><org-date-display [date]="toDateTime(user.createdAt)" /></td>
           <td class="px-4 py-3 text-sm text-table-text">
             <div class="flex justify-end">
               <org-button
@@ -74,5 +113,12 @@
         </tr>
       </ng-template>
     </org-table>
+    @if (hasPagination()) {
+      <org-pagination
+        [disabled]="paginationDisabled()"
+        (pageChanged)="onPageChanged($event)"
+        (itemsPerPageChanged)="onItemsPerPageChanged($event)"
+      />
+    }
   }
 </div>

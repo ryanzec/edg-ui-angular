@@ -3,6 +3,7 @@ import {
   CreateUser,
   CreateUserResponse,
   DeleteUserResponse,
+  GetUsersRequest,
   GetUserResponse,
   GetUsersResponse,
   UpdateUser,
@@ -14,6 +15,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { USERS_API_URL } from '../../core/injectable-tokens';
+import { buildHttpParams } from '@organization/shared-utils';
 @Injectable({
   providedIn: 'root',
 })
@@ -22,8 +24,10 @@ export class UsersApi {
   private readonly _logManager = inject(LogManager);
   private readonly _baseUrl = inject(USERS_API_URL);
 
-  public getUsers(): Observable<GetUsersResponse> {
-    return this._http.get<GetUsersResponse>(`${this._baseUrl}`).pipe(catchError(this.handleError));
+  public getUsers(requestData: GetUsersRequest): Observable<GetUsersResponse> {
+    const params = buildHttpParams(requestData);
+
+    return this._http.get<GetUsersResponse>(`${this._baseUrl}`, { params }).pipe(catchError(this.handleError));
   }
 
   public getUser(id: string): Observable<GetUserResponse> {

@@ -2,6 +2,7 @@
 **/dist-ssr
 **/coverage
 **/node_modules
+**/out-tsc
 *.local
 .env
 .env.local

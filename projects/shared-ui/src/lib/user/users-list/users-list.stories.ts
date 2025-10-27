@@ -1,9 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { Component, signal } from '@angular/core';
-import { UsersList } from './users-list';
+import { Component, signal, inject } from '@angular/core';
+import {
+  UsersList,
+  type UsersListFilterValues,
+  type UsersListSortingData,
+  USERS_LIST_PAGINATION_STORE,
+} from './users-list';
 import { User } from '@organization/shared-types';
 import { StorybookExampleContainer } from '../../private/storybook-example-container/storybook-example-container';
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
+import { Label } from '../../core/label/label';
+import { FormFields } from '../../core/form-fields/form-fields';
+import { FormField } from '../../core/form-field/form-field';
+import { Checkbox } from '../../core/checkbox/checkbox';
+import { PaginationStore } from '../../core/pagination-store/pagination-store';
 
 const sampleUsers: User[] = [
   {
@@ -69,31 +79,46 @@ const meta: Meta<UsersList> = {
 <div class="docs-top-level-overview">
   ## Users List Component
 
-  A comprehensive table component for displaying and managing user lists with role badges, actions, and various states.
+  A comprehensive table component for displaying and managing user lists with filtering, sorting, role badges, actions, and various states.
 
   ### Features
   - Tabular display of user information using custom table component
+  - **Filtering**: Search by name (debounced) and filter by date range
+  - **Sorting**: Sortable columns for name and created date
   - Role badges with color coding (Admin = danger/red, User = info/blue)
   - Edit and delete actions for each user via dropdown menu
-  - Loading state with message
+  - Loading state with skeleton
   - Empty state message
   - Formatted date display
   - Scrollable table with sticky header
   - Accessible with proper ARIA labels
 
   ### User Information Displayed
-  - **Name**: User's full name
+  - **Name**: User's full name (sortable)
   - **Email**: User's email address
   - **Roles**: Color-coded tag badges for user roles (Admin, User)
-  - **Created At**: Formatted creation date
+  - **Created**: Formatted creation date (sortable)
   - **Actions**: Dropdown menu with edit and delete options
+
+  ### Filtering
+  - **Name Search**: Text input with 300ms debounce to avoid event thrashing
+  - **Date Field**: Combobox to select between Created or Updated date
+  - **Date Value**: Date picker for single date or range selection
+  - Filtering data is propagated through \`filtersChanged\` output event
+
+  ### Sorting
+  - **Name Column**: Click to sort by name
+  - **Created Column**: Click to sort by created date
+  - Default sort: Created date descending
+  - Sorting data is propagated through \`sortingChanged\` output event
+  - Sorting implementation must be handled by parent component
 
   ### States
   - **Default**: Shows list of users with all information in a table
-  - **Loading**: Displays loading message while fetching data
+  - **Loading**: Displays skeleton while fetching data
   - **Empty**: Shows message when no users are available
-  - **Single User**: Displays table with just one user
-  - **Multiple Roles**: Users can have multiple role badges displayed
+  - **With Filters**: Displays filter UI above the table
+  - **With Sorting**: Enables sortable column headers
 
   ### Usage Examples
   \`\`\`html
@@ -105,28 +130,39 @@ const meta: Meta<UsersList> = {
     (userDelete)="handleDelete($event)"
   />
 
-  <!-- With custom container class -->
+  <!-- With filtering and sorting enabled -->
   <org-users-list
     [users]="userList"
-    [containerClass]="'max-w-6xl mx-auto'"
-    [tableContainerClass]="'h-[600px]'"
+    [enableFilters]="true"
+    [enableSorting]="true"
+    (filtersChanged)="handleFiltersChanged($event)"
+    (sortingChanged)="handleSortingChanged($event)"
+    (userEdit)="handleEdit($event)"
+    (userDelete)="handleDelete($event)"
   />
 
-  <!-- Loading state -->
+  <!-- With custom sort defaults -->
   <org-users-list
-    [users]="[]"
-    [isLoading]="true"
-  />
-
-  <!-- Empty state -->
-  <org-users-list
-    [users]="[]"
-    [isLoading]="false"
+    [users]="userList"
+    [enableSorting]="true"
+    [defaultSortKey]="'name'"
+    [defaultSortDirection]="'asc'"
+    (sortingChanged)="handleSortingChanged($event)"
   />
   \`\`\`
 
   \`\`\`typescript
   // In your component
+  handleFiltersChanged(filters: UsersListFilterValues) {
+    console.log('Filters changed:', filters);
+    // Apply filters to your data source
+  }
+
+  handleSortingChanged(sorting: UsersListSortingData) {
+    console.log('Sorting changed:', sorting);
+    // Apply sorting to your data source
+  }
+
   handleEdit(user: User) {
     console.log('Editing user:', user);
     // Navigate to edit page or open edit dialog
@@ -139,14 +175,20 @@ const meta: Meta<UsersList> = {
   \`\`\`
 
   ### Events
+  - **filtersChanged**: Emitted when filter values change (emits \`UsersListFilterValues\`)
+  - **sortingChanged**: Emitted when sorting changes (emits \`UsersListSortingData\`)
   - **userEdit**: Emitted when the edit action is clicked (emits \`User\` object)
   - **userDelete**: Emitted when the delete action is clicked (emits \`User\` object)
 
   ### Inputs
   - **users**: Required array of User objects to display
   - **isLoading**: Optional boolean to show loading state (default: false)
+  - **enableFilters**: Optional boolean to enable filters (default: false)
+  - **enableSorting**: Optional boolean to enable sorting (default: false)
+  - **defaultSortKey**: Optional default sort key (default: 'createdAt')
+  - **defaultSortDirection**: Optional default sort direction (default: 'desc')
   - **containerClass**: Optional CSS classes for the container element
-  - **tableContainerClass**: Optional CSS classes for the table container (default: 'h-[400px]')
+  - **tableContainerClass**: Optional CSS classes for the table container
 
   ### Role Types
   - \`admin\`: Administrator role (danger/red badge)
@@ -165,6 +207,10 @@ export const Default: Story = {
   args: {
     users: sampleUsers,
     isLoading: false,
+    enableFilters: false,
+    enableSorting: false,
+    defaultSortKey: 'createdAt',
+    defaultSortDirection: 'desc',
     containerClass: '',
     tableContainerClass: 'h-[400px]',
   },
@@ -177,6 +223,23 @@ export const Default: Story = {
       control: 'boolean',
       description: 'Whether the component is in loading state',
     },
+    enableFilters: {
+      control: 'boolean',
+      description: 'Whether to enable filtering UI',
+    },
+    enableSorting: {
+      control: 'boolean',
+      description: 'Whether to enable sorting on table headers',
+    },
+    defaultSortKey: {
+      control: 'text',
+      description: 'Default sort key',
+    },
+    defaultSortDirection: {
+      control: 'select',
+      options: ['asc', 'desc', null],
+      description: 'Default sort direction',
+    },
     containerClass: {
       control: 'text',
       description: 'Additional CSS classes for the container element',
@@ -184,6 +247,14 @@ export const Default: Story = {
     tableContainerClass: {
       control: 'text',
       description: 'Additional CSS classes for the table container',
+    },
+    filtersChanged: {
+      action: 'filtersChanged',
+      description: 'Emitted when filter values change',
+    },
+    sortingChanged: {
+      action: 'sortingChanged',
+      description: 'Emitted when sorting changes',
     },
     userEdit: {
       action: 'userEdit',
@@ -207,8 +278,14 @@ export const Default: Story = {
       <org-users-list
         [users]="users"
         [isLoading]="isLoading"
+        [enableFilters]="enableFilters"
+        [enableSorting]="enableSorting"
+        [defaultSortKey]="defaultSortKey"
+        [defaultSortDirection]="defaultSortDirection"
         [containerClass]="containerClass"
         [tableContainerClass]="tableContainerClass"
+        (filtersChanged)="filtersChanged($event)"
+        (sortingChanged)="sortingChanged($event)"
         (userEdit)="userEdit($event)"
         (userDelete)="userDelete($event)"
       />
@@ -351,12 +428,57 @@ export const RoleTypes: Story = {
   }),
 };
 
+export const FilteringAndSorting: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demonstrates filtering and sorting features enabled together.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Filtering and Sorting"
+        currentState="Filtering and sorting features enabled"
+      >
+        <org-storybook-example-container-section label="With Filters Only">
+          <org-users-list [users]="users" [enableFilters]="true" [enableSorting]="false" />
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="With Sorting Only">
+          <org-users-list [users]="users" [enableFilters]="false" [enableSorting]="true" />
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="With Both Filters and Sorting">
+          <org-users-list [users]="users" [enableFilters]="true" [enableSorting]="true" />
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>Filters</strong>: Name search with 300ms debounce, date field selector, date range picker</li>
+          <li><strong>Sorting</strong>: Click on Name or Created headers to sort (icons indicate sort state)</li>
+          <li><strong>Name Search</strong>: Debounced to avoid excessive event firing</li>
+          <li><strong>Date Filters</strong>: Choose between Created/Updated and select date or range</li>
+          <li><strong>Sort Direction</strong>: Click toggles between asc → desc → none</li>
+          <li><strong>Default Sort</strong>: Created date descending (configurable via inputs)</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [UsersList, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+    props: {
+      users: sampleUsers,
+    },
+  }),
+};
+
 export const Interactive: Story = {
   parameters: {
     docs: {
       description: {
         story:
-          'Interactive example with event logging. Click the actions menu (three dots) and select edit or delete to see events in the log below.',
+          'Interactive example with event logging for all features: filters, sorting, and user actions. Try searching, selecting dates, sorting columns, and using the actions menu to see events logged below.',
       },
     },
   },
@@ -376,57 +498,95 @@ export const Interactive: Story = {
       <div class="flex flex-col gap-2">
         <h3 class="text-lg font-semibold">Interactive Users List</h3>
         <div class="text-sm text-text-subtle">
-          Click the actions menu (three dots) for a user and select edit or delete to see event logging in action.
+          Try searching by name, selecting dates, clicking column headers to sort, and using the actions menu to see all
+          events logged below.
         </div>
       </div>
 
       <org-users-list
         [users]="users"
         [isLoading]="isLoading()"
+        [enableFilters]="enableFilters()"
+        [enableSorting]="enableSorting()"
+        (filtersChanged)="onFiltersChanged($event)"
+        (sortingChanged)="onSortingChanged($event)"
         (userEdit)="onUserEdit($event)"
         (userDelete)="onUserDelete($event)"
       />
 
       <!-- Controls -->
-      <div class="flex gap-4 p-4 bg-secondary-background-subtle rounded-lg">
-        <label class="flex items-center gap-2">
-          <span class="text-sm font-medium">Loading State:</span>
-          <input type="checkbox" [checked]="isLoading()" (change)="toggleLoading()" class="rounded" />
-        </label>
+      <div class="p-4 bg-secondary-background-subtle rounded-lg">
+        <org-form-fields containerClass="flex-row" [reserveValidationSpace]="false">
+          <org-form-field>
+            <org-checkbox
+              type="checkbox"
+              id="loading-state-checkbox"
+              name="loading-state"
+              value="loading-state"
+              [checked]="isLoading()"
+              (checkedChange)="toggleLoading()"
+            >
+              <strong>Loading State</strong>
+            </org-checkbox>
+          </org-form-field>
+          <org-form-field>
+            <org-checkbox
+              type="checkbox"
+              id="enable-filters-checkbox"
+              name="enable-filters"
+              value="enable-filters"
+              [checked]="enableFilters()"
+              (checkedChange)="toggleFilters()"
+            >
+              <strong>Enable Filters</strong>
+            </org-checkbox>
+          </org-form-field>
+          <org-form-field>
+            <org-checkbox
+              type="checkbox"
+              id="enable-sorting-checkbox"
+              name="enable-sorting"
+              value="enable-sorting"
+              [checked]="enableSorting()"
+              (checkedChange)="toggleSorting()"
+            >
+              <strong>Enable Sorting</strong>
+            </org-checkbox>
+          </org-form-field>
+        </org-form-fields>
       </div>
 
       <!-- Event Log -->
       <div class="flex flex-col gap-2">
         <h4 class="font-medium">Event Log:</h4>
-        <div class="p-3 bg-secondary-background-subtle rounded text-sm font-mono max-h-48 overflow-y-auto">
+        <div class="p-3 bg-secondary-background-subtle rounded text-sm font-mono max-h-64 overflow-y-auto">
           @for (event of events(); track $index) {
-            <div class="mb-2">
+            <div class="mb-2 pb-2 border-b border-neutral-border last:border-b-0">
               <div class="font-bold text-primary-text">{{ event.timestamp }} - {{ event.action }}</div>
-              <div class="text-text-subtle">User: {{ event.userName }} ({{ event.userEmail }})</div>
-              <div class="text-text-subtle">ID: {{ event.userId }}</div>
+              <div class="text-text-subtle whitespace-pre-wrap">{{ event.details }}</div>
             </div>
           }
           @if (events().length === 0) {
             <div class="text-text-subtle">
-              No events yet. Click the actions menu and select edit or delete to see events.
+              No events yet. Try searching, sorting, or using the actions menu to see events.
             </div>
           }
         </div>
       </div>
     </div>
   `,
-  imports: [UsersList],
+  imports: [UsersList, Label, FormFields, FormField, Checkbox],
 })
 class UsersListInteractiveStory {
   public users = sampleUsers;
   public isLoading = signal(false);
+  public enableFilters = signal(true);
+  public enableSorting = signal(true);
   public events = signal<
     {
       timestamp: string;
       action: string;
-      userId: string;
-      userName: string;
-      userEmail: string;
+      details: string;
     }[]
   >([]);
 
@@ -434,33 +594,365 @@ class UsersListInteractiveStory {
     this.isLoading.update((loading) => !loading);
   }
 
-  public onUserEdit(user: User): void {
+  public toggleFilters(): void {
+    this.enableFilters.update((enabled) => !enabled);
+  }
+
+  public toggleSorting(): void {
+    this.enableSorting.update((enabled) => !enabled);
+  }
+
+  public onFiltersChanged(filters: UsersListFilterValues): void {
     const timestamp = new Date().toLocaleTimeString();
+    const details = `Name Search: "${filters.nameSearch}"\nDate Field: ${filters.dateField}\nDate Range: ${filters.dateValue.startDate?.toISO() || 'null'} - ${filters.dateValue.endDate?.toISO() || 'null'}`;
 
     this.events.update((events) => [
       {
         timestamp,
-        action: 'EDIT',
-        userId: user.id,
-        userName: user.name,
-        userEmail: user.email,
+        action: 'FILTERS_CHANGED',
+        details,
       },
-      ...events.slice(0, 4),
+      ...events.slice(0, 9),
+    ]);
+  }
+
+  public onSortingChanged(sorting: UsersListSortingData): void {
+    const timestamp = new Date().toLocaleTimeString();
+    const details = `Key: ${sorting.key || 'null'}\nDirection: ${sorting.direction || 'null'}`;
+
+    this.events.update((events) => [
+      {
+        timestamp,
+        action: 'SORTING_CHANGED',
+        details,
+      },
+      ...events.slice(0, 9),
+    ]);
+  }
+
+  public onUserEdit(user: User): void {
+    const timestamp = new Date().toLocaleTimeString();
+    const details = `User: ${user.name} (${user.email})\nID: ${user.id}`;
+
+    this.events.update((events) => [
+      {
+        timestamp,
+        action: 'USER_EDIT',
+        details,
+      },
+      ...events.slice(0, 9),
     ]);
   }
 
   public onUserDelete(user: User): void {
     const timestamp = new Date().toLocaleTimeString();
+    const details = `User: ${user.name} (${user.email})\nID: ${user.id}`;
 
     this.events.update((events) => [
       {
         timestamp,
-        action: 'DELETE',
-        userId: user.id,
-        userName: user.name,
-        userEmail: user.email,
+        action: 'USER_DELETE',
+        details,
       },
-      ...events.slice(0, 4),
+      ...events.slice(0, 9),
     ]);
+  }
+}
+
+export const WithPagination: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Demonstrates the users list with pagination functionality. The pagination store must be provided via the USERS_LIST_PAGINATION_STORE injection token. Pagination automatically resets to page 1 when filters or sorting changes.',
+      },
+    },
+  },
+  render: () => ({
+    template: '<org-users-list-pagination-story></org-users-list-pagination-story>',
+    moduleMetadata: {
+      imports: [UsersListPaginationStory],
+    },
+  }),
+};
+
+@Component({
+  selector: 'org-users-list-pagination-story',
+  template: `
+    <div class="flex flex-col gap-6 p-4">
+      <div class="flex flex-col gap-2">
+        <h3 class="text-lg font-semibold">Users List with Pagination</h3>
+        <div class="text-sm text-text-subtle">
+          Pagination is enabled by providing a PaginationStore via the USERS_LIST_PAGINATION_STORE injection token. The
+          component automatically resets to page 1 when filters or sorting changes.
+        </div>
+      </div>
+
+      <org-users-list
+        [users]="displayedUsers"
+        [isLoading]="isLoading()"
+        [enableFilters]="enableFilters()"
+        [enableSorting]="enableSorting()"
+        (filtersChanged)="onFiltersChanged($event)"
+        (sortingChanged)="onSortingChanged($event)"
+        (pageChanged)="onPageChanged($event)"
+        (itemsPerPageChanged)="onItemsPerPageChanged($event)"
+        (userEdit)="onUserEdit($event)"
+        (userDelete)="onUserDelete($event)"
+      />
+
+      <div class="p-4 bg-secondary-background-subtle rounded-lg">
+        <org-form-fields containerClass="flex-row" [reserveValidationSpace]="false">
+          <org-form-field>
+            <org-checkbox
+              type="checkbox"
+              id="loading-state-checkbox"
+              name="loading-state"
+              value="loading-state"
+              [checked]="isLoading()"
+              (checkedChange)="toggleLoading()"
+            >
+              <strong>Loading State</strong>
+            </org-checkbox>
+          </org-form-field>
+          <org-form-field>
+            <org-checkbox
+              type="checkbox"
+              id="enable-filters-checkbox"
+              name="enable-filters"
+              value="enable-filters"
+              [checked]="enableFilters()"
+              (checkedChange)="toggleFilters()"
+            >
+              <strong>Enable Filters</strong>
+            </org-checkbox>
+          </org-form-field>
+          <org-form-field>
+            <org-checkbox
+              type="checkbox"
+              id="enable-sorting-checkbox"
+              name="enable-sorting"
+              value="enable-sorting"
+              [checked]="enableSorting()"
+              (checkedChange)="toggleSorting()"
+            >
+              <strong>Enable Sorting</strong>
+            </org-checkbox>
+          </org-form-field>
+        </org-form-fields>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <h4 class="font-medium">Pagination State:</h4>
+        <div class="p-3 bg-secondary-background-subtle rounded text-sm">
+          <div class="mb-2"><strong>Current Page:</strong> {{ paginationStore.activePage() }}</div>
+          <div class="mb-2"><strong>Items Per Page:</strong> {{ paginationStore.activeItemsPerPage() }}</div>
+          <div class="mb-2"><strong>Total Items:</strong> {{ paginationStore.totalItems() }}</div>
+          <div class="mb-2"><strong>Total Pages:</strong> {{ paginationStore.totalPages() }}</div>
+          <div><strong>Result Range:</strong> {{ paginationStore.resultText() }}</div>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <h4 class="font-medium">Event Log:</h4>
+        <div class="p-3 bg-secondary-background-subtle rounded text-sm font-mono max-h-64 overflow-y-auto">
+          @for (event of events(); track $index) {
+            <div class="mb-2 pb-2 border-b border-neutral-border last:border-b-0">
+              <div class="font-bold text-primary-text">{{ event.timestamp }} - {{ event.action }}</div>
+              <div class="text-text-subtle whitespace-pre-wrap">{{ event.details }}</div>
+            </div>
+          }
+          @if (events().length === 0) {
+            <div class="text-text-subtle">
+              No events yet. Try changing pages, items per page, searching, or sorting to see events.
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  `,
+  imports: [UsersList, Label, FormFields, FormField, Checkbox],
+  providers: [
+    PaginationStore,
+    {
+      provide: USERS_LIST_PAGINATION_STORE,
+      useExisting: PaginationStore,
+    },
+  ],
+})
+class UsersListPaginationStory {
+  public readonly paginationStore = inject(PaginationStore);
+
+  public allUsers: User[] = [];
+  public displayedUsers: User[] = [];
+  public isLoading = signal(false);
+  public enableFilters = signal(false);
+  public enableSorting = signal(false);
+  public events = signal<
+    {
+      timestamp: string;
+      action: string;
+      details: string;
+    }[]
+  >([]);
+
+  constructor() {
+    this.allUsers = this._generateManyUsers(100);
+
+    this.paginationStore.initialize({
+      defaultCurrentPage: 1,
+      defaultTotalItems: this.allUsers.length,
+      defaultItemsPerPage: 10,
+      visiblePages: 7,
+      itemsPerPageOptions: [5, 10, 20, 50],
+      disabled: false,
+    });
+
+    this._updateDisplayedUsers();
+  }
+
+  public toggleLoading(): void {
+    this.isLoading.update((loading) => !loading);
+  }
+
+  public toggleFilters(): void {
+    this.enableFilters.update((enabled) => !enabled);
+  }
+
+  public toggleSorting(): void {
+    this.enableSorting.update((enabled) => !enabled);
+  }
+
+  public onFiltersChanged(filters: UsersListFilterValues): void {
+    const timestamp = new Date().toLocaleTimeString();
+    const details = `Name Search: "${filters.nameSearch}"\nDate Field: ${filters.dateField}\nDate Range: ${filters.dateValue.startDate?.toISO() || 'null'} - ${filters.dateValue.endDate?.toISO() || 'null'}`;
+
+    this.events.update((events) => [
+      {
+        timestamp,
+        action: 'FILTERS_CHANGED',
+        details,
+      },
+      ...events.slice(0, 9),
+    ]);
+  }
+
+  public onSortingChanged(sorting: UsersListSortingData): void {
+    const timestamp = new Date().toLocaleTimeString();
+    const details = `Key: ${sorting.key || 'null'}\nDirection: ${sorting.direction || 'null'}`;
+
+    this.events.update((events) => [
+      {
+        timestamp,
+        action: 'SORTING_CHANGED',
+        details,
+      },
+      ...events.slice(0, 9),
+    ]);
+  }
+
+  public onPageChanged(page: number): void {
+    const timestamp = new Date().toLocaleTimeString();
+    const details = `New Page: ${page}\nItems Per Page: ${this.paginationStore.activeItemsPerPage()}`;
+
+    this.events.update((events) => [
+      {
+        timestamp,
+        action: 'PAGE_CHANGED',
+        details,
+      },
+      ...events.slice(0, 9),
+    ]);
+
+    this._updateDisplayedUsers();
+  }
+
+  public onItemsPerPageChanged(itemsPerPage: number): void {
+    const timestamp = new Date().toLocaleTimeString();
+    const details = `New Items Per Page: ${itemsPerPage}\nCurrent Page: ${this.paginationStore.activePage()}`;
+
+    this.events.update((events) => [
+      {
+        timestamp,
+        action: 'ITEMS_PER_PAGE_CHANGED',
+        details,
+      },
+      ...events.slice(0, 9),
+    ]);
+
+    this._updateDisplayedUsers();
+  }
+
+  public onUserEdit(user: User): void {
+    const timestamp = new Date().toLocaleTimeString();
+    const details = `User: ${user.name} (${user.email})\nID: ${user.id}`;
+
+    this.events.update((events) => [
+      {
+        timestamp,
+        action: 'USER_EDIT',
+        details,
+      },
+      ...events.slice(0, 9),
+    ]);
+  }
+
+  public onUserDelete(user: User): void {
+    const timestamp = new Date().toLocaleTimeString();
+    const details = `User: ${user.name} (${user.email})\nID: ${user.id}`;
+
+    this.events.update((events) => [
+      {
+        timestamp,
+        action: 'USER_DELETE',
+        details,
+      },
+      ...events.slice(0, 9),
+    ]);
+  }
+
+  private _updateDisplayedUsers(): void {
+    const startIndex = this.paginationStore.startIndex();
+    const endIndex = this.paginationStore.endIndex();
+
+    this.displayedUsers = this.allUsers.slice(startIndex, endIndex);
+  }
+
+  private _generateManyUsers(count: number): User[] {
+    const users: User[] = [];
+    const roles: ('admin' | 'user')[] = ['admin', 'user'];
+    const names = [
+      'John Administrator',
+      'Jane Smith',
+      'Bob Wilson',
+      'Sarah Johnson',
+      'Michael Brown',
+      'Emily Davis',
+      'David Martinez',
+      'Lisa Garcia',
+      'James Rodriguez',
+      'Mary Lopez',
+    ];
+
+    for (let i = 0; i < count; i++) {
+      const nameIndex = i % names.length;
+      const name = `${names[nameIndex]} ${i + 1}`;
+      const email = `${name.toLowerCase().replace(/\s+/g, '.')}@company.com`;
+      const role = roles[i % roles.length];
+      const hasMultipleRoles = i % 5 === 0;
+
+      users.push({
+        id: `user-${i + 1}`,
+        organizationId: 'org1',
+        name,
+        email,
+        roles: hasMultipleRoles ? ['admin', 'user'] : [role],
+        hasPassword: i % 3 !== 0,
+        createdAt: new Date(2024, 0, 1 + (i % 28), 10 + (i % 12), 30).toISOString(),
+        updatedAt: new Date(2024, 0, 15 + (i % 28), 14 + (i % 8), 45).toISOString(),
+      });
+    }
+
+    return users;
   }
 }

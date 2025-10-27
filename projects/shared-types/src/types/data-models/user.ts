@@ -41,6 +41,17 @@ export const updateUserSchema = userSchema
 
 export type UpdateUser = z.infer<typeof updateUserSchema>;
 
+export type GetUsersRequest = {
+  name?: string;
+  createdAfter?: string;
+  createdBefore?: string;
+  updatedAfter?: string;
+  updatedBefore?: string;
+  offset?: number;
+  limit?: number;
+  orderBy?: string | null;
+  orderDirection?: 'asc' | 'desc' | null;
+};
 export type GetUsersResponse = ResponseStructure<User[]>;
 
 export type GetUserResponse = ResponseStructure<User>;

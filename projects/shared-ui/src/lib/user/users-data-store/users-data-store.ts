@@ -1,57 +1,117 @@
-import { inject, Injectable, signal, computed } from '@angular/core';
-import { User } from '@organization/shared-types';
+import { inject, Injectable } from '@angular/core';
+import {
+  CreateUser,
+  CreateUserResponse,
+  DeleteUserResponse,
+  GetUsersRequest,
+  UpdateUser,
+  UpdateUserResponse,
+  User,
+} from '@organization/shared-types';
 import { UsersApi } from '../users-api/users-api';
-import { LogManager } from '../../core/log-manager/log-manager';
+import { Observable, tap } from 'rxjs';
+import { BaseLimitDataStore } from '../../core/data-store/base-limit-data-store';
 
-type UsersState = {
-  users: User[];
-  loading: boolean;
-  error: string | null;
-};
-
-@Injectable()
-export class UsersDataStore {
-  private readonly _logManager = inject(LogManager);
+@Injectable({
+  providedIn: 'root',
+})
+export class UsersDataStore extends BaseLimitDataStore<User> {
   private readonly _usersApi = inject(UsersApi);
 
-  private readonly state = signal<UsersState>({
-    users: [],
-    loading: false,
-    error: null,
-  });
-
-  public readonly users = computed(() => this.state().users);
-  public readonly loading = computed(() => this.state().loading);
-  public readonly error = computed(() => this.state().error);
-
   constructor() {
-    this.loadUsers();
+    super('id', {
+      limit: 1,
+    });
   }
 
-  loadUsers() {
-    this.state.update((currentState) => ({ ...currentState, loading: true }));
+  public fetch(requestData: GetUsersRequest = {}) {
+    this.startRemoteLoading();
 
-    this._usersApi.getUsers().subscribe({
-      next: (response) => {
-        const { data, meta } = response ?? {};
+    this._usersApi
+      .getUsers({
+        offset: this.offset(),
+        limit: this.limit(),
+        ...requestData,
+      })
+      .subscribe({
+        next: (response) => {
+          const { data, meta } = response ?? {};
 
-        if (!data) {
-          this._logManager.error({
-            type: 'users-data-store-error',
-            message: 'Users api response successfully but no data returned',
-            error: response,
-          });
+          if (!data) {
+            throw new Error('No data returned from the server');
+          }
 
-          this.state.update((state) => ({ ...state, error: 'No data returned from the server' }));
-        }
+          if (meta?.error) {
+            throw new Error(meta.error.message);
+          }
 
-        if (meta?.error) {
-          this.state.update((state) => ({ ...state, error: meta.error.message }));
-        }
+          this.setLocalData(data);
+          this.setLocalMeta(meta);
+          this.endRemoteLoading(data);
+        },
+        error: (error: unknown) => {
+          this.setLocalData([]);
+          this.endRemoteLoading(error);
+        },
+      });
+  }
 
-        this.state.set({ users: response.data ?? [], loading: false, error: null });
-      },
-      error: (err) => this.state.update((currentState) => ({ ...currentState, loading: false, error: err.message })),
-    });
+  public create(user: CreateUser): Observable<CreateUserResponse> {
+    this.startMutation();
+
+    return this._usersApi.createUser(user).pipe(
+      tap({
+        next: (response) => {
+          const { data } = response ?? {};
+
+          if (!data) {
+            return;
+          }
+
+          this.unshiftLocalData([data as User]);
+
+          this.endMutation();
+        },
+        error: (error: unknown) => {
+          this.endMutation(error);
+        },
+      })
+    );
+  }
+
+  public update(user: UpdateUser): Observable<UpdateUserResponse> {
+    return this._usersApi.updateUser(user).pipe(
+      tap({
+        next: (response) => {
+          const { data } = response ?? {};
+
+          if (!data) {
+            return;
+          }
+
+          this.updateLocalData(data as User);
+
+          this.endMutation();
+        },
+        error: (error: unknown) => {
+          this.endMutation(error);
+        },
+      })
+    );
+  }
+
+  public delete(id: User['id']): Observable<DeleteUserResponse> {
+    return this._usersApi.deleteUser(id).pipe(
+      tap({
+        next: () => {
+          this.deleteLocalData(id);
+
+          this.endMutation();
+        },
+        error: (error: unknown) => {
+          this.endMutation(error);
+        },
+      })
+    );
   }
 }

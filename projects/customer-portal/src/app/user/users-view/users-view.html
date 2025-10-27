@@ -7,11 +7,17 @@
     </div>
   }
   <org-users-list
+    #usersListComponent
     [users]="users()"
-    [isLoading]="loading()"
+    [isLoading]="loadingState() === 'initial'"
+    [isBackgroundLoading]="loadingState() === 'pending'"
+    [enableSorting]="true"
     (userEdit)="onUserEdit($event)"
     (userDelete)="onUserDelete($event)"
     [enableFilters]="true"
+    (filtersChanged)="onFiltersChanged($event)"
+    (pageChanged)="onPageChanged($event)"
+    (sortingChanged)="onSortingChanged($event)"
   >
   </org-users-list>
 </div>

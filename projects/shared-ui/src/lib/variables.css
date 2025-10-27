@@ -18,6 +18,7 @@
 @import './core/global-notifications/global-notifications-variables.css';
 @import './core/indicator/indicator-variables.css';
 @import './core/label/label-variables.css';
+@import './core/loading-blocker/loading-blocker-variables.css';
 @import './core/markdown/markdown-variables.css';
 @import './core/radio/radio-variables.css';
 @import './core/skeleton/skeleton-variables.css';

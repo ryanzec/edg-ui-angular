@@ -15,8 +15,10 @@ import { Combobox } from '../../core/combobox/combobox';
 import { type ComboboxOptionInput } from '../../core/combobox-store/combobox-store';
 import { DatePickerInput } from '../../core/date-picker-input/date-picker-input';
 import { Button } from '../../core/button/button';
-import { validationUtils } from '@organization/shared-ui';
 import { Label } from '../../core/label/label';
+import { FormField } from '../../core/form-field/form-field';
+import { FormFields } from '../../core/form-fields/form-fields';
+import { validationUtils } from '../../utils/validation';
 
 const categoryOptions: ComboboxOptionInput[] = [
   { label: 'Technology', value: 'technology' },
@@ -73,6 +75,8 @@ const itemSchema = z.object({
     DatePickerInput,
     Button,
     Label,
+    FormField,
+    FormFields,
   ],
   template: `
     <org-storybook-example-container
@@ -81,91 +85,94 @@ const itemSchema = z.object({
     >
       <org-storybook-example-container-section label="Form">
         <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-1 max-w-[500px]">
-          <div formGroupName="profile" class="flex flex-col gap-1 rounded-md border border-neutral-border p-3">
+          <div formGroupName="profile" class="rounded-md border border-neutral-border p-3">
             <div class="text-sm font-semibold mb-1">Profile</div>
 
-            <div class="flex flex-col gap-1">
-              <org-label htmlFor="nested-profile-name" class="text-sm font-medium" label="Name *" />
-              <org-input
-                formControlName="name"
-                name="nested-profile-name"
-                placeholder="Enter name"
-                [validationMessage]="getFieldError('profile.name')"
-              />
-            </div>
+            <org-form-fields>
+              <org-form-field [validationMessage]="getFieldError('profile.name')">
+                <org-label htmlFor="nested-profile-name" class="text-sm font-medium" label="Name" [isRequired]="true" />
+                <org-input formControlName="name" name="nested-profile-name" placeholder="Enter name" />
+              </org-form-field>
 
-            <div class="flex flex-col gap-1">
-              <org-label htmlFor="nested-profile-description" class="text-sm font-medium" label="Description *" />
-              <org-textarea
-                formControlName="description"
-                name="nested-profile-description"
-                placeholder="Enter description"
-                [rows]="3"
-                [validationMessage]="getFieldError('profile.description')"
-              />
-            </div>
+              <org-form-field [validationMessage]="getFieldError('profile.description')">
+                <org-label
+                  htmlFor="nested-profile-description"
+                  class="text-sm font-medium"
+                  label="Description"
+                  [isRequired]="true"
+                />
+                <org-textarea
+                  formControlName="description"
+                  name="nested-profile-description"
+                  placeholder="Enter description"
+                  [rows]="3"
+                />
+              </org-form-field>
 
-            <div class="flex flex-col gap-1">
-              <org-label htmlFor="nested-profile-category" class="text-sm font-medium" label="Category *" />
-              <org-combobox
-                formControlName="category"
-                name="nested-profile-category"
-                [options]="categoryOptions"
-                [isMultiSelect]="true"
-                placeholder="Select categories..."
-                [validationMessage]="getFieldError('profile.category')"
-              />
-            </div>
+              <org-form-field [validationMessage]="getFieldError('profile.category')">
+                <org-label
+                  htmlFor="nested-profile-category"
+                  class="text-sm font-medium"
+                  label="Category"
+                  [isRequired]="true"
+                />
+                <org-combobox
+                  formControlName="category"
+                  name="nested-profile-category"
+                  [options]="categoryOptions"
+                  [isMultiSelect]="true"
+                  placeholder="Select categories..."
+                />
+              </org-form-field>
 
-            <div class="flex flex-col gap-1">
-              <org-checkbox
-                formControlName="isActive"
-                name="nested-profile-isActive"
-                value="active"
-                [validationMessage]="getFieldError('profile.isActive')"
-              >
-                Is Active *
-              </org-checkbox>
-            </div>
+              <org-form-field [validationMessage]="getFieldError('profile.isActive')">
+                <org-checkbox formControlName="isActive" name="nested-profile-isActive" value="active">
+                  Is Active *
+                </org-checkbox>
+              </org-form-field>
 
-            <div class="flex flex-col gap-1">
-              <org-checkbox-toggle
-                formControlName="isEnabled"
-                name="nested-profile-isEnabled"
-                value="enabled"
-                onIcon="check-circle"
-                offIcon="x-circle"
-                onText="Enabled"
-                offText="Disabled"
-                [validationMessage]="getFieldError('profile.isEnabled')"
-              >
-                Is Enabled *
-              </org-checkbox-toggle>
-            </div>
+              <org-form-field [validationMessage]="getFieldError('profile.isEnabled')">
+                <org-checkbox-toggle
+                  formControlName="isEnabled"
+                  name="nested-profile-isEnabled"
+                  value="enabled"
+                  onIcon="check-circle"
+                  offIcon="x-circle"
+                  onText="Enabled"
+                  offText="Disabled"
+                >
+                  Is Enabled *
+                </org-checkbox-toggle>
+              </org-form-field>
+              <org-form-field [validationMessage]="getFieldError('profile.priority')">
+                <org-label
+                  htmlFor="nested-profile-priority"
+                  class="text-sm font-medium"
+                  label="Priority"
+                  [isRequired]="true"
+                />
+                <org-radio-group formControlName="priority" name="nested-profile-priority">
+                  <org-radio value="low">Low</org-radio>
+                  <org-radio value="medium">Medium</org-radio>
+                  <org-radio value="high">High</org-radio>
+                </org-radio-group>
+              </org-form-field>
 
-            <div class="flex flex-col gap-1">
-              <org-label htmlFor="nested-profile-priority" class="text-sm font-medium" label="Priority *" />
-              <org-radio-group
-                formControlName="priority"
-                name="nested-profile-priority"
-                [validationMessage]="getFieldError('profile.priority')"
-              >
-                <org-radio value="low">Low</org-radio>
-                <org-radio value="medium">Medium</org-radio>
-                <org-radio value="high">High</org-radio>
-              </org-radio-group>
-            </div>
-
-            <div class="flex flex-col gap-1">
-              <org-label htmlFor="nested-profile-dateRange" class="text-sm font-medium" label="Date Range *" />
-              <org-date-picker-input
-                formControlName="dateRange"
-                name="nested-profile-dateRange"
-                [allowRangeSelection]="true"
-                placeholder="Select date range..."
-                [validationMessage]="getFieldError('profile.dateRange')"
-              />
-            </div>
+              <org-form-field [validationMessage]="getFieldError('profile.dateRange')">
+                <org-label
+                  htmlFor="nested-profile-dateRange"
+                  class="text-sm font-medium"
+                  label="Date Range"
+                  [isRequired]="true"
+                />
+                <org-date-picker-input
+                  formControlName="dateRange"
+                  name="nested-profile-dateRange"
+                  [allowRangeSelection]="true"
+                  placeholder="Select date range..."
+                />
+              </org-form-field>
+            </org-form-fields>
           </div>
 
           <org-button type="submit" color="primary" buttonClass="w-full mt-1">Submit Form</org-button>
@@ -318,6 +325,8 @@ class NestedObjectDemoComponent {
     DatePickerInput,
     Button,
     Label,
+    FormField,
+    FormFields,
   ],
   template: `
     <org-storybook-example-container
@@ -326,95 +335,98 @@ class NestedObjectDemoComponent {
     >
       <org-storybook-example-container-section label="Form">
         <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-1 max-w-[500px]">
-          <div formGroupName="profile" class="flex flex-col gap-1 rounded-md border border-neutral-border p-3">
+          <div formGroupName="profile" class="rounded-md border border-neutral-border p-3">
             <div class="text-sm font-semibold mb-1">Profile</div>
 
-            <div class="flex flex-col gap-1">
-              <org-label htmlFor="nested-defaults-profile-name" class="text-sm font-medium" label="Name *" />
-              <org-input
-                formControlName="name"
-                name="nested-defaults-profile-name"
-                placeholder="Enter name"
-                [validationMessage]="getFieldError('profile.name')"
-              />
-            </div>
+            <org-form-fields>
+              <org-form-field [validationMessage]="getFieldError('profile.name')">
+                <org-label
+                  htmlFor="nested-defaults-profile-name"
+                  class="text-sm font-medium"
+                  label="Name"
+                  [isRequired]="true"
+                />
+                <org-input formControlName="name" name="nested-defaults-profile-name" placeholder="Enter name" />
+              </org-form-field>
 
-            <div class="flex flex-col gap-1">
-              <org-label
-                htmlFor="nested-defaults-profile-description"
-                class="text-sm font-medium"
-                label="Description *"
-              />
-              <org-textarea
-                formControlName="description"
-                name="nested-defaults-profile-description"
-                placeholder="Enter description"
-                [rows]="3"
-                [validationMessage]="getFieldError('profile.description')"
-              />
-            </div>
+              <org-form-field [validationMessage]="getFieldError('profile.description')">
+                <org-label
+                  htmlFor="nested-defaults-profile-description"
+                  class="text-sm font-medium"
+                  label="Description"
+                  [isRequired]="true"
+                />
+                <org-textarea
+                  formControlName="description"
+                  name="nested-defaults-profile-description"
+                  placeholder="Enter description"
+                  [rows]="3"
+                />
+              </org-form-field>
 
-            <div class="flex flex-col gap-1">
-              <org-label htmlFor="nested-defaults-profile-category" class="text-sm font-medium" label="Category *" />
-              <org-combobox
-                formControlName="category"
-                name="nested-defaults-profile-category"
-                [options]="categoryOptions"
-                [isMultiSelect]="true"
-                placeholder="Select categories..."
-                [validationMessage]="getFieldError('profile.category')"
-              />
-            </div>
+              <org-form-field [validationMessage]="getFieldError('profile.category')">
+                <org-label
+                  htmlFor="nested-defaults-profile-category"
+                  class="text-sm font-medium"
+                  label="Category"
+                  [isRequired]="true"
+                />
+                <org-combobox
+                  formControlName="category"
+                  name="nested-defaults-profile-category"
+                  [options]="categoryOptions"
+                  [isMultiSelect]="true"
+                  placeholder="Select categories..."
+                />
+              </org-form-field>
 
-            <div class="flex flex-col gap-1">
-              <org-checkbox
-                formControlName="isActive"
-                name="nested-defaults-profile-isActive"
-                value="active"
-                [validationMessage]="getFieldError('profile.isActive')"
-              >
-                Is Active *
-              </org-checkbox>
-            </div>
+              <org-form-field [validationMessage]="getFieldError('profile.isActive')">
+                <org-checkbox formControlName="isActive" name="nested-defaults-profile-isActive" value="active">
+                  Is Active *
+                </org-checkbox>
+              </org-form-field>
+              <org-form-field [validationMessage]="getFieldError('profile.isEnabled')">
+                <org-checkbox-toggle
+                  formControlName="isEnabled"
+                  name="nested-defaults-profile-isEnabled"
+                  value="enabled"
+                  onIcon="check-circle"
+                  offIcon="x-circle"
+                  onText="Enabled"
+                  offText="Disabled"
+                >
+                  Is Enabled *
+                </org-checkbox-toggle>
+              </org-form-field>
+              <org-form-field [validationMessage]="getFieldError('profile.priority')">
+                <org-label
+                  htmlFor="nested-defaults-profile-priority"
+                  class="text-sm font-medium"
+                  label="Priority"
+                  [isRequired]="true"
+                />
+                <org-radio-group formControlName="priority" name="nested-defaults-profile-priority">
+                  <org-radio value="low">Low</org-radio>
+                  <org-radio value="medium">Medium</org-radio>
+                  <org-radio value="high">High</org-radio>
+                </org-radio-group>
+              </org-form-field>
 
-            <div class="flex flex-col gap-1">
-              <org-checkbox-toggle
-                formControlName="isEnabled"
-                name="nested-defaults-profile-isEnabled"
-                value="enabled"
-                onIcon="check-circle"
-                offIcon="x-circle"
-                onText="Enabled"
-                offText="Disabled"
-                [validationMessage]="getFieldError('profile.isEnabled')"
-              >
-                Is Enabled *
-              </org-checkbox-toggle>
-            </div>
-
-            <div class="flex flex-col gap-1">
-              <org-label htmlFor="nested-defaults-profile-priority" class="text-sm font-medium" label="Priority *" />
-              <org-radio-group
-                formControlName="priority"
-                name="nested-defaults-profile-priority"
-                [validationMessage]="getFieldError('profile.priority')"
-              >
-                <org-radio value="low">Low</org-radio>
-                <org-radio value="medium">Medium</org-radio>
-                <org-radio value="high">High</org-radio>
-              </org-radio-group>
-            </div>
-
-            <div class="flex flex-col gap-1">
-              <org-label htmlFor="nested-defaults-profile-dateRange" class="text-sm font-medium" label="Date Range *" />
-              <org-date-picker-input
-                formControlName="dateRange"
-                name="nested-defaults-profile-dateRange"
-                [allowRangeSelection]="true"
-                placeholder="Select date range..."
-                [validationMessage]="getFieldError('profile.dateRange')"
-              />
-            </div>
+              <org-form-field [validationMessage]="getFieldError('profile.dateRange')">
+                <org-label
+                  htmlFor="nested-defaults-profile-dateRange"
+                  class="text-sm font-medium"
+                  label="Date Range"
+                  [isRequired]="true"
+                />
+                <org-date-picker-input
+                  formControlName="dateRange"
+                  name="nested-defaults-profile-dateRange"
+                  [allowRangeSelection]="true"
+                  placeholder="Select date range..."
+                />
+              </org-form-field>
+            </org-form-fields>
           </div>
 
           <org-button type="submit" color="primary" buttonClass="w-full mt-1">Submit Form</org-button>
@@ -569,7 +581,16 @@ class NestedObjectWithDefaultsDemoComponent {
 @Component({
   selector: 'org-array-of-text-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, StorybookExampleContainer, StorybookExampleContainerSection, Input, Button, Label],
+  imports: [
+    ReactiveFormsModule,
+    StorybookExampleContainer,
+    StorybookExampleContainerSection,
+    Input,
+    Button,
+    Label,
+    FormField,
+    FormFields,
+  ],
   template: `
     <org-storybook-example-container
       title="Array of Text Inputs"
@@ -585,14 +606,13 @@ class NestedObjectWithDefaultsDemoComponent {
           <div formArrayName="tags" class="flex flex-col gap-2">
             @for (tag of tags.controls; track $index) {
               <div class="flex items-start gap-2">
-                <div class="flex-1">
+                <org-form-field class="flex-1" [validationMessage]="getTagError($index)">
                   <org-input
                     [formControlName]="$index"
                     [name]="'tag-' + $index"
                     [placeholder]="'Tag ' + ($index + 1)"
-                    [validationMessage]="getTagError($index)"
                   />
-                </div>
+                </org-form-field>
                 <org-button
                   type="button"
                   color="danger"
@@ -703,7 +723,16 @@ class ArrayOfTextDemoComponent {
 @Component({
   selector: 'org-array-of-text-with-defaults-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, StorybookExampleContainer, StorybookExampleContainerSection, Input, Button, Label],
+  imports: [
+    ReactiveFormsModule,
+    StorybookExampleContainer,
+    StorybookExampleContainerSection,
+    Input,
+    Button,
+    Label,
+    FormField,
+    FormFields,
+  ],
   template: `
     <org-storybook-example-container
       title="Array of Text Inputs (With Defaults)"
@@ -719,14 +748,13 @@ class ArrayOfTextDemoComponent {
           <div formArrayName="tags" class="flex flex-col gap-2">
             @for (tag of tags.controls; track $index) {
               <div class="flex items-start gap-2">
-                <div class="flex-1">
+                <org-form-field class="flex-1" [validationMessage]="getTagError($index)">
                   <org-input
                     [formControlName]="$index"
                     [name]="'tag-defaults-' + $index"
                     [placeholder]="'Tag ' + ($index + 1)"
-                    [validationMessage]="getTagError($index)"
                   />
-                </div>
+                </org-form-field>
                 <org-button
                   type="button"
                   color="danger"
@@ -867,6 +895,8 @@ class ArrayOfTextWithDefaultsDemoComponent {
     DatePickerInput,
     Button,
     Label,
+    FormField,
+    FormFields,
   ],
   template: `
     <org-storybook-example-container
@@ -882,7 +912,7 @@ class ArrayOfTextWithDefaultsDemoComponent {
 
           <div formArrayName="items" class="flex flex-col gap-3">
             @for (item of items.controls; track $index) {
-              <div [formGroupName]="$index" class="flex flex-col gap-1 rounded-md border border-neutral-border p-3">
+              <div [formGroupName]="$index" class="rounded-md border border-neutral-border p-3">
                 <div class="flex items-center justify-between mb-1">
                   <div class="text-sm font-semibold">Item {{ $index + 1 }}</div>
                   <org-button
@@ -895,99 +925,94 @@ class ArrayOfTextWithDefaultsDemoComponent {
                   ></org-button>
                 </div>
 
-                <div class="flex flex-col gap-1">
-                  <org-label [htmlFor]="'item-' + $index + '-name'" class="text-sm font-medium" label="Name *" />
-                  <org-input
-                    formControlName="name"
-                    [name]="'item-' + $index + '-name'"
-                    placeholder="Enter name"
-                    [validationMessage]="getItemFieldError($index, 'name')"
-                  />
-                </div>
+                <org-form-fields>
+                  <org-form-field [validationMessage]="getItemFieldError($index, 'name')">
+                    <org-label
+                      [htmlFor]="'item-' + $index + '-name'"
+                      class="text-sm font-medium"
+                      label="Name"
+                      [isRequired]="true"
+                    />
+                    <org-input formControlName="name" [name]="'item-' + $index + '-name'" placeholder="Enter name" />
+                  </org-form-field>
 
-                <div class="flex flex-col gap-1">
-                  <org-label
-                    [htmlFor]="'item-' + $index + '-description'"
-                    class="text-sm font-medium"
-                    label="Description *"
-                  />
-                  <org-textarea
-                    formControlName="description"
-                    [name]="'item-' + $index + '-description'"
-                    placeholder="Enter description"
-                    [rows]="2"
-                    [validationMessage]="getItemFieldError($index, 'description')"
-                  />
-                </div>
+                  <org-form-field [validationMessage]="getItemFieldError($index, 'description')">
+                    <org-label
+                      [htmlFor]="'item-' + $index + '-description'"
+                      class="text-sm font-medium"
+                      label="Description"
+                      [isRequired]="true"
+                    />
+                    <org-textarea
+                      formControlName="description"
+                      [name]="'item-' + $index + '-description'"
+                      placeholder="Enter description"
+                      [rows]="2"
+                    />
+                  </org-form-field>
 
-                <div class="flex flex-col gap-1">
-                  <org-label
-                    [htmlFor]="'item-' + $index + '-category'"
-                    class="text-sm font-medium"
-                    label="Category *"
-                  />
-                  <org-combobox
-                    formControlName="category"
-                    [name]="'item-' + $index + '-category'"
-                    [options]="categoryOptions"
-                    [isMultiSelect]="true"
-                    placeholder="Select categories..."
-                    [validationMessage]="getItemFieldError($index, 'category')"
-                  />
-                </div>
+                  <org-form-field [validationMessage]="getItemFieldError($index, 'category')">
+                    <org-label
+                      [htmlFor]="'item-' + $index + '-category'"
+                      class="text-sm font-medium"
+                      label="Category"
+                      [isRequired]="true"
+                    />
+                    <org-combobox
+                      formControlName="category"
+                      [name]="'item-' + $index + '-category'"
+                      [options]="categoryOptions"
+                      [isMultiSelect]="true"
+                      placeholder="Select categories..."
+                    />
+                  </org-form-field>
 
-                <div class="flex flex-col gap-1">
-                  <org-checkbox
-                    formControlName="isActive"
-                    [name]="'item-' + $index + '-isActive'"
-                    value="active"
-                    [validationMessage]="getItemFieldError($index, 'isActive')"
-                  >
-                    Is Active *
-                  </org-checkbox>
-                </div>
+                  <org-form-field [validationMessage]="getItemFieldError($index, 'isActive')">
+                    <org-checkbox formControlName="isActive" [name]="'item-' + $index + '-isActive'" value="active">
+                      Is Active *
+                    </org-checkbox>
+                  </org-form-field>
+                  <org-form-field [validationMessage]="getItemFieldError($index, 'isEnabled')">
+                    <org-checkbox-toggle
+                      formControlName="isEnabled"
+                      [name]="'item-' + $index + '-isEnabled'"
+                      value="enabled"
+                      onIcon="check-circle"
+                      offIcon="x-circle"
+                      onText="Enabled"
+                      offText="Disabled"
+                    >
+                      Is Enabled *
+                    </org-checkbox-toggle>
+                  </org-form-field>
+                  <org-form-field [validationMessage]="getItemFieldError($index, 'priority')">
+                    <org-label
+                      [htmlFor]="'item-' + $index + '-priority'"
+                      class="text-sm font-medium"
+                      label="Priority"
+                      [isRequired]="true"
+                    />
+                    <org-radio-group formControlName="priority" [name]="'item-' + $index + '-priority'">
+                      <org-radio value="low">Low</org-radio>
+                      <org-radio value="medium">Medium</org-radio>
+                      <org-radio value="high">High</org-radio>
+                    </org-radio-group>
+                  </org-form-field>
 
-                <div class="flex flex-col gap-1">
-                  <org-checkbox-toggle
-                    formControlName="isEnabled"
-                    [name]="'item-' + $index + '-isEnabled'"
-                    value="enabled"
-                    onIcon="check-circle"
-                    offIcon="x-circle"
-                    onText="Enabled"
-                    offText="Disabled"
-                    [validationMessage]="getItemFieldError($index, 'isEnabled')"
-                  >
-                    Is Enabled *
-                  </org-checkbox-toggle>
-                </div>
-
-                <div class="flex flex-col gap-1">
-                  <org-label
-                    [htmlFor]="'item-' + $index + '-priority'"
-                    class="text-sm font-medium"
-                    label="Priority *"
-                  />
-                  <org-radio-group
-                    formControlName="priority"
-                    [name]="'item-' + $index + '-priority'"
-                    [validationMessage]="getItemFieldError($index, 'priority')"
-                  >
-                    <org-radio value="low">Low</org-radio>
-                    <org-radio value="medium">Medium</org-radio>
-                    <org-radio value="high">High</org-radio>
-                  </org-radio-group>
-                </div>
-
-                <div class="flex flex-col gap-1">
-                  <org-label [htmlFor]="'item-' + $index + '-date'" class="text-sm font-medium" label="Date *" />
-                  <org-date-picker-input
-                    formControlName="date"
-                    [name]="'item-' + $index + '-date'"
-                    placeholder="Select date..."
-                    [validationMessage]="getItemFieldError($index, 'date')"
-                  />
-                </div>
+                  <org-form-field [validationMessage]="getItemFieldError($index, 'date')">
+                    <org-label
+                      [htmlFor]="'item-' + $index + '-date'"
+                      class="text-sm font-medium"
+                      label="Date"
+                      [isRequired]="true"
+                    />
+                    <org-date-picker-input
+                      formControlName="date"
+                      [name]="'item-' + $index + '-date'"
+                      placeholder="Select date..."
+                    />
+                  </org-form-field>
+                </org-form-fields>
               </div>
             }
 
@@ -1154,6 +1179,8 @@ class ArrayOfObjectsDemoComponent {
     DatePickerInput,
     Button,
     Label,
+    FormField,
+    FormFields,
   ],
   template: `
     <org-storybook-example-container
@@ -1169,7 +1196,7 @@ class ArrayOfObjectsDemoComponent {
 
           <div formArrayName="items" class="flex flex-col gap-3">
             @for (item of items.controls; track $index) {
-              <div [formGroupName]="$index" class="flex flex-col gap-1 rounded-md border border-neutral-border p-3">
+              <div [formGroupName]="$index" class="rounded-md border border-neutral-border p-3">
                 <div class="flex items-center justify-between mb-1">
                   <div class="text-sm font-semibold">Item {{ $index + 1 }}</div>
                   <org-button
@@ -1182,107 +1209,103 @@ class ArrayOfObjectsDemoComponent {
                   ></org-button>
                 </div>
 
-                <div class="flex flex-col gap-1">
-                  <org-label
-                    [htmlFor]="'item-defaults-' + $index + '-name'"
-                    class="text-sm font-medium"
-                    label="Name *"
-                  />
-                  <org-input
-                    formControlName="name"
-                    [name]="'item-defaults-' + $index + '-name'"
-                    placeholder="Enter name"
-                    [validationMessage]="getItemFieldError($index, 'name')"
-                  />
-                </div>
+                <org-form-fields>
+                  <org-form-field [validationMessage]="getItemFieldError($index, 'name')">
+                    <org-label
+                      [htmlFor]="'item-defaults-' + $index + '-name'"
+                      class="text-sm font-medium"
+                      label="Name"
+                      [isRequired]="true"
+                    />
+                    <org-input
+                      formControlName="name"
+                      [name]="'item-defaults-' + $index + '-name'"
+                      placeholder="Enter name"
+                    />
+                  </org-form-field>
 
-                <div class="flex flex-col gap-1">
-                  <org-label
-                    [htmlFor]="'item-defaults-' + $index + '-description'"
-                    class="text-sm font-medium"
-                    label="Description *"
-                  />
-                  <org-textarea
-                    formControlName="description"
-                    [name]="'item-defaults-' + $index + '-description'"
-                    placeholder="Enter description"
-                    [rows]="2"
-                    [validationMessage]="getItemFieldError($index, 'description')"
-                  />
-                </div>
+                  <org-form-field [validationMessage]="getItemFieldError($index, 'description')">
+                    <org-label
+                      [htmlFor]="'item-defaults-' + $index + '-description'"
+                      class="text-sm font-medium"
+                      label="Description"
+                      [isRequired]="true"
+                    />
+                    <org-textarea
+                      formControlName="description"
+                      [name]="'item-defaults-' + $index + '-description'"
+                      placeholder="Enter description"
+                      [rows]="2"
+                    />
+                  </org-form-field>
 
-                <div class="flex flex-col gap-1">
-                  <org-label
-                    [htmlFor]="'item-defaults-' + $index + '-category'"
-                    class="text-sm font-medium"
-                    label="Category *"
-                  />
-                  <org-combobox
-                    formControlName="category"
-                    [name]="'item-defaults-' + $index + '-category'"
-                    [options]="categoryOptions"
-                    [isMultiSelect]="true"
-                    placeholder="Select categories..."
-                    [validationMessage]="getItemFieldError($index, 'category')"
-                  />
-                </div>
+                  <org-form-field [validationMessage]="getItemFieldError($index, 'category')">
+                    <org-label
+                      [htmlFor]="'item-defaults-' + $index + '-category'"
+                      class="text-sm font-medium"
+                      label="Category"
+                      [isRequired]="true"
+                    />
+                    <org-combobox
+                      formControlName="category"
+                      [name]="'item-defaults-' + $index + '-category'"
+                      [options]="categoryOptions"
+                      [isMultiSelect]="true"
+                      placeholder="Select categories..."
+                    />
+                  </org-form-field>
 
-                <div class="flex flex-col gap-1">
-                  <org-checkbox
-                    formControlName="isActive"
-                    [name]="'item-defaults-' + $index + '-isActive'"
-                    value="active"
-                    [validationMessage]="getItemFieldError($index, 'isActive')"
-                  >
-                    Is Active *
-                  </org-checkbox>
-                </div>
+                  <org-form-field [validationMessage]="getItemFieldError($index, 'isActive')">
+                    <org-checkbox
+                      formControlName="isActive"
+                      [name]="'item-defaults-' + $index + '-isActive'"
+                      value="active"
+                    >
+                      Is Active *
+                    </org-checkbox>
+                  </org-form-field>
+                  <org-form-field [validationMessage]="getItemFieldError($index, 'isEnabled')">
+                    <org-checkbox-toggle
+                      formControlName="isEnabled"
+                      [name]="'item-defaults-' + $index + '-isEnabled'"
+                      value="enabled"
+                      onIcon="check-circle"
+                      offIcon="x-circle"
+                      onText="Enabled"
+                      offText="Disabled"
+                    >
+                      Is Enabled *
+                    </org-checkbox-toggle>
+                  </org-form-field>
 
-                <div class="flex flex-col gap-1">
-                  <org-checkbox-toggle
-                    formControlName="isEnabled"
-                    [name]="'item-defaults-' + $index + '-isEnabled'"
-                    value="enabled"
-                    onIcon="check-circle"
-                    offIcon="x-circle"
-                    onText="Enabled"
-                    offText="Disabled"
-                    [validationMessage]="getItemFieldError($index, 'isEnabled')"
-                  >
-                    Is Enabled *
-                  </org-checkbox-toggle>
-                </div>
+                  <org-form-field [validationMessage]="getItemFieldError($index, 'priority')">
+                    <org-label
+                      [htmlFor]="'item-defaults-' + $index + '-priority'"
+                      class="text-sm font-medium"
+                      label="Priority"
+                      [isRequired]="true"
+                    />
+                    <org-radio-group formControlName="priority" [name]="'item-defaults-' + $index + '-priority'">
+                      <org-radio value="low">Low</org-radio>
+                      <org-radio value="medium">Medium</org-radio>
+                      <org-radio value="high">High</org-radio>
+                    </org-radio-group>
+                  </org-form-field>
 
-                <div class="flex flex-col gap-1">
-                  <org-label
-                    [htmlFor]="'item-defaults-' + $index + '-priority'"
-                    class="text-sm font-medium"
-                    label="Priority *"
-                  />
-                  <org-radio-group
-                    formControlName="priority"
-                    [name]="'item-defaults-' + $index + '-priority'"
-                    [validationMessage]="getItemFieldError($index, 'priority')"
-                  >
-                    <org-radio value="low">Low</org-radio>
-                    <org-radio value="medium">Medium</org-radio>
-                    <org-radio value="high">High</org-radio>
-                  </org-radio-group>
-                </div>
-
-                <div class="flex flex-col gap-1">
-                  <org-label
-                    [htmlFor]="'item-defaults-' + $index + '-date'"
-                    class="text-sm font-medium"
-                    label="Date *"
-                  />
-                  <org-date-picker-input
-                    formControlName="date"
-                    [name]="'item-defaults-' + $index + '-date'"
-                    placeholder="Select date..."
-                    [validationMessage]="getItemFieldError($index, 'date')"
-                  />
-                </div>
+                  <org-form-field [validationMessage]="getItemFieldError($index, 'date')">
+                    <org-label
+                      [htmlFor]="'item-defaults-' + $index + '-date'"
+                      class="text-sm font-medium"
+                      label="Date"
+                      [isRequired]="true"
+                    />
+                    <org-date-picker-input
+                      formControlName="date"
+                      [name]="'item-defaults-' + $index + '-date'"
+                      placeholder="Select date..."
+                    />
+                  </org-form-field>
+                </org-form-fields>
               </div>
             }
           </div>

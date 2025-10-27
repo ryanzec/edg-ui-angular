@@ -18,7 +18,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { DateTime } from 'luxon';
 import { Input } from '../input/input';
-import { Calendar } from '../calendar/calendar';
+import { Calendar, CalendarPartialRangeSelectionType } from '../calendar/calendar';
 import { DateFormat, TimeFormat } from '@organization/shared-utils';
 import { tailwindUtils } from '@organization/shared-utils';
 
@@ -96,11 +96,11 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
   public dateFormat = input<DateFormat>(DateFormat.STANDARD);
   public timeFormat = input<TimeFormat | null>(null);
   public allowPartialRangeSelection = input<boolean>(false);
+  public partialRangeSelectionType = input<CalendarPartialRangeSelectionType>('range');
 
   // proxied input properties - input component
   public placeholder = input<string>('Select date...');
   public autoFocus = input<boolean>(false);
-  public validationMessage = input<string | null>(null);
   public name = input.required<string>();
 
   // proxied input properties - calendar component
@@ -124,10 +124,10 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
 
   // output events - custom
   public dateSelected = output<{ startDate: DateTime | null; endDate: DateTime | null }>();
+  public partialRangeSelectionTypeChange = output<CalendarPartialRangeSelectionType>();
 
   // computed properties
   public readonly isOverlayOpen = this._isOverlayOpen.asReadonly();
-  public readonly hasValidationMessage = computed<boolean>(() => !!this.validationMessage()?.trim());
   public readonly isDisabled = computed<boolean>(() => {
     if (this._isFormControlled) {
       return this._state().disabled;
@@ -167,6 +167,7 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
     const dateFormat = this.dateFormat();
     const timeFormat = this.timeFormat() ? ` ${this.timeFormat()}` : '';
     const allowPartial = this.allowPartialRangeSelection();
+    const selectionType = this.partialRangeSelectionType();
     const isRange = this.allowRangeSelection();
     const format = `${dateFormat}${timeFormat}`;
 
@@ -186,7 +187,7 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
 
     // only start date
     if (startDate && !endDate) {
-      if (allowPartial) {
+      if (allowPartial && selectionType === 'onOrAfter') {
         return `On or after ${startDate.toFormat(format)}`;
       }
 
@@ -195,7 +196,7 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
 
     // only end date
     if (!startDate && endDate) {
-      if (allowPartial) {
+      if (allowPartial && selectionType === 'onOrBefore') {
         return `On or before ${endDate.toFormat(format)}`;
       }
 
@@ -209,36 +210,38 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
   /**
    * overlay position configurations
    */
-  public readonly overlayPositions = [
-    {
-      originX: 'start' as const,
-      originY: 'bottom' as const,
-      overlayX: 'start' as const,
-      overlayY: 'top' as const,
-      offsetY: -20,
-    },
-    {
-      originX: 'end' as const,
-      originY: 'bottom' as const,
-      overlayX: 'end' as const,
-      overlayY: 'top' as const,
-      offsetY: -20,
-    },
-    {
-      originX: 'start' as const,
-      originY: 'top' as const,
-      overlayX: 'start' as const,
-      overlayY: 'bottom' as const,
-      offsetY: -4,
-    },
-    {
-      originX: 'end' as const,
-      originY: 'top' as const,
-      overlayX: 'end' as const,
-      overlayY: 'bottom' as const,
-      offsetY: -4,
-    },
-  ];
+  public readonly overlayPositions = computed(() => {
+    return [
+      {
+        originX: 'start' as const,
+        originY: 'bottom' as const,
+        overlayX: 'start' as const,
+        overlayY: 'top' as const,
+        offsetY: 4,
+      },
+      {
+        originX: 'end' as const,
+        originY: 'bottom' as const,
+        overlayX: 'end' as const,
+        overlayY: 'top' as const,
+        offsetY: 4,
+      },
+      {
+        originX: 'start' as const,
+        originY: 'top' as const,
+        overlayX: 'start' as const,
+        overlayY: 'bottom' as const,
+        offsetY: -4,
+      },
+      {
+        originX: 'end' as const,
+        originY: 'top' as const,
+        overlayX: 'end' as const,
+        overlayY: 'bottom' as const,
+        offsetY: -4,
+      },
+    ];
+  });
 
   public mergeClasses = tailwindUtils.merge;
 
@@ -323,6 +326,13 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
       // emit immediately for non-form-controlled usage so parent can update inputs
       this.dateSelected.emit(dates);
     }
+  }
+
+  /**
+   * handles partial range selection type change from calendar
+   */
+  public handlePartialRangeSelectionTypeChange(type: CalendarPartialRangeSelectionType): void {
+    this.partialRangeSelectionTypeChange.emit(type);
   }
 
   /**

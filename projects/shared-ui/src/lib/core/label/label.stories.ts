@@ -20,6 +20,7 @@ const meta: Meta<Label> = {
 
   ### Features
   - Required label text
+  - Optional required field indicator (*)
   - Optional loading indicator
   - Slot projection for additional content (placed after label text/loading indicator)
   - Inline-flex layout for seamless integration
@@ -29,19 +30,22 @@ const meta: Meta<Label> = {
   ### Usage Examples
   \`\`\`html
   <!-- Basic label -->
-  <org-label label="Username" />
+  <org-label htmlFor="username" label="Username" />
+
+  <!-- Required field -->
+  <org-label htmlFor="email" label="Email" [isRequired]="true" />
 
   <!-- With loading indicator -->
-  <org-label label="Fetching data..." [isLoading]="true" />
+  <org-label htmlFor="fetching-data" label="Fetching data..." [isLoading]="true" />
 
   <!-- With slot projection -->
-  <org-label label="Email">
-    <span class="text-danger-text">*</span>
+  <org-label htmlFor="username" label="Username">
+    <span class="text-text-subtle">(optional)</span>
   </org-label>
 
   <!-- Combined features -->
-  <org-label label="Processing" [isLoading]="true">
-    <span class="text-text-subtle">(optional)</span>
+  <org-label htmlFor="processing" label="Processing" [isLoading]="true" [isRequired]="true">
+    <span class="text-text-subtle">(validating)</span>
   </org-label>
   \`\`\`
 
@@ -64,7 +68,9 @@ export const Default: Story = {
   args: {
     label: 'Username',
     isLoading: false,
+    isRequired: false,
     containerClass: '',
+    htmlFor: 'username',
   },
   argTypes: {
     label: {
@@ -75,9 +81,17 @@ export const Default: Story = {
       control: 'boolean',
       description: 'Whether to display a loading indicator',
     },
+    isRequired: {
+      control: 'boolean',
+      description: 'Whether to display a required field indicator (*)',
+    },
     containerClass: {
       control: 'text',
       description: 'Additional CSS classes for the container',
+    },
+    htmlFor: {
+      control: 'text',
+      description: 'The HTML for attribute for the label',
     },
   },
   parameters: {
@@ -93,7 +107,9 @@ export const Default: Story = {
       <org-label
         [label]="label"
         [isLoading]="isLoading"
+        [isRequired]="isRequired"
         [containerClass]="containerClass"
+        [htmlFor]="htmlFor"
       />
     `,
     moduleMetadata: {
@@ -117,21 +133,60 @@ export const WithLoadingIndicator: Story = {
         currentState="Comparing labels with and without loading indicators"
       >
         <org-storybook-example-container-section label="Without Loading">
-          <org-label label="Username" />
+          <org-label htmlFor="username" label="Username" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="With Loading">
-          <org-label label="Fetching data..." [isLoading]="true" />
+          <org-label htmlFor="fetching-data" label="Fetching data..." [isLoading]="true" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Processing">
-          <org-label label="Processing request" [isLoading]="true" />
+          <org-label htmlFor="processing-request" label="Processing request" [isLoading]="true" />
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
           <li><strong>Without Loading</strong>: Displays only the label text</li>
           <li><strong>With Loading</strong>: Displays a spinning loading indicator after the label text</li>
           <li><strong>Processing</strong>: Shows loading indicator for longer operations</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [Label, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+export const WithRequiredIndicator: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Comparison of labels with and without required field indicators.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Required Field Indicator"
+        currentState="Comparing labels with and without required indicators"
+      >
+        <org-storybook-example-container-section label="Optional Field">
+          <org-label htmlFor="username" label="Username" />
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Required Field">
+          <org-label htmlFor="email" label="Email" [isRequired]="true" />
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Required with Loading">
+          <org-label htmlFor="validating-email" label="Validating email" [isRequired]="true" [isLoading]="true" />
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>Optional Field</strong>: Displays only the label text</li>
+          <li><strong>Required Field</strong>: Displays a red asterisk (*) after the label text</li>
+          <li><strong>Required with Loading</strong>: Combines required indicator with loading state</li>
         </ul>
       </org-storybook-example-container>
     `,
@@ -155,45 +210,45 @@ export const WithSlotProjection: Story = {
         title="Slot Projection"
         currentState="Comparing labels with different projected content"
       >
-        <org-storybook-example-container-section label="With Required Asterisk">
-          <org-label label="Email">
-            <span class="text-danger-text">*</span>
-          </org-label>
-        </org-storybook-example-container-section>
-
         <org-storybook-example-container-section label="With Optional Text">
-          <org-label label="Phone Number">
+          <org-label htmlFor="phone-number" label="Phone Number">
             <span class="text-text-subtle">(optional)</span>
           </org-label>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="With Info Badge">
-          <org-label label="API Key">
+          <org-label htmlFor="api-key" label="API Key">
             <span class="rounded-sm bg-info-background-subtle px-1 py-0.5 text-3xs text-info-text">NEW</span>
           </org-label>
         </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section label="With Multiple Elements">
-          <org-label label="Password">
-            <span class="text-danger-text">*</span>
+        <org-storybook-example-container-section label="Required with Help Text">
+          <org-label htmlFor="password" label="Password" [isRequired]="true">
             <span class="text-text-subtle">(8+ chars)</span>
           </org-label>
         </org-storybook-example-container-section>
 
+        <org-storybook-example-container-section label="With Multiple Elements">
+          <org-label htmlFor="username" label="Username">
+            <span class="rounded-sm bg-info-background-subtle px-1 py-0.5 text-3xs text-info-text">NEW</span>
+            <span class="text-text-subtle">(3-20 chars)</span>
+          </org-label>
+        </org-storybook-example-container-section>
+
         <org-storybook-example-container-section label="Right Aligned Content">
-          <org-label label="Password" containerClass="w-full">
+          <org-label htmlFor="email" label="Email" [isRequired]="true" containerClass="w-full">
             <div class="ml-auto">
-              <span class="text-danger-text">*</span>
-              <span class="text-text-subtle">(8+ chars)</span>
+              <span class="text-text-subtle">(verified)</span>
             </div>
           </org-label>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
-          <li><strong>Required Asterisk</strong>: Common pattern for required fields</li>
-          <li><strong>Optional Text</strong>: Indicates optional fields</li>
+          <li><strong>Optional Text</strong>: Indicates optional fields or provides guidance</li>
           <li><strong>Info Badge</strong>: Highlights new or special features</li>
+          <li><strong>Required with Help Text</strong>: Combines required indicator with help text using slot projection</li>
           <li><strong>Multiple Elements</strong>: Shows combining different types of content</li>
+          <li><strong>Right Aligned Content</strong>: Shows how to align projected content to the right</li>
         </ul>
       </org-storybook-example-container>
     `,
@@ -207,7 +262,7 @@ export const CombinedFeatures: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Examples combining loading indicator with slot projection.',
+        story: 'Examples combining loading indicator, required indicator, and slot projection.',
       },
     },
   },
@@ -215,30 +270,35 @@ export const CombinedFeatures: Story = {
     template: `
       <org-storybook-example-container
         title="Combined Features"
-        currentState="Combining loading indicator and slot projection"
+        currentState="Combining loading indicator, required indicator, and slot projection"
       >
         <org-storybook-example-container-section label="Loading with Required">
-          <org-label label="Validating..." [isLoading]="true">
-            <span class="text-danger-text">*</span>
-          </org-label>
+          <org-label htmlFor="validating" label="Validating..." [isLoading]="true" [isRequired]="true" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Loading with Info">
-          <org-label label="Checking availability" [isLoading]="true">
+          <org-label htmlFor="checking-availability" label="Checking availability" [isLoading]="true">
             <span class="text-text-subtle">(realtime)</span>
           </org-label>
         </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section label="Loading with Badge">
-          <org-label label="Processing data" [isLoading]="true">
+        <org-storybook-example-container-section label="Required with Slot">
+          <org-label htmlFor="password" label="Password" [isRequired]="true">
+            <span class="text-text-subtle">(8+ chars)</span>
+          </org-label>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="All Features">
+          <org-label htmlFor="processing-data" label="Processing data" [isLoading]="true" [isRequired]="true">
             <span class="rounded-sm bg-caution-background-subtle px-1 py-0.5 text-3xs text-caution-text">BETA</span>
           </org-label>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
           <li><strong>Loading with Required</strong>: Shows validation in progress for required field</li>
-          <li><strong>Loading with Info</strong>: Indicates realtime validation with loading state</li>
-          <li><strong>Loading with Badge</strong>: Combines beta badge with processing state</li>
+          <li><strong>Loading with Info</strong>: Indicates realtime validation with loading state and additional info</li>
+          <li><strong>Required with Slot</strong>: Combines required indicator with projected help text</li>
+          <li><strong>All Features</strong>: Demonstrates all features working together</li>
         </ul>
       </org-storybook-example-container>
     `,
@@ -264,25 +324,17 @@ export const FormContexts: Story = {
       >
         <org-storybook-example-container-section label="Login Form">
           <div class="flex flex-col gap-2">
-            <org-label label="Email Address">
-              <span class="text-danger-text">*</span>
-            </org-label>
-            <org-label label="Password">
-              <span class="text-danger-text">*</span>
-            </org-label>
-            <org-label label="Remember Me" />
+            <org-label htmlFor="email-address" label="Email Address" [isRequired]="true" />
+            <org-label htmlFor="password" label="Password" [isRequired]="true" />
+            <org-label htmlFor="remember-me" label="Remember Me" />
           </div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Registration Form">
           <div class="flex flex-col gap-2">
-            <org-label label="Full Name">
-              <span class="text-danger-text">*</span>
-            </org-label>
-            <org-label label="Email">
-              <span class="text-danger-text">*</span>
-            </org-label>
-            <org-label label="Company">
+            <org-label htmlFor="full-name" label="Full Name" [isRequired]="true" />
+            <org-label htmlFor="email" label="Email" [isRequired]="true" />
+            <org-label htmlFor="company" label="Company">
               <span class="text-text-subtle">(optional)</span>
             </org-label>
           </div>
@@ -290,9 +342,9 @@ export const FormContexts: Story = {
 
         <org-storybook-example-container-section label="Settings Form">
           <div class="flex flex-col gap-2">
-            <org-label label="Display Name" />
-            <org-label label="Email Notifications" />
-            <org-label label="Two-Factor Authentication">
+            <org-label htmlFor="display-name" label="Display Name" />
+            <org-label htmlFor="email-notifications" label="Email Notifications" />
+            <org-label htmlFor="two-factor-authentication" label="Two-Factor Authentication">
               <span class="rounded-sm bg-safe-background-subtle px-1 py-0.5 text-3xs text-safe-text">SECURE</span>
             </org-label>
           </div>
@@ -326,19 +378,19 @@ export const WithCustomStyling: Story = {
         currentState="Comparing labels with custom container classes"
       >
         <org-storybook-example-container-section label="Default">
-          <org-label label="Default Label" />
+          <org-label htmlFor="default-label" label="Default Label" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Bold Text">
-          <org-label label="Bold Label" containerClass="font-bold" />
+          <org-label htmlFor="bold-label" label="Bold Label" containerClass="font-bold" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Larger Text">
-          <org-label label="Larger Label" containerClass="text-base" />
+          <org-label htmlFor="larger-label" label="Larger Label" containerClass="text-base" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Custom Color">
-          <org-label label="Custom Color Label" containerClass="text-primary-text" />
+          <org-label htmlFor="custom-color-label" label="Custom Color Label" containerClass="text-primary-text" />
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -377,28 +429,24 @@ export const RealWorldExample: Story = {
         <org-storybook-example-container-section label="User Profile Form">
           <div class="flex w-[400px] flex-col gap-3">
             <div class="flex flex-col gap-1">
-              <org-label label="Full Name">
-                <span class="text-danger-text">*</span>
-              </org-label>
+              <org-label htmlFor="full-name" label="Full Name" [isRequired]="true" />
               <org-input name="full-name" type="text" placeholder="John Doe" />
             </div>
 
             <div class="flex flex-col gap-1">
-              <org-label label="Email Address">
-                <span class="text-danger-text">*</span>
-              </org-label>
+              <org-label htmlFor="email-address" label="Email Address" [isRequired]="true" />
               <org-input name="email-address" type="email" placeholder="john@example.com" />
             </div>
 
             <div class="flex flex-col gap-1">
-              <org-label label="Phone Number">
+              <org-label htmlFor="phone-number" label="Phone Number">
                 <span class="text-text-subtle">(optional)</span>
               </org-label>
               <org-input name="phone-number" type="tel" placeholder="+1 (555) 000-0000" />
             </div>
 
             <div class="flex flex-col gap-1">
-              <org-label label="Company">
+              <org-label htmlFor="company" label="Company">
                 <span class="text-text-subtle">(optional)</span>
               </org-label>
               <org-input name="company" type="text" placeholder="Acme Inc." />

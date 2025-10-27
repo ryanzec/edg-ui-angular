@@ -84,8 +84,8 @@ export const Default: Story = {
     defaultCurrentPage: 1,
     defaultTotalItems: 100,
     defaultItemsPerPage: 10,
-    visiblePages: 7,
-    itemsPerPageOptions: [5, 10, 20, 50],
+    defaultVisiblePages: 7,
+    defaultItemsPerPageOptions: [5, 10, 20, 50],
     disabled: false,
   },
   argTypes: {
@@ -102,11 +102,11 @@ export const Default: Story = {
       options: [5, 10, 20, 50],
       description: 'Initial items per page value',
     },
-    visiblePages: {
+    defaultVisiblePages: {
       control: 'number',
       description: 'Number of page buttons to display (odd numbers recommended)',
     },
-    itemsPerPageOptions: {
+    defaultItemsPerPageOptions: {
       control: 'object',
       description: 'Array of options for items per page selector',
     },

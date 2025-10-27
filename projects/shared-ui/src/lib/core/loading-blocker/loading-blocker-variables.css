@@ -1,0 +1,10 @@
+/* loading blocker component Tailwind theme variables */
+@theme {
+  --color-loading-blocker-background: var(--color-overlay-background);
+  --color-loading-blocker-text: var(--color-text);
+}
+
+body.dark-theme {
+  --color-loading-blocker-background: var(--color-overlay-background);
+  --color-loading-blocker-text: var(--color-text);
+}

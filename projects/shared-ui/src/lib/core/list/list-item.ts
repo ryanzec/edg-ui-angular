@@ -37,7 +37,9 @@ export class ListItem {
 
   public clicked = outputFromObservable(this._clicked$);
 
-  public readonly isValidLink = computed<boolean>(() => this.asTag() === 'a' && (!!this.href() || !!this.routerLink()));
+  public readonly isValidLink = computed<boolean>(
+    () => this.asTag() !== 'a' || (this.asTag() === 'a' && (!!this.href() || !!this.routerLink()))
+  );
   public readonly isClickable = computed<boolean>(
     () => !this.disabled() && (this.forceClickable() || this.isValidLink() || this._clicked$.observed)
   );

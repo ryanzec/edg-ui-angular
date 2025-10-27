@@ -20,6 +20,7 @@ import { Tag } from '../tag/tag';
 import { Subject } from 'rxjs';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { tailwindUtils } from '@organization/shared-utils';
+import { FORM_FIELD_COMPONENT } from '../form-field/form-field';
 
 export type TextareaVariant = 'bordered' | 'borderless';
 
@@ -55,6 +56,7 @@ export type TextareaState = {
 export class Textarea implements OnInit, OnDestroy, AfterViewInit, ControlValueAccessor {
   private readonly _focusMonitor = inject(FocusMonitor);
   private readonly _elementRef = inject(ElementRef<HTMLElement>);
+  private readonly _formField = inject(FORM_FIELD_COMPONENT, { optional: true, host: true });
 
   // control value accessor callbacks
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -89,7 +91,6 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit, ControlValueA
   public inlineItems = input<InlineItem[]>([]);
   public selectAllOnFocus = input<boolean>(false);
   public autoFocus = input<boolean>(false);
-  public validationMessage = input<string | null>(null);
   public containerClass = input<string>('');
   public inverseEnter = input<boolean>(false);
   public rows = input<number>(3);
@@ -117,10 +118,28 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit, ControlValueA
   public readonly hasPreIcon = computed<boolean>(() => !!this.preIcon());
   public readonly hasPostIcon = computed<boolean>(() => !!this.postIcon());
   public readonly hasInlineItems = computed<boolean>(() => this.inlineItems().length > 0);
-  public readonly hasValidationMessage = computed<boolean>(() => !!this.validationMessage()?.trim());
-  public readonly isInvalid = computed<boolean>(() => this.hasValidationMessage());
   public readonly isPreIconClickable = computed(() => this._preIconClicked$.observed);
   public readonly isPostIconClickable = computed(() => this._postIconClicked$.observed);
+
+  public readonly hasValidationMessage = computed<boolean>(() => {
+    return !!this._formField?.hasValidationMessage();
+  });
+
+  public readonly ariaDescribedBy = computed<string | null>(() => {
+    if (this.hasValidationMessage()) {
+      return 'validation-message';
+    }
+
+    return null;
+  });
+
+  public readonly ariaInvalid = computed<boolean | null>(() => {
+    if (this.hasValidationMessage()) {
+      return true;
+    }
+
+    return null;
+  });
 
   public mergeClasses = tailwindUtils.merge;
 

@@ -17,6 +17,8 @@ import {
 import { NgTemplateOutlet } from '@angular/common';
 import { ScrollAreaDirective } from '../scroll-area-directive/scroll-area-directive';
 import { domUtils, tailwindUtils } from '@organization/shared-utils';
+import { LoadingSpinner } from '../loading-spinner/loading-spinner';
+import { LoadingBlocker } from '../loading-blocker/loading-blocker';
 
 /**
  * internal state for the table component
@@ -28,7 +30,7 @@ type TableState = {
 @Component({
   selector: 'org-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgTemplateOutlet, ScrollAreaDirective],
+  imports: [NgTemplateOutlet, ScrollAreaDirective, LoadingSpinner, LoadingBlocker],
   templateUrl: './table.html',
   styleUrl: './table.css',
   host: {
@@ -60,6 +62,8 @@ export class Table<T = unknown> {
   public tableClass = input<string>('');
   public headerClass = input<string>('');
   public bodyClass = input<string>('');
+  public isLoading = input<boolean>(false);
+  public isBackgroundLoading = input<boolean>(false);
 
   public hasEllipsis = computed<boolean>(() => this.ellipsisAt() > 0);
   public isScrollNeeded = computed<boolean>(() => this._state().isScrollNeeded);

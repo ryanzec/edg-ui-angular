@@ -8,12 +8,14 @@ import {
   ViewChild,
   ElementRef,
   forwardRef,
+  inject,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Icon, IconName } from '../icon/icon';
 import { tailwindUtils } from '@organization/shared-utils';
 import { TextDirective, TextSize } from '../text-directive/text-directive';
 import { ComponentSize } from '../types/component-types';
+import { FORM_FIELD_COMPONENT } from '../form-field/form-field';
 
 export type CheckboxToggleSize = Extract<ComponentSize, 'sm' | 'base' | 'lg'>;
 
@@ -37,6 +39,8 @@ export const checkboxToggleSizes: CheckboxToggleSize[] = ['sm', 'base', 'lg'];
   ],
 })
 export class CheckboxToggle implements ControlValueAccessor {
+  private readonly _formField = inject(FORM_FIELD_COMPONENT, { optional: true, host: true });
+
   // control value accessor callbacks
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   private _onChange: (value: boolean) => void = () => {};
@@ -65,7 +69,6 @@ export class CheckboxToggle implements ControlValueAccessor {
   public offIcon = input<IconName | null>(null);
   public onText = input<string | null>(null);
   public offText = input<string | null>(null);
-  public validationMessage = input<string | null>(null);
 
   // outputs
   public checkedChange = output<boolean>();
@@ -108,8 +111,25 @@ export class CheckboxToggle implements ControlValueAccessor {
     return this.offText();
   });
 
-  public readonly hasValidationMessage = computed<boolean>(() => !!this.validationMessage()?.trim());
-  public readonly isInvalid = computed<boolean>(() => this.hasValidationMessage());
+  public readonly hasValidationMessage = computed<boolean>(() => {
+    return !!this._formField?.hasValidationMessage();
+  });
+
+  public readonly ariaDescribedBy = computed<string | null>(() => {
+    if (this.hasValidationMessage()) {
+      return 'validation-message';
+    }
+
+    return null;
+  });
+
+  public readonly ariaInvalid = computed<boolean | null>(() => {
+    if (this.hasValidationMessage()) {
+      return true;
+    }
+
+    return null;
+  });
 
   public mergeClasses = tailwindUtils.merge;
 

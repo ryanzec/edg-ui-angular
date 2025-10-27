@@ -1,49 +1,48 @@
-<org-card class="login-card">
+<org-card class="login-card w-[400px]">
   <org-card-header title="Sign In" subtitle="Please enter your credentials to continue" />
   <org-card-content>
-    <form class="flex flex-col gap-1" [formGroup]="loginForm" (ngSubmit)="login()">
-      <!-- @todo(!) create component for this -->
-      <div class="w-full">
-        <!-- @todo(!) create component for this -->
-        <label for="email">{{ getFieldLabel('email') }}</label>
-        <org-input
-          data-testid="email-input"
-          type="email"
-          name="email"
-          formControlName="email"
-          placeholder="Enter your email"
-          autocomplete="email"
-          [autoFocus]="true"
-          preIcon="envelope"
-          [validationMessage]="getFieldError('email') || ''"
-        />
-      </div>
-      <div class="w-full">
-        <!-- @todo(!) create component for this -->
-        <label for="password">{{ getFieldLabel('password') }}</label>
-        <org-input
-          data-testid="password-input"
-          type="password"
-          name="password"
-          formControlName="password"
-          placeholder="Enter your password"
-          autocomplete="current-password"
-          preIcon="lock-key"
-          [showPasswordToggle]="true"
-          [validationMessage]="getFieldError('password') || ''"
-        />
-      </div>
-      <org-button
-        data-testid="submit-button"
-        color="primary"
-        type="submit"
-        buttonClass="w-full"
-        [loading]="isProcessing()"
-      >
-        Sign In
-      </org-button>
-      <org-button color="primary" buttonClass="w-full" [disabled]="isProcessing()"> Reset Password </org-button>
-      <org-button color="primary" buttonClass="w-full" [disabled]="isProcessing()"> Single Sign-On </org-button>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <org-form-fields>
+        <org-form-field [validationMessage]="getFieldError('email') || ''">
+          <org-label htmlFor="email" [label]="getFieldLabel('email')" />
+          <org-input
+            data-testid="email-input"
+            type="email"
+            name="email"
+            formControlName="email"
+            placeholder="Enter your email"
+            autocomplete="email"
+            [autoFocus]="true"
+            preIcon="envelope"
+          />
+        </org-form-field>
+        <org-form-field [validationMessage]="getFieldError('password') || ''">
+          <org-label htmlFor="password" [label]="getFieldLabel('password')" />
+          <org-input
+            data-testid="password-input"
+            type="password"
+            name="password"
+            formControlName="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            preIcon="lock-key"
+            [showPasswordToggle]="true"
+          />
+        </org-form-field>
+      </org-form-fields>
+      <org-button-group containerClass="flex-col">
+        <org-button
+          data-testid="submit-button"
+          color="primary"
+          type="submit"
+          buttonClass="w-full"
+          [loading]="isProcessing()"
+        >
+          Sign In
+        </org-button>
+        <org-button color="primary" buttonClass="w-full" [disabled]="isProcessing()"> Reset Password </org-button>
+        <org-button color="primary" buttonClass="w-full" [disabled]="isProcessing()"> Single Sign-On </org-button>
+      </org-button-group>
     </form>
   </org-card-content>
 </org-card>

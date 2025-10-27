@@ -9,12 +9,27 @@ import { CardContent } from '../../core/card/card-content';
 import { CardHeader } from '../../core/card/card-header';
 import { Input } from '../../core/input/input';
 import { Button } from '../../core/button/button';
-import { validationUtils } from '@organization/shared-ui';
+import { FormFields } from '../../core/form-fields/form-fields';
+import { FormField } from '../../core/form-field/form-field';
+import { Label } from '../../core/label/label';
+import { ButtonGroup } from '../../core/button/button-group';
+import { validationUtils } from '../../utils/validation';
 
 @Component({
   selector: 'org-login-form',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Card, CardContent, CardHeader, Input, ReactiveFormsModule, Button],
+  imports: [
+    Card,
+    CardContent,
+    CardHeader,
+    Input,
+    ReactiveFormsModule,
+    Button,
+    FormFields,
+    FormField,
+    Label,
+    ButtonGroup,
+  ],
   templateUrl: './login-form.html',
 })
 export class LoginForm {

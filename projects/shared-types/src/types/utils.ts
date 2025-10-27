@@ -3,13 +3,13 @@
 export type RequestStructure<TData> = TData;
 
 export type ResponseMeta = {
-  current_page?: number;
-  total_page_count?: number;
-  total_item_count?: number;
-  items_per_page?: number;
-  prev_cursor?: string;
-  next_cursor?: string;
-  request_id?: string;
+  currentPage?: number;
+  totalPageCount?: number;
+  totalItemCount?: number;
+  itemsPerPage?: number;
+  prevCursor?: string;
+  nextCursor?: string;
+  requestId?: string;
 
   // this is generic so we need to allow any type
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

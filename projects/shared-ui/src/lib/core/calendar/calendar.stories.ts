@@ -22,6 +22,7 @@ const meta: Meta<Calendar> = {
 
   ### Features
   - Single date or date range selection
+  - Partial range selection modes (on or before, on or after)
   - Year and month dropdowns for quick navigation
   - Previous/next month navigation arrows
   - Keyboard navigation support (arrow keys, Page Up/Down, Home/End, Enter)
@@ -50,6 +51,17 @@ const meta: Meta<Calendar> = {
     [selectedStartDate]="startDate"
     [selectedEndDate]="endDate"
     (dateSelected)="handleDateSelected($event)"
+  />
+
+  <!-- Partial range selection -->
+  <org-calendar
+    [allowRangeSelection]="true"
+    [allowPartialRangeSelection]="true"
+    [partialRangeSelectionType]="rangeType"
+    [selectedStartDate]="startDate"
+    [selectedEndDate]="endDate"
+    (dateSelected)="handleDateSelected($event)"
+    (partialRangeSelectionTypeChange)="handleRangeTypeChange($event)"
   />
 
   <!-- With date constraints -->
@@ -635,6 +647,104 @@ export const DisplayMonthControl: Story = {
       `,
       moduleMetadata: {
         imports: [Calendar, Button, StorybookExampleContainer, StorybookExampleContainerSection],
+      },
+    };
+  },
+};
+
+export const PartialRangeSelection: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Calendar with partial range selection modes - allows selecting "on or before" or "on or after" a date.',
+      },
+    },
+  },
+  render: () => {
+    const selectedStart = signal<DateTime | null>(null);
+    const selectedEnd = signal<DateTime | null>(null);
+    const partialRangeType = signal<'range' | 'onOrBefore' | 'onOrAfter'>('range');
+
+    return {
+      props: {
+        selectedStart,
+        selectedEnd,
+        partialRangeType,
+        handleDateSelected: (event: { startDate: DateTime | null; endDate: DateTime | null }) => {
+          selectedStart.set(event.startDate);
+          selectedEnd.set(event.endDate);
+          console.log('Date selected:', event);
+        },
+        handlePartialRangeTypeChange: (type: 'range' | 'onOrBefore' | 'onOrAfter') => {
+          partialRangeType.set(type);
+          console.log('Partial range type changed:', type);
+        },
+      },
+      template: `
+        <org-storybook-example-container
+          title="Partial Range Selection"
+          currentState="Switch between range modes to change selection behavior"
+        >
+          <org-storybook-example-container-section label="Calendar">
+            <org-calendar
+              [allowRangeSelection]="true"
+              [allowPartialRangeSelection]="true"
+              [partialRangeSelectionType]="partialRangeType()"
+              [selectedStartDate]="selectedStart()"
+              [selectedEndDate]="selectedEnd()"
+              (dateSelected)="handleDateSelected($event)"
+              (partialRangeSelectionTypeChange)="handlePartialRangeTypeChange($event)"
+            />
+          </org-storybook-example-container-section>
+
+          <org-storybook-example-container-section label="Current Mode">
+            <div class="flex flex-col gap-1">
+              <div><strong>Mode:</strong> {{ partialRangeType() }}</div>
+              @if (partialRangeType() === 'range') {
+                <div class="text-sm opacity-[var(--opacity-subtle)]">
+                  Standard range selection with start and end dates
+                </div>
+              }
+              @if (partialRangeType() === 'onOrBefore') {
+                <div class="text-sm opacity-[var(--opacity-subtle)]">
+                  Selects all dates on or before the selected date (only end date)
+                </div>
+              }
+              @if (partialRangeType() === 'onOrAfter') {
+                <div class="text-sm opacity-[var(--opacity-subtle)]">
+                  Selects all dates on or after the selected date (only start date)
+                </div>
+              }
+            </div>
+          </org-storybook-example-container-section>
+
+          <org-storybook-example-container-section label="Selected Dates">
+            @if (selectedStart() && selectedEnd()) {
+              <div>Start: {{ selectedStart()!.toISO() }}</div>
+              <div>End: {{ selectedEnd()!.toISO() }}</div>
+            } @else if (selectedStart()) {
+              <div>Start: {{ selectedStart()!.toISO() }}</div>
+              <div class="opacity-[var(--opacity-subtle)]">End: Not selected</div>
+            } @else if (selectedEnd()) {
+              <div class="opacity-[var(--opacity-subtle)]">Start: Not selected</div>
+              <div>End: {{ selectedEnd()!.toISO() }}</div>
+            } @else {
+              <div class="opacity-[var(--opacity-subtle)]">No dates selected</div>
+            }
+          </org-storybook-example-container-section>
+
+          <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+            <li><strong>Range Mode:</strong> Standard selection with both start (00:00:00) and end dates (23:59:59)</li>
+            <li><strong>On or Before Mode:</strong> Clicking a date sets only the end date (23:59:59), no start date</li>
+            <li><strong>On or After Mode:</strong> Clicking a date sets only the start date (00:00:00), no end date</li>
+            <li>Radio buttons allow switching between modes</li>
+            <li>Selection is cleared when switching modes</li>
+            <li>Each mode represents a different type of date filter</li>
+          </ul>
+        </org-storybook-example-container>
+      `,
+      moduleMetadata: {
+        imports: [Calendar, StorybookExampleContainer, StorybookExampleContainerSection],
       },
     };
   },

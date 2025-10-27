@@ -19,8 +19,8 @@
     role="switch"
     [attr.aria-checked]="isChecked()"
     [attr.aria-disabled]="isDisabled()"
-    [attr.aria-invalid]="isInvalid()"
-    [attr.aria-describedby]="hasValidationMessage() ? 'validation-message' : null"
+    [attr.aria-describedby]="ariaDescribedBy()"
+    [attr.aria-invalid]="ariaInvalid()"
   >
     <input
       #inputRef
@@ -94,17 +94,4 @@
     </div>
     <ng-content />
   </label>
-  <div
-    id="validation-message"
-    [class]="
-      mergeClasses('text-validation-error-text text-sm mt-1.5', {
-        visible: hasValidationMessage(),
-        invisible: !hasValidationMessage(),
-      })
-    "
-    role="alert"
-    aria-live="polite"
-  >
-    {{ validationMessage() || 'No validation message' }}
-  </div>
 </div>

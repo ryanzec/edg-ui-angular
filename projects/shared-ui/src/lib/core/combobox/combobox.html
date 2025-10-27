@@ -7,7 +7,6 @@
       [value]="currentInputValue()"
       [disabled]="isDisabled()"
       [inlineItems]="inlineItems()"
-      [validationMessage]="validationMessage()"
       postIcon="caret-down"
       (valueChange)="handleInputValueChange($event)"
       (focused)="handleInputFocus()"
@@ -16,7 +15,7 @@
       (keydown)="handleKeyDown($event)"
       (click)="handleInputClick()"
       [name]="name()"
-      class="min-w-0"
+      inputClass="min-w-0"
     />
   </div>
 
@@ -25,7 +24,7 @@
     cdkConnectedOverlay
     [cdkConnectedOverlayOrigin]="trigger"
     [cdkConnectedOverlayOpen]="isOpened()"
-    [cdkConnectedOverlayPositions]="overlayPositions"
+    [cdkConnectedOverlayPositions]="overlayPositions()"
     [cdkConnectedOverlayHasBackdrop]="false"
     [cdkConnectedOverlayPanelClass]="'org-combobox-overlay'"
   >

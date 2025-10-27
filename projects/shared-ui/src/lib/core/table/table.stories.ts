@@ -9,6 +9,8 @@ import { Pagination } from '../pagination/pagination';
 import { PaginationStore } from '../pagination-store/pagination-store';
 import { DataSelectionStore } from '../data-selection-store/data-selection-store';
 import { Checkbox } from '../checkbox/checkbox';
+import { FormField } from '../form-field/form-field';
+import { Button } from '../button/button';
 
 type User = {
   id: number;
@@ -237,7 +239,7 @@ class SortableTableDemo {
         [defaultCurrentPage]="1"
         [defaultTotalItems]="users.length"
         [defaultItemsPerPage]="5"
-        [itemsPerPageOptions]="[5, 10, 15]"
+        [defaultItemsPerPageOptions]="[5, 10, 15]"
         (pageChanged)="handlePageChange($event)"
         (itemsPerPageChanged)="handleItemsPerPageChange($event)"
       />
@@ -268,7 +270,7 @@ class PaginatedTableDemo {
 @Component({
   selector: 'org-selection-table-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Table, Checkbox, Pagination],
+  imports: [Table, Checkbox, Pagination, FormField],
   providers: [
     {
       provide: USER_SELECTION_STORE_TOKEN,
@@ -285,14 +287,15 @@ class PaginatedTableDemo {
             <th
               class="w-[50px] px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
             >
-              <org-checkbox
-                name="select-all"
-                value="select-all"
-                [checked]="isAllCurrentPageSelected()"
-                [indeterminate]="isSomeCurrentPageSelected()"
-                (checkedChange)="selectionStore.setMultiple(paginatedUsers(), $event)"
-                [useValidation]="false"
-              />
+              <org-form-field [reserveValidationSpace]="false">
+                <org-checkbox
+                  name="select-all"
+                  value="select-all"
+                  [checked]="isAllCurrentPageSelected()"
+                  [indeterminate]="isSomeCurrentPageSelected()"
+                  (checkedChange)="selectionStore.setMultiple(paginatedUsers(), $event)"
+                />
+              </org-form-field>
             </th>
             <th
               class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
@@ -319,13 +322,14 @@ class PaginatedTableDemo {
         <ng-template #body let-user>
           <tr class="border-b border-table-row-border last:border-b-0 hover:bg-table-row-hover">
             <td class="px-4 py-3 text-sm text-table-text">
-              <org-checkbox
-                [name]="'select-' + user.id"
-                [value]="user.id.toString()"
-                [checked]="selectionStore.isSelected(user)"
-                (checkedChange)="selectionStore.set(user, $event)"
-                [useValidation]="false"
-              />
+              <org-form-field [reserveValidationSpace]="false">
+                <org-checkbox
+                  [name]="'select-' + user.id"
+                  [value]="user.id.toString()"
+                  [checked]="selectionStore.isSelected(user)"
+                  (checkedChange)="selectionStore.set(user, $event)"
+                />
+              </org-form-field>
             </td>
             <td class="px-4 py-3 text-sm text-table-text">{{ user.name }}</td>
             <td class="px-4 py-3 text-sm text-table-text">{{ user.email }}</td>
@@ -338,7 +342,7 @@ class PaginatedTableDemo {
         [defaultCurrentPage]="1"
         [defaultTotalItems]="users.length"
         [defaultItemsPerPage]="5"
-        [itemsPerPageOptions]="[5, 10, 15]"
+        [defaultItemsPerPageOptions]="[5, 10, 15]"
         (pageChanged)="handlePageChange($event)"
       />
     </div>
@@ -373,7 +377,7 @@ class SelectionTableDemo {
 @Component({
   selector: 'org-full-featured-table-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Table, Checkbox, SortableDirective, Pagination],
+  imports: [Table, Checkbox, SortableDirective, Pagination, FormField],
   providers: [
     {
       provide: USER_SELECTION_STORE_TOKEN,
@@ -399,14 +403,15 @@ class SelectionTableDemo {
             <th
               class="w-[50px] px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
             >
-              <org-checkbox
-                name="select-all"
-                value="select-all"
-                [checked]="isAllCurrentPageSelected()"
-                [indeterminate]="isSomeCurrentPageSelected()"
-                (checkedChange)="selectionStore.setMultiple(displayUsers(), $event)"
-                [useValidation]="false"
-              />
+              <org-form-field [reserveValidationSpace]="false">
+                <org-checkbox
+                  name="select-all"
+                  value="select-all"
+                  [checked]="isAllCurrentPageSelected()"
+                  [indeterminate]="isSomeCurrentPageSelected()"
+                  (checkedChange)="selectionStore.setMultiple(displayUsers(), $event)"
+                />
+              </org-form-field>
             </th>
             <th
               class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
@@ -433,13 +438,14 @@ class SelectionTableDemo {
         <ng-template #body let-user>
           <tr class="border-b border-table-row-border last:border-b-0 hover:bg-table-row-hover">
             <td class="px-4 py-3 text-sm text-table-text">
-              <org-checkbox
-                [name]="'select-' + user.id"
-                [value]="user.id.toString()"
-                [checked]="selectionStore.isSelected(user)"
-                (checkedChange)="selectionStore.set(user, $event)"
-                [useValidation]="false"
-              />
+              <org-form-field [reserveValidationSpace]="false">
+                <org-checkbox
+                  [name]="'select-' + user.id"
+                  [value]="user.id.toString()"
+                  [checked]="selectionStore.isSelected(user)"
+                  (checkedChange)="selectionStore.set(user, $event)"
+                />
+              </org-form-field>
             </td>
             <td class="px-4 py-3 text-sm text-table-text">{{ user.name }}</td>
             <td class="px-4 py-3 text-sm text-table-text">{{ user.email }}</td>
@@ -452,7 +458,7 @@ class SelectionTableDemo {
         [defaultCurrentPage]="1"
         [defaultTotalItems]="users.length"
         [defaultItemsPerPage]="5"
-        [itemsPerPageOptions]="[5, 10, 15]"
+        [defaultItemsPerPageOptions]="[5, 10, 15]"
         (pageChanged)="handlePageChange($event)"
       />
     </div>
@@ -689,6 +695,216 @@ class ScrollingTableDemo {
   }));
 }
 
+@Component({
+  selector: 'org-loading-table-demo',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [Table, Button],
+  template: `
+    <div class="flex flex-col gap-4">
+      <div class="flex items-center gap-4">
+        <org-button (clicked)="toggleLoading()">
+          {{ isLoading() ? 'Stop Loading' : 'Start Loading' }}
+        </org-button>
+        <div class="text-sm"><strong>Status:</strong> {{ isLoading() ? 'Loading...' : 'Ready' }}</div>
+      </div>
+      <org-table [data]="users" [isLoading]="isLoading()" containerClass="h-[400px]">
+        <ng-template #header>
+          <tr>
+            <th
+              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
+            >
+              Name
+            </th>
+            <th
+              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
+            >
+              Email
+            </th>
+            <th
+              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
+            >
+              Organization ID
+            </th>
+            <th
+              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
+            >
+              Roles
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template #body let-user>
+          <tr class="border-b border-table-row-border last:border-b-0 hover:bg-table-row-hover">
+            <td class="px-4 py-3 text-sm text-table-text">{{ user.name }}</td>
+            <td class="px-4 py-3 text-sm text-table-text">{{ user.email }}</td>
+            <td class="px-4 py-3 text-sm text-table-text">{{ user.organizationId }}</td>
+            <td class="px-4 py-3 text-sm text-table-text">{{ user.roles }}</td>
+          </tr>
+        </ng-template>
+      </org-table>
+    </div>
+  `,
+})
+class LoadingTableDemo {
+  protected readonly users = SAMPLE_USERS.slice(0, 10);
+  protected readonly isLoading = signal<boolean>(false);
+
+  protected toggleLoading(): void {
+    this.isLoading.set(!this.isLoading());
+  }
+}
+
+@Component({
+  selector: 'org-background-loading-table-demo',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [Table, Button],
+  template: `
+    <div class="flex flex-col gap-4">
+      <div class="flex items-center gap-4">
+        <org-button (clicked)="toggleBackgroundLoading()">
+          {{ isBackgroundLoading() ? 'Stop Background Loading' : 'Start Background Loading' }}
+        </org-button>
+        <div class="text-sm">
+          <strong>Status:</strong> {{ isBackgroundLoading() ? 'Refreshing data in background...' : 'Ready' }}
+        </div>
+      </div>
+      <org-table [data]="users" [isBackgroundLoading]="isBackgroundLoading()" containerClass="h-[400px]">
+        <ng-template #header>
+          <tr>
+            <th
+              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
+            >
+              Name
+            </th>
+            <th
+              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
+            >
+              Email
+            </th>
+            <th
+              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
+            >
+              Organization ID
+            </th>
+            <th
+              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
+            >
+              Roles
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template #body let-user>
+          <tr class="border-b border-table-row-border last:border-b-0 hover:bg-table-row-hover">
+            <td class="px-4 py-3 text-sm text-table-text">{{ user.name }}</td>
+            <td class="px-4 py-3 text-sm text-table-text">{{ user.email }}</td>
+            <td class="px-4 py-3 text-sm text-table-text">{{ user.organizationId }}</td>
+            <td class="px-4 py-3 text-sm text-table-text">{{ user.roles }}</td>
+          </tr>
+        </ng-template>
+      </org-table>
+    </div>
+  `,
+})
+class BackgroundLoadingTableDemo {
+  protected readonly users = SAMPLE_USERS.slice(0, 10);
+  protected readonly isBackgroundLoading = signal<boolean>(false);
+
+  protected toggleBackgroundLoading(): void {
+    this.isBackgroundLoading.set(!this.isBackgroundLoading());
+  }
+}
+
+@Component({
+  selector: 'org-combined-loading-table-demo',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [Table, Button],
+  template: `
+    <div class="flex flex-col gap-4">
+      <div class="flex items-center gap-4">
+        <org-button (clicked)="simulateInitialLoad()">Simulate Initial Load</org-button>
+        <org-button (clicked)="simulateRefresh()">Simulate Refresh</org-button>
+        <div class="text-sm">
+          <strong>Status:</strong>
+          @if (isLoading()) {
+            <span>Loading initial data...</span>
+          } @else if (isBackgroundLoading()) {
+            <span>Refreshing data in background...</span>
+          } @else {
+            <span>Ready</span>
+          }
+        </div>
+      </div>
+      <org-table
+        [data]="displayUsers()"
+        [isLoading]="isLoading()"
+        [isBackgroundLoading]="isBackgroundLoading()"
+        containerClass="h-[400px]"
+      >
+        <ng-template #header>
+          <tr>
+            <th
+              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
+            >
+              Name
+            </th>
+            <th
+              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
+            >
+              Email
+            </th>
+            <th
+              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
+            >
+              Organization ID
+            </th>
+            <th
+              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
+            >
+              Roles
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template #body let-user>
+          <tr class="border-b border-table-row-border last:border-b-0 hover:bg-table-row-hover">
+            <td class="px-4 py-3 text-sm text-table-text">{{ user.name }}</td>
+            <td class="px-4 py-3 text-sm text-table-text">{{ user.email }}</td>
+            <td class="px-4 py-3 text-sm text-table-text">{{ user.organizationId }}</td>
+            <td class="px-4 py-3 text-sm text-table-text">{{ user.roles }}</td>
+          </tr>
+        </ng-template>
+      </org-table>
+    </div>
+  `,
+})
+class CombinedLoadingTableDemo {
+  private readonly _users = signal<User[]>([]);
+  protected readonly isLoading = signal<boolean>(false);
+  protected readonly isBackgroundLoading = signal<boolean>(false);
+
+  protected readonly displayUsers = computed<User[]>(() => {
+    return this._users();
+  });
+
+  protected simulateInitialLoad(): void {
+    this.isLoading.set(true);
+    this._users.set([]);
+
+    setTimeout(() => {
+      this._users.set(SAMPLE_USERS.slice(0, 10));
+      this.isLoading.set(false);
+    }, 2000);
+  }
+
+  protected simulateRefresh(): void {
+    this.isBackgroundLoading.set(true);
+
+    setTimeout(() => {
+      const shuffled = [...SAMPLE_USERS].sort(() => Math.random() - 0.5);
+      this._users.set(shuffled.slice(0, 10));
+      this.isBackgroundLoading.set(false);
+    }, 2000);
+  }
+}
+
 const meta: Meta<Table> = {
   title: 'Core/Components/Table',
   component: Table,
@@ -750,6 +966,7 @@ const meta: Meta<Table> = {
   - **Selection**: Use \`DataSelectionStore\` service for row selection
   - **Ellipsis**: Apply \`org-table-ellipsis\` class and set \`ellipsisAt\` input
   - **Dynamic Widths**: Use CSS classes like \`w-[50px]\` or \`w-[30%]\` on table headers
+  - **Loading States**: Use \`isLoading\` for initial loads (blocks table), \`isBackgroundLoading\` for refreshes (shows spinner)
 </div>
         `,
       },
@@ -793,6 +1010,14 @@ export const Default: Story = {
     bodyClass: {
       control: 'text',
       description: 'Additional CSS classes for the body',
+    },
+    isLoading: {
+      control: 'boolean',
+      description: 'Shows loading blocker overlay when table is loading (e.g., initial data fetch)',
+    },
+    isBackgroundLoading: {
+      control: 'boolean',
+      description: 'Shows loading spinner in top-right corner during background operations (e.g., data refresh)',
     },
   },
   render: (args) => ({
@@ -1075,7 +1300,6 @@ export const VerticalAndHorizontalScrolling: Story = {
         <org-storybook-example-container-section label="Bidirectional Scrolling">
           <org-scrolling-table-demo />
         </org-storybook-example-container-section>
-
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
           <li>Container has fixed height (400px) and max width (800px)</li>
           <li>Vertical scrolling enabled with 20 rows of data</li>
@@ -1088,6 +1312,107 @@ export const VerticalAndHorizontalScrolling: Story = {
     `,
     moduleMetadata: {
       imports: [ScrollingTableDemo, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+export const WithLoading: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Table with loading state that shows a blocking overlay with spinner and message. Used for initial data loads.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Table with Loading State"
+        currentState="Toggle loading to see the blocking overlay with spinner and message"
+      >
+        <org-storybook-example-container-section label="Loading State">
+          <org-loading-table-demo />
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li>Loading blocker appears as an overlay covering the entire table</li>
+          <li>Shows loading spinner with "Loading data..." message</li>
+          <li>Table content is not interactable while loading</li>
+          <li>Focus is trapped within the loading blocker for accessibility</li>
+          <li>Used for initial data fetches or when table content needs to be completely replaced</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [LoadingTableDemo, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+export const WithBackgroundLoading: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Table with background loading state that shows a small spinner in the top-right corner. Used for data refreshes.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Table with Background Loading"
+        currentState="Toggle background loading to see the spinner in the top-right corner"
+      >
+        <org-storybook-example-container-section label="Background Loading State">
+          <org-background-loading-table-demo />
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li>Loading spinner appears in the top-right corner of the table</li>
+          <li>Table remains fully interactable during background loading</li>
+          <li>Spinner is positioned absolutely and doesn't affect layout</li>
+          <li>Used for background data refreshes, polling, or auto-updates</li>
+          <li>Provides visual feedback without blocking user interaction</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [BackgroundLoadingTableDemo, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+export const LoadingStates: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demonstrates the difference between loading and background loading states with realistic scenarios.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Combined Loading States"
+        currentState="Simulate different loading scenarios to see how they work"
+      >
+        <org-storybook-example-container-section label="Loading Scenarios">
+          <org-combined-loading-table-demo />
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>Initial Load:</strong> Shows blocking overlay while data is empty/loading for the first time</li>
+          <li><strong>Refresh:</strong> Shows background spinner while existing data is being updated</li>
+          <li>Loading state takes precedence over background loading if both are true</li>
+          <li>Data updates are reflected immediately after loading completes</li>
+          <li>Both loading states provide appropriate UX for their use cases</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [CombinedLoadingTableDemo, StorybookExampleContainer, StorybookExampleContainerSection],
     },
   }),
 };

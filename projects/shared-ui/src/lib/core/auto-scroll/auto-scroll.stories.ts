@@ -345,7 +345,7 @@ class AutoScrollProgrammaticDemoComponent {
     </div>
 
     <div orgScrollArea class="h-[300px] rounded-lg border border-border bg-muted/30">
-      <org-auto-scroll #autoScrollComponent [autoScrollEnabled]="autoScrollEnabled" [contentClass]="'p-4'">
+      <org-auto-scroll #autoScrollComponent [autoScrollEnabled]="autoScrollEnabled()" [contentClass]="'p-4'">
         <div class="mb-2 rounded border border-border bg-card p-3">
           <div class="font-semibold">Message 1</div>
           <div class="text-sm text-muted-foreground">Initial message in the container</div>

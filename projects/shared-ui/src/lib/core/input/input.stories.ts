@@ -3,6 +3,8 @@ import { Input, inputVariants, inputTypes } from './input';
 import { iconNames } from '../icon/icon';
 import { StorybookExampleContainer } from '../../private/storybook-example-container/storybook-example-container';
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
+import { FormField } from '../form-field/form-field';
+import { FormFields } from '../form-fields/form-fields';
 
 const meta: Meta<Input> = {
   title: 'Core/Components/Input',
@@ -56,13 +58,6 @@ const meta: Meta<Input> = {
   <!-- Password with toggle -->
   <org-input name="password-input" type="password" [showPasswordToggle]="true" placeholder="Password" />
 
-  <!-- Input with validation -->
-  <org-input
-    name="email-input"
-    placeholder="Email"
-    validationMessage="Please enter a valid email"
-  />
-
   <!-- Input with inline items (tags) -->
   <org-input
     name="inline-items-input"
@@ -104,7 +99,6 @@ export const Default: Story = {
     selectAllOnFocus: false,
     autoFocus: false,
     showPasswordToggle: false,
-    validationMessage: '',
     inlineItems: [],
     containerClass: '',
   },
@@ -160,10 +154,6 @@ export const Default: Story = {
     showPasswordToggle: {
       control: 'boolean',
       description: 'Whether to show password visibility toggle (only for password type)',
-    },
-    validationMessage: {
-      control: 'text',
-      description: 'Validation error message to display',
     },
     inlineItems: {
       control: 'object',
@@ -467,31 +457,34 @@ export const Validation: Story = {
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Invalid (with error message)">
-          <org-input
-            name="invalid-input"
-            placeholder="Invalid input"
-            value="invalid@"
-            validationMessage="Please enter a valid email address"
-          />
+          <org-form-field validationMessage="Please enter a valid email address">
+            <org-input
+              name="invalid-input"
+              placeholder="Invalid input"
+              value="invalid@"
+            />
+          </org-form-field>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Borderless with error">
-          <org-input
-            name="borderless-with-error-input"
-            variant="borderless"
-            placeholder="Required field"
-            validationMessage="This field is required"
-          />
+          <org-form-field validationMessage="This field is required">
+            <org-input
+              name="borderless-with-error-input"
+              variant="borderless"
+              placeholder="Required field"
+            />
+          </org-form-field>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="With icon and error">
-          <org-input
-            name="with-icon-and-error-input"
-            preIcon="envelope"
-            placeholder="Email"
-            value="invalid"
-            validationMessage="Invalid email format"
-          />
+          <org-form-field validationMessage="Invalid email format">
+            <org-input
+              name="with-icon-and-error-input"
+              preIcon="envelope"
+              placeholder="Email"
+              value="invalid"
+            />
+          </org-form-field>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -503,7 +496,7 @@ export const Validation: Story = {
       </org-storybook-example-container>
     `,
     moduleMetadata: {
-      imports: [Input, StorybookExampleContainer, StorybookExampleContainerSection],
+      imports: [Input, FormField, FormFields, StorybookExampleContainer, StorybookExampleContainerSection],
     },
   }),
 };
@@ -544,6 +537,81 @@ export const SpecialBehaviors: Story = {
     `,
     moduleMetadata: {
       imports: [Input, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+export const ValidationSpaceReservation: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Comparison of validation space reservation behavior. When reserveValidationSpace is true, space is always reserved for validation messages to maintain consistent layout. When false, space is only used when a validation message is present.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Validation Space Reservation"
+        currentState="Comparing space reservation behaviors"
+      >
+        <org-storybook-example-container-section label="Reserve Space = true (default)">
+          <div class="space-y-4">
+            <org-form-field [reserveValidationSpace]="true">
+              <org-input
+                name="reserve-true-input-1"
+                placeholder="Input 1 (no error)"
+              />
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="true" validationMessage="This field has an error">
+              <org-input
+                name="reserve-true-input-2"
+                placeholder="Input 2 (with error)"
+              />
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="true">
+              <org-input
+                name="reserve-true-input-3"
+                placeholder="Input 3 (no error)"
+              />
+            </org-form-field>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Reserve Space = false">
+          <div class="space-y-4">
+            <org-form-field [reserveValidationSpace]="false">
+              <org-input
+                name="reserve-false-input-1"
+                placeholder="Input 1 (no error)"
+              />
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="false" validationMessage="This field has an error">
+              <org-input
+                name="reserve-false-input-2"
+                placeholder="Input 2 (with error)"
+              />
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="false">
+              <org-input
+                name="reserve-false-input-3"
+                placeholder="Input 3 (no error)"
+              />
+            </org-form-field>
+          </div>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>reserveValidationSpace=true</strong>: Space is always reserved for validation messages (maintains consistent spacing between inputs)</li>
+          <li><strong>reserveValidationSpace=false</strong>: Space is only allocated when a validation message is present (inputs collapse together when no errors)</li>
+          <li>Notice how the left column maintains equal spacing between all inputs</li>
+          <li>Notice how the right column's inputs 1 and 3 are closer together since they have no error messages</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [Input, FormField, FormFields, StorybookExampleContainer, StorybookExampleContainerSection],
     },
   }),
 };

@@ -26,6 +26,10 @@ this._logManager.warn({
   error,
 });
 ```
+<!--
+This seems to be the modern approach as the older but more common approach will be removed in v8
+-->
+- ALWAYS use `combineLatestWith` to combine multiple streams
 
 You can NEVER use these patterns when work on RxJS code:
 - NEVER expose a subject as `public`
@@ -34,3 +38,7 @@ You can NEVER use these patterns when work on RxJS code:
 public focusRequestSubject = new Subject<void>();
 ```
 - NEVER create a customer rxjs utility when a built-in one is available
+<!--
+This is deprecated and will be removed in v8, there is an ALWAYS for `combineLatestWith` which seems to be the modern approach
+-->
+- NEVER use `combineLatest`

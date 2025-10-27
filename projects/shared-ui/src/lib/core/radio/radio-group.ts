@@ -19,6 +19,7 @@ import { tailwindUtils } from '@organization/shared-utils';
   templateUrl: './radio-group.html',
   host: {
     dataid: 'radio-group',
+    class: 'inline-flex',
   },
   providers: [
     {
@@ -44,7 +45,6 @@ export class RadioGroup implements ControlValueAccessor {
   public value = input<string>('');
   public disabled = input<boolean>(false);
   public name = input<string>('');
-  public validationMessage = input<string | null>(null);
 
   // Outputs
   public valueChange = output<string>();
@@ -59,9 +59,6 @@ export class RadioGroup implements ControlValueAccessor {
     // Otherwise, use the value input (for simple binding)
     return this.value();
   });
-
-  public readonly hasValidationMessage = computed<boolean>(() => !!this.validationMessage()?.trim());
-  public readonly isInvalid = computed<boolean>(() => this.hasValidationMessage());
 
   public mergeClasses = tailwindUtils.merge;
 

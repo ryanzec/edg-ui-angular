@@ -45,7 +45,7 @@ export function zodValidator(schema: z.ZodType): ValidatorFn {
     if (result.error) {
       const firstError = result.error.issues[0];
 
-      return { zod: firstError };
+      return { zod: firstError.message };
     }
 
     return null;

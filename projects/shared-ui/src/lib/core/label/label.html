@@ -1,11 +1,25 @@
-<span [class]="'inline-flex items-center gap-1.5 text-label-text ' + containerClass()">
-  <label [for]="htmlFor()">
-    {{ label() }}
+<ng-template #labelTemplate>
+  {{ label() }}
 
-    @if (isLoading()) {
-      <org-loading-spinner />
-    }
+  @if (isRequired()) {
+    <span class="text-red-500">*</span>
+  }
 
-    <ng-content />
-  </label>
+  @if (isLoading()) {
+    <org-loading-spinner />
+  }
+
+  <ng-content />
+</ng-template>
+
+<span [class]="mergeClasses('inline-flex items-center gap-1.5 text-label-text', containerClass())">
+  @if (asLabel()) {
+    <label [for]="htmlFor()">
+      <ng-container [ngTemplateOutlet]="labelTemplate" />
+    </label>
+  } @else {
+    <div>
+      <ng-container [ngTemplateOutlet]="labelTemplate" />
+    </div>
+  }
 </span>

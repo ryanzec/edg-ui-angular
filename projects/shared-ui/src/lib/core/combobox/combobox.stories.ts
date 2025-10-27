@@ -7,6 +7,8 @@ import { type ComboboxOptionInput } from '../combobox-store/combobox-store';
 import { StorybookExampleContainer } from '../../private/storybook-example-container/storybook-example-container';
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 import { Button } from '../button/button';
+import { FormFields } from '../form-fields/form-fields';
+import { FormField } from '../form-field/form-field';
 
 const fruitOptions: ComboboxOptionInput[] = [
   { label: 'Apple', value: 'apple', groupLabel: 'Fruits' },
@@ -115,7 +117,6 @@ export const Default: Story = {
     allowNewOptions: false,
     isGroupingEnabled: false,
     disabled: false,
-    validationMessage: '',
     containerClass: '',
   },
   argTypes: {
@@ -151,10 +152,6 @@ export const Default: Story = {
       control: 'boolean',
       description: 'Whether the combobox is disabled',
     },
-    validationMessage: {
-      control: 'text',
-      description: 'Validation error message to display',
-    },
     containerClass: {
       control: 'text',
       description: 'Additional CSS classes for the container',
@@ -172,7 +169,6 @@ export const Default: Story = {
         [allowNewOptions]="allowNewOptions"
         [isGroupingEnabled]="isGroupingEnabled"
         [disabled]="disabled"
-        [validationMessage]="validationMessage"
         [containerClass]="containerClass"
       />
     `,
@@ -182,7 +178,15 @@ export const Default: Story = {
 @Component({
   selector: 'org-combobox-single-select-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Combobox, StorybookExampleContainer, StorybookExampleContainerSection, Button, JsonPipe],
+  imports: [
+    Combobox,
+    StorybookExampleContainer,
+    StorybookExampleContainerSection,
+    Button,
+    JsonPipe,
+    FormFields,
+    FormField,
+  ],
   template: `
     <org-storybook-example-container
       title="Single Select"
@@ -190,14 +194,18 @@ export const Default: Story = {
     >
       <org-storybook-example-container-section label="Combobox">
         <div class="max-w-[400px]">
-          <org-combobox
-            #combobox
-            name="single-select"
-            [options]="options"
-            placeholder="Select a fruit..."
-            (selectedValuesChanged)="handleSelectedValuesChange($event)"
-            (inputValueChanged)="handleInputValueChange($event)"
-          />
+          <org-form-fields>
+            <org-form-field>
+              <org-combobox
+                #combobox
+                name="single-select"
+                [options]="options"
+                placeholder="Select a fruit..."
+                (selectedValuesChanged)="handleSelectedValuesChange($event)"
+                (inputValueChanged)="handleInputValueChange($event)"
+              />
+            </org-form-field>
+          </org-form-fields>
         </div>
       </org-storybook-example-container-section>
 
@@ -632,20 +640,21 @@ export const States: Story = {
 @Component({
   selector: 'org-combobox-validation-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Combobox, StorybookExampleContainer, StorybookExampleContainerSection, Button, JsonPipe],
+  imports: [Combobox, FormField, StorybookExampleContainer, StorybookExampleContainerSection, Button, JsonPipe],
   template: `
     <org-storybook-example-container title="Validation" [currentState]="'Has error: ' + hasError()">
       <org-storybook-example-container-section label="With Validation Message">
         <div class="max-w-[400px]">
-          <org-combobox
-            #combobox
-            name="validation"
-            [options]="options"
-            [isMultiSelect]="true"
-            placeholder="Select at least one option..."
-            [validationMessage]="validationMessage()"
-            (selectedValuesChanged)="handleSelectedValuesChange($event)"
-          />
+          <org-form-field [validationMessage]="validationMessage()">
+            <org-combobox
+              #combobox
+              name="validation"
+              [options]="options"
+              [isMultiSelect]="true"
+              placeholder="Select at least one option..."
+              (selectedValuesChanged)="handleSelectedValuesChange($event)"
+            />
+          </org-form-field>
         </div>
       </org-storybook-example-container-section>
 
@@ -790,6 +799,105 @@ export const Scrolling: Story = {
     template: '<org-combobox-scrolling-demo />',
     moduleMetadata: {
       imports: [ComboboxScrollingDemo],
+    },
+  }),
+};
+
+export const ValidationSpaceReservation: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Comparison of validation space reservation behavior. When reserveValidationSpace is true, space is always reserved for validation messages to maintain consistent layout. When false, space is only used when a validation message is present.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Validation Space Reservation"
+        currentState="Comparing space reservation behaviors"
+      >
+        <org-storybook-example-container-section label="Reserve Space = true (default)">
+          <div class="space-y-4">
+            <org-form-field [reserveValidationSpace]="true">
+              <org-combobox
+                name="reserve-true-combobox-1"
+                placeholder="Combobox 1 (no error)"
+                [options]="[
+                  { label: 'Option 1', value: '1' },
+                  { label: 'Option 2', value: '2' }
+                ]"
+              />
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="true" validationMessage="This field has an error">
+              <org-combobox
+                name="reserve-true-combobox-2"
+                placeholder="Combobox 2 (with error)"
+                [options]="[
+                  { label: 'Option 1', value: '1' },
+                  { label: 'Option 2', value: '2' }
+                ]"
+              />
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="true">
+              <org-combobox
+                name="reserve-true-combobox-3"
+                placeholder="Combobox 3 (no error)"
+                [options]="[
+                  { label: 'Option 1', value: '1' },
+                  { label: 'Option 2', value: '2' }
+                ]"
+              />
+            </org-form-field>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Reserve Space = false">
+          <div class="space-y-4">
+            <org-form-field [reserveValidationSpace]="false">
+              <org-combobox
+                name="reserve-false-combobox-1"
+                placeholder="Combobox 1 (no error)"
+                [options]="[
+                  { label: 'Option 1', value: '1' },
+                  { label: 'Option 2', value: '2' }
+                ]"
+              />
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="false" validationMessage="This field has an error">
+              <org-combobox
+                name="reserve-false-combobox-2"
+                placeholder="Combobox 2 (with error)"
+                [options]="[
+                  { label: 'Option 1', value: '1' },
+                  { label: 'Option 2', value: '2' }
+                ]"
+              />
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="false">
+              <org-combobox
+                name="reserve-false-combobox-3"
+                placeholder="Combobox 3 (no error)"
+                [options]="[
+                  { label: 'Option 1', value: '1' },
+                  { label: 'Option 2', value: '2' }
+                ]"
+              />
+            </org-form-field>
+          </div>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>reserveValidationSpace=true</strong>: Space is always reserved for validation messages (maintains consistent spacing between comboboxes)</li>
+          <li><strong>reserveValidationSpace=false</strong>: Space is only allocated when a validation message is present (comboboxes collapse together when no errors)</li>
+          <li>Notice how the left column maintains equal spacing between all comboboxes</li>
+          <li>Notice how the right column's comboboxes 1 and 3 are closer together since they have no error messages</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [Combobox, FormField, StorybookExampleContainer, StorybookExampleContainerSection],
     },
   }),
 };

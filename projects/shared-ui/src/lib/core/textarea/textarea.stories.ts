@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { Textarea, textareaVariants, textareaIconAlignments } from './textarea';
 import { iconNames } from '../icon/icon';
+import { FormField } from '../form-field/form-field';
 import { StorybookExampleContainer } from '../../private/storybook-example-container/storybook-example-container';
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 
@@ -58,13 +59,6 @@ const meta: Meta<Textarea> = {
     placeholder="Icon at bottom"
   />
 
-  <!-- Textarea with validation -->
-  <org-textarea
-    name="textarea"
-    placeholder="Description"
-    validationMessage="This field is required"
-  />
-
   <!-- Textarea with inline items (tags) -->
   <org-textarea
     name="textarea"
@@ -109,7 +103,6 @@ export const Default: Story = {
     postIconAlignment: 'end',
     selectAllOnFocus: false,
     autoFocus: false,
-    validationMessage: '',
     inlineItems: [],
     containerClass: '',
     inverseEnter: false,
@@ -168,10 +161,6 @@ export const Default: Story = {
     autoFocus: {
       control: 'boolean',
       description: 'Whether the textarea should automatically receive focus',
-    },
-    validationMessage: {
-      control: 'text',
-      description: 'Validation error message to display',
     },
     inlineItems: {
       control: 'object',
@@ -505,31 +494,34 @@ export const Validation: Story = {
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Invalid (with error message)">
-          <org-textarea
-            name="textarea"
-            placeholder="Invalid textarea"
-            value="Too short"
-            validationMessage="Description must be at least 20 characters"
-          />
+          <org-form-field validationMessage="Description must be at least 20 characters">
+            <org-textarea
+              name="textarea"
+              placeholder="Invalid textarea"
+              value="Too short"
+            />
+          </org-form-field>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Borderless with error">
-          <org-textarea
-            name="textarea"
-            variant="borderless"
-            placeholder="Required field"
-            validationMessage="This field is required"
-          />
+          <org-form-field validationMessage="This field is required">
+            <org-textarea
+              name="textarea"
+              variant="borderless"
+              placeholder="Required field"
+            />
+          </org-form-field>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="With icon and error">
-          <org-textarea
-            name="textarea"
-            preIcon="gear"
-            placeholder="Description"
-            value="Invalid"
-            validationMessage="Description is too short"
-          />
+          <org-form-field validationMessage="Description is too short">
+            <org-textarea
+              name="textarea"
+              preIcon="gear"
+              placeholder="Description"
+              value="Invalid"
+            />
+          </org-form-field>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -541,7 +533,7 @@ export const Validation: Story = {
       </org-storybook-example-container>
     `,
     moduleMetadata: {
-      imports: [Textarea, StorybookExampleContainer, StorybookExampleContainerSection],
+      imports: [Textarea, FormField, StorybookExampleContainer, StorybookExampleContainerSection],
     },
   }),
 };
@@ -625,6 +617,81 @@ export const SpecialBehaviors: Story = {
     `,
     moduleMetadata: {
       imports: [Textarea, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+export const ValidationSpaceReservation: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Comparison of validation space reservation behavior. When reserveValidationSpace is true, space is always reserved for validation messages to maintain consistent layout. When false, space is only used when a validation message is present.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Validation Space Reservation"
+        currentState="Comparing space reservation behaviors"
+      >
+        <org-storybook-example-container-section label="Reserve Space = true (default)">
+          <div class="space-y-4">
+            <org-form-field [reserveValidationSpace]="true">
+              <org-textarea
+                name="reserve-true-textarea-1"
+                placeholder="Textarea 1 (no error)"
+              />
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="true" validationMessage="This field has an error">
+              <org-textarea
+                name="reserve-true-textarea-2"
+                placeholder="Textarea 2 (with error)"
+              />
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="true">
+              <org-textarea
+                name="reserve-true-textarea-3"
+                placeholder="Textarea 3 (no error)"
+              />
+            </org-form-field>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Reserve Space = false">
+          <div class="space-y-4">
+            <org-form-field [reserveValidationSpace]="false">
+              <org-textarea
+                name="reserve-false-textarea-1"
+                placeholder="Textarea 1 (no error)"
+              />
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="false" validationMessage="This field has an error">
+              <org-textarea
+                name="reserve-false-textarea-2"
+                placeholder="Textarea 2 (with error)"
+              />
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="false">
+              <org-textarea
+                name="reserve-false-textarea-3"
+                placeholder="Textarea 3 (no error)"
+              />
+            </org-form-field>
+          </div>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>reserveValidationSpace=true</strong>: Space is always reserved for validation messages (maintains consistent spacing between textareas)</li>
+          <li><strong>reserveValidationSpace=false</strong>: Space is only allocated when a validation message is present (textareas collapse together when no errors)</li>
+          <li>Notice how the left column maintains equal spacing between all textareas</li>
+          <li>Notice how the right column's textareas 1 and 3 are closer together since they have no error messages</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [Textarea, FormField, StorybookExampleContainer, StorybookExampleContainerSection],
     },
   }),
 };

@@ -7,13 +7,9 @@
         {
           'border rounded-md bg-textarea-background-default border-textarea-border-default': variant() === 'bordered',
           'focus-within:border-textarea-border-focused': variant() === 'bordered',
-          'border-textarea-border-error': variant() === 'bordered' && isInvalid() && !isFocused(),
-          'border-textarea-border-error focus-within:ring-1 focus-within:ring-textarea-ring-error':
-            variant() === 'bordered' && isInvalid() && isFocused(),
           'bg-textarea-background-disabled border-textarea-border-default cursor-not-allowed opacity-50':
             variant() === 'bordered' && isDisabled(),
           'border-0 bg-textarea-background-default': variant() === 'borderless',
-          'ring-textarea-ring-error': variant() === 'borderless' && isInvalid() && !isFocused(),
           'bg-textarea-background-disabled cursor-not-allowed opacity-50': variant() === 'borderless' && isDisabled(),
         },
         containerClass()
@@ -68,13 +64,14 @@
       [disabled]="isDisabled()"
       [readonly]="isReadonly()"
       [rows]="rows()"
-      [attr.aria-invalid]="isInvalid()"
-      [attr.aria-describedby]="hasValidationMessage() ? 'validation-message' : null"
       [attr.autofocus]="autoFocus() || null"
       (input)="handleInputChange($event)"
       (blur)="handleBlur()"
       (keydown)="handleKeyDown($event)"
       [name]="name()"
+      [attr.id]="name()"
+      [attr.aria-describedby]="ariaDescribedBy()"
+      [attr.aria-invalid]="ariaInvalid()"
     ></textarea>
     @if (hasPostIcon()) {
       <button
@@ -97,18 +94,5 @@
         <org-icon [name]="postIcon()!" size="base" />
       </button>
     }
-  </div>
-  <div
-    id="validation-message"
-    [class]="
-      mergeClasses('text-validation-error-text text-sm mt-1.5', {
-        visible: hasValidationMessage(),
-        invisible: !hasValidationMessage(),
-      })
-    "
-    role="alert"
-    aria-live="polite"
-  >
-    {{ validationMessage() || 'No validation message' }}
   </div>
 </div>

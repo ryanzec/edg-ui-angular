@@ -1,23 +1,5 @@
-<div class="org-radio-group inline-block w-full">
-  <div
-    role="radiogroup"
-    class="flex flex-col gap-1"
-    [attr.aria-invalid]="isInvalid()"
-    [attr.aria-describedby]="hasValidationMessage() ? 'validation-message' : null"
-  >
+<div class="org-radio-group inline-block flex-col w-full">
+  <div role="radiogroup" class="flex flex-col gap-1">
     <ng-content />
-  </div>
-  <div
-    id="validation-message"
-    [class]="
-      mergeClasses('text-validation-error-text text-sm mt-1.5', {
-        visible: hasValidationMessage(),
-        invisible: !hasValidationMessage(),
-      })
-    "
-    role="alert"
-    aria-live="polite"
-  >
-    {{ validationMessage() || 'No validation message' }}
   </div>
 </div>

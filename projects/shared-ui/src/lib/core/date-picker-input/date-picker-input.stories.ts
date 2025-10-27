@@ -8,6 +8,8 @@ import { StorybookExampleContainer } from '../../private/storybook-example-conta
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 import { Button } from '../button/button';
 import { JsonPipe } from '@angular/common';
+import { FormFields } from '../form-fields/form-fields';
+import { FormField } from '../form-field/form-field';
 
 const meta: Meta<DatePickerInput> = {
   title: 'Core/Components/Date Picker Input',
@@ -62,7 +64,6 @@ const meta: Meta<DatePickerInput> = {
   <!-- With validation -->
   <org-date-picker-input
     placeholder="Select date..."
-    [validationMessage]="validationMessage"
     (dateSelected)="handleDateSelected($event)"
   />
 </div>
@@ -82,9 +83,9 @@ export const Default: Story = {
     dateFormat: DateFormat.STANDARD,
     timeFormat: TimeFormat.STANDARD,
     allowPartialRangeSelection: false,
+    partialRangeSelectionType: 'range',
     placeholder: 'Select date...',
     autoFocus: false,
-    validationMessage: '',
     defaultDisplayDate: DateTime.now(),
     startYear: DateTime.now().year - 100,
     endYear: DateTime.now().year + 20,
@@ -116,6 +117,11 @@ export const Default: Story = {
       control: 'boolean',
       description: 'Allow partial range selection (on or after/before)',
     },
+    partialRangeSelectionType: {
+      control: 'select',
+      options: ['range', 'onOrBefore', 'onOrAfter'],
+      description: 'The partial range selection type',
+    },
     placeholder: {
       control: 'text',
       description: 'Placeholder text for the input',
@@ -123,10 +129,6 @@ export const Default: Story = {
     autoFocus: {
       control: 'boolean',
       description: 'Automatically focus the input on mount',
-    },
-    validationMessage: {
-      control: 'text',
-      description: 'Validation error message',
     },
     allowRangeSelection: {
       control: 'boolean',
@@ -146,9 +148,9 @@ export const Default: Story = {
           [dateFormat]="dateFormat"
           [timeFormat]="timeFormat"
           [allowPartialRangeSelection]="allowPartialRangeSelection"
+          [partialRangeSelectionType]="partialRangeSelectionType"
           [placeholder]="placeholder"
           [autoFocus]="autoFocus"
-          [validationMessage]="validationMessage"
           [defaultDisplayDate]="defaultDisplayDate"
           [startYear]="startYear"
           [endYear]="endYear"
@@ -349,7 +351,12 @@ export const RangeSelect: Story = {
     <org-storybook-example-container
       title="Partial Range Selection"
       [currentState]="
-        'Range: ' + (startDate() ? startDate()!.toISO() : 'None') + ' to ' + (endDate() ? endDate()!.toISO() : 'None')
+        'Type: ' +
+        selectionType() +
+        ' | Range: ' +
+        (startDate() ? startDate()!.toISO() : 'None') +
+        ' to ' +
+        (endDate() ? endDate()!.toISO() : 'None')
       "
     >
       <org-storybook-example-container-section label="Date Picker">
@@ -361,7 +368,9 @@ export const RangeSelect: Story = {
             [allowPartialRangeSelection]="true"
             [selectedStartDate]="startDate()"
             [selectedEndDate]="endDate()"
+            [partialRangeSelectionType]="selectionType()"
             (dateSelected)="handleDateSelected($event)"
+            (partialRangeSelectionTypeChange)="handleSelectionTypeChange($event)"
           />
         </div>
       </org-storybook-example-container-section>
@@ -370,12 +379,14 @@ export const RangeSelect: Story = {
         <div class="flex flex-wrap gap-2">
           <org-button color="primary" size="sm" (clicked)="setStartOnly()"> Set Start Only </org-button>
           <org-button color="primary" size="sm" (clicked)="setEndOnly()"> Set End Only </org-button>
+          <org-button color="primary" size="sm" (clicked)="setRange()"> Set Range </org-button>
           <org-button color="secondary" size="sm" (clicked)="clearDates()"> Clear </org-button>
         </div>
       </org-storybook-example-container-section>
 
       <org-storybook-example-container-section label="State">
         <div class="text-sm space-y-1">
+          <div><strong>Selection Type:</strong> {{ selectionType() }}</div>
           <div>
             <strong>Start Date:</strong>
             {{ startDate() ? startDate()!.toISO() : 'None' }}
@@ -388,10 +399,12 @@ export const RangeSelect: Story = {
       </org-storybook-example-container-section>
 
       <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
-        <li>With only start date: displays "On or after [DATE]"</li>
-        <li>With only end date: displays "On or before [DATE]"</li>
-        <li>With both dates: displays "[START] - [END]"</li>
-        <li>Useful for open-ended date ranges</li>
+        <li>Radio group appears below month/year selection in calendar</li>
+        <li>Three modes: range, on or before, on or after</li>
+        <li>Range mode: standard range selection (both dates)</li>
+        <li>On or after mode: only populates start date, displays "On or after [DATE]"</li>
+        <li>On or before mode: only populates end date, displays "On or before [DATE]"</li>
+        <li>Switching modes automatically adjusts dates as needed</li>
       </ul>
     </org-storybook-example-container>
   `,
@@ -399,6 +412,7 @@ export const RangeSelect: Story = {
 class DatePickerInputPartialRangeDemo {
   protected startDate = signal<DateTime | null>(null);
   protected endDate = signal<DateTime | null>(null);
+  protected selectionType = signal<'range' | 'onOrBefore' | 'onOrAfter'>('range');
 
   protected handleDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
     console.log('Dates selected:', dates);
@@ -406,14 +420,27 @@ class DatePickerInputPartialRangeDemo {
     this.endDate.set(dates.endDate);
   }
 
+  protected handleSelectionTypeChange(type: 'range' | 'onOrBefore' | 'onOrAfter'): void {
+    console.log('Selection type changed:', type);
+    this.selectionType.set(type);
+  }
+
   protected setStartOnly(): void {
     this.startDate.set(DateTime.now().startOf('day'));
     this.endDate.set(null);
+    this.selectionType.set('onOrAfter');
   }
 
   protected setEndOnly(): void {
     this.startDate.set(null);
     this.endDate.set(DateTime.now().plus({ days: 7 }).endOf('day').minus({ seconds: 1 }));
+    this.selectionType.set('onOrBefore');
+  }
+
+  protected setRange(): void {
+    this.startDate.set(DateTime.now().startOf('day'));
+    this.endDate.set(DateTime.now().plus({ days: 7 }).endOf('day').minus({ seconds: 1 }));
+    this.selectionType.set('range');
   }
 
   protected clearDates(): void {
@@ -602,7 +629,7 @@ export const SimpleForms: Story = {
 @Component({
   selector: 'org-date-picker-input-validation-single-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [DatePickerInput, StorybookExampleContainer, StorybookExampleContainerSection, Button, JsonPipe],
+  imports: [DatePickerInput, StorybookExampleContainer, StorybookExampleContainerSection, Button, JsonPipe, FormField],
   template: `
     <org-storybook-example-container
       title="Validation - Single Date Required"
@@ -610,13 +637,14 @@ export const SimpleForms: Story = {
     >
       <org-storybook-example-container-section label="Date Picker with Validation">
         <div class="max-w-[400px]">
-          <org-date-picker-input
-            name="validation-single"
-            placeholder="Select a date..."
-            [selectedStartDate]="selectedDate()"
-            [validationMessage]="validationMessage()"
-            (dateSelected)="handleDateSelected($event)"
-          />
+          <org-form-field [validationMessage]="validationMessage()">
+            <org-date-picker-input
+              name="validation-single"
+              placeholder="Select a date..."
+              [selectedStartDate]="selectedDate()"
+              (dateSelected)="handleDateSelected($event)"
+            />
+          </org-form-field>
         </div>
       </org-storybook-example-container-section>
 
@@ -691,7 +719,7 @@ export const ValidationSingleRequired: Story = {
 @Component({
   selector: 'org-date-picker-input-validation-range-either-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [DatePickerInput, StorybookExampleContainer, StorybookExampleContainerSection, Button, JsonPipe],
+  imports: [DatePickerInput, StorybookExampleContainer, StorybookExampleContainerSection, Button, JsonPipe, FormField],
   template: `
     <org-storybook-example-container
       title="Validation - Either Date Required (Range)"
@@ -699,16 +727,17 @@ export const ValidationSingleRequired: Story = {
     >
       <org-storybook-example-container-section label="Date Picker with Validation">
         <div class="max-w-[400px]">
-          <org-date-picker-input
-            name="validation-range-either"
-            placeholder="Select at least one date..."
-            [allowRangeSelection]="true"
-            [allowPartialRangeSelection]="true"
-            [selectedStartDate]="startDate()"
-            [selectedEndDate]="endDate()"
-            [validationMessage]="validationMessage()"
-            (dateSelected)="handleDateSelected($event)"
-          />
+          <org-form-field [validationMessage]="validationMessage()">
+            <org-date-picker-input
+              name="validation-range-either"
+              placeholder="Select at least one date..."
+              [allowRangeSelection]="true"
+              [allowPartialRangeSelection]="true"
+              [selectedStartDate]="startDate()"
+              [selectedEndDate]="endDate()"
+              (dateSelected)="handleDateSelected($event)"
+            />
+          </org-form-field>
         </div>
       </org-storybook-example-container-section>
 
@@ -789,7 +818,7 @@ export const ValidationRangeEitherRequired: Story = {
 @Component({
   selector: 'org-date-picker-input-validation-range-both-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [DatePickerInput, StorybookExampleContainer, StorybookExampleContainerSection, Button, JsonPipe],
+  imports: [DatePickerInput, StorybookExampleContainer, StorybookExampleContainerSection, Button, JsonPipe, FormField],
   template: `
     <org-storybook-example-container
       title="Validation - Both Dates Required (Range)"
@@ -797,15 +826,16 @@ export const ValidationRangeEitherRequired: Story = {
     >
       <org-storybook-example-container-section label="Date Picker with Validation">
         <div class="max-w-[400px]">
-          <org-date-picker-input
-            name="validation-range-both"
-            placeholder="Select both dates..."
-            [allowRangeSelection]="true"
-            [selectedStartDate]="startDate()"
-            [selectedEndDate]="endDate()"
-            [validationMessage]="validationMessage()"
-            (dateSelected)="handleDateSelected($event)"
-          />
+          <org-form-field [validationMessage]="validationMessage()">
+            <org-date-picker-input
+              name="validation-range-both"
+              placeholder="Select both dates..."
+              [allowRangeSelection]="true"
+              [selectedStartDate]="startDate()"
+              [selectedEndDate]="endDate()"
+              (dateSelected)="handleDateSelected($event)"
+            />
+          </org-form-field>
         </div>
       </org-storybook-example-container-section>
 
@@ -879,6 +909,88 @@ export const ValidationRangeBothRequired: Story = {
     template: '<org-date-picker-input-validation-range-both-demo />',
     moduleMetadata: {
       imports: [DatePickerInputValidationRangeBothDemo],
+    },
+  }),
+};
+
+export const ValidationSpaceReservation: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Comparison of validation space reservation behavior. When reserveValidationSpace is true, space is always reserved for validation messages to maintain consistent layout. When false, space is only used when a validation message is present.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Validation Space Reservation"
+        currentState="Comparing space reservation behaviors"
+      >
+        <org-storybook-example-container-section label="Reserve Space = true (default)">
+          <org-form-fields>
+            <org-form-field [reserveValidationSpace]="true">
+              <org-date-picker-input
+                name="reserve-true-date-picker-1"
+                placeholder="Date Picker 1 (no error)"
+              />
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="true" validationMessage="This field has an error">
+              <org-date-picker-input
+                name="reserve-true-date-picker-2"
+                placeholder="Date Picker 2 (with error)"
+              />
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="true">
+              <org-date-picker-input
+                name="reserve-true-date-picker-3"
+                placeholder="Date Picker 3 (no error)"
+              />
+            </org-form-field>
+          </org-form-fields>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Reserve Space = false">
+          <org-form-fields>
+            <org-form-field [reserveValidationSpace]="false">
+              <org-date-picker-input
+                name="reserve-false-date-picker-1"
+                placeholder="Date Picker 1 (no error)"
+              />
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="false" validationMessage="This field has an error">
+              <org-date-picker-input
+                name="reserve-false-date-picker-2"
+                placeholder="Date Picker 2 (with error)"
+              />
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="false">
+              <org-date-picker-input
+                name="reserve-false-date-picker-3"
+                placeholder="Date Picker 3 (no error)"
+              />
+            </org-form-field>
+          </org-form-fields>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>reserveValidationSpace=true</strong>: Space is always reserved for validation messages (maintains consistent spacing between date pickers)</li>
+          <li><strong>reserveValidationSpace=false</strong>: Space is only allocated when a validation message is present (date pickers collapse together when no errors)</li>
+          <li>Notice how the left column maintains equal spacing between all date pickers</li>
+          <li>Notice how the right column's date pickers 1 and 3 are closer together since they have no error messages</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [
+        DatePickerInput,
+        FormField,
+        FormFields,
+        StorybookExampleContainer,
+        StorybookExampleContainerSection,
+        FormFields,
+      ],
     },
   }),
 };

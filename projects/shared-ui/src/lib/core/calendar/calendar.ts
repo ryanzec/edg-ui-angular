@@ -17,6 +17,18 @@ import { DateTime } from 'luxon';
 import { tailwindUtils } from '@organization/shared-utils';
 import { CalendarHeader } from './calendar-header';
 import { CalendarDates } from './calendar-dates';
+import { RadioGroup } from '../radio/radio-group';
+import { Radio } from '../radio/radio';
+
+/**
+ * partial range selection type
+ */
+export type CalendarPartialRangeSelectionType = 'range' | 'onOrBefore' | 'onOrAfter';
+
+/**
+ * array of all partial range selection types
+ */
+export const allPartialRangeSelectionTypes: CalendarPartialRangeSelectionType[] = ['range', 'onOrBefore', 'onOrAfter'];
 
 /**
  * internal state for the calendar component
@@ -45,7 +57,7 @@ export type CalendarDateData = {
 @Component({
   selector: 'org-calendar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CalendarHeader, CalendarDates],
+  imports: [CalendarHeader, CalendarDates, RadioGroup, Radio],
   templateUrl: './calendar.html',
   host: {
     dataid: 'calendar',
@@ -74,6 +86,8 @@ export class Calendar {
   public selectedStartDate = input<DateTime | null>(null);
   public selectedEndDate = input<DateTime | null>(null);
   public allowRangeSelection = input<boolean>(false);
+  public allowPartialRangeSelection = input<boolean>(false);
+  public partialRangeSelectionType = input<CalendarPartialRangeSelectionType>('range');
   public disableBefore = input<DateTime | null>(null);
   public disableAfter = input<DateTime | null>(null);
   public allowedDateRange = input<number>(0);
@@ -81,6 +95,7 @@ export class Calendar {
 
   // output events
   public dateSelected = output<{ startDate: DateTime | null; endDate: DateTime | null }>();
+  public partialRangeSelectionTypeChange = output<CalendarPartialRangeSelectionType>();
   public displayMonthChanged = output<{
     currentMonth: number;
     currentYear: number;
@@ -92,6 +107,13 @@ export class Calendar {
   public readonly displayYear = computed<number>(() => this._state().displayYear);
   public readonly displayMonth = computed<number>(() => this._state().displayMonth);
   public readonly focusedDate = computed<DateTime | null>(() => this._state().focusedDate);
+
+  /**
+   * show partial range selection type when both range selection and partial range selection are enabled
+   */
+  public readonly showPartialRangeSelectionType = computed<boolean>(() => {
+    return this.allowRangeSelection() && this.allowPartialRangeSelection();
+  });
 
   /**
    * generates array of years for dropdown
@@ -206,6 +228,85 @@ export class Calendar {
           this._isInitialized = true;
         });
       }
+    });
+
+    // handle partial range selection type switching
+    effect(() => {
+      const selectionType = this.partialRangeSelectionType();
+      const allowPartial = this.allowPartialRangeSelection();
+      const allowRange = this.allowRangeSelection();
+
+      // only handle switching if partial range selection is enabled
+      if (!allowPartial || !allowRange) {
+        return;
+      }
+
+      // skip during initialization
+      if (!this._isInitialized) {
+        return;
+      }
+
+      untracked(() => {
+        const currentStart = this.selectedStartDate();
+        const currentEnd = this.selectedEndDate();
+
+        // no dates selected, nothing to do
+        if (!currentStart && !currentEnd) {
+          return;
+        }
+
+        let newStart: DateTime | null = currentStart;
+        let newEnd: DateTime | null = currentEnd;
+
+        if (selectionType === 'range') {
+          // switching to range mode
+          if (currentStart && !currentEnd) {
+            // has only start date, keep it
+            newStart = currentStart;
+            newEnd = null;
+          } else if (!currentStart && currentEnd) {
+            // has only end date, move to start and clear end
+            newStart = currentEnd.startOf('day');
+            newEnd = null;
+          }
+        } else if (selectionType === 'onOrAfter') {
+          // switching to onOrAfter mode - only keep start date
+          if (currentStart && currentEnd) {
+            // has both, keep start and clear end
+            newStart = currentStart;
+            newEnd = null;
+          } else if (!currentStart && currentEnd) {
+            // has only end date, move to start and clear end
+            newStart = currentEnd.startOf('day');
+            newEnd = null;
+          }
+        } else if (selectionType === 'onOrBefore') {
+          // switching to onOrBefore mode - only keep end date
+          if (currentStart && currentEnd) {
+            // has both, keep end and clear start
+            newStart = null;
+            newEnd = currentEnd;
+          } else if (currentStart && !currentEnd) {
+            // has only start date, move to end and clear start
+            newStart = null;
+            newEnd = currentStart.endOf('day').minus({ seconds: 1 });
+          }
+        }
+
+        // only update if something changed
+        const needsUpdate =
+          newStart?.toMillis() !== currentStart?.toMillis() || newEnd?.toMillis() !== currentEnd?.toMillis();
+
+        if (needsUpdate) {
+          // defer emission to avoid race condition during change detection
+          afterNextRender(
+            () => {
+              this.dateSelected.emit({ startDate: newStart, endDate: newEnd });
+            },
+            { injector: this._injector }
+          );
+        }
+      });
     });
   }
 
@@ -338,6 +439,7 @@ export class Calendar {
     const clickedDate = dateData.date;
     const currentStart = this.selectedStartDate();
     const currentEnd = this.selectedEndDate();
+    const selectionType = this.partialRangeSelectionType();
 
     // clicking on already selected start date - clear it
     if (currentStart && clickedDate.hasSame(currentStart, 'day')) {
@@ -351,6 +453,25 @@ export class Calendar {
       this.dateSelected.emit({ startDate: currentStart, endDate: null });
 
       return;
+    }
+
+    // handle partial range selection modes
+    if (this.allowRangeSelection() && this.allowPartialRangeSelection()) {
+      // onOrAfter mode - only populate start date
+      if (selectionType === 'onOrAfter') {
+        const startDate = clickedDate.startOf('day');
+        this.dateSelected.emit({ startDate, endDate: null });
+
+        return;
+      }
+
+      // onOrBefore mode - only populate end date
+      if (selectionType === 'onOrBefore') {
+        const endDate = clickedDate.endOf('day').minus({ seconds: 1 });
+        this.dateSelected.emit({ startDate: null, endDate });
+
+        return;
+      }
     }
 
     // no selection yet - set as start date (00:00:00)
@@ -517,6 +638,13 @@ export class Calendar {
       ...state,
       focusedDate: dateData.date,
     }));
+  }
+
+  /**
+   * handles partial range selection type change from radio group
+   */
+  public handlePartialRangeSelectionTypeChange(type: string): void {
+    this.partialRangeSelectionTypeChange.emit(type as CalendarPartialRangeSelectionType);
   }
 
   /**

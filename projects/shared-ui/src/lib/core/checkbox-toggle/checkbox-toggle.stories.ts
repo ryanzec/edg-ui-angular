@@ -4,6 +4,8 @@ import { StorybookExampleContainer } from '../../private/storybook-example-conta
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 import { Component, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormFields } from '../form-fields/form-fields';
+import { FormField } from '../form-field/form-field';
 
 const meta: Meta<CheckboxToggle> = {
   title: 'Core/Components/Checkbox Toggle',
@@ -83,14 +85,18 @@ const meta: Meta<CheckboxToggle> = {
 
   <!-- With reactive forms -->
   <form [formGroup]="myForm">
-    <org-checkbox-toggle
-      name="option1"
-      value="option1"
-      [checked]="myForm.value.option1 ?? false"
-      (checkedChange)="myForm.patchValue({ option1: $event })"
-    >
-      Option 1
-    </org-checkbox-toggle>
+    <org-form-fields>
+      <org-form-field>
+        <org-checkbox-toggle
+          name="option1"
+          value="option1"
+          [checked]="myForm.value.option1 ?? false"
+          (checkedChange)="myForm.patchValue({ option1: $event })"
+        >
+          Option 1
+        </org-checkbox-toggle>
+      </org-form-field>
+    </org-form-fields>
   </form>
   \`\`\`
 </div>
@@ -666,30 +672,38 @@ export const GroupedToggles: Story = {
     >
       <org-storybook-example-container-section label="Toggle Group in Form">
         <form [formGroup]="toggleForm" class="flex flex-col gap-1">
-          <org-checkbox-toggle
-            name="notifications"
-            value="notifications"
-            [checked]="toggleForm.value.notifications ?? false"
-            (checkedChange)="onNotificationsChange($event)"
-          >
-            Enable notifications
-          </org-checkbox-toggle>
-          <org-checkbox-toggle
-            name="darkMode"
-            value="darkMode"
-            [checked]="toggleForm.value.darkMode ?? false"
-            (checkedChange)="onDarkModeChange($event)"
-          >
-            Dark mode
-          </org-checkbox-toggle>
-          <org-checkbox-toggle
-            name="autoSave"
-            value="autoSave"
-            [checked]="toggleForm.value.autoSave ?? false"
-            (checkedChange)="onAutoSaveChange($event)"
-          >
-            Auto-save
-          </org-checkbox-toggle>
+          <org-form-fields>
+            <org-form-field>
+              <org-checkbox-toggle
+                name="notifications"
+                value="notifications"
+                [checked]="toggleForm.value.notifications ?? false"
+                (checkedChange)="onNotificationsChange($event)"
+              >
+                Enable notifications
+              </org-checkbox-toggle>
+            </org-form-field>
+            <org-form-field>
+              <org-checkbox-toggle
+                name="darkMode"
+                value="darkMode"
+                [checked]="toggleForm.value.darkMode ?? false"
+                (checkedChange)="onDarkModeChange($event)"
+              >
+                Dark mode
+              </org-checkbox-toggle>
+            </org-form-field>
+            <org-form-field>
+              <org-checkbox-toggle
+                name="autoSave"
+                value="autoSave"
+                [checked]="toggleForm.value.autoSave ?? false"
+                (checkedChange)="onAutoSaveChange($event)"
+              >
+                Auto-save
+              </org-checkbox-toggle>
+            </org-form-field>
+          </org-form-fields>
         </form>
       </org-storybook-example-container-section>
 
@@ -700,7 +714,14 @@ export const GroupedToggles: Story = {
       </ul>
     </org-storybook-example-container>
   `,
-  imports: [CheckboxToggle, StorybookExampleContainer, StorybookExampleContainerSection, ReactiveFormsModule],
+  imports: [
+    CheckboxToggle,
+    FormFields,
+    FormField,
+    StorybookExampleContainer,
+    StorybookExampleContainerSection,
+    ReactiveFormsModule,
+  ],
 })
 class CheckboxToggleReactiveFormStory {
   public toggleForm = new FormGroup({
@@ -756,22 +777,18 @@ export const ReactiveFormIntegration: Story = {
       "
     >
       <form [formGroup]="validationForm">
-        <org-storybook-example-container-section label="Toggle with Validation Error">
-          <org-checkbox-toggle
-            formControlName="notifications"
-            name="notifications"
-            value="enabled"
-            validationMessage="You must enable notifications to receive important updates"
-          >
-            Enable Notifications
-          </org-checkbox-toggle>
-        </org-storybook-example-container-section>
-
-        <org-storybook-example-container-section label="Toggle without Validation Error">
-          <org-checkbox-toggle formControlName="marketing" name="marketing" value="enabled">
-            Receive Marketing Emails
-          </org-checkbox-toggle>
-        </org-storybook-example-container-section>
+        <org-form-fields>
+          <org-form-field validationMessage="You must enable notifications to receive important updates">
+            <org-checkbox-toggle formControlName="notifications" name="notifications" value="enabled">
+              Enable Notifications *
+            </org-checkbox-toggle>
+          </org-form-field>
+          <org-form-field>
+            <org-checkbox-toggle formControlName="marketing" name="marketing" value="enabled">
+              Receive Marketing Emails
+            </org-checkbox-toggle>
+          </org-form-field>
+        </org-form-fields>
       </form>
 
       <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -783,7 +800,14 @@ export const ReactiveFormIntegration: Story = {
       </ul>
     </org-storybook-example-container>
   `,
-  imports: [CheckboxToggle, StorybookExampleContainer, StorybookExampleContainerSection, ReactiveFormsModule],
+  imports: [
+    CheckboxToggle,
+    FormFields,
+    FormField,
+    StorybookExampleContainer,
+    StorybookExampleContainerSection,
+    ReactiveFormsModule,
+  ],
 })
 class CheckboxToggleValidationStory {
   public validationForm = new FormGroup({
@@ -805,6 +829,93 @@ export const Validation: Story = {
     template: `<org-checkbox-toggle-validation-story />`,
     moduleMetadata: {
       imports: [CheckboxToggleValidationStory],
+    },
+  }),
+};
+
+export const ValidationSpaceReservation: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Comparison of validation space reservation behavior. When reserveValidationSpace is true, space is always reserved for validation messages to maintain consistent layout. When false, space is only used when a validation message is present.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Validation Space Reservation"
+        currentState="Comparing space reservation behaviors"
+      >
+        <org-storybook-example-container-section label="Reserve Space = true (default)">
+          <div class="space-y-4">
+            <org-form-field [reserveValidationSpace]="true">
+              <org-checkbox-toggle
+                name="reserve-true-toggle-1"
+                value="1"
+              >
+                Toggle 1 (no error)
+              </org-checkbox-toggle>
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="true" validationMessage="This field has an error">
+              <org-checkbox-toggle
+                name="reserve-true-toggle-2"
+                value="2"
+              >
+                Toggle 2 (with error)
+              </org-checkbox-toggle>
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="true">
+              <org-checkbox-toggle
+                name="reserve-true-toggle-3"
+                value="3"
+              >
+                Toggle 3 (no error)
+              </org-checkbox-toggle>
+            </org-form-field>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Reserve Space = false">
+          <div class="space-y-4">
+            <org-form-field [reserveValidationSpace]="false">
+              <org-checkbox-toggle
+                name="reserve-false-toggle-1"
+                value="1"
+              >
+                Toggle 1 (no error)
+              </org-checkbox-toggle>
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="false" validationMessage="This field has an error">
+              <org-checkbox-toggle
+                name="reserve-false-toggle-2"
+                value="2"
+              >
+                Toggle 2 (with error)
+              </org-checkbox-toggle>
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="false">
+              <org-checkbox-toggle
+                name="reserve-false-toggle-3"
+                value="3"
+              >
+                Toggle 3 (no error)
+              </org-checkbox-toggle>
+            </org-form-field>
+          </div>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>reserveValidationSpace=true</strong>: Space is always reserved for validation messages (maintains consistent spacing between toggles)</li>
+          <li><strong>reserveValidationSpace=false</strong>: Space is only allocated when a validation message is present (toggles collapse together when no errors)</li>
+          <li>Notice how the left column maintains equal spacing between all toggles</li>
+          <li>Notice how the right column's toggles 1 and 3 are closer together since they have no error messages</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [CheckboxToggle, FormField, StorybookExampleContainer, StorybookExampleContainerSection],
     },
   }),
 };

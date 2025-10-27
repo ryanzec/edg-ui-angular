@@ -1,89 +1,89 @@
 :root {
   /* red chart colors */
-  --chart-red-500: theme('colors.red.500');
-  --chart-red-600: theme('colors.red.600');
+  --chart-red-500: var(--colors-red-500);
+  --chart-red-600: var(--colors-red-600);
 
   /* orange chart colors */
-  --chart-orange-500: theme('colors.orange.500');
-  --chart-orange-600: theme('colors.orange.600');
+  --chart-orange-500: var(--colors-orange-500);
+  --chart-orange-600: var(--colors-orange-600);
 
   /* amber chart colors */
-  --chart-amber-500: theme('colors.amber.500');
-  --chart-amber-600: theme('colors.amber.600');
+  --chart-amber-500: var(--colors-amber-500);
+  --chart-amber-600: var(--colors-amber-600);
 
   /* yellow chart colors */
-  --chart-yellow-500: theme('colors.yellow.500');
-  --chart-yellow-600: theme('colors.yellow.600');
+  --chart-yellow-500: var(--color-yellow-500);
+  --chart-yellow-600: var(--colors-yellow-600);
 
   /* lime chart colors */
-  --chart-lime-500: theme('colors.lime.500');
-  --chart-lime-600: theme('colors.lime.600');
+  --chart-lime-500: var(--colors-lime-500);
+  --chart-lime-600: var(--colors-lime-600);
 
   /* green chart colors */
-  --chart-green-500: theme('colors.green.500');
-  --chart-green-600: theme('colors.green.600');
+  --chart-green-500: var(--colors-green-500);
+  --chart-green-600: var(--colors-green-600);
 
   /* emerald chart colors */
-  --chart-emerald-500: theme('colors.emerald.500');
-  --chart-emerald-600: theme('colors.emerald.600');
+  --chart-emerald-500: var(--colors-emerald-500);
+  --chart-emerald-600: var(--colors-emerald-600);
 
   /* teal chart colors */
-  --chart-teal-500: theme('colors.teal.500');
-  --chart-teal-600: theme('colors.teal.600');
+  --chart-teal-500: var(--colors-teal-500);
+  --chart-teal-600: var(--colors-teal-600);
 
   /* cyan chart colors */
-  --chart-cyan-500: theme('colors.cyan.500');
-  --chart-cyan-600: theme('colors.cyan.600');
+  --chart-cyan-500: var(--colors-cyan-500);
+  --chart-cyan-600: var(--colors-cyan-600);
 
   /* sky chart colors */
-  --chart-sky-500: theme('colors.sky.500');
-  --chart-sky-600: theme('colors.sky.600');
+  --chart-sky-500: var(--colors-sky-500);
+  --chart-sky-600: var(--colors-sky-600);
 
   /* blue chart colors */
-  --chart-blue-500: theme('colors.blue.500');
-  --chart-blue-600: theme('colors.blue.600');
+  --chart-blue-500: var(--colors-blue-500);
+  --chart-blue-600: var(--colors-blue-600);
 
   /* indigo chart colors */
-  --chart-indigo-500: theme('colors.indigo.500');
-  --chart-indigo-600: theme('colors.indigo.600');
+  --chart-indigo-500: var(--colors-indigo-500);
+  --chart-indigo-600: var(--colors-indigo-600);
 
   /* violet chart colors */
-  --chart-violet-500: theme('colors.violet.500');
-  --chart-violet-600: theme('colors.violet.600');
+  --chart-violet-500: var(--colors-violet-500);
+  --chart-violet-600: var(--colors-violet-600);
 
   /* purple chart colors */
-  --chart-purple-500: theme('colors.purple.500');
-  --chart-purple-600: theme('colors.purple.600');
+  --chart-purple-500: var(--colors-purple-500);
+  --chart-purple-600: var(--colors-purple-600);
 
   /* fuchsia chart colors */
-  --chart-fuchsia-500: theme('colors.fuchsia.500');
-  --chart-fuchsia-600: theme('colors.fuchsia.600');
+  --chart-fuchsia-500: var(--colors-fuchsia-500);
+  --chart-fuchsia-600: var(--colors-fuchsia-600);
 
   /* pink chart colors */
-  --chart-pink-500: theme('colors.pink.500');
-  --chart-pink-600: theme('colors.pink.600');
+  --chart-pink-500: var(--colors-pink-500);
+  --chart-pink-600: var(--colors-pink-600);
 
   /* rose chart colors */
-  --chart-rose-500: theme('colors.rose.500');
-  --chart-rose-600: theme('colors.rose.600');
+  --chart-rose-500: var(--colors-rose-500);
+  --chart-rose-600: var(--colors-rose-600);
 
   /* gray chart colors */
-  --chart-gray-500: theme('colors.gray.500');
-  --chart-gray-600: theme('colors.gray.600');
+  --chart-gray-500: var(--colors-gray-500);
+  --chart-gray-600: var(--colors-gray-600);
 
   /* slate chart colors */
-  --chart-slate-500: theme('colors.slate.500');
-  --chart-slate-600: theme('colors.slate.600');
+  --chart-slate-500: var(--colors-slate-500);
+  --chart-slate-600: var(--colors-slate-600);
 
   /* zinc chart colors */
-  --chart-zinc-500: theme('colors.zinc.500');
-  --chart-zinc-600: theme('colors.zinc.600');
+  --chart-zinc-500: var(--colors-zinc-500);
+  --chart-zinc-600: var(--colors-zinc-600);
 
   /* neutral chart colors */
-  --chart-neutral-500: theme('colors.neutral.500');
-  --chart-neutral-600: theme('colors.neutral.600');
+  --chart-neutral-500: var(--colors-neutral-500);
+  --chart-neutral-600: var(--colors-neutral-600);
 
   /* stone chart colors */
-  --chart-stone-500: theme('colors.stone.500');
-  --chart-stone-600: theme('colors.stone.600');
+  --chart-stone-500: var(--colors-stone-500);
+  --chart-stone-600: var(--colors-stone-600);
 }

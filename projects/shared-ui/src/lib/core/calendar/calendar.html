@@ -2,7 +2,7 @@
   #calendarContainer
   [class]="
     mergeClasses(
-      'border rounded-md w-[266px]',
+      'border rounded-md w-[310px]',
       'border-calendar-border bg-calendar-bg focus:outline-none',
       containerClass()
     )
@@ -22,6 +22,22 @@
     (previousMonth)="handlePreviousMonth()"
     (nextMonth)="handleNextMonth()"
   />
+
+  @if (showPartialRangeSelectionType()) {
+    <div class="flex align-center justify-around p-2 border-b border-calendar-footer-border">
+      <org-radio-group
+        name="partial-range-selection-type"
+        [value]="partialRangeSelectionType()"
+        (valueChange)="handlePartialRangeSelectionTypeChange($event)"
+      >
+        <div class="flex flex-row gap-3">
+          <org-radio value="range">range</org-radio>
+          <org-radio value="onOrBefore">on or before</org-radio>
+          <org-radio value="onOrAfter">on or after</org-radio>
+        </div>
+      </org-radio-group>
+    </div>
+  }
 
   <org-calendar-dates
     [calendarDates]="calendarDates()"

@@ -15,8 +15,8 @@ export class Pagination implements OnInit {
   public defaultCurrentPage = input<number>(1);
   public defaultTotalItems = input<number>(0);
   public defaultItemsPerPage = input<number>(10);
-  public visiblePages = input<number>(7);
-  public itemsPerPageOptions = input<number[]>([5, 10, 20, 50]);
+  public defaultVisiblePages = input<number>(7);
+  public defaultItemsPerPageOptions = input<number[]>([5, 10, 20, 50]);
   public class = input<string>('');
   public disabled = input<boolean>(false);
 
@@ -33,6 +33,7 @@ export class Pagination implements OnInit {
   protected readonly hasNext = this._paginationStore.hasNext;
   protected readonly visiblePageItems = this._paginationStore.visiblePageItems;
   protected readonly resultText = this._paginationStore.resultText;
+  protected readonly itemsPerPageOptions = this._paginationStore.itemsPerPageOptions;
 
   protected mergeClasses = tailwindUtils.merge;
 
@@ -42,8 +43,8 @@ export class Pagination implements OnInit {
       defaultCurrentPage: this.defaultCurrentPage(),
       defaultTotalItems: this.defaultTotalItems(),
       defaultItemsPerPage: this.defaultItemsPerPage(),
-      visiblePages: this.visiblePages(),
-      itemsPerPageOptions: this.itemsPerPageOptions(),
+      visiblePages: this.defaultVisiblePages(),
+      itemsPerPageOptions: this.defaultItemsPerPageOptions(),
       disabled: this.disabled(),
     });
   }
@@ -69,18 +70,20 @@ export class Pagination implements OnInit {
   }
 
   public previousPage(): void {
-    const newPage = this._paginationStore.previousPage();
+    const currentPage = this.activePage();
+    const previousPage = this._paginationStore.previousPage();
 
-    if (newPage !== this.activePage()) {
-      this.pageChanged.emit(newPage);
+    if (previousPage !== currentPage) {
+      this.setCurrentPage(previousPage);
     }
   }
 
   public nextPage(): void {
-    const newPage = this._paginationStore.nextPage();
+    const currentPage = this.activePage();
+    const nextPage = this._paginationStore.nextPage();
 
-    if (newPage !== this.activePage()) {
-      this.pageChanged.emit(newPage);
+    if (nextPage !== currentPage) {
+      this.setCurrentPage(nextPage);
     }
   }
 

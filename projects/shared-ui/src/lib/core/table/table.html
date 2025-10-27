@@ -1,41 +1,47 @@
-<div
-  #scrollContainer
-  orgScrollArea
-  [scrollAreaEnabled]="isScrollNeeded()"
-  scrollAreaDirection="both"
-  [class]="
-    mergeClasses(
-      'relative block w-full h-full overflow-auto',
-      'border border-table-border rounded-md',
-      'bg-table-background',
-      containerClass()
-    )
-  "
->
-  <table [class]="mergeClasses('w-full border-collapse border-spacing-0', 'text-table-text', tableClass())">
-    @if (headerTemplate) {
-      <!-- we meed to use [style] as tailwind does not work with dynamic values -->
-      <thead
-        [class]="mergeClasses('', headerClass())"
-        [style]="{
-          '--ellipsis-lines': hasEllipsis() ? ellipsisAt() : null,
-        }"
-      >
-        <ng-container *ngTemplateOutlet="headerTemplate" />
-      </thead>
-    }
-    @if (bodyTemplate) {
-      <tbody [class]="mergeClasses('', bodyClass())">
-        @for (item of data(); track $index) {
-          <!-- we meed to use [style] as tailwind does not work with dynamic values -->
-          <ng-container
-            *ngTemplateOutlet="bodyTemplate; context: { $implicit: item }"
-            [style]="{
-              '--ellipsis-lines': hasEllipsis() ? ellipsisAt() : null,
-            }"
-          />
-        }
-      </tbody>
-    }
-  </table>
+<div class="relative">
+  <div
+    #scrollContainer
+    orgScrollArea
+    [scrollAreaEnabled]="isScrollNeeded()"
+    scrollAreaDirection="both"
+    [class]="
+      mergeClasses(
+        'relative block w-full h-full overflow-auto',
+        'border border-table-border rounded-md',
+        'bg-table-background',
+        containerClass()
+      )
+    "
+  >
+    <org-loading-blocker [isVisible]="isLoading()" text="Loading data..." />
+    <table [class]="mergeClasses('w-full border-collapse border-spacing-0', 'text-table-text', tableClass())">
+      @if (headerTemplate) {
+        <!-- we meed to use [style] as tailwind does not work with dynamic values -->
+        <thead
+          [class]="mergeClasses('', headerClass())"
+          [style]="{
+            '--ellipsis-lines': hasEllipsis() ? ellipsisAt() : null,
+          }"
+        >
+          <ng-container *ngTemplateOutlet="headerTemplate" />
+        </thead>
+      }
+      @if (bodyTemplate) {
+        <tbody [class]="mergeClasses('', bodyClass())">
+          @for (item of data(); track $index) {
+            <!-- we meed to use [style] as tailwind does not work with dynamic values -->
+            <ng-container
+              *ngTemplateOutlet="bodyTemplate; context: { $implicit: item }"
+              [style]="{
+                '--ellipsis-lines': hasEllipsis() ? ellipsisAt() : null,
+              }"
+            />
+          }
+        </tbody>
+      }
+    </table>
+  </div>
+  @if (isBackgroundLoading()) {
+    <org-loading-spinner class="absolute top-2 right-2 z-10" />
+  }
 </div>

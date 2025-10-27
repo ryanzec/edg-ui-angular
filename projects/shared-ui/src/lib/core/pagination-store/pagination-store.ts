@@ -26,6 +26,8 @@ export type PaginationConfig = {
 export class PaginationStore {
   private readonly _logManager = inject(LogManager);
 
+  private _hasInitialized = false;
+
   private readonly _state = signal<PaginationState>({
     currentPage: 1,
     totalItems: 0,
@@ -162,6 +164,12 @@ export class PaginationStore {
   });
 
   public initialize(config: Partial<PaginationConfig>): void {
+    if (this._hasInitialized) {
+      return;
+    }
+
+    this._hasInitialized = true;
+
     this._config.update((currentConfig) => ({ ...currentConfig, ...config }));
 
     const defaultItemsPerPage = this._config().defaultItemsPerPage;

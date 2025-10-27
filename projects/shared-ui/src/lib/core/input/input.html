@@ -7,13 +7,9 @@
         {
           'border rounded-md bg-input-background-default border-input-border-default': variant() === 'bordered',
           'focus-within:border-input-border-focused': variant() === 'bordered',
-          'border-input-border-error': variant() === 'bordered' && isInvalid() && !isFocused(),
-          'border-input-border-error focus-within:ring-1 focus-within:ring-input-ring-error':
-            variant() === 'bordered' && isInvalid() && isFocused(),
           'bg-input-background-disabled border-input-border-default cursor-not-allowed opacity-50':
             variant() === 'bordered' && isDisabled(),
           'border-0 bg-input-background-default': variant() === 'borderless',
-          'ring-input-ring-error': variant() === 'borderless' && isInvalid() && !isFocused(),
           'bg-input-background-disabled cursor-not-allowed opacity-50': variant() === 'borderless' && isDisabled(),
         },
         containerClass()
@@ -59,7 +55,8 @@
           {
             'cursor-not-allowed': isDisabled(),
             'cursor-default': isReadonly(),
-          }
+          },
+          inputClass()
         )
       "
       [type]="currentInputType()"
@@ -67,13 +64,15 @@
       [placeholder]="placeholder()"
       [disabled]="isDisabled()"
       [readonly]="isReadonly()"
-      [attr.aria-invalid]="isInvalid()"
-      [attr.aria-describedby]="hasValidationMessage() ? 'validation-message' : null"
       [attr.autofocus]="autoFocus() || null"
       [attr.autocomplete]="autocomplete() || null"
       (input)="handleInputChange($event)"
       (blur)="handleBlur()"
       [name]="name()"
+      [attr.id]="name()"
+      [attr.aria-describedby]="ariaDescribedBy()"
+      [attr.aria-invalid]="ariaInvalid()"
+      [attr.autocomplete]="autocomplete()"
     />
     @if (hasPostIcon()) {
       <button
@@ -101,18 +100,5 @@
         <org-icon [name]="currentPostIcon()!" size="base" />
       </button>
     }
-  </div>
-  <div
-    id="validation-message"
-    [class]="
-      mergeClasses('text-validation-error-text text-sm mt-1.5', {
-        visible: hasValidationMessage(),
-        invisible: !hasValidationMessage(),
-      })
-    "
-    role="alert"
-    aria-live="polite"
-  >
-    {{ validationMessage() || 'No validation message' }}
   </div>
 </div>

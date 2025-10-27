@@ -209,6 +209,7 @@ export type TestColor = Extract<ComponentSize, 'primary' | 'danger'>;
 While there are other patterns for child -> pattern communication, this is the generally recommended one as it provide a simplier implementation and leads to more re-usable components
 -->
 - ALWAYS communicate child internal state changes to parent components with an `output()` event unless EXPLICITLY told otherwise
+- ALWAYS prefix event handlers with `on*`
 
 You can NEVER use these patterns when work on Angular 20 components:
 - NEVER re-create functionality that is already available in angular CDK
@@ -245,5 +246,7 @@ Size inputs should always hava a default and that should also be assumed the def
 -->
 - NEVER pass in a value to a `size` input UNLESS EXPLICITLY asked to do so
 - NEVER use `(ngSubmit)` for form element UNLESS also using a reactive form
+- NEVER prefix event handlers with `handle*`
+- NEVER prefix event outputs with `on*`
 
 ALWAYS ASK ABOUT ACCESSIBILITY FEATURES IF NO GUIDE GIVEN ON IT OR GUIDE GIVEN IS INCOMPLETE

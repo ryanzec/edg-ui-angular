@@ -20,7 +20,6 @@ import { describe, it, expect, beforeEach, vi } from 'vitest';
       [selectAllOnFocus]="selectAllOnFocus"
       [autoFocus]="autoFocus"
       [showPasswordToggle]="showPasswordToggle"
-      [validationMessage]="validationMessage"
       (valueChange)="onValueChange($event)"
       (preIconClicked)="onPreIconClicked()"
       (postIconClicked)="onPostIconClicked()"
@@ -44,7 +43,6 @@ class TestHostComponent {
   public selectAllOnFocus = false;
   public autoFocus = false;
   public showPasswordToggle = false;
-  public validationMessage = '';
   public name = 'test-input';
   public onValueChange = vi.fn();
   public onPreIconClicked = vi.fn();
@@ -398,124 +396,6 @@ describe('Input', () => {
       fixture.detectChanges();
 
       expect(component.hasInlineItems()).toBe(true);
-    });
-  });
-
-  describe('Validation Messages', () => {
-    it('should render validation message element', () => {
-      const validationElement = fixture.debugElement.query(By.css('#validation-message'));
-      expect(validationElement).toBeTruthy();
-    });
-
-    it('should show validation message when provided', () => {
-      hostComponent.validationMessage = 'This field is required';
-      fixture.detectChanges();
-
-      const validationElement = fixture.debugElement.query(By.css('#validation-message'));
-      expect(validationElement.nativeElement.textContent.trim()).toBe('This field is required');
-    });
-
-    it('should hide validation message with invisible class when no message', () => {
-      hostComponent.validationMessage = '';
-      fixture.detectChanges();
-
-      const validationElement = fixture.debugElement.query(By.css('#validation-message'));
-      expect(validationElement.nativeElement.className).toContain('invisible');
-    });
-
-    it('should show validation message with visible class when message exists', () => {
-      hostComponent.validationMessage = 'Error message';
-      fixture.detectChanges();
-
-      const validationElement = fixture.debugElement.query(By.css('#validation-message'));
-      expect(validationElement.nativeElement.className).toContain('visible');
-      expect(validationElement.nativeElement.className).not.toContain('invisible');
-    });
-
-    it('should apply error styling to input when validation message exists', () => {
-      hostComponent.validationMessage = 'Error message';
-      fixture.detectChanges();
-
-      const container = fixture.debugElement.query(By.css('div'));
-      expect(container.nativeElement.className).toContain('border-input-border-error');
-    });
-
-    it('should set aria-invalid attribute when validation message exists', () => {
-      hostComponent.validationMessage = 'Error message';
-      fixture.detectChanges();
-
-      const inputElement = fixture.debugElement.query(By.css('input'));
-      expect(inputElement.nativeElement.getAttribute('aria-invalid')).toBe('true');
-    });
-
-    it('should set aria-describedby attribute when validation message exists', () => {
-      hostComponent.validationMessage = 'Error message';
-      fixture.detectChanges();
-
-      const inputElement = fixture.debugElement.query(By.css('input'));
-      expect(inputElement.nativeElement.getAttribute('aria-describedby')).toBe('validation-message');
-    });
-
-    it('should not set aria-describedby when no validation message', () => {
-      hostComponent.validationMessage = '';
-      fixture.detectChanges();
-
-      const inputElement = fixture.debugElement.query(By.css('input'));
-      expect(inputElement.nativeElement.getAttribute('aria-describedby')).toBeNull();
-    });
-
-    it('should maintain space for validation message even when empty', () => {
-      // Test that the validation message element is always present
-      hostComponent.validationMessage = '';
-      fixture.detectChanges();
-
-      const validationElement = fixture.debugElement.query(By.css('#validation-message'));
-      expect(validationElement).toBeTruthy();
-      expect(validationElement.nativeElement.textContent.trim()).toBe('No validation message');
-    });
-
-    it('should compute hasValidationMessage correctly', () => {
-      expect(component.hasValidationMessage()).toBe(false);
-
-      hostComponent.validationMessage = 'Error message';
-      fixture.detectChanges();
-
-      expect(component.hasValidationMessage()).toBe(true);
-
-      hostComponent.validationMessage = '   '; // whitespace only
-      fixture.detectChanges();
-
-      expect(component.hasValidationMessage()).toBe(false);
-    });
-
-    it('should compute isInvalid correctly', () => {
-      expect(component.isInvalid()).toBe(false);
-
-      hostComponent.validationMessage = 'Error message';
-      fixture.detectChanges();
-
-      expect(component.isInvalid()).toBe(true);
-    });
-
-    it('should apply different error styling for borderless variant', () => {
-      hostComponent.variant = 'borderless';
-      hostComponent.validationMessage = 'Error message';
-      fixture.detectChanges();
-
-      const container = fixture.debugElement.query(By.css('div'));
-      expect(container.nativeElement.className).toContain('bg-input-background-error');
-    });
-
-    it('should show red ring on focus when invalid', () => {
-      hostComponent.validationMessage = 'Error message';
-      fixture.detectChanges();
-
-      const inputElement = fixture.debugElement.query(By.css('input'));
-      inputElement.nativeElement.focus();
-      fixture.detectChanges();
-
-      const container = fixture.debugElement.query(By.css('div'));
-      expect(container.nativeElement.className).toContain('ring-input-ring-error');
     });
   });
 });

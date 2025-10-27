@@ -5,6 +5,9 @@ import { StorybookExampleContainer } from '../../private/storybook-example-conta
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 import { Component, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Label } from '../label/label';
+import { FormFields } from '../form-fields/form-fields';
+import { FormField } from '../form-field/form-field';
 
 const meta: Meta<Radio> = {
   title: 'Core/Components/Radio',
@@ -40,19 +43,28 @@ const meta: Meta<Radio> = {
   \`\`\`html
   <!-- Recommended: With reactive forms using RadioGroup -->
   <form [formGroup]="myForm">
-    <org-radio-group formControlName="preference" name="preference">
-      <org-radio value="option1">Option 1</org-radio>
-      <org-radio value="option2">Option 2</org-radio>
-      <org-radio value="option3">Option 3</org-radio>
-    </org-radio-group>
+    <org-form-fields>
+      <org-form-field>
+      <org-label [asLabel]="false" [label]="'Notifications'" />
+        <org-radio-group formControlName="preference" name="preference">
+          <org-radio value="option1">Option 1</org-radio>
+          <org-radio value="option2">Option 2</org-radio>
+          <org-radio value="option3">Option 3</org-radio>
+        </org-radio-group>
+      </org-form-field>
+    </org-form-fields>
   </form>
 
   <!-- Different sizes -->
-  <org-radio-group formControlName="size" name="size">
-    <org-radio value="small" size="sm">Small radio</org-radio>
-    <org-radio value="base" size="base">Base radio</org-radio>
-    <org-radio value="large" size="lg">Large radio</org-radio>
-  </org-radio-group>
+  <org-form-fields>
+    <org-form-field>
+      <org-radio-group formControlName="size" name="size">
+        <org-radio value="small" size="sm">Small radio</org-radio>
+        <org-radio value="base" size="base">Base radio</org-radio>
+        <org-radio value="large" size="lg">Large radio</org-radio>
+      </org-radio-group>
+    </org-form-field>
+  </org-form-fields>
 
   <!-- Standalone usage (for display purposes) -->
   <org-radio value="option1">Standalone radio</org-radio>
@@ -252,12 +264,17 @@ export const GroupedRadios: Story = {
     >
       <org-storybook-example-container-section label="Radio Group in Form">
         <form [formGroup]="radioForm">
-          <org-radio-group formControlName="preference" name="preference">
-            <org-radio value="email">Email notifications</org-radio>
-            <org-radio value="sms">SMS notifications</org-radio>
-            <org-radio value="push">Push notifications</org-radio>
-            <org-radio value="none">No notifications</org-radio>
-          </org-radio-group>
+          <org-form-fields>
+            <org-form-field>
+              <org-label [asLabel]="false" [label]="'Notifications'" />
+              <org-radio-group formControlName="preference" name="preference">
+                <org-radio value="email">Email notifications</org-radio>
+                <org-radio value="sms">SMS notifications</org-radio>
+                <org-radio value="push">Push notifications</org-radio>
+                <org-radio value="none">No notifications</org-radio>
+              </org-radio-group>
+            </org-form-field>
+          </org-form-fields>
         </form>
       </org-storybook-example-container-section>
 
@@ -270,7 +287,16 @@ export const GroupedRadios: Story = {
       </ul>
     </org-storybook-example-container>
   `,
-  imports: [Radio, RadioGroup, StorybookExampleContainer, StorybookExampleContainerSection, ReactiveFormsModule],
+  imports: [
+    Radio,
+    Label,
+    FormFields,
+    FormField,
+    RadioGroup,
+    StorybookExampleContainer,
+    StorybookExampleContainerSection,
+    ReactiveFormsModule,
+  ],
 })
 class RadioReactiveFormStory {
   public radioForm = new FormGroup({
@@ -311,21 +337,24 @@ export const ReactiveFormIntegration: Story = {
       [currentState]="'Shipping: ' + multiForm.value.shipping + ', Payment: ' + multiForm.value.payment"
     >
       <form [formGroup]="multiForm">
-        <org-storybook-example-container-section label="Shipping Method">
-          <org-radio-group formControlName="shipping" name="shipping">
-            <org-radio value="standard">Standard (5-7 business days)</org-radio>
-            <org-radio value="express">Express (2-3 business days)</org-radio>
-            <org-radio value="overnight">Overnight (next business day)</org-radio>
-          </org-radio-group>
-        </org-storybook-example-container-section>
-
-        <org-storybook-example-container-section label="Payment Method">
-          <org-radio-group formControlName="payment" name="payment">
-            <org-radio value="credit">Credit Card</org-radio>
-            <org-radio value="debit">Debit Card</org-radio>
-            <org-radio value="paypal">PayPal</org-radio>
-          </org-radio-group>
-        </org-storybook-example-container-section>
+        <org-form-fields>
+          <org-form-field>
+            <org-label [asLabel]="false" [label]="'Shipping Method'" />
+            <org-radio-group formControlName="shipping" name="shipping">
+              <org-radio value="standard">Standard (5-7 business days)</org-radio>
+              <org-radio value="express">Express (2-3 business days)</org-radio>
+              <org-radio value="overnight">Overnight (next business day)</org-radio>
+            </org-radio-group>
+          </org-form-field>
+          <org-form-field>
+            <org-label [asLabel]="false" [label]="'Payment Method'" />
+            <org-radio-group formControlName="payment" name="payment">
+              <org-radio value="credit">Credit Card</org-radio>
+              <org-radio value="debit">Debit Card</org-radio>
+              <org-radio value="paypal">PayPal</org-radio>
+            </org-radio-group>
+          </org-form-field>
+        </org-form-fields>
       </form>
 
       <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -336,7 +365,16 @@ export const ReactiveFormIntegration: Story = {
       </ul>
     </org-storybook-example-container>
   `,
-  imports: [Radio, RadioGroup, StorybookExampleContainer, StorybookExampleContainerSection, ReactiveFormsModule],
+  imports: [
+    Radio,
+    Label,
+    FormFields,
+    FormField,
+    RadioGroup,
+    StorybookExampleContainer,
+    StorybookExampleContainerSection,
+    ReactiveFormsModule,
+  ],
 })
 class RadioMultipleGroupsStory {
   public multiForm = new FormGroup({
@@ -371,24 +409,26 @@ export const MultipleGroups: Story = {
       "
     >
       <form [formGroup]="validationForm">
-        <org-storybook-example-container-section label="Radio Group with Validation Error">
-          <org-radio-group
-            formControlName="option"
-            name="option"
-            validationMessage="Please select an option to continue"
-          >
-            <org-radio value="option1">Option 1</org-radio>
-            <org-radio value="option2">Option 2</org-radio>
-            <org-radio value="option3">Option 3</org-radio>
-          </org-radio-group>
-        </org-storybook-example-container-section>
+        <org-form-fields>
+          <org-form-field validationMessage="Please select an option to continue">
+            <org-label [asLabel]="false" [label]="'Radio Group with Validation Error'" />
+            <org-radio-group formControlName="option" name="option">
+              <org-radio value="option1">Option 1</org-radio>
+              <org-radio value="option2">Option 2</org-radio>
+              <org-radio value="option3">Option 3</org-radio>
+            </org-radio-group>
+          </org-form-field>
+        </org-form-fields>
 
-        <org-storybook-example-container-section label="Radio Group without Validation Error">
-          <org-radio-group formControlName="valid" name="valid">
-            <org-radio value="yes">Yes</org-radio>
-            <org-radio value="no">No</org-radio>
-          </org-radio-group>
-        </org-storybook-example-container-section>
+        <org-form-fields>
+          <org-form-field>
+            <org-label [asLabel]="false" [label]="'Radio Group with Validation Error'" />
+            <org-radio-group formControlName="valid" name="valid">
+              <org-radio value="yes">Yes</org-radio>
+              <org-radio value="no">No</org-radio>
+            </org-radio-group>
+          </org-form-field>
+        </org-form-fields>
       </form>
 
       <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
@@ -400,7 +440,16 @@ export const MultipleGroups: Story = {
       </ul>
     </org-storybook-example-container>
   `,
-  imports: [Radio, RadioGroup, StorybookExampleContainer, StorybookExampleContainerSection, ReactiveFormsModule],
+  imports: [
+    Radio,
+    RadioGroup,
+    Label,
+    FormFields,
+    FormField,
+    StorybookExampleContainer,
+    StorybookExampleContainerSection,
+    ReactiveFormsModule,
+  ],
 })
 class RadioValidationStory {
   public validationForm = new FormGroup({
@@ -422,6 +471,81 @@ export const Validation: Story = {
     template: `<org-radio-validation-story />`,
     moduleMetadata: {
       imports: [RadioValidationStory],
+    },
+  }),
+};
+
+export const ValidationSpaceReservation: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Comparison of validation space reservation behavior. When reserveValidationSpace is true, space is always reserved for validation messages to maintain consistent layout. When false, space is only used when a validation message is present.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Validation Space Reservation"
+        currentState="Comparing space reservation behaviors"
+      >
+        <org-storybook-example-container-section label="Reserve Space = true (default)">
+          <div class="space-y-4">
+            <org-form-field [reserveValidationSpace]="true">
+              <org-radio-group name="reserve-true-group-1">
+                <org-radio value="option1">Option 1 (no error)</org-radio>
+                <org-radio value="option2">Option 2 (no error)</org-radio>
+              </org-radio-group>
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="true" validationMessage="This field has an error">
+              <org-radio-group name="reserve-true-group-2">
+                <org-radio value="option1">Option 1 (with error)</org-radio>
+                <org-radio value="option2">Option 2 (with error)</org-radio>
+              </org-radio-group>
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="true">
+              <org-radio-group name="reserve-true-group-3">
+                <org-radio value="option1">Option 1 (no error)</org-radio>
+                <org-radio value="option2">Option 2 (no error)</org-radio>
+              </org-radio-group>
+            </org-form-field>
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Reserve Space = false">
+          <div class="space-y-4">
+            <org-form-field [reserveValidationSpace]="false">
+              <org-radio-group name="reserve-false-group-1">
+                <org-radio value="option1">Option 1 (no error)</org-radio>
+                <org-radio value="option2">Option 2 (no error)</org-radio>
+              </org-radio-group>
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="false" validationMessage="This field has an error">
+              <org-radio-group name="reserve-false-group-2">
+                <org-radio value="option1">Option 1 (with error)</org-radio>
+                <org-radio value="option2">Option 2 (with error)</org-radio>
+              </org-radio-group>
+            </org-form-field>
+            <org-form-field [reserveValidationSpace]="false">
+              <org-radio-group name="reserve-false-group-3">
+                <org-radio value="option1">Option 1 (no error)</org-radio>
+                <org-radio value="option2">Option 2 (no error)</org-radio>
+              </org-radio-group>
+            </org-form-field>
+          </div>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <li><strong>reserveValidationSpace=true</strong>: Space is always reserved for validation messages (maintains consistent spacing between radio groups)</li>
+          <li><strong>reserveValidationSpace=false</strong>: Space is only allocated when a validation message is present (radio groups collapse together when no errors)</li>
+          <li>Notice how the left column maintains equal spacing between all radio groups</li>
+          <li>Notice how the right column's radio groups 1 and 3 are closer together since they have no error messages</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [Radio, RadioGroup, FormField, StorybookExampleContainer, StorybookExampleContainerSection],
     },
   }),
 };

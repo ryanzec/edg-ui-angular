@@ -5,7 +5,6 @@
       [value]="displayValue()"
       [placeholder]="placeholder()"
       [autoFocus]="autoFocus()"
-      [validationMessage]="validationMessage()"
       [disabled]="isDisabled()"
       [readonly]="true"
       preIcon="calendar"
@@ -21,7 +20,7 @@
     cdkConnectedOverlay
     [cdkConnectedOverlayOrigin]="trigger"
     [cdkConnectedOverlayOpen]="isOverlayOpen()"
-    [cdkConnectedOverlayPositions]="overlayPositions"
+    [cdkConnectedOverlayPositions]="overlayPositions()"
     [cdkConnectedOverlayHasBackdrop]="true"
     [cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'"
     [cdkConnectedOverlayPanelClass]="'org-date-picker-input-overlay'"
@@ -37,10 +36,13 @@
       [selectedStartDate]="currentSelectedStartDate()"
       [selectedEndDate]="currentSelectedEndDate()"
       [allowRangeSelection]="allowRangeSelection()"
+      [allowPartialRangeSelection]="allowPartialRangeSelection()"
+      [partialRangeSelectionType]="partialRangeSelectionType()"
       [disableBefore]="disableBefore()"
       [disableAfter]="disableAfter()"
       [allowedDateRange]="allowedDateRange()"
       (dateSelected)="handleDateSelected($event)"
+      (partialRangeSelectionTypeChange)="handlePartialRangeSelectionTypeChange($event)"
     />
   </ng-template>
 </div>

@@ -1,0 +1,18 @@
+<div [class]="mergeClasses('flex flex-col gap-0.5', containerClass())">
+  <ng-content />
+  @if (finalReserveValidationSpace() || hasValidationMessage()) {
+    <div
+      id="validation-message"
+      [class]="
+        mergeClasses('text-validation-error-text text-sm mt-1', {
+          visible: hasValidationMessage(),
+          invisible: !hasValidationMessage(),
+        })
+      "
+      role="alert"
+      aria-live="polite"
+    >
+      {{ validationMessage() || 'No validation message' }}
+    </div>
+  }
+</div>

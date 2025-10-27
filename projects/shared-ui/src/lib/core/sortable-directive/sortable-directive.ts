@@ -9,7 +9,6 @@ import {
   ComponentRef,
   computed,
   EnvironmentInjector,
-  afterNextRender,
   OnDestroy,
 } from '@angular/core';
 import { Icon, IconName } from '../icon/icon';
@@ -17,15 +16,20 @@ import { SortingStore } from '../sorting-store/sorting-store';
 
 export const SORTABLE_SELECTABLE_DEFAULT = '';
 
+/**
+ * default value for sortableEnabled input
+ */
+export const SORTABLE_ENABLED_DEFAULT = true;
+
 @Directive({
   selector: '[orgSortable]',
   host: {
     '(click)': '_handleClick()',
-    '[class.cursor-pointer]': 'true',
-    '[class.select-none]': 'true',
-    '[class.flex]': 'true',
-    '[class.gap-1]': 'true',
-    '[class.items-center]': 'true',
+    '[class.cursor-pointer]': '_hostClassEnabled()',
+    '[class.select-none]': '_hostClassEnabled()',
+    '[class.flex]': '_hostClassEnabled()',
+    '[class.gap-1]': '_hostClassEnabled()',
+    '[class.items-center]': '_hostClassEnabled()',
   },
 })
 export class SortableDirective implements OnDestroy {
@@ -37,6 +41,13 @@ export class SortableDirective implements OnDestroy {
   private _iconComponentRef: ComponentRef<Icon> | null = null;
 
   public orgSortable = input.required<string>();
+
+  /**
+   * controls whether sorting functionality is enabled
+   */
+  public sortableEnabled = input<boolean>(SORTABLE_ENABLED_DEFAULT);
+
+  protected readonly _hostClassEnabled = computed<boolean>(() => this.sortableEnabled());
 
   private readonly _isActivelySorting = computed<boolean>(() => {
     const key = this._sortingStore.key();
@@ -63,18 +74,17 @@ export class SortableDirective implements OnDestroy {
       this._updateIcon(this._iconName(), this._isActivelySorting());
     });
 
-    afterNextRender(() => {
-      // create and inject the icon component
-      this._iconComponentRef = createComponent(Icon, {
-        environmentInjector: this._environmentInjector,
-      });
+    // handle dynamic enable/disable of sorting functionality
+    effect(() => {
+      const enabled = this.sortableEnabled();
 
-      const iconElement = this._iconComponentRef.location.nativeElement;
-      const hostElement = this._elementRef.nativeElement;
+      if (enabled) {
+        this._createIcon();
+      }
 
-      this._renderer.appendChild(hostElement, iconElement);
-
-      this._updateIcon(this._iconName(), this._isActivelySorting());
+      if (!enabled) {
+        this._destroyIcon();
+      }
     });
   }
 
@@ -83,6 +93,12 @@ export class SortableDirective implements OnDestroy {
   }
 
   public _handleClick(): void {
+    const enabled = this.sortableEnabled();
+
+    if (!enabled) {
+      return;
+    }
+
     const selectableValue = this.orgSortable();
 
     if (!selectableValue) {
@@ -103,10 +119,43 @@ export class SortableDirective implements OnDestroy {
 
     if (isActivelySorting) {
       this._renderer.removeClass(iconElement, 'text-text-subtle');
-    } else {
+    }
+
+    if (!isActivelySorting) {
       this._renderer.addClass(iconElement, 'text-text-subtle');
     }
 
     this._iconComponentRef.changeDetectorRef.detectChanges();
+  }
+
+  private _createIcon(): void {
+    // don't create if already exists
+    if (this._iconComponentRef) {
+      return;
+    }
+
+    this._iconComponentRef = createComponent(Icon, {
+      environmentInjector: this._environmentInjector,
+    });
+
+    const iconElement = this._iconComponentRef.location.nativeElement;
+    const hostElement = this._elementRef.nativeElement;
+
+    this._renderer.appendChild(hostElement, iconElement);
+
+    this._updateIcon(this._iconName(), this._isActivelySorting());
+  }
+
+  private _destroyIcon(): void {
+    if (!this._iconComponentRef) {
+      return;
+    }
+
+    const iconElement = this._iconComponentRef.location.nativeElement;
+    const hostElement = this._elementRef.nativeElement;
+
+    this._renderer.removeChild(hostElement, iconElement);
+    this._iconComponentRef.destroy();
+    this._iconComponentRef = null;
   }
 }

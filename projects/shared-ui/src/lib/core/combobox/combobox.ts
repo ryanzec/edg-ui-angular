@@ -95,11 +95,11 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
   public allowNewOptions = input<boolean>(false);
   public isMultiSelect = input<boolean>(false);
   public optionFilter = input<((inputValue: string, option: ComboboxOption) => boolean) | null>(null);
+  public filterSelectedOptions = input<boolean>(false);
   public placeholder = input<string>('Select...');
   public isGroupingEnabled = input<boolean>(false);
   public options = input<ComboboxOptionInput[]>([]);
   public disabled = input<boolean>(false);
-  public validationMessage = input<string | null>(null);
   public containerClass = input<string>('');
   public name = input.required<string>();
 
@@ -124,7 +124,6 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
   public readonly selectedOptions = computed<ComboboxOption[]>(() => this._store.selectedOptions());
   public readonly focusedOption = computed<ComboboxOption | null>(() => this._store.focusedOption());
   public readonly inputValue = computed<string>(() => this._store.inputValue());
-  public readonly hasValidationMessage = computed<boolean>(() => !!this.validationMessage()?.trim());
   public readonly hasFilteredOptions = computed<boolean>(() => this.filteredOptions().length > 0);
   public readonly isDisabled = computed<boolean>(() => this.disabled());
 
@@ -164,24 +163,24 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
   /**
    * overlay position configurations
    */
-  public readonly overlayPositions = [
-    {
-      originX: 'start' as const,
-      originY: 'bottom' as const,
-      overlayX: 'start' as const,
-      overlayY: 'top' as const,
-      // this need to account for the spacing that is reserved for the validation message so it is negative to
-      // bring it up instead or positive to bring it down
-      offsetY: -20,
-    },
-    {
-      originX: 'start' as const,
-      originY: 'top' as const,
-      overlayX: 'start' as const,
-      overlayY: 'bottom' as const,
-      offsetY: -4,
-    },
-  ];
+  public readonly overlayPositions = computed(() => {
+    return [
+      {
+        originX: 'start' as const,
+        originY: 'bottom' as const,
+        overlayX: 'start' as const,
+        overlayY: 'top' as const,
+        offsetY: 4,
+      },
+      {
+        originX: 'start' as const,
+        originY: 'top' as const,
+        overlayX: 'start' as const,
+        overlayY: 'bottom' as const,
+        offsetY: -4,
+      },
+    ];
+  });
 
   constructor() {
     // initialize store (use untracked to avoid triggering effects during init)
@@ -191,6 +190,7 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
         allowNewOptions: this.allowNewOptions(),
         optionFilter: this.optionFilter(),
         isGroupingEnabled: this.isGroupingEnabled(),
+        filterSelectedOptions: this.filterSelectedOptions(),
       });
     });
 
@@ -209,6 +209,7 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
         allowNewOptions: this.allowNewOptions(),
         optionFilter: this.optionFilter(),
         isGroupingEnabled: this.isGroupingEnabled(),
+        filterSelectedOptions: this.filterSelectedOptions(),
       };
       untracked(() => {
         this._store.setConfig(config);

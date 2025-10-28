@@ -1,0 +1,16 @@
+<org-input
+  [variant]="variant()"
+  [placeholder]="placeholder()"
+  [value]="formattedValue()"
+  [disabled]="disabled()"
+  [readonly]="readonly()"
+  [containerClass]="containerClass()"
+  [name]="name()"
+  [selectAllOnFocus]="selectAllOnFocus()"
+  [autoFocus]="autoFocus()"
+  type="text"
+  (keydown)="handleKeyDown($event)"
+  (focused)="handleFocus()"
+  (blurred)="handleBlur()"
+  (click)="handleClick()"
+/>

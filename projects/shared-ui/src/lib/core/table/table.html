@@ -16,26 +16,14 @@
     <org-loading-blocker [isVisible]="isLoading()" text="Loading data..." />
     <table [class]="mergeClasses('w-full border-collapse border-spacing-0', 'text-table-text', tableClass())">
       @if (headerTemplate) {
-        <!-- we meed to use [style] as tailwind does not work with dynamic values -->
-        <thead
-          [class]="mergeClasses('', headerClass())"
-          [style]="{
-            '--ellipsis-lines': hasEllipsis() ? ellipsisAt() : null,
-          }"
-        >
+        <thead [class]="mergeClasses('', headerClass())">
           <ng-container *ngTemplateOutlet="headerTemplate" />
         </thead>
       }
       @if (bodyTemplate) {
         <tbody [class]="mergeClasses('', bodyClass())">
           @for (item of data(); track $index) {
-            <!-- we meed to use [style] as tailwind does not work with dynamic values -->
-            <ng-container
-              *ngTemplateOutlet="bodyTemplate; context: { $implicit: item }"
-              [style]="{
-                '--ellipsis-lines': hasEllipsis() ? ellipsisAt() : null,
-              }"
-            />
+            <ng-container *ngTemplateOutlet="bodyTemplate; context: { $implicit: item }" />
           }
         </tbody>
       }

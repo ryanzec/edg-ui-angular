@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { Component, ChangeDetectionStrategy, signal, inject, InjectionToken, computed } from '@angular/core';
 import { Table } from './table';
+import { TableRow } from './table-row';
+import { TableHeader } from './table-header';
+import { TableCell } from './table-cell';
 import { StorybookExampleContainer } from '../../private/storybook-example-container/storybook-example-container';
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 import { SortableDirective } from '../sortable-directive/sortable-directive';
@@ -72,40 +75,24 @@ const USER_SELECTION_STORE_TOKEN = new InjectionToken<DataSelectionStore<User>>(
 @Component({
   selector: 'org-basic-table-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Table],
+  imports: [Table, TableRow, TableHeader, TableCell],
   template: `
     <org-table [data]="users" containerClass="h-[400px]">
       <ng-template #header>
-        <tr>
-          <th
-            class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-          >
-            Name
-          </th>
-          <th
-            class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-          >
-            Email
-          </th>
-          <th
-            class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-          >
-            Organization ID
-          </th>
-          <th
-            class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-          >
-            Roles
-          </th>
-        </tr>
+        <org-table-tr variant="header" [isSticky]="true">
+          <org-table-th>Name</org-table-th>
+          <org-table-th>Email</org-table-th>
+          <org-table-th>Organization ID</org-table-th>
+          <org-table-th>Roles</org-table-th>
+        </org-table-tr>
       </ng-template>
       <ng-template #body let-user>
-        <tr class="border-b border-table-row-border last:border-b-0 hover:bg-table-row-hover">
-          <td class="px-4 py-3 text-sm text-table-text">{{ user.name }}</td>
-          <td class="px-4 py-3 text-sm text-table-text">{{ user.email }}</td>
-          <td class="px-4 py-3 text-sm text-table-text">{{ user.organizationId }}</td>
-          <td class="px-4 py-3 text-sm text-table-text">{{ user.roles }}</td>
-        </tr>
+        <org-table-tr>
+          <org-table-td>{{ user.name }}</org-table-td>
+          <org-table-td>{{ user.email }}</org-table-td>
+          <org-table-td>{{ user.organizationId }}</org-table-td>
+          <org-table-td>{{ user.roles }}</org-table-td>
+        </org-table-tr>
       </ng-template>
     </org-table>
   `,
@@ -117,7 +104,7 @@ class BasicTableDemo {
 @Component({
   selector: 'org-sortable-table-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Table, SortableDirective],
+  imports: [Table, TableRow, TableHeader, TableCell, SortableDirective],
   providers: [SortingStore],
   template: `
     <div class="flex flex-col gap-4">
@@ -129,36 +116,26 @@ class BasicTableDemo {
       </div>
       <org-table [data]="sortedUsers()" containerClass="h-[400px]">
         <ng-template #header>
-          <tr>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
+          <org-table-tr variant="header" [isSticky]="true">
+            <org-table-th>
               <div [orgSortable]="'name'">Name</div>
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
+            </org-table-th>
+            <org-table-th>
               <div [orgSortable]="'email'">Email</div>
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
+            </org-table-th>
+            <org-table-th>
               <div [orgSortable]="'organizationId'">Organization ID</div>
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Roles
-            </th>
-          </tr>
+            </org-table-th>
+            <org-table-th>Roles</org-table-th>
+          </org-table-tr>
         </ng-template>
         <ng-template #body let-user>
-          <tr class="border-b border-table-row-border last:border-b-0 hover:bg-table-row-hover">
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.name }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.email }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.organizationId }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.roles }}</td>
-          </tr>
+          <org-table-tr>
+            <org-table-td>{{ user.name }}</org-table-td>
+            <org-table-td>{{ user.email }}</org-table-td>
+            <org-table-td>{{ user.organizationId }}</org-table-td>
+            <org-table-td>{{ user.roles }}</org-table-td>
+          </org-table-tr>
         </ng-template>
       </org-table>
     </div>
@@ -197,42 +174,26 @@ class SortableTableDemo {
 @Component({
   selector: 'org-paginated-table-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Table, Pagination],
+  imports: [Table, TableRow, TableHeader, TableCell, Pagination],
   providers: [PaginationStore],
   template: `
     <div class="flex flex-col gap-4">
       <org-table [data]="paginatedUsers()" containerClass="h-[400px]">
         <ng-template #header>
-          <tr>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Name
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Email
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Organization ID
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Roles
-            </th>
-          </tr>
+          <org-table-tr variant="header" [isSticky]="true">
+            <org-table-th>Name</org-table-th>
+            <org-table-th>Email</org-table-th>
+            <org-table-th>Organization ID</org-table-th>
+            <org-table-th>Roles</org-table-th>
+          </org-table-tr>
         </ng-template>
         <ng-template #body let-user>
-          <tr class="border-b border-table-row-border last:border-b-0 hover:bg-table-row-hover">
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.name }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.email }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.organizationId }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.roles }}</td>
-          </tr>
+          <org-table-tr>
+            <org-table-td>{{ user.name }}</org-table-td>
+            <org-table-td>{{ user.email }}</org-table-td>
+            <org-table-td>{{ user.organizationId }}</org-table-td>
+            <org-table-td>{{ user.roles }}</org-table-td>
+          </org-table-tr>
         </ng-template>
       </org-table>
       <org-pagination
@@ -270,7 +231,7 @@ class PaginatedTableDemo {
 @Component({
   selector: 'org-selection-table-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Table, Checkbox, Pagination, FormField],
+  imports: [Table, TableRow, TableHeader, TableCell, Checkbox, Pagination, FormField],
   providers: [
     {
       provide: USER_SELECTION_STORE_TOKEN,
@@ -283,10 +244,8 @@ class PaginatedTableDemo {
       <div class="text-sm"><strong>Selected:</strong> {{ selectionStore.selectedCount() }} user(s)</div>
       <org-table [data]="paginatedUsers()" containerClass="h-[400px]">
         <ng-template #header>
-          <tr>
-            <th
-              class="w-[50px] px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
+          <org-table-tr variant="header" [isSticky]="true">
+            <org-table-th containerClass="w-[50px]">
               <org-form-field [reserveValidationSpace]="false">
                 <org-checkbox
                   name="select-all"
@@ -296,32 +255,16 @@ class PaginatedTableDemo {
                   (checkedChange)="selectionStore.setMultiple(paginatedUsers(), $event)"
                 />
               </org-form-field>
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Name
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Email
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Organization ID
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Roles
-            </th>
-          </tr>
+            </org-table-th>
+            <org-table-th>Name</org-table-th>
+            <org-table-th>Email</org-table-th>
+            <org-table-th>Organization ID</org-table-th>
+            <org-table-th>Roles</org-table-th>
+          </org-table-tr>
         </ng-template>
         <ng-template #body let-user>
-          <tr class="border-b border-table-row-border last:border-b-0 hover:bg-table-row-hover">
-            <td class="px-4 py-3 text-sm text-table-text">
+          <org-table-tr>
+            <org-table-td>
               <org-form-field [reserveValidationSpace]="false">
                 <org-checkbox
                   [name]="'select-' + user.id"
@@ -330,12 +273,12 @@ class PaginatedTableDemo {
                   (checkedChange)="selectionStore.set(user, $event)"
                 />
               </org-form-field>
-            </td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.name }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.email }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.organizationId }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.roles }}</td>
-          </tr>
+            </org-table-td>
+            <org-table-td>{{ user.name }}</org-table-td>
+            <org-table-td>{{ user.email }}</org-table-td>
+            <org-table-td>{{ user.organizationId }}</org-table-td>
+            <org-table-td>{{ user.roles }}</org-table-td>
+          </org-table-tr>
         </ng-template>
       </org-table>
       <org-pagination
@@ -377,7 +320,7 @@ class SelectionTableDemo {
 @Component({
   selector: 'org-full-featured-table-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Table, Checkbox, SortableDirective, Pagination, FormField],
+  imports: [Table, TableRow, TableHeader, TableCell, Checkbox, SortableDirective, Pagination, FormField],
   providers: [
     {
       provide: USER_SELECTION_STORE_TOKEN,
@@ -399,10 +342,8 @@ class SelectionTableDemo {
       </div>
       <org-table [data]="displayUsers()" containerClass="h-[400px]">
         <ng-template #header>
-          <tr>
-            <th
-              class="w-[50px] px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
+          <org-table-tr variant="header" [isSticky]="true">
+            <org-table-th containerClass="w-[50px]">
               <org-form-field [reserveValidationSpace]="false">
                 <org-checkbox
                   name="select-all"
@@ -412,32 +353,22 @@ class SelectionTableDemo {
                   (checkedChange)="selectionStore.setMultiple(displayUsers(), $event)"
                 />
               </org-form-field>
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
+            </org-table-th>
+            <org-table-th>
               <div [orgSortable]="'name'">Name</div>
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
+            </org-table-th>
+            <org-table-th>
               <div [orgSortable]="'email'">Email</div>
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
+            </org-table-th>
+            <org-table-th>
               <div [orgSortable]="'organizationId'">Organization ID</div>
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Roles
-            </th>
-          </tr>
+            </org-table-th>
+            <org-table-th>Roles</org-table-th>
+          </org-table-tr>
         </ng-template>
         <ng-template #body let-user>
-          <tr class="border-b border-table-row-border last:border-b-0 hover:bg-table-row-hover">
-            <td class="px-4 py-3 text-sm text-table-text">
+          <org-table-tr>
+            <org-table-td>
               <org-form-field [reserveValidationSpace]="false">
                 <org-checkbox
                   [name]="'select-' + user.id"
@@ -446,12 +377,12 @@ class SelectionTableDemo {
                   (checkedChange)="selectionStore.set(user, $event)"
                 />
               </org-form-field>
-            </td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.name }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.email }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.organizationId }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.roles }}</td>
-          </tr>
+            </org-table-td>
+            <org-table-td>{{ user.name }}</org-table-td>
+            <org-table-td>{{ user.email }}</org-table-td>
+            <org-table-td>{{ user.organizationId }}</org-table-td>
+            <org-table-td>{{ user.roles }}</org-table-td>
+          </org-table-tr>
         </ng-template>
       </org-table>
       <org-pagination
@@ -520,36 +451,24 @@ class FullFeaturedTableDemo {
 @Component({
   selector: 'org-ellipsis-table-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Table],
+  imports: [Table, TableRow, TableHeader, TableCell],
   template: `
     <div class="flex flex-col gap-4">
       <div class="text-sm">This table shows ellipsis for content that exceeds 2 lines in cells.</div>
-      <org-table [data]="users" [ellipsisAt]="2" containerClass="h-[400px]">
+      <org-table [data]="users" containerClass="h-[400px]">
         <ng-template #header>
-          <tr>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Name
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Email
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Long Description
-            </th>
-          </tr>
+          <org-table-tr variant="header" [isSticky]="true">
+            <org-table-th>Name</org-table-th>
+            <org-table-th>Email</org-table-th>
+            <org-table-th>Long Description</org-table-th>
+          </org-table-tr>
         </ng-template>
         <ng-template #body let-user>
-          <tr class="border-b border-table-row-border last:border-b-0 hover:bg-table-row-hover">
-            <td class="px-4 py-3 text-sm text-table-text org-table-ellipsis">{{ user.name }}</td>
-            <td class="px-4 py-3 text-sm text-table-text org-table-ellipsis">{{ user.email }}</td>
-            <td class="px-4 py-3 text-sm text-table-text org-table-ellipsis">{{ user.description }}</td>
-          </tr>
+          <org-table-tr>
+            <org-table-td [useEllipsis]="true" [ellipsisLines]="2">{{ user.name }}</org-table-td>
+            <org-table-td [useEllipsis]="true" [ellipsisLines]="2">{{ user.email }}</org-table-td>
+            <org-table-td [useEllipsis]="true" [ellipsisLines]="2">{{ user.description }}</org-table-td>
+          </org-table-tr>
         </ng-template>
       </org-table>
     </div>
@@ -565,48 +484,28 @@ class EllipsisTableDemo {
 @Component({
   selector: 'org-dynamic-width-table-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Table],
+  imports: [Table, TableRow, TableHeader, TableCell],
   template: `
     <div class="flex flex-col gap-4">
       <div class="text-sm">This table demonstrates dynamic column widths with fixed and flexible columns.</div>
       <org-table [data]="users" containerClass="h-[400px]">
         <ng-template #header>
-          <tr>
-            <th
-              class="w-[50px] px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              ID
-            </th>
-            <th
-              class="w-[30%] px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Name
-            </th>
-            <th
-              class="w-[40%] px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Email
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Organization ID
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Roles
-            </th>
-          </tr>
+          <org-table-tr variant="header" [isSticky]="true">
+            <org-table-th containerClass="w-[50px]">ID</org-table-th>
+            <org-table-th containerClass="w-[30%]">Name</org-table-th>
+            <org-table-th containerClass="w-[40%]">Email</org-table-th>
+            <org-table-th>Organization ID</org-table-th>
+            <org-table-th>Roles</org-table-th>
+          </org-table-tr>
         </ng-template>
         <ng-template #body let-user>
-          <tr class="border-b border-table-row-border last:border-b-0 hover:bg-table-row-hover">
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.id }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.name }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.email }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.organizationId }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.roles }}</td>
-          </tr>
+          <org-table-tr>
+            <org-table-td>{{ user.id }}</org-table-td>
+            <org-table-td>{{ user.name }}</org-table-td>
+            <org-table-td>{{ user.email }}</org-table-td>
+            <org-table-td>{{ user.organizationId }}</org-table-td>
+            <org-table-td>{{ user.roles }}</org-table-td>
+          </org-table-tr>
         </ng-template>
       </org-table>
     </div>
@@ -619,7 +518,7 @@ class DynamicWidthTableDemo {
 @Component({
   selector: 'org-scrolling-table-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Table],
+  imports: [Table, TableRow, TableHeader, TableCell],
   template: `
     <div class="flex flex-col gap-4">
       <div class="text-sm">
@@ -627,60 +526,28 @@ class DynamicWidthTableDemo {
       </div>
       <org-table [data]="users" containerClass="h-[400px] max-w-[800px]">
         <ng-template #header>
-          <tr>
-            <th
-              class="min-w-[80px] px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              ID
-            </th>
-            <th
-              class="min-w-[200px] px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Name
-            </th>
-            <th
-              class="min-w-[250px] px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Email
-            </th>
-            <th
-              class="min-w-[180px] px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Organization ID
-            </th>
-            <th
-              class="min-w-[200px] px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Roles
-            </th>
-            <th
-              class="min-w-[150px] px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Department
-            </th>
-            <th
-              class="min-w-[150px] px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Location
-            </th>
-            <th
-              class="min-w-[120px] px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Status
-            </th>
-          </tr>
+          <org-table-tr variant="header" [isSticky]="true">
+            <org-table-th containerClass="min-w-[80px]">ID</org-table-th>
+            <org-table-th containerClass="min-w-[200px]">Name</org-table-th>
+            <org-table-th containerClass="min-w-[250px]">Email</org-table-th>
+            <org-table-th containerClass="min-w-[180px]">Organization ID</org-table-th>
+            <org-table-th containerClass="min-w-[200px]">Roles</org-table-th>
+            <org-table-th containerClass="min-w-[150px]">Department</org-table-th>
+            <org-table-th containerClass="min-w-[150px]">Location</org-table-th>
+            <org-table-th containerClass="min-w-[120px]">Status</org-table-th>
+          </org-table-tr>
         </ng-template>
         <ng-template #body let-user>
-          <tr class="border-b border-table-row-border last:border-b-0 hover:bg-table-row-hover">
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.id }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.name }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.email }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.organizationId }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.roles }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.department }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.location }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.status }}</td>
-          </tr>
+          <org-table-tr>
+            <org-table-td>{{ user.id }}</org-table-td>
+            <org-table-td>{{ user.name }}</org-table-td>
+            <org-table-td>{{ user.email }}</org-table-td>
+            <org-table-td>{{ user.organizationId }}</org-table-td>
+            <org-table-td>{{ user.roles }}</org-table-td>
+            <org-table-td>{{ user.department }}</org-table-td>
+            <org-table-td>{{ user.location }}</org-table-td>
+            <org-table-td>{{ user.status }}</org-table-td>
+          </org-table-tr>
         </ng-template>
       </org-table>
     </div>
@@ -698,7 +565,7 @@ class ScrollingTableDemo {
 @Component({
   selector: 'org-loading-table-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Table, Button],
+  imports: [Table, TableRow, TableHeader, TableCell, Button],
   template: `
     <div class="flex flex-col gap-4">
       <div class="flex items-center gap-4">
@@ -709,36 +576,20 @@ class ScrollingTableDemo {
       </div>
       <org-table [data]="users" [isLoading]="isLoading()" containerClass="h-[400px]">
         <ng-template #header>
-          <tr>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Name
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Email
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Organization ID
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Roles
-            </th>
-          </tr>
+          <org-table-tr variant="header" [isSticky]="true">
+            <org-table-th>Name</org-table-th>
+            <org-table-th>Email</org-table-th>
+            <org-table-th>Organization ID</org-table-th>
+            <org-table-th>Roles</org-table-th>
+          </org-table-tr>
         </ng-template>
         <ng-template #body let-user>
-          <tr class="border-b border-table-row-border last:border-b-0 hover:bg-table-row-hover">
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.name }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.email }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.organizationId }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.roles }}</td>
-          </tr>
+          <org-table-tr>
+            <org-table-td>{{ user.name }}</org-table-td>
+            <org-table-td>{{ user.email }}</org-table-td>
+            <org-table-td>{{ user.organizationId }}</org-table-td>
+            <org-table-td>{{ user.roles }}</org-table-td>
+          </org-table-tr>
         </ng-template>
       </org-table>
     </div>
@@ -756,7 +607,7 @@ class LoadingTableDemo {
 @Component({
   selector: 'org-background-loading-table-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Table, Button],
+  imports: [Table, TableRow, TableHeader, TableCell, Button],
   template: `
     <div class="flex flex-col gap-4">
       <div class="flex items-center gap-4">
@@ -769,36 +620,20 @@ class LoadingTableDemo {
       </div>
       <org-table [data]="users" [isBackgroundLoading]="isBackgroundLoading()" containerClass="h-[400px]">
         <ng-template #header>
-          <tr>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Name
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Email
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Organization ID
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Roles
-            </th>
-          </tr>
+          <org-table-tr variant="header" [isSticky]="true">
+            <org-table-th>Name</org-table-th>
+            <org-table-th>Email</org-table-th>
+            <org-table-th>Organization ID</org-table-th>
+            <org-table-th>Roles</org-table-th>
+          </org-table-tr>
         </ng-template>
         <ng-template #body let-user>
-          <tr class="border-b border-table-row-border last:border-b-0 hover:bg-table-row-hover">
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.name }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.email }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.organizationId }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.roles }}</td>
-          </tr>
+          <org-table-tr>
+            <org-table-td>{{ user.name }}</org-table-td>
+            <org-table-td>{{ user.email }}</org-table-td>
+            <org-table-td>{{ user.organizationId }}</org-table-td>
+            <org-table-td>{{ user.roles }}</org-table-td>
+          </org-table-tr>
         </ng-template>
       </org-table>
     </div>
@@ -816,7 +651,7 @@ class BackgroundLoadingTableDemo {
 @Component({
   selector: 'org-combined-loading-table-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Table, Button],
+  imports: [Table, TableRow, TableHeader, TableCell, Button],
   template: `
     <div class="flex flex-col gap-4">
       <div class="flex items-center gap-4">
@@ -840,36 +675,20 @@ class BackgroundLoadingTableDemo {
         containerClass="h-[400px]"
       >
         <ng-template #header>
-          <tr>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Name
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Email
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Organization ID
-            </th>
-            <th
-              class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            >
-              Roles
-            </th>
-          </tr>
+          <org-table-tr variant="header" [isSticky]="true">
+            <org-table-th>Name</org-table-th>
+            <org-table-th>Email</org-table-th>
+            <org-table-th>Organization ID</org-table-th>
+            <org-table-th>Roles</org-table-th>
+          </org-table-tr>
         </ng-template>
         <ng-template #body let-user>
-          <tr class="border-b border-table-row-border last:border-b-0 hover:bg-table-row-hover">
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.name }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.email }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.organizationId }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.roles }}</td>
-          </tr>
+          <org-table-tr>
+            <org-table-td>{{ user.name }}</org-table-td>
+            <org-table-td>{{ user.email }}</org-table-td>
+            <org-table-td>{{ user.organizationId }}</org-table-td>
+            <org-table-td>{{ user.roles }}</org-table-td>
+          </org-table-tr>
         </ng-template>
       </org-table>
     </div>
@@ -934,38 +753,35 @@ const meta: Meta<Table> = {
   \`\`\`html
   <org-table [data]="users" containerClass="h-[400px]">
     <ng-template #header>
-      <tr>
-        <th class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10">
-          Name
-        </th>
-        <th class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10">
-          Email
-        </th>
-        <th class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10">
-          Organization ID
-        </th>
-        <th class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10">
-          Roles
-        </th>
-      </tr>
+      <org-table-tr variant="header" [isSticky]="true">
+        <org-table-th>Name</org-table-th>
+        <org-table-th>Email</org-table-th>
+        <org-table-th>Organization ID</org-table-th>
+        <org-table-th>Roles</org-table-th>
+      </org-table-tr>
     </ng-template>
     <ng-template #body let-user>
-      <tr class="border-b border-table-row-border last:border-b-0 hover:bg-table-row-hover">
-        <td class="px-4 py-3 text-sm text-table-text">{{ user.name }}</td>
-        <td class="px-4 py-3 text-sm text-table-text">{{ user.email }}</td>
-        <td class="px-4 py-3 text-sm text-table-text">{{ user.organizationId }}</td>
-        <td class="px-4 py-3 text-sm text-table-text">{{ user.roles }}</td>
-      </tr>
+      <org-table-tr>
+        <org-table-td>{{ user.name }}</org-table-td>
+        <org-table-td>{{ user.email }}</org-table-td>
+        <org-table-td>{{ user.organizationId }}</org-table-td>
+        <org-table-td>{{ user.roles }}</org-table-td>
+      </org-table-tr>
     </ng-template>
   </org-table>
   \`\`\`
 
+  ### Sub-components
+  - **org-table-tr**: Row component with variant (header/body) and sticky support
+  - **org-table-th**: Header cell component with default styling
+  - **org-table-td**: Body cell component with ellipsis support
+
   ### Advanced Features
-  - **Sorting**: Use \`orgSortable\` directive on table headers
+  - **Sorting**: Use \`orgSortable\` directive on table headers wrapped in divs
   - **Pagination**: Integrate with \`org-pagination\` component
   - **Selection**: Use \`DataSelectionStore\` service for row selection
-  - **Ellipsis**: Apply \`org-table-ellipsis\` class and set \`ellipsisAt\` input
-  - **Dynamic Widths**: Use CSS classes like \`w-[50px]\` or \`w-[30%]\` on table headers
+  - **Ellipsis**: Set \`[useEllipsis]="true"\` and \`[ellipsisLines]="2"\` on \`org-table-td\`
+  - **Dynamic Widths**: Use \`containerClass\` input on headers/cells (e.g., \`containerClass="w-[50px]"\`)
   - **Loading States**: Use \`isLoading\` for initial loads (blocks table), \`isBackgroundLoading\` for refreshes (shows spinner)
 </div>
         `,
@@ -980,7 +796,6 @@ type Story = StoryObj<Table>;
 export const Default: Story = {
   args: {
     data: SAMPLE_USERS.slice(0, 5),
-    ellipsisAt: 0,
     containerClass: '',
     tableClass: '',
     headerClass: '',
@@ -990,10 +805,6 @@ export const Default: Story = {
     data: {
       control: 'object',
       description: 'Array of data to display in the table',
-    },
-    ellipsisAt: {
-      control: 'number',
-      description: 'Number of lines before text is truncated with ellipsis (0 = no ellipsis)',
     },
     containerClass: {
       control: 'text',
@@ -1025,7 +836,6 @@ export const Default: Story = {
     template: `
       <org-table
         [data]="data"
-        [ellipsisAt]="ellipsisAt"
         [containerClass]="containerClass"
         [tableClass]="tableClass"
         [headerClass]="headerClass"
@@ -1033,25 +843,25 @@ export const Default: Story = {
         containerClass="h-[400px]"
       >
         <ng-template #header>
-          <tr>
-            <th class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10">Name</th>
-            <th class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10">Email</th>
-            <th class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10">Organization ID</th>
-            <th class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10">Roles</th>
-          </tr>
+          <org-table-tr variant="header" [isSticky]="true">
+            <org-table-th>Name</org-table-th>
+            <org-table-th>Email</org-table-th>
+            <org-table-th>Organization ID</org-table-th>
+            <org-table-th>Roles</org-table-th>
+          </org-table-tr>
         </ng-template>
         <ng-template #body let-user>
-          <tr class="border-b border-table-row-border last:border-b-0 hover:bg-table-row-hover">
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.name }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.email }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.organizationId }}</td>
-            <td class="px-4 py-3 text-sm text-table-text">{{ user.roles }}</td>
-          </tr>
+          <org-table-tr>
+            <org-table-td>{{ user.name }}</org-table-td>
+            <org-table-td>{{ user.email }}</org-table-td>
+            <org-table-td>{{ user.organizationId }}</org-table-td>
+            <org-table-td>{{ user.roles }}</org-table-td>
+          </org-table-tr>
         </ng-template>
       </org-table>
     `,
     moduleMetadata: {
-      imports: [Table],
+      imports: [Table, TableRow, TableHeader, TableCell],
     },
   }),
 };
@@ -1237,8 +1047,8 @@ export const WithEllipsis: Story = {
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
-          <li>Apply <code>org-table-ellipsis</code> class to cells that should truncate</li>
-          <li>Set <code>ellipsisAt</code> input to control number of lines before truncation</li>
+          <li>Set <code>[useEllipsis]="true"</code> on table cells to enable truncation</li>
+          <li>Use <code>[ellipsisLines]</code> input to control number of lines before truncation (defaults to 1)</li>
           <li>Ellipsis preserves layout consistency</li>
           <li>Works with both horizontal and vertical scrolling</li>
         </ul>

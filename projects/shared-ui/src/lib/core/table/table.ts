@@ -32,7 +32,6 @@ type TableState = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgTemplateOutlet, ScrollAreaDirective, LoadingSpinner, LoadingBlocker],
   templateUrl: './table.html',
-  styleUrl: './table.css',
   host: {
     dataid: 'table',
   },
@@ -57,7 +56,6 @@ export class Table<T = unknown> {
   });
 
   public data = input.required<T[]>();
-  public ellipsisAt = input<number>(0);
   public containerClass = input<string>('');
   public tableClass = input<string>('');
   public headerClass = input<string>('');
@@ -65,7 +63,6 @@ export class Table<T = unknown> {
   public isLoading = input<boolean>(false);
   public isBackgroundLoading = input<boolean>(false);
 
-  public hasEllipsis = computed<boolean>(() => this.ellipsisAt() > 0);
   public isScrollNeeded = computed<boolean>(() => this._state().isScrollNeeded);
 
   public mergeClasses = tailwindUtils.merge;

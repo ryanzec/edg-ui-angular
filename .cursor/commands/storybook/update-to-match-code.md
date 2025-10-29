@@ -19,8 +19,8 @@ You MUST read all of the following information and you MUST follow these HARD RE
 - `.cursor/partials/frontend/storybook-development.md`
 - `.cursor/partials/frontend/storybook-testing.md`
 
-You are tasked with reviewing the code in the references directory and update ONLY the descriptions in all storybook files in the reference directory (DO NOT MODIFY THE FUNCTIONALITY OF THE STORIES) to make sure they match the latest implementation.
+You are tasked with reviewing the code in the referenced directroy and update the story files to make sure the current implementation is fully represented in the stories. You are allowed to remove and replace as much code int he story files as needed.
 
-If you think more stories or modification to existing stories are needed to cover additional use cases, you are to JUST REPORT those as suggested updates (just at a high level, NOT WITH CODE SUGGESTIONS) and WAIT for verification from me that those change should be done BEFORE make ANY code changes.
+You MUST present a plan of changes / additons / removals with reason for review BEFORE making ANY changes.
 
 If there is no reference directory, ASK for one.

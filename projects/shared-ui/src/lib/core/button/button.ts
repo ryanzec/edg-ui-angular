@@ -96,7 +96,7 @@ export class Button implements OnInit, OnDestroy {
     this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
   }
 
-  public handleClick(): void {
+  public onClick(): void {
     if (this.isDisabled()) {
       return;
     }
@@ -104,7 +104,7 @@ export class Button implements OnInit, OnDestroy {
     this.clicked.emit();
   }
 
-  public handleMouseDown(): void {
+  public onMouseDown(): void {
     if (this.isDisabled()) {
       return;
     }
@@ -115,14 +115,14 @@ export class Button implements OnInit, OnDestroy {
     }));
   }
 
-  public handleMouseUp(): void {
+  public onMouseUp(): void {
     this._state.update((state) => ({
       ...state,
       isPressed: false,
     }));
   }
 
-  public handleMouseLeave(): void {
+  public onMouseLeave(): void {
     this._state.update((state) => ({
       ...state,
       isPressed: false,

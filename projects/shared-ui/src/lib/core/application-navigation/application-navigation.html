@@ -13,7 +13,7 @@
         <org-list-item
           asTag="a"
           [routerLink]="item.routePath"
-          (clicked)="handleNavigationItemClick(item)"
+          (clicked)="onNavigationItemClick(item)"
           [preIcon]="item.icon"
           [isSelected]="activeNavigationItemId() === item.id"
         >
@@ -37,12 +37,12 @@
           Settings
         </org-list-item>
       }
-      <org-list-item asTag="button" (clicked)="handleLogoutClick()" preIcon="sign-out">
+      <org-list-item asTag="button" (clicked)="onLogoutClick()" preIcon="sign-out">
         <span class="font-medium">Logout</span>
       </org-list-item>
     </org-list>
     <ng-template #settingsMenu>
-      <org-overlay-menu [menuItems]="settingsMenuItems()" (menuItemClicked)="handleSettingsMenuItemClick($event)" />
+      <org-overlay-menu [menuItems]="settingsMenuItems()" (menuItemClicked)="onSettingsMenuItemClick($event)" />
     </ng-template>
   </div>
 </div>

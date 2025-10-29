@@ -27,12 +27,12 @@
           { id: '2', label: 'Preferences', icon: 'gear' },
           { id: '3', label: 'Help & Support', icon: 'envelope' },
         ]"
-        (settingsMenuItemClicked)="handleSettingsMenuItemClick($event)"
-        (logout)="handleLogout()"
+        (settingsMenuItemClicked)="onSettingsMenuItemClick($event)"
+        (logout)="onLogout()"
         class="h-full"
       />
     }
-    <main class="flex-1">
+    <main class="flex-1 p-4">
       <div>
         <div class="flex">
           <org-ui-theme-switcher></org-ui-theme-switcher>

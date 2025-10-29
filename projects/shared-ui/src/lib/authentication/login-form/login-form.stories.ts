@@ -39,13 +39,13 @@ const meta: Meta<LoginForm> = {
   \`\`\`html
   <!-- Basic login form -->
   <org-login-form
-    (loginSubmitted)="handleLogin($event)"
+    (loginSubmitted)="onLogin($event)"
   />
   \`\`\`
 
   \`\`\`typescript
   // In your component
-  handleLogin(credentials: AuthenticationAuthenticateRequest) {
+  onLogin(credentials: AuthenticationAuthenticateRequest) {
     console.log('Login attempt:', credentials);
     // Call your authentication service
     this.authService.login(credentials).subscribe({
@@ -134,7 +134,7 @@ export const ValidationStates: Story = {
           <org-login-form-validation-valid-story />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Empty Form</strong>: Shows "required" errors when submitted without input</li>
           <li><strong>Invalid Email</strong>: Shows email format validation error</li>
           <li><strong>Valid Form</strong>: No errors, ready to submit</li>
@@ -176,7 +176,7 @@ export const PasswordVisibility: Story = {
           <org-login-form-password-visible-story />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Hidden</strong>: Password characters are masked (default state)</li>
           <li><strong>Visible</strong>: Password is shown in plain text after clicking eye icon</li>
           <li>Eye icon toggles between eye and eye-slash based on visibility state</li>
@@ -346,8 +346,8 @@ class LoginFormPasswordVisibleStory implements AfterViewInit {
 @Component({
   selector: 'org-login-form-interactive-story',
   template: `
-    <div class="space-y-6 p-4 max-w-md">
-      <div class="space-y-2">
+    <div class="flex flex-col gap-6 p-4 max-w-md">
+      <div class="flex flex-col gap-2">
         <h3 class="text-lg font-semibold">Interactive Login Form</h3>
         <div class="text-sm text-text-subtle">Fill out the form and submit to see event logging in action.</div>
       </div>
@@ -355,7 +355,7 @@ class LoginFormPasswordVisibleStory implements AfterViewInit {
       <org-login-form (loginSubmitted)="onLoginSubmit($event)"></org-login-form>
 
       <!-- Event Log -->
-      <div class="space-y-2">
+      <div class="flex flex-col gap-2">
         <h4 class="font-medium">Event Log:</h4>
         <div class="p-3 bg-secondary-background-subtle rounded text-sm font-mono max-h-48 overflow-y-auto">
           @for (event of events(); track $index) {

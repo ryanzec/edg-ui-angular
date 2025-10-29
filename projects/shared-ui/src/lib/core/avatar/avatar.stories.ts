@@ -198,7 +198,7 @@ export const Sizes: Story = {
           <org-avatar label="John Doe" size="lg"></org-avatar>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>sm</strong>: Small avatar (24px)</li>
           <li><strong>base</strong>: Standard avatar size (32px) - default</li>
           <li><strong>lg</strong>: Large avatar (40px)</li>
@@ -237,7 +237,7 @@ export const ImageTypes: Story = {
           <org-avatar label="John Doe" src="https://api.dicebear.com/7.x/avataaars/svg?seed=John"></org-avatar>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Initials</strong>: Automatically generated from label (first and last name)</li>
           <li><strong>Gravatar</strong>: Fetched from Gravatar service using email</li>
           <li><strong>Custom Image</strong>: Uses provided image URL (takes priority)</li>
@@ -277,7 +277,7 @@ export const LabelVariations: Story = {
           <org-avatar label="John Doe" [showLabel]="false"></org-avatar>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Label Only</strong>: Displays name next to avatar</li>
           <li><strong>Label and Sub-label</strong>: Displays name and additional info (e.g., title, email)</li>
           <li><strong>Avatar Only</strong>: Shows only the avatar circle without text</li>
@@ -316,7 +316,7 @@ export const InitialsGeneration: Story = {
           <org-avatar label="John Michael Doe"></org-avatar>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Single Name</strong>: Shows first 2 letters (e.g., "John" → "JO")</li>
           <li><strong>Two Names</strong>: Shows first letter of each word (e.g., "John Doe" → "JD")</li>
           <li><strong>Multiple Names</strong>: Shows first letter of first and last word (e.g., "John Michael Doe" → "JD")</li>
@@ -355,7 +355,7 @@ export const ErrorHandling: Story = {
           <org-avatar label="John Doe" src="https://api.dicebear.com/7.x/avataaars/svg?seed=John"></org-avatar>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Invalid Image URL</strong>: Falls back to initials when image fails to load</li>
           <li><strong>Invalid Gravatar</strong>: Falls back to initials when Gravatar not found</li>
           <li><strong>Successful Image</strong>: Displays image when successfully loaded</li>
@@ -452,7 +452,7 @@ export const StackSizes: StackStory = {
           </org-avatar-stack>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>sm</strong>: Minimal overlap for compact display</li>
           <li><strong>base</strong>: Standard overlap for balanced appearance (default)</li>
           <li><strong>lg</strong>: Maximum overlap for space-efficient display</li>
@@ -526,7 +526,7 @@ export const StackAvatarTypes: StackStory = {
           </org-avatar-stack>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Initials</strong>: Avatars display with generated initials from labels</li>
           <li><strong>Gravatar</strong>: Avatars display with Gravatar images based on email</li>
           <li><strong>Custom Images</strong>: Avatars display with provided custom image sources</li>
@@ -586,7 +586,7 @@ export const StackLabelVariations: StackStory = {
           </org-avatar-stack>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Single Name</strong>: Avatars display with single initial from one-word labels</li>
           <li><strong>Interactive</strong>: Component scales well with many avatars maintaining consistent spacing</li>
           <li><strong>Multiple Word Names</strong>: Avatars display with initials from multi-word labels</li>

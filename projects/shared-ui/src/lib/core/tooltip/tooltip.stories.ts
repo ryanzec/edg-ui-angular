@@ -197,7 +197,7 @@ export const TriggerTypes: Story = {
           </org-tooltip>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Hover</strong>: Tooltip appears on mouse enter, disappears on mouse leave</li>
           <li><strong>Click</strong>: Tooltip toggles on click</li>
         </ul>
@@ -287,7 +287,7 @@ export const Delays: Story = {
           </org-tooltip>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>openDelay</strong>: Time to wait before showing tooltip on hover</li>
           <li><strong>closeDelay</strong>: Time to wait before hiding tooltip after mouse leave</li>
           <li>Delays only apply to hover trigger type</li>
@@ -345,7 +345,7 @@ export const KeepOpenOnHover: Story = {
           </org-tooltip>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>false</strong>: Tooltip closes immediately when mouse leaves trigger element</li>
           <li><strong>true</strong>: Tooltip stays open when hovering over it, closes when leaving both trigger and tooltip</li>
           <li>Useful for interactive tooltip content (links, buttons, etc.)</li>
@@ -438,7 +438,7 @@ export const RichContent: Story = {
           </org-tooltip>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Tooltip content is completely customizable via templates</li>
           <li>Can include any Angular content, components, directives, etc.</li>
           <li>Use keepOpenOnHover for interactive content</li>
@@ -560,7 +560,7 @@ export const Positioning: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>xPosition</strong>: Controls horizontal positioning (left, center, right)</li>
           <li><strong>yPosition</strong>: Controls vertical positioning (top, center, bottom)</li>
           <li>Tooltips automatically fall back to alternative positions if insufficient space</li>

@@ -97,6 +97,7 @@ export class Input implements OnInit, OnDestroy, AfterViewInit, ControlValueAcce
   public autocomplete = input<string>('off');
   public name = input.required<string>();
   public inputClass = input<string>('');
+  public blockPasswordManager = input<boolean>(true);
 
   // needs in order to determine if the output event is being listened to
   private _preIconClicked$ = new Subject<void>();
@@ -144,7 +145,7 @@ export class Input implements OnInit, OnDestroy, AfterViewInit, ControlValueAcce
 
   public readonly ariaDescribedBy = computed<string | null>(() => {
     if (this.hasValidationMessage()) {
-      return 'validation-message';
+      return `validation-message-${this.name()}`;
     }
 
     return null;
@@ -197,7 +198,7 @@ export class Input implements OnInit, OnDestroy, AfterViewInit, ControlValueAcce
     this._focusMonitor.stopMonitoring(this.inputRef.nativeElement);
   }
 
-  public handleInputChange(event: Event): void {
+  public onInputChange(event: Event): void {
     const target = event.target as HTMLInputElement;
     const value = target.value;
 
@@ -205,11 +206,11 @@ export class Input implements OnInit, OnDestroy, AfterViewInit, ControlValueAcce
     this.valueChange.emit(value);
   }
 
-  public handleBlur(): void {
+  public onBlur(): void {
     this._onTouched();
   }
 
-  public handlePreIconClick(_event: MouseEvent): void {
+  public onPreIconClick(_event: MouseEvent): void {
     if (this.isDisabled()) {
       return;
     }
@@ -217,7 +218,7 @@ export class Input implements OnInit, OnDestroy, AfterViewInit, ControlValueAcce
     this._preIconClicked$.next();
   }
 
-  public handlePostIconClick(_event: MouseEvent): void {
+  public onPostIconClick(_event: MouseEvent): void {
     if (this.isDisabled()) {
       return;
     }
@@ -232,7 +233,7 @@ export class Input implements OnInit, OnDestroy, AfterViewInit, ControlValueAcce
     }
   }
 
-  public handleInlineItemRemove(item: InlineItem): void {
+  public onInlineItemRemove(item: InlineItem): void {
     if (this.isDisabled() || this.isReadonly()) {
       return;
     }

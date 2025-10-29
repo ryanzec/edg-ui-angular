@@ -28,7 +28,7 @@ export type TimeInputState = {
   imports: [BaseInput],
   templateUrl: './time-input.html',
   host: {
-    dataid: 'time-input',
+    ['attr.data-testid']: 'time-input',
   },
   providers: [
     {
@@ -88,7 +88,7 @@ export class TimeInput implements AfterViewInit, ControlValueAccessor {
     }
   }
 
-  public handleKeyDown(event: KeyboardEvent): void {
+  public onKeyDown(event: KeyboardEvent): void {
     if (this.disabled() || this.readonly()) {
       return;
     }
@@ -163,11 +163,11 @@ export class TimeInput implements AfterViewInit, ControlValueAccessor {
 
     // handle number input
     if (/^[0-9]$/.test(key)) {
-      this._handleNumberInput(key);
+      this._onNumberInput(key);
     }
   }
 
-  public handleFocus(): void {
+  public onFocus(): void {
     // select hours segment on focus
     this._state.update((state) => ({
       ...state,
@@ -179,12 +179,12 @@ export class TimeInput implements AfterViewInit, ControlValueAccessor {
     this.focused.emit();
   }
 
-  public handleBlur(): void {
+  public onBlur(): void {
     this._onTouched();
     this.blurred.emit();
   }
 
-  public handleClick(): void {
+  public onClick(): void {
     // detect which segment was clicked and select it
     if (this.disabled() || this.readonly()) {
       return;
@@ -211,17 +211,17 @@ export class TimeInput implements AfterViewInit, ControlValueAccessor {
     this._selectCurrentSegment();
   }
 
-  private _handleNumberInput(digit: string): void {
+  private _onNumberInput(digit: string): void {
     const state = this._state();
 
     if (state.activeSegment === 'hours') {
-      this._handleHoursInput(digit);
+      this._onHoursInput(digit);
     } else if (state.activeSegment === 'minutes') {
-      this._handleMinutesInput(digit);
+      this._onMinutesInput(digit);
     }
   }
 
-  private _handleHoursInput(digit: string): void {
+  private _onHoursInput(digit: string): void {
     const state = this._state();
     const num = parseInt(digit, 10);
 
@@ -268,7 +268,7 @@ export class TimeInput implements AfterViewInit, ControlValueAccessor {
     }
   }
 
-  private _handleMinutesInput(digit: string): void {
+  private _onMinutesInput(digit: string): void {
     const state = this._state();
     const num = parseInt(digit, 10);
 

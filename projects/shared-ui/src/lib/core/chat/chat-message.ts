@@ -29,7 +29,7 @@ type ChatMessageState = {
   imports: [Indicator, Checklist, Button],
   templateUrl: './chat-message.html',
   host: {
-    dataid: 'chat-message',
+    ['attr.data-testid']: 'chat-message',
   },
 })
 export class ChatMessage {

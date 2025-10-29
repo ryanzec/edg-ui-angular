@@ -41,12 +41,12 @@ export class LoginForm {
     email: new FormControl('', {
       nonNullable: true,
       validators: [validationUtils.zodValidator(authenticationAuthenticateRequestSchema.shape.email)],
-      updateOn: 'change',
+      updateOn: 'submit',
     }),
     password: new FormControl('', {
       nonNullable: true,
       validators: [validationUtils.zodValidator(authenticationAuthenticateRequestSchema.shape.password)],
-      updateOn: 'change',
+      updateOn: 'submit',
     }),
   });
 

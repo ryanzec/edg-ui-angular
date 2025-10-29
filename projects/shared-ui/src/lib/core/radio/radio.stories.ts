@@ -164,7 +164,7 @@ export const Sizes: Story = {
           </org-radio>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Small</strong>: Compact radio for tight spaces</li>
           <li><strong>Base</strong>: Standard radio size (default)</li>
           <li><strong>Large</strong>: Prominent radio for emphasis</li>
@@ -204,7 +204,7 @@ export const States: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Unchecked</strong>: Shows circle icon (default state)</li>
           <li><strong>Checked states</strong>: Managed by RadioGroup component in forms</li>
           <li>For interactive radio groups, use org-radio-group with reactive forms</li>
@@ -278,7 +278,7 @@ export const GroupedRadios: Story = {
         </form>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Use <strong>org-radio-group</strong> with <strong>formControlName</strong> for reactive forms</li>
         <li>RadioGroup manages the selected value and syncs all child radios</li>
         <li>Form state updates automatically when radios are selected</li>
@@ -357,7 +357,7 @@ export const ReactiveFormIntegration: Story = {
         </org-form-fields>
       </form>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Each <strong>org-radio-group</strong> creates a separate radio group</li>
         <li>Each group maintains its own selection state independently</li>
         <li>Selecting a radio in one group does not affect other groups</li>
@@ -431,7 +431,7 @@ export const MultipleGroups: Story = {
         </org-form-fields>
       </form>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Validation message appears below the radio group when provided</li>
         <li>Message uses <strong>text-validation-error-text</strong> color (danger/red)</li>
         <li>Message is visible only when validationMessage input is provided</li>
@@ -491,7 +491,7 @@ export const ValidationSpaceReservation: Story = {
         currentState="Comparing space reservation behaviors"
       >
         <org-storybook-example-container-section label="Reserve Space = true (default)">
-          <div class="space-y-4">
+          <div class="flex flex-col gap-4">
             <org-form-field [reserveValidationSpace]="true">
               <org-radio-group name="reserve-true-group-1">
                 <org-radio value="option1">Option 1 (no error)</org-radio>
@@ -514,7 +514,7 @@ export const ValidationSpaceReservation: Story = {
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Reserve Space = false">
-          <div class="space-y-4">
+          <div class="flex flex-col gap-4">
             <org-form-field [reserveValidationSpace]="false">
               <org-radio-group name="reserve-false-group-1">
                 <org-radio value="option1">Option 1 (no error)</org-radio>
@@ -536,7 +536,7 @@ export const ValidationSpaceReservation: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>reserveValidationSpace=true</strong>: Space is always reserved for validation messages (maintains consistent spacing between radio groups)</li>
           <li><strong>reserveValidationSpace=false</strong>: Space is only allocated when a validation message is present (radio groups collapse together when no errors)</li>
           <li>Notice how the left column maintains equal spacing between all radio groups</li>

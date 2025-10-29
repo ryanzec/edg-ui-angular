@@ -16,7 +16,7 @@ export const radioSizes: RadioSize[] = ['sm', 'base', 'lg'];
   imports: [Icon, TextDirective],
   templateUrl: './radio.html',
   host: {
-    dataid: 'radio',
+    ['attr.data-testid']: 'radio',
     class: 'inline-flex',
   },
 })
@@ -77,7 +77,7 @@ export class Radio implements OnInit {
     this._selected.set(selected);
   }
 
-  protected handleClick(event: Event): void {
+  protected onClick(event: Event): void {
     event.preventDefault();
 
     // If part of a radio group, notify the group
@@ -93,10 +93,10 @@ export class Radio implements OnInit {
     }
   }
 
-  protected handleKeyDown(event: KeyboardEvent): void {
+  protected onKeyDown(event: KeyboardEvent): void {
     if (event.key === ' ' || event.key === 'Enter') {
       event.preventDefault();
-      this.handleClick(event);
+      this.onClick(event);
     }
   }
 }

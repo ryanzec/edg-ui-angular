@@ -17,7 +17,7 @@ export type OverlayMenuItem = {
   imports: [CdkMenu, CdkMenuItem, List, ListItem],
   templateUrl: './overlay-menu.html',
   host: {
-    dataid: 'overlay-menu',
+    ['attr.data-testid']: 'overlay-menu',
   },
 })
 export class OverlayMenu {
@@ -30,7 +30,7 @@ export class OverlayMenu {
 
   public mergeClasses = tailwindUtils.merge;
 
-  public handleMenuItemClick(item: OverlayMenuItem): void {
+  public onMenuItemClick(item: OverlayMenuItem): void {
     this.menuItemClicked.emit(item);
   }
 }

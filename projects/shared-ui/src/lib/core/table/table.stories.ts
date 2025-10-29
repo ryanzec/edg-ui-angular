@@ -201,8 +201,8 @@ class SortableTableDemo {
         [defaultTotalItems]="users.length"
         [defaultItemsPerPage]="5"
         [defaultItemsPerPageOptions]="[5, 10, 15]"
-        (pageChanged)="handlePageChange($event)"
-        (itemsPerPageChanged)="handleItemsPerPageChange($event)"
+        (pageChanged)="onPageChange($event)"
+        (itemsPerPageChanged)="onItemsPerPageChange($event)"
       />
     </div>
   `,
@@ -219,11 +219,11 @@ class PaginatedTableDemo {
     return this.users.slice(start, end);
   });
 
-  protected handlePageChange(page: number): void {
+  protected onPageChange(page: number): void {
     console.log('page changed', page);
   }
 
-  protected handleItemsPerPageChange(itemsPerPage: number): void {
+  protected onItemsPerPageChange(itemsPerPage: number): void {
     console.log('items per page changed', itemsPerPage);
   }
 }
@@ -286,7 +286,7 @@ class PaginatedTableDemo {
         [defaultTotalItems]="users.length"
         [defaultItemsPerPage]="5"
         [defaultItemsPerPageOptions]="[5, 10, 15]"
-        (pageChanged)="handlePageChange($event)"
+        (pageChanged)="onPageChange($event)"
       />
     </div>
   `,
@@ -312,7 +312,7 @@ class SelectionTableDemo {
     return this.selectionStore.areSomeSelected(this.paginatedUsers());
   });
 
-  protected handlePageChange(page: number): void {
+  protected onPageChange(page: number): void {
     console.log('page changed', page);
   }
 }
@@ -390,7 +390,7 @@ class SelectionTableDemo {
         [defaultTotalItems]="users.length"
         [defaultItemsPerPage]="5"
         [defaultItemsPerPageOptions]="[5, 10, 15]"
-        (pageChanged)="handlePageChange($event)"
+        (pageChanged)="onPageChange($event)"
       />
     </div>
   `,
@@ -443,7 +443,7 @@ class FullFeaturedTableDemo {
     return this.selectionStore.areSomeSelected(this.displayUsers());
   });
 
-  protected handlePageChange(page: number): void {
+  protected onPageChange(page: number): void {
     console.log('page changed', page);
   }
 }

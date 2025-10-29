@@ -9,8 +9,8 @@
   [selectAllOnFocus]="selectAllOnFocus()"
   [autoFocus]="autoFocus()"
   type="text"
-  (keydown)="handleKeyDown($event)"
-  (focused)="handleFocus()"
-  (blurred)="handleBlur()"
-  (click)="handleClick()"
+  (keydown)="onKeyDown($event)"
+  (focused)="onFocus()"
+  (blurred)="onBlur()"
+  (click)="onClick()"
 />

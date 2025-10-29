@@ -7,7 +7,7 @@ import { tailwindUtils } from '@organization/shared-utils';
   imports: [],
   templateUrl: './list.html',
   host: {
-    dataid: 'list',
+    ['attr.data-testid']: 'list',
   },
 })
 export class List {

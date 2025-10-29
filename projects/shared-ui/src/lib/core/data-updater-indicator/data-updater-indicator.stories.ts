@@ -142,7 +142,7 @@ export const Status: Story = {
           <org-data-updater-indicator status="inactive" [lastUpdatedAt]="inactiveTimestamp" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Active</strong>: Green indicator showing data is actively being tracked</li>
           <li><strong>Inactive</strong>: Neutral/gray indicator showing data is not being tracked</li>
         </ul>
@@ -188,7 +188,7 @@ export const LoadingState: Story = {
           <org-data-updater-indicator status="inactive" [isLoading]="true" [lastUpdatedAt]="inactiveTimestamp" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Normal State</strong>: Shows colored indicator dot based on status</li>
           <li><strong>Loading State</strong>: Shows animated spinner while data is being updated</li>
           <li><strong>Status Preserved</strong>: Status determines color after loading completes</li>
@@ -249,7 +249,7 @@ export const WithLastUpdatedAt: Story = {
           />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Format</strong>: Timestamp is displayed using DateFormat.STANDARD and TimeFormat.STANDARD with timezone</li>
           <li><strong>Required</strong>: lastUpdatedAt is a required input (luxon DateTime object)</li>
           <li><strong>Validation</strong>: Invalid DateTime objects are handled gracefully (shows "----")</li>

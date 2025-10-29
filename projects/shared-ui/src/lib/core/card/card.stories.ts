@@ -250,7 +250,7 @@ export const Colors: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Default</strong>: No colored border, standard card appearance</li>
           <li><strong>Primary</strong>: Primary color for main content cards</li>
           <li><strong>Secondary</strong>: Secondary accent color for supporting content</li>
@@ -373,7 +373,7 @@ export const Compositions: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Content Only</strong>: Minimal card structure with just content</li>
           <li><strong>Header + Content</strong>: Standard card with title/subtitle and content</li>
           <li><strong>Header + Image + Content</strong>: Card with full-width image below header</li>
@@ -454,7 +454,7 @@ export const FooterAlignments: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Start</strong>: Buttons aligned to the left side of the footer</li>
           <li><strong>Center</strong>: Buttons centered in the footer</li>
           <li><strong>End</strong>: Buttons aligned to the right side of the footer (default for action buttons)</li>

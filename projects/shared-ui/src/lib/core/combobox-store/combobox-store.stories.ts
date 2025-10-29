@@ -78,7 +78,7 @@ const fruitOptions: ComboboxOptionInput[] = [
       </org-storybook-example-container-section>
 
       <org-storybook-example-container-section label="State">
-        <div class="text-sm space-y-1">
+        <div class="text-sm flex flex-col gap-1">
           <div><strong>Selected Value:</strong> {{ store.selectedValues()[0] ?? 'None' }}</div>
           <div><strong>Input Value:</strong> "{{ store.inputValue() }}"</div>
           <div><strong>Focused Option:</strong> {{ store.focusedOption()?.label ?? 'None' }}</div>
@@ -93,7 +93,7 @@ const fruitOptions: ComboboxOptionInput[] = [
         </div>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Single selection mode - only one option can be selected at a time</li>
         <li>Input value updates to match selected option label</li>
         <li>Options can be filtered by typing in the input</li>
@@ -228,7 +228,7 @@ class ComboboxStoreSingleSelectDemo {
       </org-storybook-example-container-section>
 
       <org-storybook-example-container-section label="State">
-        <div class="text-sm space-y-1">
+        <div class="text-sm flex flex-col gap-1">
           <div><strong>Selected Count:</strong> {{ store.selectedValues().length }}</div>
           <div><strong>Input Value:</strong> "{{ store.inputValue() }}"</div>
           <div><strong>Focused Option:</strong> {{ store.focusedOption()?.label ?? 'None' }}</div>
@@ -244,7 +244,7 @@ class ComboboxStoreSingleSelectDemo {
         </div>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Multi-selection mode - multiple options can be selected</li>
         <li>Input clears after each selection</li>
         <li>New options can be added by typing and pressing Enter</li>
@@ -371,7 +371,7 @@ class ComboboxStoreMultiSelectDemo {
       </org-storybook-example-container-section>
 
       <org-storybook-example-container-section label="Group Index Info">
-        <div class="text-sm space-y-1">
+        <div class="text-sm flex flex-col gap-1">
           <div><strong>Focused Group Index:</strong> {{ store.getFocusedOptionGroupIndex().groupIndex }}</div>
           <div>
             <strong>Focused Option Index in Group:</strong> {{ store.getFocusedOptionGroupIndex().optionIndex }}
@@ -387,7 +387,7 @@ class ComboboxStoreMultiSelectDemo {
         </div>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Options are organized by group labels</li>
         <li>Groups are sorted alphabetically</li>
         <li>Focus navigation respects group boundaries</li>
@@ -481,7 +481,7 @@ class ComboboxStoreGroupedDemo {
       </org-storybook-example-container-section>
 
       <org-storybook-example-container-section label="State">
-        <div class="text-sm space-y-1">
+        <div class="text-sm flex flex-col gap-1">
           <div><strong>Total Options:</strong> {{ store.options().length }}</div>
           <div><strong>Selected Count:</strong> {{ store.selectedValues().length }}</div>
           <div>
@@ -497,7 +497,7 @@ class ComboboxStoreGroupedDemo {
         </div>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Options can be dynamically updated at runtime</li>
         <li>Selections are maintained if options still exist after update</li>
         <li>Selections are cleared if options no longer exist</li>
@@ -622,7 +622,7 @@ class ComboboxStoreDynamicOptionsDemo {
       </org-storybook-example-container-section>
 
       <org-storybook-example-container-section label="State">
-        <div class="text-sm space-y-1">
+        <div class="text-sm flex flex-col gap-1">
           <div><strong>Is Opened:</strong> {{ store.isOpened() }}</div>
           <div><strong>Selected Value:</strong> {{ store.selectedValues()[0] ?? 'None' }}</div>
           <div><strong>Input Value:</strong> "{{ store.inputValue() }}"</div>
@@ -635,7 +635,7 @@ class ComboboxStoreDynamicOptionsDemo {
         </div>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Combobox tracks opened/closed state</li>
         <li>Provides open(), close(), toggle() convenience methods</li>
         <li>Emits isOpenedChanged$ events when state changes</li>
@@ -753,7 +753,7 @@ class ComboboxStoreOpenedStateDemo {
       </org-storybook-example-container-section>
 
       <org-storybook-example-container-section label="State">
-        <div class="text-sm space-y-1">
+        <div class="text-sm flex flex-col gap-1">
           <div><strong>Is Grouping Enabled:</strong> {{ store.isGroupingEnabled() }}</div>
           <div><strong>Selected Count:</strong> {{ store.selectedValues().length }}</div>
           <div><strong>Total Options:</strong> {{ store.options().length }}</div>
@@ -762,7 +762,7 @@ class ComboboxStoreOpenedStateDemo {
         </div>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Store tracks whether grouping is enabled as an indicator</li>
         <li>Can be set during initialization or after</li>
         <li>UI can switch between grouped and flat views based on this flag</li>

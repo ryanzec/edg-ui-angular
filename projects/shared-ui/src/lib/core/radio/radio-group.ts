@@ -18,7 +18,7 @@ import { tailwindUtils } from '@organization/shared-utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './radio-group.html',
   host: {
-    dataid: 'radio-group',
+    ['attr.data-testid']: 'radio-group',
     class: 'inline-flex',
   },
   providers: [

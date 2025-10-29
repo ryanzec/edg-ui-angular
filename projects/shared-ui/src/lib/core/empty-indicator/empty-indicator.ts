@@ -10,7 +10,7 @@ import { tailwindUtils } from '@organization/shared-utils';
   imports: [Button],
   templateUrl: './empty-indicator.html',
   host: {
-    dataid: 'empty-indicator',
+    ['attr.data-testid']: 'empty-indicator',
     class: 'flex',
   },
 })
@@ -30,7 +30,7 @@ export class EmptyIndicator {
 
   public mergeClasses = tailwindUtils.merge;
 
-  protected handleActionClick(): void {
+  protected onActionClick(): void {
     this._actionTriggeredSubject.next();
   }
 }

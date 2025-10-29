@@ -230,7 +230,7 @@ export const MessageSources: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>User</strong>: Right-aligned with level2 background color</li>
           <li><strong>AI</strong>: Left-aligned with level2 background color</li>
           <li><strong>System</strong>: Center-aligned, bold text, no background</li>
@@ -287,7 +287,7 @@ export const StatusStates: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>In Progress</strong>: Info indicator with pulse animation and "In Progress" text</li>
           <li><strong>Completed</strong>: Safe indicator with "Completed" text</li>
           <li><strong>Failed</strong>: Danger indicator with "Failed" text</li>
@@ -328,7 +328,7 @@ export const WithSteps: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Steps are hidden by default</li>
           <li>Toggle button shows/hides steps with count</li>
           <li>Steps are displayed using the Checklist component</li>
@@ -368,7 +368,7 @@ export const WithNestedSteps: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Main steps are shown with an expand/collapse control</li>
           <li>Each parent step displays a count of nested items</li>
           <li>Clicking a parent step reveals its nested sub-tasks</li>
@@ -411,7 +411,7 @@ export const WithCustomActions: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Custom actions can be placed in the actions slot</li>
           <li>Actions appear in the metadata section with status and duration</li>
           <li>Use the <code>[actions]</code> selector for the ng-content slot</li>
@@ -451,7 +451,7 @@ export const WithNameSlot: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Name slot content appears on the same line as the message</li>
           <li>Aligned to the right of the status indicator</li>
           <li>Use the <code>[name]</code> selector for the ng-content slot</li>
@@ -493,7 +493,7 @@ export const ConversationExample: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Messages are stacked vertically with spacing</li>
           <li>User messages align right, AI messages align left</li>
           <li>System messages center-aligned</li>

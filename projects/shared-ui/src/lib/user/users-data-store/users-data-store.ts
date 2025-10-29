@@ -9,7 +9,7 @@ import {
   User,
 } from '@organization/shared-types';
 import { UsersApi } from '../users-api/users-api';
-import { Observable, tap } from 'rxjs';
+import { Observable, tap, map, catchError, of, EMPTY } from 'rxjs';
 import { BaseLimitDataStore } from '../../core/data-store/base-limit-data-store';
 
 @Injectable({
@@ -33,84 +33,137 @@ export class UsersDataStore extends BaseLimitDataStore<User> {
         limit: this.limit(),
         ...requestData,
       })
-      .subscribe({
-        next: (response) => {
-          const { data, meta } = response ?? {};
+      .pipe(
+        map((response) => {
+          const { data, meta, error } = response;
 
-          if (!data) {
-            throw new Error('No data returned from the server');
+          if (error?.message || !data) {
+            throw new Error(error?.message ?? 'No data returned from the server');
           }
 
-          if (meta?.error) {
-            throw new Error(meta.error.message);
-          }
-
+          return { data, meta, error };
+        }),
+        tap(({ data, meta }) => {
           this.setLocalData(data);
           this.setLocalMeta(meta);
-          this.endRemoteLoading(data);
-        },
-        error: (error: unknown) => {
+          this.endRemoteLoading();
+        }),
+        catchError((error: unknown) => {
+          const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+
+          this._logManager.warn({
+            type: 'users-fetch-error',
+            message: errorMessage,
+            error,
+          });
+
           this.setLocalData([]);
           this.endRemoteLoading(error);
-        },
-      });
+
+          // to avoid the error from killing the stream
+          return EMPTY;
+        })
+      )
+      .subscribe();
   }
 
   public create(user: CreateUser): Observable<CreateUserResponse> {
     this.startMutation();
 
     return this._usersApi.createUser(user).pipe(
-      tap({
-        next: (response) => {
-          const { data } = response ?? {};
+      map((response) => {
+        const { data, meta, error } = response;
 
-          if (!data) {
-            return;
-          }
+        if (error?.message || !data) {
+          throw new Error(error?.message ?? 'No data returned from the server');
+        }
 
-          this.unshiftLocalData([data as User]);
+        return { data, meta, error };
+      }),
+      tap((response) => {
+        this.unshiftLocalData([response.data]);
+        this.endMutation();
+      }),
+      catchError((error: unknown) => {
+        const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
 
-          this.endMutation();
-        },
-        error: (error: unknown) => {
-          this.endMutation(error);
-        },
+        this._logManager.warn({
+          type: 'users-create-error',
+          message: errorMessage,
+          error,
+        });
+
+        this.endMutation(error);
+
+        // to avoid the error from killing the stream
+        return EMPTY;
       })
     );
   }
 
   public update(user: UpdateUser): Observable<UpdateUserResponse> {
+    this.startMutation();
+
     return this._usersApi.updateUser(user).pipe(
-      tap({
-        next: (response) => {
-          const { data } = response ?? {};
+      map((response) => {
+        const { data, meta, error } = response ?? {};
 
-          if (!data) {
-            return;
-          }
+        if (error?.message || !data) {
+          throw new Error(error?.message ?? 'No data returned from the server');
+        }
 
-          this.updateLocalData(data as User);
+        return { data, meta, error };
+      }),
+      tap((response) => {
+        this.updateLocalData(response.data);
+        this.endMutation();
+      }),
+      catchError((error: unknown) => {
+        const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
 
-          this.endMutation();
-        },
-        error: (error: unknown) => {
-          this.endMutation(error);
-        },
+        this._logManager.warn({
+          type: 'users-update-error',
+          message: errorMessage,
+          error,
+        });
+
+        this.endMutation(error);
+
+        // to avoid the error from killing the stream
+        return EMPTY;
       })
     );
   }
 
   public delete(id: User['id']): Observable<DeleteUserResponse> {
-    return this._usersApi.deleteUser(id).pipe(
-      tap({
-        next: () => {
-          this.deleteLocalData(id);
+    this.startMutation();
 
-          this.endMutation();
-        },
-        error: (error: unknown) => {
-          this.endMutation(error);
-        },
+    return this._usersApi.deleteUser(id).pipe(
+      map((response) => {
+        const { data, meta, error } = response;
+
+        if (error?.message || !data) {
+          throw new Error(error?.message ?? 'No data returned from the server');
+        }
+
+        return { data, meta, error };
+      }),
+      tap(() => {
+        this.deleteLocalData(id);
+        this.endMutation();
+      }),
+      catchError((error: unknown) => {
+        const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+
+        this._logManager.warn({
+          type: 'users-delete-error',
+          message: errorMessage,
+          error,
+        });
+
+        this.endMutation(error);
+
+        return of({ data: undefined, error: { message: errorMessage } });
       })
     );
   }

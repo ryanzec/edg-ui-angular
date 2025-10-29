@@ -210,7 +210,7 @@ export const Variants: Story = {
           <org-textarea name="textarea" variant="borderless" placeholder="Borderless textarea" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>bordered</strong>: Standard textarea with visible border (default)</li>
           <li><strong>borderless</strong>: Minimal styling without border</li>
         </ul>
@@ -252,7 +252,7 @@ export const WithIcons: Story = {
           <org-textarea name="textarea" preIcon="gear" postIcon="arrow-right" placeholder="Both icons" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>preIcon</strong>: Icon displayed before the textarea text</li>
           <li><strong>postIcon</strong>: Icon displayed after the textarea text</li>
           <li>Both icons can be used simultaneously</li>
@@ -319,7 +319,7 @@ export const IconAlignment: Story = {
           />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>start</strong>: Icon aligned to the top (default for preIcon)</li>
           <li><strong>center</strong>: Icon aligned to the middle</li>
           <li><strong>end</strong>: Icon aligned to the bottom (default for postIcon)</li>
@@ -364,7 +364,7 @@ export const EnterBehavior: Story = {
           />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Normal</strong>: Enter adds new line, Shift+Enter emits enterPressed event</li>
           <li><strong>Inverse</strong>: Enter emits enterPressed event, Shift+Enter adds new line</li>
           <li>Useful for chat interfaces or quick-submit forms</li>
@@ -418,7 +418,7 @@ export const InlineItems: Story = {
           />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Inline items are displayed as tags inside the textarea</li>
           <li>Items with <strong>removable: true</strong> show an X button</li>
           <li>Clicking the X button emits <strong>inlineItemRemoved</strong> event</li>
@@ -462,7 +462,7 @@ export const States: Story = {
           />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Normal</strong>: Fully interactive and editable</li>
           <li><strong>Disabled</strong>: Cannot focus, edit, or interact</li>
           <li><strong>Readonly</strong>: Can focus but cannot edit</li>
@@ -524,7 +524,7 @@ export const Validation: Story = {
           </org-form-field>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>When <strong>validationMessage</strong> is provided, textarea shows error state</li>
           <li>Error message is displayed below the textarea</li>
           <li>Textarea border changes to error color (red)</li>
@@ -568,7 +568,7 @@ export const RowSizes: Story = {
           <org-textarea name="textarea" [rows]="8" placeholder="Large textarea with 8 rows" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>rows</strong>: Controls the visible height of the textarea</li>
           <li>Default is 3 rows</li>
           <li>Textarea is still resizable by the user (browser default)</li>
@@ -608,7 +608,7 @@ export const SpecialBehaviors: Story = {
           />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>selectAllOnFocus</strong>: Automatically selects all text when textarea receives focus</li>
           <li><strong>autoFocus</strong>: Automatically focuses the textarea when component mounts</li>
           <li>Useful for forms where quick editing is needed</li>
@@ -637,7 +637,7 @@ export const ValidationSpaceReservation: Story = {
         currentState="Comparing space reservation behaviors"
       >
         <org-storybook-example-container-section label="Reserve Space = true (default)">
-          <div class="space-y-4">
+          <div class="flex flex-col gap-4">
             <org-form-field [reserveValidationSpace]="true">
               <org-textarea
                 name="reserve-true-textarea-1"
@@ -660,7 +660,7 @@ export const ValidationSpaceReservation: Story = {
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Reserve Space = false">
-          <div class="space-y-4">
+          <div class="flex flex-col gap-4">
             <org-form-field [reserveValidationSpace]="false">
               <org-textarea
                 name="reserve-false-textarea-1"
@@ -682,7 +682,7 @@ export const ValidationSpaceReservation: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>reserveValidationSpace=true</strong>: Space is always reserved for validation messages (maintains consistent spacing between textareas)</li>
           <li><strong>reserveValidationSpace=false</strong>: Space is only allocated when a validation message is present (textareas collapse together when no errors)</li>
           <li>Notice how the left column maintains equal spacing between all textareas</li>

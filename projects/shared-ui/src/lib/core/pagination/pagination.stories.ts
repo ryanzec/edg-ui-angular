@@ -129,7 +129,7 @@ export const Default: Story = {
         [defaultCurrentPage]="defaultCurrentPage"
         [defaultTotalItems]="defaultTotalItems"
         [defaultItemsPerPage]="defaultItemsPerPage"
-        [visiblePages]="visiblePages"
+        [defaultItemsPerPageOptions]="defaultItemsPerPageOptions"
         [itemsPerPageOptions]="itemsPerPageOptions"
         [disabled]="disabled"
       />
@@ -177,7 +177,7 @@ export const DatasetSizes: Story = {
           />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Small</strong>: Shows all pages when total pages fit within visible limit</li>
           <li><strong>Medium</strong>: Shows ellipsis when pages exceed visible limit</li>
           <li><strong>Large</strong>: Smart ellipsis placement based on current page position</li>
@@ -229,7 +229,7 @@ export const PagePositions: Story = {
           />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>First Page</strong>: Previous/First buttons disabled, ellipsis after initial pages</li>
           <li><strong>Middle Page</strong>: All navigation enabled, ellipsis on both sides</li>
           <li><strong>Last Page</strong>: Next/Last buttons disabled, ellipsis before final pages</li>
@@ -284,7 +284,7 @@ export const VisiblePageVariations: Story = {
           />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>5 Pages</strong>: Compact view with fewer page buttons</li>
           <li><strong>7 Pages</strong>: Balanced default view (recommended)</li>
           <li><strong>11 Pages</strong>: Expanded view showing more page options</li>
@@ -337,7 +337,7 @@ export const ItemsPerPageOptions: Story = {
           />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Items per page selector shows available options</li>
           <li>Changing items per page adjusts total pages and maintains approximate scroll position</li>
           <li>Default options: [5, 10, 20, 50]</li>
@@ -383,7 +383,7 @@ export const States: Story = {
           />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Normal</strong>: All navigation buttons and selectors are interactive</li>
           <li><strong>Disabled</strong>: All interactions are disabled, reduced opacity applied</li>
           <li>Disabled state prevents page changes and items per page changes</li>

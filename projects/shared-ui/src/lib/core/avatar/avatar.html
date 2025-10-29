@@ -1,4 +1,4 @@
-<button [class]="mergeClasses('org-avatar flex items-center text-left gap-2')" (click)="handleMouseClick($event)">
+<button [class]="mergeClasses('org-avatar flex items-center text-left gap-2')" (click)="onMouseClick($event)">
   <div
     [class]="
       mergeClasses(
@@ -13,7 +13,7 @@
     "
   >
     @if (shouldShowImage()) {
-      <img [src]="imageSrc()" [alt]="label() || ''" class="w-full h-full object-cover" (error)="handleImageError()" />
+      <img [src]="imageSrc()" [alt]="label() || ''" class="w-full h-full object-cover" (error)="onImageError()" />
     } @else if (initials()) {
       <span class="font-medium">{{ initials() }}</span>
     }

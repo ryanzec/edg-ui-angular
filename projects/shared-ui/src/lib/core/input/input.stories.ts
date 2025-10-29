@@ -195,7 +195,7 @@ export const Variants: Story = {
           <org-input name="borderless-input" variant="borderless" placeholder="Borderless input" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>bordered</strong>: Standard input with visible border (default)</li>
           <li><strong>borderless</strong>: Minimal styling without border</li>
         </ul>
@@ -245,7 +245,7 @@ export const InputTypes: Story = {
           <org-input name="url-input" type="url" placeholder="Enter URL" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>text</strong>: Standard text input (default)</li>
           <li><strong>password</strong>: Masked password input</li>
           <li><strong>email</strong>: Email input with browser validation</li>
@@ -291,7 +291,7 @@ export const WithIcons: Story = {
           <org-input name="both-icons-input" preIcon="gear" postIcon="arrow-right" placeholder="Both icons" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>preIcon</strong>: Icon displayed before the input text</li>
           <li><strong>postIcon</strong>: Icon displayed after the input text</li>
           <li>Both icons can be used simultaneously</li>
@@ -332,7 +332,7 @@ export const PasswordToggle: Story = {
           />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>When <strong>showPasswordToggle</strong> is true, an eye icon appears</li>
           <li>Clicking the eye icon toggles password visibility</li>
           <li>Icon changes between eye and eye-slash based on visibility state</li>
@@ -386,7 +386,7 @@ export const InlineItems: Story = {
           />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Inline items are displayed as tags inside the input</li>
           <li>Items with <strong>removable: true</strong> show an X button</li>
           <li>Clicking the X button emits <strong>inlineItemRemoved</strong> event</li>
@@ -425,7 +425,7 @@ export const States: Story = {
           <org-input name="readonly-input" [readonly]="true" placeholder="Readonly input" value="Cannot edit but can focus" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Normal</strong>: Fully interactive and editable</li>
           <li><strong>Disabled</strong>: Cannot focus, edit, or interact</li>
           <li><strong>Readonly</strong>: Can focus but cannot edit</li>
@@ -487,7 +487,7 @@ export const Validation: Story = {
           </org-form-field>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>When <strong>validationMessage</strong> is provided, input shows error state</li>
           <li>Error message is displayed below the input</li>
           <li>Input border changes to error color (red)</li>
@@ -528,7 +528,7 @@ export const SpecialBehaviors: Story = {
           />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>selectAllOnFocus</strong>: Automatically selects all text when input receives focus</li>
           <li><strong>autoFocus</strong>: Automatically focuses the input when component mounts</li>
           <li>Useful for forms where quick editing is needed</li>
@@ -557,7 +557,7 @@ export const ValidationSpaceReservation: Story = {
         currentState="Comparing space reservation behaviors"
       >
         <org-storybook-example-container-section label="Reserve Space = true (default)">
-          <div class="space-y-4">
+          <div class="flex flex-col gap-4">
             <org-form-field [reserveValidationSpace]="true">
               <org-input
                 name="reserve-true-input-1"
@@ -580,7 +580,7 @@ export const ValidationSpaceReservation: Story = {
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Reserve Space = false">
-          <div class="space-y-4">
+          <div class="flex flex-col gap-4">
             <org-form-field [reserveValidationSpace]="false">
               <org-input
                 name="reserve-false-input-1"
@@ -602,7 +602,7 @@ export const ValidationSpaceReservation: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>reserveValidationSpace=true</strong>: Space is always reserved for validation messages (maintains consistent spacing between inputs)</li>
           <li><strong>reserveValidationSpace=false</strong>: Space is only allocated when a validation message is present (inputs collapse together when no errors)</li>
           <li>Notice how the left column maintains equal spacing between all inputs</li>

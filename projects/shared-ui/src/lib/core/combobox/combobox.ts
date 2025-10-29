@@ -54,7 +54,7 @@ type ComboboxState = {
     },
   ],
   host: {
-    dataid: 'combobox',
+    ['attr.data-testid']: 'combobox',
   },
 })
 export class Combobox implements AfterViewInit, ControlValueAccessor {
@@ -273,7 +273,7 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
   /**
    * handles input value changes
    */
-  public handleInputValueChange(value: string): void {
+  public onInputValueChange(value: string): void {
     this._store.setInputValue(value);
 
     // open menu when typing if auto show is enabled
@@ -285,7 +285,7 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
   /**
    * handles input focus
    */
-  public handleInputFocus(): void {
+  public onInputFocus(): void {
     this._state.update((state) => ({ ...state, isFocused: true }));
     this.focused.emit();
 
@@ -298,7 +298,7 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
   /**
    * handles input click - opens menu when clicked
    */
-  public handleInputClick(): void {
+  public onInputClick(): void {
     const currentIsFocused = this._state().isFocused;
 
     // there is a small area where the input is clicked but but not focused so thi make sure that spot properly
@@ -316,7 +316,7 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
   /**
    * handles input blur
    */
-  public handleInputBlur(): void {
+  public onInputBlur(): void {
     this._state.update((state) => ({ ...state, isFocused: false }));
     this._onTouched();
     this.blurred.emit();
@@ -346,33 +346,33 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
   /**
    * handles keyboard navigation
    */
-  public handleKeyDown(event: KeyboardEvent): void {
+  public onKeyDown(event: KeyboardEvent): void {
     const key = event.key;
 
     switch (key) {
       case 'Enter':
         event.preventDefault();
-        this._handleEnterKey();
+        this._onEnterKey();
         break;
       case 'ArrowDown':
         event.preventDefault();
-        this._handleArrowDownKey();
+        this._onArrowDownKey();
         break;
       case 'ArrowUp':
         event.preventDefault();
-        this._handleArrowUpKey();
+        this._onArrowUpKey();
         break;
       case 'Home':
         event.preventDefault();
-        this._handleHomeKey();
+        this._onHomeKey();
         break;
       case 'End':
         event.preventDefault();
-        this._handleEndKey();
+        this._onEndKey();
         break;
       case 'Escape':
         event.preventDefault();
-        this._handleEscapeKey();
+        this._onEscapeKey();
         break;
     }
   }
@@ -380,7 +380,7 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
   /**
    * handles option mousedown to prevent blur and select option
    */
-  public handleOptionMouseDown(event: MouseEvent, option: ComboboxOption): void {
+  public onOptionMouseDown(event: MouseEvent, option: ComboboxOption): void {
     // prevent blur event on input when clicking option
     event.preventDefault();
 
@@ -394,7 +394,7 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
   /**
    * handles option mouse enter to prevent blur and select option
    */
-  public handleOptionMouseEnter(event: MouseEvent, option: ComboboxOption): void {
+  public onOptionMouseEnter(event: MouseEvent, option: ComboboxOption): void {
     event.preventDefault();
 
     this._store.setFocusedOption(option);
@@ -403,7 +403,7 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
   /**
    * handles option mouse leave to prevent blur and select option
    */
-  public handleOptionMouseLeave(event: MouseEvent, _option: ComboboxOption): void {
+  public onOptionMouseLeave(event: MouseEvent, _option: ComboboxOption): void {
     event.preventDefault();
 
     this._store.setFocusedOption(null);
@@ -412,7 +412,7 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
   /**
    * handles inline item removal (multi-select tags)
    */
-  public handleInlineItemRemove(item: InlineItem): void {
+  public onInlineItemRemove(item: InlineItem): void {
     const currentSelected = this._store.selectedValues();
     const newSelected = currentSelected.filter((value) => String(value) !== item.id);
     this._store.setSelectedValues(newSelected);
@@ -480,7 +480,7 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
   /**
    * handles enter key press
    */
-  private _handleEnterKey(): void {
+  private _onEnterKey(): void {
     const focusedOption = this.focusedOption();
 
     if (focusedOption && !focusedOption.disabled) {
@@ -491,7 +491,7 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
   /**
    * handles arrow down key press
    */
-  private _handleArrowDownKey(): void {
+  private _onArrowDownKey(): void {
     // open menu if closed
     if (!this.isOpened()) {
       this._store.open();
@@ -516,7 +516,7 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
   /**
    * handles arrow up key press
    */
-  private _handleArrowUpKey(): void {
+  private _onArrowUpKey(): void {
     // open menu if closed
     if (!this.isOpened()) {
       this._store.open();
@@ -541,7 +541,7 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
   /**
    * handles home key press
    */
-  private _handleHomeKey(): void {
+  private _onHomeKey(): void {
     if (this.isGroupingEnabled()) {
       this._store.groupFocusFirst();
     } else {
@@ -552,7 +552,7 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
   /**
    * handles end key press
    */
-  private _handleEndKey(): void {
+  private _onEndKey(): void {
     if (this.isGroupingEnabled()) {
       this._store.groupFocusLast();
     } else {
@@ -563,7 +563,7 @@ export class Combobox implements AfterViewInit, ControlValueAccessor {
   /**
    * handles escape key press
    */
-  private _handleEscapeKey(): void {
+  private _onEscapeKey(): void {
     if (this.isOpened()) {
       this._store.close();
     } else {

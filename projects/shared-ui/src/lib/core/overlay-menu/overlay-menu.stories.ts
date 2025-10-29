@@ -41,7 +41,7 @@ export type OverlayMenuPosition = 'below' | 'above' | 'before' | 'after';
     </ng-template>
   </div> `,
   host: {
-    dataid: 'example-overlay-menu',
+    ['attr.data-testid']: 'example-overlay-menu',
   },
 })
 export class EXAMPLEOverlayMenu {
@@ -143,7 +143,7 @@ export const Positions: Story = {
           <org-example-overlay-menu position="above" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Below</strong>: Menu opens below the trigger button</li>
           <li><strong>Above</strong>: Menu opens above the trigger button</li>
           <li>Angular CDK automatically adjusts if there isn't enough space</li>
@@ -176,7 +176,7 @@ export const KeyboardNavigation: Story = {
           <org-example-overlay-menu position="below" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Enter/Space</strong>: Open menu when trigger is focused</li>
           <li><strong>Arrow Down/Up</strong>: Navigate between menu items</li>
           <li><strong>Enter</strong>: Activate the focused menu item</li>

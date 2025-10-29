@@ -49,7 +49,7 @@ export type GetUsersRequest = {
   updatedBefore?: string;
   offset?: number;
   limit?: number;
-  orderBy?: string | null;
+  orderBy?: 'name' | 'createdAt' | null;
   orderDirection?: 'asc' | 'desc' | null;
 };
 export type GetUsersResponse = ResponseStructure<User[]>;

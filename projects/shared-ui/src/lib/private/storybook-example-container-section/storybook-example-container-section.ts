@@ -6,7 +6,7 @@ import { Component, ChangeDetectionStrategy, input } from '@angular/core';
   imports: [],
   templateUrl: './storybook-example-container-section.html',
   host: {
-    dataid: 'storybook-example-container-section',
+    ['attr.data-testid']: 'storybook-example-container-section',
   },
 })
 export class StorybookExampleContainerSection {

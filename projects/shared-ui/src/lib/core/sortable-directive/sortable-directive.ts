@@ -24,7 +24,7 @@ export const SORTABLE_ENABLED_DEFAULT = true;
 @Directive({
   selector: '[orgSortable]',
   host: {
-    '(click)': '_handleClick()',
+    '(click)': '_onClick()',
     '[class.cursor-pointer]': '_hostClassEnabled()',
     '[class.select-none]': '_hostClassEnabled()',
     '[class.flex]': '_hostClassEnabled()',
@@ -92,7 +92,7 @@ export class SortableDirective implements OnDestroy {
     this._iconComponentRef?.destroy();
   }
 
-  public _handleClick(): void {
+  public _onClick(): void {
     const enabled = this.sortableEnabled();
 
     if (!enabled) {

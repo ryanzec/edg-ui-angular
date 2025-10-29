@@ -144,7 +144,7 @@ export const WithLoadingIndicator: Story = {
           <org-label htmlFor="processing-request" label="Processing request" [isLoading]="true" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Without Loading</strong>: Displays only the label text</li>
           <li><strong>With Loading</strong>: Displays a spinning loading indicator after the label text</li>
           <li><strong>Processing</strong>: Shows loading indicator for longer operations</li>
@@ -183,7 +183,7 @@ export const WithRequiredIndicator: Story = {
           <org-label htmlFor="validating-email" label="Validating email" [isRequired]="true" [isLoading]="true" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Optional Field</strong>: Displays only the label text</li>
           <li><strong>Required Field</strong>: Displays a red asterisk (*) after the label text</li>
           <li><strong>Required with Loading</strong>: Combines required indicator with loading state</li>
@@ -243,7 +243,7 @@ export const WithSlotProjection: Story = {
           </org-label>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Optional Text</strong>: Indicates optional fields or provides guidance</li>
           <li><strong>Info Badge</strong>: Highlights new or special features</li>
           <li><strong>Required with Help Text</strong>: Combines required indicator with help text using slot projection</li>
@@ -294,7 +294,7 @@ export const CombinedFeatures: Story = {
           </org-label>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Loading with Required</strong>: Shows validation in progress for required field</li>
           <li><strong>Loading with Info</strong>: Indicates realtime validation with loading state and additional info</li>
           <li><strong>Required with Slot</strong>: Combines required indicator with projected help text</li>
@@ -350,7 +350,7 @@ export const FormContexts: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Login Form</strong>: Basic required fields with asterisks</li>
           <li><strong>Registration Form</strong>: Mix of required and optional fields</li>
           <li><strong>Settings Form</strong>: Fields with informational badges</li>
@@ -393,7 +393,7 @@ export const WithCustomStyling: Story = {
           <org-label htmlFor="custom-color-label" label="Custom Color Label" containerClass="text-primary-text" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Default</strong>: Standard label styling</li>
           <li><strong>Bold Text</strong>: Makes the label text bold</li>
           <li><strong>Larger Text</strong>: Increases the font size</li>
@@ -417,7 +417,7 @@ export const RealWorldExample: Story = {
   },
   render: () => ({
     props: {
-      handleSubmit: () => {
+      onSubmit: () => {
         console.log('form submitted');
       },
     },
@@ -452,13 +452,13 @@ export const RealWorldExample: Story = {
               <org-input name="company" type="text" placeholder="Acme Inc." />
             </div>
 
-            <org-button color="primary" (clicked)="handleSubmit()">
+            <org-button color="primary" (clicked)="onSubmit()">
               Save Profile
             </org-button>
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Shows labels properly associated with form inputs</li>
           <li>Required fields marked with asterisks</li>
           <li>Optional fields clearly indicated</li>

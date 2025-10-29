@@ -152,7 +152,7 @@ export const Colors: Story = {
           <div orgText textColor="danger">Danger text color</div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>primary</strong>: Primary color</li>
           <li><strong>secondary</strong>: Secondary accent color</li>
           <li><strong>neutral</strong>: Neutral color</li>
@@ -208,7 +208,7 @@ export const Sizes: Story = {
           <div orgText textSize="2xl">2xl text (1.5rem / 24px)</div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>xs</strong>: 0.75rem / 12px</li>
           <li><strong>sm</strong>: 0.875rem / 14px</li>
           <li><strong>base</strong>: 1rem / 16px</li>
@@ -266,7 +266,7 @@ export const Combined: Story = {
           <div orgText textColor="secondary" textSize="base">Secondary base text</div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Color and size can be used independently or together</li>
           <li>Both properties are optional and default to null</li>
           <li>When null, the element uses its inherited or default styling</li>

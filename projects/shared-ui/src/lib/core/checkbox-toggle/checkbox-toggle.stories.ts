@@ -237,7 +237,7 @@ export const Sizes: Story = {
           </org-checkbox-toggle>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Small</strong>: 28x16px track with 12px thumb - compact toggle for tight spaces</li>
           <li><strong>Base</strong>: 36x20px track with 16px thumb - standard toggle size (default)</li>
           <li><strong>Large</strong>: 44x24px track with 20px thumb - prominent toggle for emphasis</li>
@@ -276,7 +276,7 @@ export const States: Story = {
           </org-checkbox-toggle>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Off</strong>: Thumb positioned to the left, clicking will turn it on</li>
           <li><strong>On</strong>: Thumb positioned to the right, clicking will turn it off</li>
         </ul>
@@ -314,7 +314,7 @@ export const DisabledStates: Story = {
           </org-checkbox-toggle>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Disabled toggles have reduced opacity</li>
           <li>Disabled toggles cannot be clicked or interacted with</li>
           <li>Cursor changes to not-allowed when hovering over disabled toggles</li>
@@ -455,7 +455,7 @@ export const WithTextDisplayValues: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Text displays inside the toggle thumb</li>
           <li>Different text can be shown for on and off states</li>
           <li>Text scales appropriately for different sizes</li>
@@ -597,7 +597,7 @@ export const WithIconDisplayValues: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Icons display inside the toggle thumb</li>
           <li>Different icons can be shown for on and off states</li>
           <li>Icons scale appropriately for different sizes</li>
@@ -707,7 +707,7 @@ export const GroupedToggles: Story = {
         </form>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Toggles emit <strong>checkedChange</strong> events when toggled</li>
         <li>Can be integrated with reactive forms by handling change events</li>
         <li>Form state updates in real-time as toggles are changed</li>
@@ -791,7 +791,7 @@ export const ReactiveFormIntegration: Story = {
         </org-form-fields>
       </form>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Validation message appears below the toggle when provided</li>
         <li>Message uses <strong>text-validation-error-text</strong> color (danger/red)</li>
         <li>Message is visible only when validationMessage input is provided</li>
@@ -849,7 +849,7 @@ export const ValidationSpaceReservation: Story = {
         currentState="Comparing space reservation behaviors"
       >
         <org-storybook-example-container-section label="Reserve Space = true (default)">
-          <div class="space-y-4">
+          <div class="flex flex-col gap-4">
             <org-form-field [reserveValidationSpace]="true">
               <org-checkbox-toggle
                 name="reserve-true-toggle-1"
@@ -878,7 +878,7 @@ export const ValidationSpaceReservation: Story = {
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Reserve Space = false">
-          <div class="space-y-4">
+          <div class="flex flex-col gap-4">
             <org-form-field [reserveValidationSpace]="false">
               <org-checkbox-toggle
                 name="reserve-false-toggle-1"
@@ -906,7 +906,7 @@ export const ValidationSpaceReservation: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>reserveValidationSpace=true</strong>: Space is always reserved for validation messages (maintains consistent spacing between toggles)</li>
           <li><strong>reserveValidationSpace=false</strong>: Space is only allocated when a validation message is present (toggles collapse together when no errors)</li>
           <li>Notice how the left column maintains equal spacing between all toggles</li>

@@ -102,7 +102,7 @@ describe('TimeInput', () => {
       component._state.update((s) => ({ ...s, activeSegment: 'hours' }));
 
       const event = new KeyboardEvent('keydown', { key: 'ArrowRight' });
-      component.handleKeyDown(event);
+      component.onKeyDown(event);
 
       expect(component._state().activeSegment).toBe('minutes');
     });
@@ -111,7 +111,7 @@ describe('TimeInput', () => {
       component._state.update((s) => ({ ...s, activeSegment: 'minutes' }));
 
       const event = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
-      component.handleKeyDown(event);
+      component.onKeyDown(event);
 
       expect(component._state().activeSegment).toBe('hours');
     });
@@ -120,7 +120,7 @@ describe('TimeInput', () => {
       component._state.update((s) => ({ ...s, activeSegment: 'ampm' }));
 
       const event = new KeyboardEvent('keydown', { key: 'ArrowRight' });
-      component.handleKeyDown(event);
+      component.onKeyDown(event);
 
       expect(component._state().activeSegment).toBe('hours');
     });
@@ -129,7 +129,7 @@ describe('TimeInput', () => {
       component._state.update((s) => ({ ...s, activeSegment: 'hours' }));
 
       const event = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
-      component.handleKeyDown(event);
+      component.onKeyDown(event);
 
       expect(component._state().activeSegment).toBe('ampm');
     });
@@ -140,7 +140,7 @@ describe('TimeInput', () => {
       component._state.update((s) => ({ ...s, hours: '05', activeSegment: 'hours' }));
 
       const event = new KeyboardEvent('keydown', { key: 'ArrowUp' });
-      component.handleKeyDown(event);
+      component.onKeyDown(event);
 
       expect(component._state().hours).toBe('06');
     });
@@ -149,7 +149,7 @@ describe('TimeInput', () => {
       component._state.update((s) => ({ ...s, hours: '12', activeSegment: 'hours' }));
 
       const event = new KeyboardEvent('keydown', { key: 'ArrowUp' });
-      component.handleKeyDown(event);
+      component.onKeyDown(event);
 
       expect(component._state().hours).toBe('01');
     });
@@ -158,7 +158,7 @@ describe('TimeInput', () => {
       component._state.update((s) => ({ ...s, hours: '05', activeSegment: 'hours' }));
 
       const event = new KeyboardEvent('keydown', { key: 'ArrowDown' });
-      component.handleKeyDown(event);
+      component.onKeyDown(event);
 
       expect(component._state().hours).toBe('04');
     });
@@ -167,7 +167,7 @@ describe('TimeInput', () => {
       component._state.update((s) => ({ ...s, hours: '01', activeSegment: 'hours' }));
 
       const event = new KeyboardEvent('keydown', { key: 'ArrowDown' });
-      component.handleKeyDown(event);
+      component.onKeyDown(event);
 
       expect(component._state().hours).toBe('12');
     });
@@ -176,7 +176,7 @@ describe('TimeInput', () => {
       component._state.update((s) => ({ ...s, minutes: '30', activeSegment: 'minutes' }));
 
       const event = new KeyboardEvent('keydown', { key: 'ArrowUp' });
-      component.handleKeyDown(event);
+      component.onKeyDown(event);
 
       expect(component._state().minutes).toBe('31');
     });
@@ -185,7 +185,7 @@ describe('TimeInput', () => {
       component._state.update((s) => ({ ...s, minutes: '59', activeSegment: 'minutes' }));
 
       const event = new KeyboardEvent('keydown', { key: 'ArrowUp' });
-      component.handleKeyDown(event);
+      component.onKeyDown(event);
 
       expect(component._state().minutes).toBe('00');
     });
@@ -194,7 +194,7 @@ describe('TimeInput', () => {
       component._state.update((s) => ({ ...s, ampm: 'am', activeSegment: 'ampm' }));
 
       const event = new KeyboardEvent('keydown', { key: 'ArrowUp' });
-      component.handleKeyDown(event);
+      component.onKeyDown(event);
 
       expect(component._state().ampm).toBe('pm');
     });
@@ -205,7 +205,7 @@ describe('TimeInput', () => {
       component._state.update((s) => ({ ...s, activeSegment: 'hours', firstDigitEntered: false }));
 
       const event = new KeyboardEvent('keydown', { key: '0' });
-      component.handleKeyDown(event);
+      component.onKeyDown(event);
 
       expect(component._state().hours).toBe('00');
       expect(component._state().firstDigitEntered).toBe(true);
@@ -216,7 +216,7 @@ describe('TimeInput', () => {
       component._state.update((s) => ({ ...s, activeSegment: 'hours', firstDigitEntered: false }));
 
       const event = new KeyboardEvent('keydown', { key: '1' });
-      component.handleKeyDown(event);
+      component.onKeyDown(event);
 
       expect(component._state().hours).toBe('01');
       expect(component._state().firstDigitEntered).toBe(true);
@@ -227,7 +227,7 @@ describe('TimeInput', () => {
       component._state.update((s) => ({ ...s, activeSegment: 'hours', firstDigitEntered: false }));
 
       const event = new KeyboardEvent('keydown', { key: '5' });
-      component.handleKeyDown(event);
+      component.onKeyDown(event);
 
       expect(component._state().hours).toBe('05');
       expect(component._state().firstDigitEntered).toBe(false);
@@ -238,7 +238,7 @@ describe('TimeInput', () => {
       component._state.update((s) => ({ ...s, hours: '01', activeSegment: 'hours', firstDigitEntered: true }));
 
       const event = new KeyboardEvent('keydown', { key: '5' });
-      component.handleKeyDown(event);
+      component.onKeyDown(event);
 
       expect(component._state().hours).toBe('12');
       expect(component._state().activeSegment).toBe('minutes');
@@ -250,7 +250,7 @@ describe('TimeInput', () => {
       component._state.update((s) => ({ ...s, activeSegment: 'minutes', firstDigitEntered: false }));
 
       const event = new KeyboardEvent('keydown', { key: '3' });
-      component.handleKeyDown(event);
+      component.onKeyDown(event);
 
       expect(component._state().minutes).toBe('03');
       expect(component._state().firstDigitEntered).toBe(true);
@@ -261,7 +261,7 @@ describe('TimeInput', () => {
       component._state.update((s) => ({ ...s, activeSegment: 'minutes', firstDigitEntered: false }));
 
       const event = new KeyboardEvent('keydown', { key: '7' });
-      component.handleKeyDown(event);
+      component.onKeyDown(event);
 
       expect(component._state().minutes).toBe('07');
       expect(component._state().firstDigitEntered).toBe(false);
@@ -272,7 +272,7 @@ describe('TimeInput', () => {
       component._state.update((s) => ({ ...s, minutes: '03', activeSegment: 'minutes', firstDigitEntered: true }));
 
       const event = new KeyboardEvent('keydown', { key: '5' });
-      component.handleKeyDown(event);
+      component.onKeyDown(event);
 
       expect(component._state().minutes).toBe('35');
       expect(component._state().activeSegment).toBe('ampm');
@@ -284,7 +284,7 @@ describe('TimeInput', () => {
       component._state.update((s) => ({ ...s, activeSegment: 'ampm', ampm: 'pm' }));
 
       const event = new KeyboardEvent('keydown', { key: 'a' });
-      component.handleKeyDown(event);
+      component.onKeyDown(event);
 
       expect(component._state().ampm).toBe('am');
     });
@@ -293,7 +293,7 @@ describe('TimeInput', () => {
       component._state.update((s) => ({ ...s, activeSegment: 'ampm', ampm: 'am' }));
 
       const event = new KeyboardEvent('keydown', { key: 'p' });
-      component.handleKeyDown(event);
+      component.onKeyDown(event);
 
       expect(component._state().ampm).toBe('pm');
     });
@@ -306,7 +306,7 @@ describe('TimeInput', () => {
 
       const initialHours = component._state().hours;
       const event = new KeyboardEvent('keydown', { key: 'ArrowUp' });
-      component.handleKeyDown(event);
+      component.onKeyDown(event);
 
       expect(component._state().hours).toBe(initialHours);
     });
@@ -317,7 +317,7 @@ describe('TimeInput', () => {
 
       const initialHours = component._state().hours;
       const event = new KeyboardEvent('keydown', { key: 'ArrowUp' });
-      component.handleKeyDown(event);
+      component.onKeyDown(event);
 
       expect(component._state().hours).toBe(initialHours);
     });
@@ -345,20 +345,20 @@ describe('TimeInput with TestHost', () => {
   it('should emit valueChange event', () => {
     timeInput._state.update((s) => ({ ...s, hours: '03', minutes: '45', ampm: 'pm' }));
     const event = new KeyboardEvent('keydown', { key: 'ArrowUp' });
-    timeInput.handleKeyDown(event);
+    timeInput.onKeyDown(event);
     fixture.detectChanges();
 
     expect(hostComponent.onValueChange).toHaveBeenCalled();
   });
 
   it('should emit focused event', () => {
-    timeInput.handleFocus();
+    timeInput.onFocus();
 
     expect(hostComponent.onFocused).toHaveBeenCalled();
   });
 
   it('should emit blurred event', () => {
-    timeInput.handleBlur();
+    timeInput.onBlur();
 
     expect(hostComponent.onBlurred).toHaveBeenCalled();
   });

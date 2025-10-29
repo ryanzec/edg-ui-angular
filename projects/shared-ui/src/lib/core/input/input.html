@@ -21,7 +21,7 @@
         color="primary"
         variant="weak"
         [removable]="!!(item.removable && !isDisabled() && !isReadonly())"
-        (removed)="handleInlineItemRemove(item)"
+        (removed)="onInlineItemRemove(item)"
       >
         {{ item.label }}
       </org-tag>
@@ -38,7 +38,7 @@
             inputClass()
           )
         "
-        (click)="handlePreIconClick($event)"
+        (click)="onPreIconClick($event)"
         [disabled]="isDisabled()"
         [attr.aria-label]="'Pre icon'"
         [tabindex]="isPreIconClickable() === false || isDisabled() ? -1 : 0"
@@ -64,15 +64,15 @@
       [placeholder]="placeholder()"
       [disabled]="isDisabled()"
       [readonly]="isReadonly()"
-      [attr.autofocus]="autoFocus() || null"
-      [attr.autocomplete]="autocomplete() || null"
-      (input)="handleInputChange($event)"
-      (blur)="handleBlur()"
+      [attr.autofocus]="autoFocus()"
+      (input)="onInputChange($event)"
+      (blur)="onBlur()"
       [name]="name()"
       [attr.id]="name()"
       [attr.aria-describedby]="ariaDescribedBy()"
       [attr.aria-invalid]="ariaInvalid()"
       [attr.autocomplete]="autocomplete()"
+      [attr.data-ip-ignore]="blockPasswordManager() ? 'true' : null"
     />
     @if (hasPostIcon()) {
       <button
@@ -86,7 +86,7 @@
             }
           )
         "
-        (click)="handlePostIconClick($event)"
+        (click)="onPostIconClick($event)"
         [disabled]="isDisabled()"
         [attr.aria-label]="
           showPasswordToggle() && type() === 'password'

@@ -1,4 +1,16 @@
-import { Component, ChangeDetectionStrategy, input, inject, ViewEncapsulation, HostListener } from '@angular/core';
+/*
+ * This primary reason for this wrapper around the Angular CDK's dialog functionality is to support functionality
+ * like escape key closing the dialog but clicking outside not
+ */
+import {
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  inject,
+  ViewEncapsulation,
+  HostListener,
+  output,
+} from '@angular/core';
 import { Dialog as CdkDialog, DialogRef } from '@angular/cdk/dialog';
 import { ComponentType } from '@angular/cdk/portal';
 import { LogManager } from '../log-manager/log-manager';
@@ -20,10 +32,10 @@ export class DialogController<T> {
   private readonly _cdkDialog = inject(CdkDialog);
 
   private _dialogRef: DialogRef<T, T> | undefined = undefined;
+  private _escapeKeyEnabled = true;
 
   // Inputs to make the component generic
   public dialogComponent = input.required<ComponentType<T>>();
-  public dialogData = input<Record<string, unknown>>();
   public position = input<DialogPosition>('center');
   public hasRoundedCorners = input<boolean>(true);
 
@@ -32,19 +44,28 @@ export class DialogController<T> {
    */
   public enableCloseOnClickOutside = input<boolean>(false);
 
-  public openDialog(): void {
+  /**
+   * This controls whether the escape key can close the dialog
+   */
+  public enableEscapeKey = input<boolean>(true);
+
+  public closed = output<void>();
+
+  public openDialog(data?: Record<string, unknown>): DialogRef<T, T> | null {
     // Check if the component to open has been provided
     const component = this.dialogComponent();
 
     if (!component) {
       console.error('DialogTriggerComponent: dialogComponent input is required.');
 
-      return;
+      return null;
     }
+
+    this._escapeKeyEnabled = this.enableEscapeKey();
 
     this._dialogRef = this._cdkDialog.open(component, {
       data: {
-        ...this.dialogData(),
+        ...data,
         hasRoundedCorners: this.hasRoundedCorners(),
       },
       panelClass: this._getPanelClass(),
@@ -52,12 +73,18 @@ export class DialogController<T> {
       closeOnNavigation: true,
       disableClose: this.enableCloseOnClickOutside() === false,
     });
+
+    this._dialogRef.closed.subscribe(() => {
+      this.closed.emit();
+    });
+
+    return this._dialogRef;
   }
 
   public closeDialog(): void {
     if (!this._dialogRef) {
       this._logManager.warn({
-        type: 'dialog-close-failed',
+        type: 'dialog-close-error',
         message: 'attempted to close a dialog when no reference was available',
       });
 
@@ -67,6 +94,13 @@ export class DialogController<T> {
     this._dialogRef.close();
   }
 
+  /**
+   * dynamically enables or disables the escape key for closing the dialog
+   */
+  public setEnableEscapeKey(enabled: boolean): void {
+    this._escapeKeyEnabled = enabled;
+  }
+
   @HostListener('document:keydown.escape', ['$event'])
   onKeydownHandler(_event: Event) {
     if (!this._dialogRef) {
@@ -74,6 +108,10 @@ export class DialogController<T> {
     }
 
     if (this.enableCloseOnClickOutside()) {
+      return;
+    }
+
+    if (!this._escapeKeyEnabled) {
       return;
     }
 

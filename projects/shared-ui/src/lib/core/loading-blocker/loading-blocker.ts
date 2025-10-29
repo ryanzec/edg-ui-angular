@@ -12,7 +12,7 @@ import { tailwindUtils } from '@organization/shared-utils';
   imports: [CdkTrapFocus, LoadingSpinner],
   templateUrl: './loading-blocker.html',
   host: {
-    dataid: 'loading-blocker',
+    ['attr.data-testid']: 'loading-blocker',
   },
 })
 export class LoadingBlocker {

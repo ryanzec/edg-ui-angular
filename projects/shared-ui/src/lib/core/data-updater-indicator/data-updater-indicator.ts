@@ -13,7 +13,7 @@ export type DataUpdaterIndicatorStatus = 'active' | 'inactive';
   imports: [Indicator, LoadingSpinner, DateDisplay],
   templateUrl: './data-updater-indicator.html',
   host: {
-    dataid: 'data-updater-indicator',
+    ['attr.data-testid']: 'data-updater-indicator',
     class: 'inline-flex',
   },
 })

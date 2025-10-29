@@ -67,7 +67,7 @@ class GlobalNotificationsDefaultStory {
         <org-button color="primary" (click)="showBottomRight()"> Show Bottom-Right Notification </org-button>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li><strong>X Position</strong>: Controls horizontal placement (left, center, right)</li>
         <li><strong>Y Position</strong>: Controls vertical placement (top, bottom)</li>
         <li><strong>Default</strong>: Positioned at top-center</li>
@@ -196,7 +196,7 @@ class GlobalNotificationsPositionsStory {
         <org-button color="danger" (click)="addDanger()"> Show Danger Notification </org-button>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li><strong>Colors</strong>: Inherited from card component color variants</li>
         <li><strong>Auto-close</strong>: All notifications auto-dismiss after 5 seconds</li>
         <li><strong>Closeable</strong>: All notifications can be manually closed</li>
@@ -311,7 +311,7 @@ class GlobalNotificationsColorsStory {
         <org-button color="neutral" (click)="addNoClose()"> Show No Close Button </org-button>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li><strong>Auto-close</strong>: Configurable duration via autoCloseIn (in milliseconds)</li>
         <li><strong>Manual close</strong>: Close button appears when canClose is true</li>
         <li><strong>No auto-close</strong>: When autoCloseIn is not set, only manual close is available</li>

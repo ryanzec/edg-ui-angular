@@ -127,7 +127,7 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit, ControlValueA
 
   public readonly ariaDescribedBy = computed<string | null>(() => {
     if (this.hasValidationMessage()) {
-      return 'validation-message';
+      return `validation-message-${this.name()}`;
     }
 
     return null;
@@ -180,7 +180,7 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit, ControlValueA
     this._focusMonitor.stopMonitoring(this.textareaRef.nativeElement);
   }
 
-  public handleInputChange(event: Event): void {
+  public onInputChange(event: Event): void {
     const target = event.target as HTMLTextAreaElement;
     const value = target.value;
 
@@ -188,11 +188,11 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit, ControlValueA
     this.valueChange.emit(value);
   }
 
-  public handleBlur(): void {
+  public onBlur(): void {
     this._onTouched();
   }
 
-  public handleKeyDown(event: KeyboardEvent): void {
+  public onKeyDown(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
       const shouldSubmit = this.inverseEnter() ? !event.shiftKey : event.shiftKey;
 
@@ -204,7 +204,7 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit, ControlValueA
     }
   }
 
-  public handlePreIconClick(): void {
+  public onPreIconClick(): void {
     if (this.isDisabled() || this.isReadonly()) {
       return;
     }
@@ -212,7 +212,7 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit, ControlValueA
     this._preIconClicked$.next();
   }
 
-  public handlePostIconClick(): void {
+  public onPostIconClick(): void {
     if (this.isDisabled() || this.isReadonly()) {
       return;
     }
@@ -220,7 +220,7 @@ export class Textarea implements OnInit, OnDestroy, AfterViewInit, ControlValueA
     this._postIconClicked$.next();
   }
 
-  public handleInlineItemRemove(item: InlineItem): void {
+  public onInlineItemRemove(item: InlineItem): void {
     if (this.isDisabled() || this.isReadonly()) {
       return;
     }

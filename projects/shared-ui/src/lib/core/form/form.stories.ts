@@ -426,7 +426,7 @@ class ReactiveFormDemoComponent {
                 [selectedStartDate]="startDate()"
                 [selectedEndDate]="endDate()"
                 placeholder="Select date range..."
-                (dateSelected)="handleDateSelected($event)"
+                (dateSelected)="onDateSelected($event)"
                 name="dateRange"
               />
             </org-form-field>
@@ -653,7 +653,7 @@ class SimpleBindingDemoComponent {
     });
   }
 
-  public handleDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
+  public onDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
     console.log('Date selected:', dates);
     this.startDate.set(dates.startDate);
     this.endDate.set(dates.endDate);
@@ -1091,7 +1091,7 @@ class ReactiveFormPrePopulatedDemoComponent {
                 [selectedStartDate]="startDate()"
                 [selectedEndDate]="endDate()"
                 placeholder="Select date range..."
-                (dateSelected)="handleDateSelected($event)"
+                (dateSelected)="onDateSelected($event)"
                 name="dateRange"
               />
             </org-form-field>
@@ -1332,7 +1332,7 @@ class SimpleBindingPrePopulatedDemoComponent implements AfterViewInit {
     });
   }
 
-  public handleDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
+  public onDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
     this.startDate.set(dates.startDate);
     this.endDate.set(dates.endDate);
   }

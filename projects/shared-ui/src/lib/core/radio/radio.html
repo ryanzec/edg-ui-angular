@@ -2,8 +2,8 @@
   orgText
   [textSize]="textSize()"
   [class]="mergeClasses('org-radio-container', 'inline-flex items-center gap-1 cursor-pointer', containerClass())"
-  (click)="handleClick($event)"
-  (keydown)="handleKeyDown($event)"
+  (click)="onClick($event)"
+  (keydown)="onKeyDown($event)"
   [attr.tabindex]="0"
   role="radio"
   [attr.aria-checked]="isChecked()"

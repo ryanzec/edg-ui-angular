@@ -10,7 +10,7 @@ export type SkeletonType = 'table' | 'card';
   templateUrl: './skeleton.html',
   styleUrl: './skeleton.css',
   host: {
-    dataid: 'skeleton',
+    ['attr.data-testid']: 'skeleton',
     class: 'inline-block',
   },
 })

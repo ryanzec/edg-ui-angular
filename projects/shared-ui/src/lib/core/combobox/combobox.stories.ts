@@ -201,8 +201,8 @@ export const Default: Story = {
                 name="single-select"
                 [options]="options"
                 placeholder="Select a fruit..."
-                (selectedValuesChanged)="handleSelectedValuesChange($event)"
-                (inputValueChanged)="handleInputValueChange($event)"
+                (selectedValuesChanged)="onSelectedValuesChange($event)"
+                (inputValueChanged)="onInputValueChange($event)"
               />
             </org-form-field>
           </org-form-fields>
@@ -223,13 +223,13 @@ export const Default: Story = {
       </org-storybook-example-container-section>
 
       <org-storybook-example-container-section label="State">
-        <div class="text-sm space-y-1">
+        <div class="text-sm flex flex-col gap-1">
           <div><strong>Selected Values:</strong> {{ selectedValues() ? (selectedValues() | json) : 'None' }}</div>
           <div><strong>Input Value:</strong> "{{ inputValue() }}"</div>
         </div>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Only one option can be selected at a time</li>
         <li>Input displays selected option label when not focused</li>
         <li>Options menu closes after selection</li>
@@ -244,12 +244,12 @@ class ComboboxSingleSelectDemo {
   protected selectedValues = signal<(string | number)[] | null>(null);
   protected inputValue = signal<string>('');
 
-  protected handleSelectedValuesChange(values: (string | number)[]): void {
+  protected onSelectedValuesChange(values: (string | number)[]): void {
     console.log('Selected values changed:', values);
     this.selectedValues.set(values);
   }
 
-  protected handleInputValueChange(value: string): void {
+  protected onInputValueChange(value: string): void {
     console.log('Input value changed:', value);
     this.inputValue.set(value);
   }
@@ -281,8 +281,8 @@ export const SingleSelect: Story = {
             [options]="options"
             [isMultiSelect]="true"
             placeholder="Select multiple fruits..."
-            (selectedValuesChanged)="handleSelectedValuesChange($event)"
-            (inputValueChanged)="handleInputValueChange($event)"
+            (selectedValuesChanged)="onSelectedValuesChange($event)"
+            (inputValueChanged)="onInputValueChange($event)"
           />
         </div>
       </org-storybook-example-container-section>
@@ -303,7 +303,7 @@ export const SingleSelect: Story = {
       </org-storybook-example-container-section>
 
       <org-storybook-example-container-section label="State">
-        <div class="text-sm space-y-1">
+        <div class="text-sm flex flex-col gap-1">
           <div>
             <strong>Selected Values:</strong>
             {{ selectedValues().length > 0 ? (selectedValues() | json) : 'None' }}
@@ -312,7 +312,7 @@ export const SingleSelect: Story = {
         </div>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Multiple options can be selected</li>
         <li>Selected items shown as tags in the input</li>
         <li>Tags can be removed by clicking X</li>
@@ -327,12 +327,12 @@ class ComboboxMultiSelectDemo {
   protected selectedValues = signal<(string | number)[]>([]);
   protected inputValue = signal<string>('');
 
-  protected handleSelectedValuesChange(values: (string | number)[]): void {
+  protected onSelectedValuesChange(values: (string | number)[]): void {
     console.log('Selected values changed:', values);
     this.selectedValues.set(values);
   }
 
-  protected handleInputValueChange(value: string): void {
+  protected onInputValueChange(value: string): void {
     console.log('Input value changed:', value);
     this.inputValue.set(value);
   }
@@ -360,18 +360,18 @@ export const MultiSelect: Story = {
             [options]="options"
             [isGroupingEnabled]="true"
             placeholder="Select from grouped options..."
-            (selectedValuesChanged)="handleSelectedValuesChange($event)"
+            (selectedValuesChanged)="onSelectedValuesChange($event)"
           />
         </div>
       </org-storybook-example-container-section>
 
       <org-storybook-example-container-section label="State">
-        <div class="text-sm space-y-1">
+        <div class="text-sm flex flex-col gap-1">
           <div><strong>Selected Values:</strong> {{ selectedValues() ? (selectedValues() | json) : 'None' }}</div>
         </div>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Options are organized by groups (Fruits, Vegetables, Proteins)</li>
         <li>Each group has a header</li>
         <li>Keyboard navigation respects group boundaries</li>
@@ -384,7 +384,7 @@ class ComboboxGroupedOptionsDemo {
   protected options = fruitOptions;
   protected selectedValues = signal<(string | number)[] | null>(null);
 
-  protected handleSelectedValuesChange(values: (string | number)[]): void {
+  protected onSelectedValuesChange(values: (string | number)[]): void {
     console.log('Selected values changed:', values);
     this.selectedValues.set(values);
   }
@@ -412,18 +412,18 @@ export const GroupedOptions: Story = {
             [options]="options"
             [optionFilter]="customFilter"
             placeholder="Type to filter (starts with)..."
-            (selectedValuesChanged)="handleSelectedValuesChange($event)"
+            (selectedValuesChanged)="onSelectedValuesChange($event)"
           />
         </div>
       </org-storybook-example-container-section>
 
       <org-storybook-example-container-section label="State">
-        <div class="text-sm space-y-1">
+        <div class="text-sm flex flex-col gap-1">
           <div><strong>Selected Values:</strong> {{ selectedValues() ? (selectedValues() | json) : 'None' }}</div>
         </div>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Custom filter matches options that start with input text</li>
         <li>Case-insensitive matching</li>
         <li>Try typing "a" to see Apple, or "b" to see Banana and Broccoli</li>
@@ -439,7 +439,7 @@ class ComboboxCustomFilterDemo {
     return option.label.toLowerCase().startsWith(inputValue.toLowerCase());
   };
 
-  protected handleSelectedValuesChange(values: (string | number)[]): void {
+  protected onSelectedValuesChange(values: (string | number)[]): void {
     console.log('Selected values changed:', values);
     this.selectedValues.set(values);
   }
@@ -494,7 +494,7 @@ export const CustomFilter: Story = {
       </org-storybook-example-container-section>
 
       <org-storybook-example-container-section label="Form State">
-        <div class="text-sm space-y-1">
+        <div class="text-sm flex flex-col gap-1">
           <div><strong>Form Value:</strong> {{ formControl.value | json }}</div>
           <div><strong>Valid:</strong> {{ formControl.valid }}</div>
           <div><strong>Touched:</strong> {{ formControl.touched }}</div>
@@ -503,7 +503,7 @@ export const CustomFilter: Story = {
         </div>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Implements ControlValueAccessor for reactive forms</li>
         <li>Form control value is always an array</li>
         <li>Supports setValue, disable, enable</li>
@@ -534,7 +534,7 @@ class ComboboxReactiveFormsDemo {
             [options]="options"
             [isMultiSelect]="true"
             placeholder="Select options..."
-            (selectedValuesChanged)="handleSelectedValuesChange($event)"
+            (selectedValuesChanged)="onSelectedValuesChange($event)"
           />
         </div>
       </org-storybook-example-container-section>
@@ -549,12 +549,12 @@ class ComboboxReactiveFormsDemo {
       </org-storybook-example-container-section>
 
       <org-storybook-example-container-section label="State">
-        <div class="text-sm space-y-1">
+        <div class="text-sm flex flex-col gap-1">
           <div><strong>Selected Values:</strong> {{ selectedValues() | json }}</div>
         </div>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Uses event binding instead of form control</li>
         <li>Signal-based state management</li>
         <li>Simpler for basic forms without validation</li>
@@ -567,7 +567,7 @@ class ComboboxSimpleFormsDemo {
   protected options = fruitOptions;
   protected selectedValues = signal<(string | number)[]>([]);
 
-  protected handleSelectedValuesChange(values: (string | number)[]): void {
+  protected onSelectedValuesChange(values: (string | number)[]): void {
     console.log('Selected values changed:', values);
     this.selectedValues.set(values);
   }
@@ -616,7 +616,7 @@ export const Forms: Story = {
         </div>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Default state is interactive</li>
         <li>Disabled state is non-interactive</li>
         <li>Auto show can be disabled to require manual opening</li>
@@ -652,7 +652,7 @@ export const States: Story = {
               [options]="options"
               [isMultiSelect]="true"
               placeholder="Select at least one option..."
-              (selectedValuesChanged)="handleSelectedValuesChange($event)"
+              (selectedValuesChanged)="onSelectedValuesChange($event)"
             />
           </org-form-field>
         </div>
@@ -669,7 +669,7 @@ export const States: Story = {
       </org-storybook-example-container-section>
 
       <org-storybook-example-container-section label="State">
-        <div class="text-sm space-y-1">
+        <div class="text-sm flex flex-col gap-1">
           <div>
             <strong>Selected Values:</strong>
             {{ selectedValues().length > 0 ? (selectedValues() | json) : 'None' }}
@@ -679,7 +679,7 @@ export const States: Story = {
         </div>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Validation message is displayed when provided</li>
         <li>Combobox shows error state with red border and error icon</li>
         <li>Validation message appears below the combobox</li>
@@ -694,7 +694,7 @@ class ComboboxValidationDemo {
   protected validationMessage = signal<string | null>(null);
   protected hasError = computed<boolean>(() => !!this.validationMessage()?.trim());
 
-  protected handleSelectedValuesChange(values: (string | number)[]): void {
+  protected onSelectedValuesChange(values: (string | number)[]): void {
     console.log('Selected values changed:', values);
     this.selectedValues.set(values);
 
@@ -745,7 +745,7 @@ const largeDatasetOptions: ComboboxOptionInput[] = Array.from({ length: 100 }, (
             [options]="options"
             [isMultiSelect]="true"
             placeholder="Select options..."
-            (selectedValuesChanged)="handleSelectedValuesChange($event)"
+            (selectedValuesChanged)="onSelectedValuesChange($event)"
           />
         </div>
       </org-storybook-example-container-section>
@@ -766,7 +766,7 @@ const largeDatasetOptions: ComboboxOptionInput[] = Array.from({ length: 100 }, (
       </org-storybook-example-container-section>
 
       <org-storybook-example-container-section label="State">
-        <div class="text-sm space-y-1">
+        <div class="text-sm flex flex-col gap-1">
           <div>
             <strong>Selected Values:</strong>
             {{ selectedValues().length > 0 ? (selectedValues() | json) : 'None' }}
@@ -774,7 +774,7 @@ const largeDatasetOptions: ComboboxOptionInput[] = Array.from({ length: 100 }, (
         </div>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Options menu is scrollable with max height of 400px</li>
         <li>Keyboard navigation scrolls focused option into view</li>
         <li>Arrow keys, Home, and End keys work correctly with scroll</li>
@@ -788,7 +788,7 @@ class ComboboxScrollingDemo {
   protected options = largeDatasetOptions;
   protected selectedValues = signal<(string | number)[]>([]);
 
-  protected handleSelectedValuesChange(values: (string | number)[]): void {
+  protected onSelectedValuesChange(values: (string | number)[]): void {
     console.log('Selected values changed:', values);
     this.selectedValues.set(values);
   }
@@ -819,7 +819,7 @@ export const ValidationSpaceReservation: Story = {
         currentState="Comparing space reservation behaviors"
       >
         <org-storybook-example-container-section label="Reserve Space = true (default)">
-          <div class="space-y-4">
+          <div class="flex flex-col gap-4">
             <org-form-field [reserveValidationSpace]="true">
               <org-combobox
                 name="reserve-true-combobox-1"
@@ -854,7 +854,7 @@ export const ValidationSpaceReservation: Story = {
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Reserve Space = false">
-          <div class="space-y-4">
+          <div class="flex flex-col gap-4">
             <org-form-field [reserveValidationSpace]="false">
               <org-combobox
                 name="reserve-false-combobox-1"
@@ -888,7 +888,7 @@ export const ValidationSpaceReservation: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>reserveValidationSpace=true</strong>: Space is always reserved for validation messages (maintains consistent spacing between comboboxes)</li>
           <li><strong>reserveValidationSpace=false</strong>: Space is only allocated when a validation message is present (comboboxes collapse together when no errors)</li>
           <li>Notice how the left column maintains equal spacing between all comboboxes</li>

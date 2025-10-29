@@ -32,7 +32,7 @@ import { tailwindUtils } from '@organization/shared-utils';
     }
   `,
   host: {
-    dataid: 'table-td',
+    ['attr.data-testid']: 'table-td',
     style: 'display: contents',
   },
 })

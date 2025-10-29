@@ -13,8 +13,8 @@
         containerClass()
       )
     "
-    (click)="handleClick($event)"
-    (keydown)="handleKeyDown($event)"
+    (click)="onClick($event)"
+    (keydown)="onKeyDown($event)"
     [attr.tabindex]="isDisabled() ? -1 : 0"
     role="switch"
     [attr.aria-checked]="isChecked()"

@@ -7,7 +7,7 @@ import { tailwindUtils } from '@organization/shared-utils';
   imports: [],
   templateUrl: './storybook-example-container.html',
   host: {
-    dataid: 'storybook-example-container',
+    ['attr.data-testid']: 'storybook-example-container',
   },
 })
 export class StorybookExampleContainer {

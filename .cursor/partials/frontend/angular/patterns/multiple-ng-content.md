@@ -28,7 +28,7 @@ You MUST ALWAYS follow theese rules when you need to support multiple `<ng-conte
       </a>
     }
     @case ('button') {
-      <button type="button" [class]="containerClass()" (click)="handleClick()">
+      <button type="button" [class]="containerClass()" (click)="onClick()">
         <ng-container [ngTemplateOutlet]="contentTemplate" />
       </button>
     }

@@ -5,7 +5,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './chat.html',
   host: {
-    dataid: 'chat',
+    ['attr.data-testid']: 'chat',
   },
 })
 export class Chat {}

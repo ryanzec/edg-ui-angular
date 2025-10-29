@@ -25,7 +25,7 @@ export type TabsState = {
   templateUrl: './tabs.html',
   styleUrl: './tabs.css',
   host: {
-    dataid: 'tabs',
+    ['attr.data-testid']: 'tabs',
   },
 })
 export class Tabs implements AfterViewInit {
@@ -67,11 +67,11 @@ export class Tabs implements AfterViewInit {
     }
   }
 
-  public handleTabClick(value: string): void {
+  public onTabClick(value: string): void {
     this.tabSelected.emit(value);
   }
 
-  public handleScrollLeft(): void {
+  public onScrollLeft(): void {
     if (!this.tabsContainerRef) {
       return;
     }
@@ -85,7 +85,7 @@ export class Tabs implements AfterViewInit {
     });
   }
 
-  public handleScrollRight(): void {
+  public onScrollRight(): void {
     if (!this.tabsContainerRef) {
       return;
     }
@@ -99,11 +99,11 @@ export class Tabs implements AfterViewInit {
     });
   }
 
-  public handleScroll(): void {
+  public onScroll(): void {
     this._updateScrollState();
   }
 
-  public handleScrollEnd(): void {
+  public onScrollEnd(): void {
     this._updateScrollState();
   }
 

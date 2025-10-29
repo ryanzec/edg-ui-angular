@@ -2,7 +2,7 @@ import { inject, signal, computed } from '@angular/core';
 import { LogManager } from '../../core/log-manager/log-manager';
 import { ResponseMeta } from '@organization/shared-types';
 
-export type DataStoreLoadingState = 'idle' | 'initial' | 'pending';
+export type DataStoreLoadingState = 'idle' | 'uninitialized' | 'initializing' | 'pending';
 
 export type DataStoreRemoteState = 'idle' | 'pending';
 
@@ -32,16 +32,17 @@ export abstract class BaseDataStore<T> {
 
   public readonly data = computed(() => this.state().data);
   public readonly error = computed(() => this.state().error);
+  public readonly hasInitialized = computed(() => this.state().hasInitialized);
   public readonly loadingState = computed<DataStoreLoadingState>(() => {
     const remoteState = this.state().remoteState;
     const hasInitialized = this.state().hasInitialized;
 
-    if (remoteState === 'idle') {
-      return 'idle';
+    if (hasInitialized === false && remoteState === 'idle') {
+      return 'uninitialized';
     }
 
     if (hasInitialized === false && remoteState === 'pending') {
-      return 'initial';
+      return 'initializing';
     }
 
     return remoteState;
@@ -92,7 +93,7 @@ export abstract class BaseDataStore<T> {
   protected unshiftLocalData(items: T[]): void {
     this.state.update((currentState) => ({
       ...currentState,
-      data: [...currentState.data, ...items],
+      data: [...items, ...currentState.data],
     }));
   }
 

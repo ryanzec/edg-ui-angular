@@ -53,7 +53,7 @@ const meta: Meta<Tag> = {
   <org-tag color="safe" postIcon="check">Completed</org-tag>
 
   <!-- Removable tag -->
-  <org-tag color="neutral" [removable]="true" (removed)="handleRemove()">
+  <org-tag color="neutral" [removable]="true" (removed)="onRemove()">
     Removable Tag
   </org-tag>
 
@@ -179,7 +179,7 @@ export const Colors: Story = {
           <org-tag color="danger">Danger</org-tag>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>primary</strong>: Primary primary color</li>
           <li><strong>secondary</strong>: Secondary accent color</li>
           <li><strong>neutral</strong>: Neutral/gray color</li>
@@ -235,7 +235,7 @@ export const Variants: Story = {
           <org-tag color="danger" variant="strong">Danger Strong</org-tag>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>weak</strong>: Subtle background with colored text (default)</li>
           <li><strong>strong</strong>: Solid colored background with contrasting text</li>
           <li>Both variants work with all color options</li>
@@ -282,7 +282,7 @@ export const WithIcons: Story = {
           <org-tag color="danger" variant="strong" preIcon="trash" postIcon="x">Delete</org-tag>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>preIcon</strong>: Icon displayed before the tag text</li>
           <li><strong>postIcon</strong>: Icon displayed after the tag text</li>
           <li>Both icons can be used simultaneously</li>
@@ -335,7 +335,7 @@ export const Removable: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>When <strong>removable</strong> is true, an X icon appears on the right</li>
           <li>Clicking the X icon emits the <strong>removed</strong> event</li>
           <li>The removable X icon overrides any postIcon setting</li>
@@ -395,7 +395,7 @@ export const StrongVariantColors: Story = {
           <org-tag color="danger" variant="strong">Danger</org-tag>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Strong variant provides solid colored backgrounds</li>
           <li>Text color automatically adjusts for contrast</li>
           <li>More prominent than weak variant</li>

@@ -142,7 +142,7 @@ export const StatusTypes: Story = {
           ]" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Not Started</strong>: Neutral gray dots icon</li>
           <li><strong>In Progress</strong>: Blue spinning circle icon</li>
           <li><strong>Valid</strong>: Green filled check circle icon</li>
@@ -180,7 +180,7 @@ export const FlatList: Story = {
           ]" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Each item displays a status icon and label</li>
           <li>No expand/collapse buttons for flat items</li>
           <li>Visual spacing between items for readability</li>
@@ -242,7 +242,7 @@ export const NestedItems: Story = {
           ]" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Items with nested sub-items show expand/collapse buttons</li>
           <li>Caret icon points right when collapsed, down when expanded</li>
           <li>Nested items are indented for visual hierarchy</li>
@@ -298,7 +298,7 @@ export const MixedList: Story = {
           ]" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Flat items have spacer to align with nested items</li>
           <li>Mix of expandable and non-expandable items works seamlessly</li>
           <li>Visual consistency maintained across different item types</li>
@@ -342,7 +342,7 @@ export const AllInvalid: Story = {
           ]" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Invalid status shows red X circle icon</li>
           <li>Useful for displaying validation errors or failed checks</li>
           <li>Can be mixed with other statuses in nested items</li>

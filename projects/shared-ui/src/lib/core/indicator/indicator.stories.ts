@@ -151,7 +151,7 @@ export const Colors: Story = {
           <org-indicator color="danger" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>primary</strong>: Primary color (default)</li>
           <li><strong>secondary</strong>: Secondary accent color</li>
           <li><strong>neutral</strong>: Neutral/gray color</li>
@@ -207,7 +207,7 @@ export const WithNumbers: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Numbers below 100 display as-is</li>
           <li>Numbers 100 or greater display as "99+"</li>
           <li>Badge size adjusts to accommodate content</li>
@@ -266,7 +266,7 @@ export const ColorsWithNumbers: Story = {
           <org-indicator color="danger" [number]="5" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Each color variant maintains semantic meaning even with numbers</li>
           <li>Text is white/inverse color for readability on all backgrounds</li>
         </ul>
@@ -347,7 +347,7 @@ export const UseCases: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Simple dots for binary status states (online/offline, active/inactive)</li>
           <li>Numbered badges for counts (notifications, tasks, alerts)</li>
           <li>Color selection should match semantic meaning</li>

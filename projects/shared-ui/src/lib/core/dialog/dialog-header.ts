@@ -5,7 +5,7 @@ import { Component, ChangeDetectionStrategy, input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './dialog-header.html',
   host: {
-    dataid: 'dialog',
+    ['attr.data-testid']: 'dialog',
   },
 })
 export class DialogHeader {

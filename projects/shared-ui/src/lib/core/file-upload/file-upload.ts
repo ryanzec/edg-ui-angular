@@ -64,7 +64,7 @@ export class FileUploadComponent {
 
     const file = event.dataTransfer?.files[0];
 
-    this.handleFile(file);
+    this._onFile(file);
   }
 
   protected keyPress(event: KeyboardEvent): void {
@@ -75,7 +75,7 @@ export class FileUploadComponent {
 
   protected onFileSelected(event: Event): void {
     const file = (event.target as HTMLInputElement)?.files?.[0];
-    this.handleFile(file);
+    this._onFile(file);
   }
 
   protected openFileSelector(): void {
@@ -84,18 +84,18 @@ export class FileUploadComponent {
     this.input.nativeElement.click();
   }
 
-  private isFileValid(file: File): boolean {
+  private _isFileValid(file: File): boolean {
     return this.fileTypes().length === 0 || this.fileTypes().some((type) => file.type.startsWith(type));
   }
 
-  private handleFile(file: File | undefined): void {
+  private _onFile(file: File | undefined): void {
     if (!file) {
       this.error.set('No file was selected.');
 
       return;
     }
 
-    if (!this.isFileValid(file)) {
+    if (!this._isFileValid(file)) {
       this.error.set(`Invalid file type. Please select a ${this.fileTypes()} file.`);
 
       return;

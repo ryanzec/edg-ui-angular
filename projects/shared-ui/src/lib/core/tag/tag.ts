@@ -45,7 +45,9 @@ export class Tag {
     return !!textContent;
   });
   public readonly isPreIconClickable = computed(() => this.hasPreIcon() && this._preIconClicked$.observed);
-  public readonly isPostIconClickable = computed(() => this.hasPostIcon() && this._postIconClicked$.observed);
+  public readonly isPostIconClickable = computed(
+    () => (this.hasPostIcon() && this._postIconClicked$.observed) || this.removable()
+  );
 
   public readonly currentPostIcon = computed((): IconName | null => {
     if (this.removable()) {
@@ -57,11 +59,11 @@ export class Tag {
 
   public mergeClasses = tailwindUtils.merge;
 
-  public handlePreIconClick(): void {
+  public onPreIconClick(): void {
     this._preIconClicked$.next();
   }
 
-  public handlePostIconClick(): void {
+  public onPostIconClick(): void {
     if (this.removable()) {
       this.removed.emit();
     } else {

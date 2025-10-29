@@ -3,20 +3,23 @@ import {
   ChangeDetectionStrategy,
   input,
   output,
-  OnDestroy,
   effect,
   inject,
   InjectionToken,
   computed,
+  afterNextRender,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CdkMenuTrigger } from '@angular/cdk/menu';
 import { DateTime } from 'luxon';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { debounceTime, takeUntil } from 'rxjs/operators';
+import { debounceTime, combineLatestWith, startWith, map } from 'rxjs';
 import { type User, type UserRoleName } from '@organization/shared-types';
 import { Button } from '../../core/button/button';
 import { Table } from '../../core/table/table';
+import { TableRow } from '../../core/table/table-row';
+import { TableHeader } from '../../core/table/table-header';
+import { TableCell } from '../../core/table/table-cell';
 import { Tag, type TagColor } from '../../core/tag/tag';
 import { OverlayMenu, type OverlayMenuItem } from '../../core/overlay-menu/overlay-menu';
 import { tailwindUtils } from '@organization/shared-utils';
@@ -30,9 +33,9 @@ import { type ComboboxOptionInput } from '../../core/combobox-store/combobox-sto
 import { FormFields } from '../../core/form-fields/form-fields';
 import { FormField } from '../../core/form-field/form-field';
 import { DateDisplay } from '@organization/shared-ui';
-import { LoadingSpinner } from '../../core/loading-spinner/loading-spinner';
 import { Pagination } from '../../core/pagination/pagination';
 import { PaginationStore } from '../../core/pagination-store/pagination-store';
+import { LogManager } from '../../core/log-manager/log-manager';
 
 /**
  * injection token for users list pagination store
@@ -51,9 +54,10 @@ export const dateFieldOptions: ComboboxOptionInput[] = [
  * filter values type
  */
 export type UsersListFilterValues = {
-  nameSearch: string;
-  dateField: string;
-  dateValue: { startDate: DateTime | null; endDate: DateTime | null };
+  name: string;
+  dateType: 'createdAt' | 'updatedAt';
+  startDate: DateTime | null;
+  endDate: DateTime | null;
 };
 
 /**
@@ -72,6 +76,9 @@ export type UsersListSortingData = {
     CdkMenuTrigger,
     OverlayMenu,
     Table,
+    TableRow,
+    TableHeader,
+    TableCell,
     Tag,
     Skeleton,
     Input,
@@ -82,23 +89,24 @@ export type UsersListSortingData = {
     FormFields,
     FormField,
     DateDisplay,
-    LoadingSpinner,
     Pagination,
   ],
   providers: [SortingStore],
   templateUrl: './users-list.html',
   host: {
-    dataid: 'users-list',
+    ['attr.data-testid']: 'users-list',
   },
 })
-export class UsersList implements OnDestroy {
-  private readonly _destroy$ = new Subject<void>();
+export class UsersList {
+  private readonly _logManager = inject(LogManager);
   private readonly _sortingStore = inject(SortingStore);
   private readonly _paginationStore = inject(USERS_LIST_PAGINATION_STORE, { optional: true });
 
+  private _filterFormInitialized = false;
+
   public users = input.required<User[]>();
+  public isInitialLoading = input<boolean>(false);
   public isLoading = input<boolean>(false);
-  public isBackgroundLoading = input<boolean>(false);
   public containerClass = input<string>('');
   public tableContainerClass = input<string>('');
   public enableFilters = input<boolean>(false);
@@ -115,7 +123,7 @@ export class UsersList implements OnDestroy {
 
   public mergeClasses = tailwindUtils.merge;
   public readonly dateFieldOptions = dateFieldOptions;
-  public readonly menuPosition = [
+  protected readonly usersActionsMenuPosition = [
     {
       originX: 'end',
       originY: 'bottom',
@@ -124,89 +132,111 @@ export class UsersList implements OnDestroy {
       offsetY: 8,
     },
   ];
+  protected readonly usersActionsMenuItems: OverlayMenuItem[] = [
+    {
+      id: 'edit',
+      label: 'Edit',
+      icon: 'pencil-simple',
+    },
+    {
+      id: 'delete',
+      label: 'Delete',
+      icon: 'trash',
+    },
+  ];
 
   public readonly key = computed<string | null>(() => this._sortingStore.key());
   public readonly direction = computed<SortingDirection | null>(() => this._sortingStore.direction());
 
   protected readonly hasPagination = computed<boolean>(() => this._paginationStore !== null);
-  protected readonly paginationDisabled = computed<boolean>(() => this.isLoading() || this.isBackgroundLoading());
+  protected readonly paginationDisabled = computed<boolean>(() => this.isLoading() || this.isInitialLoading());
 
   /**
    * reactive form for filters
    */
-  public readonly filterForm = new FormGroup({
-    nameSearch: new FormControl('', { nonNullable: true }),
-    dateField: new FormControl<(string | number)[]>(['updatedAt'], { nonNullable: true }),
+  protected readonly filterForm = new FormGroup({
+    name: new FormControl('', { nonNullable: true, updateOn: 'change' }),
+    dateType: new FormControl<UsersListFilterValues['dateType'][]>([], {
+      nonNullable: true,
+      updateOn: 'change',
+    }),
     dateValue: new FormControl<{ startDate: DateTime | null; endDate: DateTime | null }>(
       { startDate: null, endDate: null },
-      { nonNullable: true }
+      { nonNullable: true, updateOn: 'change' }
     ),
   });
 
   constructor() {
-    // initialize sorting store with default values
-    effect(() => {
-      const key = this.defaultSortKey();
-      const direction = this.defaultSortDirection();
+    const nameControl = this.filterForm.get('name');
+    const dateTypeControl = this.filterForm.get('dateType');
+    const dateValueControl = this.filterForm.get('dateValue');
 
-      this._sortingStore.setSort(key, direction);
-    });
-
-    // handle name search with debounce
-    this.filterForm.controls.nameSearch.valueChanges
-      .pipe(debounceTime(300), takeUntil(this._destroy$))
-      .subscribe(() => {
-        this._resetPaginationToFirstPage();
-        this._emitFilterChanges();
+    if (!nameControl || !dateTypeControl || !dateValueControl) {
+      this._logManager.error({
+        type: 'users-list-filter-form-control-not-found',
+        hasNameControl: !!nameControl,
+        hasDateTypeControl: !!dateTypeControl,
+        hasDateValueControl: !!dateValueControl,
       });
 
-    // handle date field changes immediately
-    this.filterForm.controls.dateField.valueChanges.pipe(takeUntil(this._destroy$)).subscribe(() => {
-      this._resetPaginationToFirstPage();
-      this._emitFilterChanges();
-    });
+      return;
+    }
 
-    // handle date value changes immediately
-    this.filterForm.controls.dateValue.valueChanges.pipe(takeUntil(this._destroy$)).subscribe(() => {
-      this._resetPaginationToFirstPage();
-      this._emitFilterChanges();
-    });
+    const nameFilter$ = nameControl.valueChanges.pipe(startWith(''), debounceTime(300));
+    const dateTypeFilter$ = dateTypeControl.valueChanges.pipe(startWith(['updated']));
+    const dateValueFilter$ = dateValueControl.valueChanges.pipe(startWith({ startDate: null, endDate: null }));
 
-    // emit sorting changes whenever sorting state changes
+    // combineLatest() will be removed in v8 so we have to use this newer pattern
+    nameFilter$
+      .pipe(
+        combineLatestWith(dateTypeFilter$, dateValueFilter$),
+        takeUntilDestroyed(),
+        map(([nameFilter, dateTypeFilter, dateValueFilter]) => {
+          const dateType = dateTypeFilter.length > 0 ? dateTypeFilter[0] : 'updatedAt';
+
+          return {
+            name: nameFilter,
+            dateType: dateType as UsersListFilterValues['dateType'],
+            startDate: dateValueFilter.startDate,
+            endDate: dateValueFilter.endDate,
+          };
+        })
+      )
+      .subscribe((filters) => {
+        this.filtersChanged.emit(filters);
+      });
+
+    // propagate sorting changes up the tree
     effect(() => {
-      const key = this._sortingStore.key();
+      const key = this._sortingStore.direction() ? this._sortingStore.key() : null;
       const direction = this._sortingStore.direction();
 
       this._resetPaginationToFirstPage();
       this.sortingChanged.emit({ key, direction });
     });
-  }
 
-  ngOnDestroy(): void {
-    this._destroy$.next();
-    this._destroy$.complete();
-  }
+    afterNextRender(() => {
+      if (this.enableFilters() === false || this._filterFormInitialized) {
+        this._filterFormInitialized = this.enableFilters();
 
-  protected getUserActionsMenuItems(_user: User): OverlayMenuItem[] {
-    return [
-      {
-        id: 'edit',
-        label: 'Edit',
-        icon: 'pencil-simple',
-      },
-      {
-        id: 'delete',
-        label: 'Delete',
-        icon: 'trash',
-      },
-    ];
+        return;
+      }
+
+      this._initializeFilterForm();
+    });
   }
 
   protected onUserActionMenuItemClick(menuItem: OverlayMenuItem, user: User): void {
     if (menuItem.id === 'edit') {
       this.userEdit.emit(user);
-    } else if (menuItem.id === 'delete') {
+
+      return;
+    }
+
+    if (menuItem.id === 'delete') {
       this.userDelete.emit(user);
+
+      return;
     }
   }
 
@@ -232,26 +262,26 @@ export class UsersList implements OnDestroy {
   }
 
   /**
-   * emit filter changes with current form values
-   */
-  private _emitFilterChanges(): void {
-    const formValue = this.filterForm.getRawValue();
-    const dateFieldArray = formValue.dateField;
-    const dateField = dateFieldArray.length > 0 ? String(dateFieldArray[0]) : 'updatedAt';
-
-    this.filtersChanged.emit({
-      nameSearch: formValue.nameSearch,
-      dateField,
-      dateValue: formValue.dateValue,
-    });
-  }
-
-  /**
    * reset pagination to first page when filters or sorting changes
    */
   private _resetPaginationToFirstPage(): void {
     if (this._paginationStore) {
       this._paginationStore.setCurrentPage(1);
     }
+  }
+
+  private _initializeFilterForm(): void {
+    if (this._filterFormInitialized) {
+      return;
+    }
+
+    console.log('initializeFilterForm');
+    this._filterFormInitialized = true;
+
+    this.filterForm.patchValue({
+      dateType: ['updatedAt'],
+    });
+
+    this._sortingStore.setSort(this.defaultSortKey(), this.defaultSortDirection());
   }
 }

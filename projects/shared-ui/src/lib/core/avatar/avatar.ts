@@ -16,7 +16,7 @@ type AvatarState = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './avatar.html',
   host: {
-    dataid: 'avatar',
+    ['attr.data-testid']: 'avatar',
     class: 'inline-flex',
   },
 })
@@ -66,15 +66,15 @@ export class Avatar {
     return (words[0][0] + words[words.length - 1][0]).toUpperCase();
   });
 
-  protected handleMouseClick(event: MouseEvent): void {
+  protected onMouseClick(event: MouseEvent): void {
     this.clicked.emit(event);
   }
 
-  protected handleKeyboardClick(event: Event): void {
+  protected onKeyboardClick(event: Event): void {
     this.clicked.emit(event as KeyboardEvent);
   }
 
-  protected handleImageError(): void {
+  protected onImageError(): void {
     this._state.update((state) => ({
       ...state,
       imageLoadError: true,

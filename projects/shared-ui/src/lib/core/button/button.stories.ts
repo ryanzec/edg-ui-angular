@@ -216,7 +216,7 @@ export const Colors: Story = {
           <org-button color="danger">Danger Button</org-button>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Primary</strong>: Primary color for main actions</li>
           <li><strong>Secondary</strong>: Secondary accent color for alternative actions</li>
           <li><strong>Neutral</strong>: Neutral gray for low-emphasis actions</li>
@@ -260,7 +260,7 @@ export const Sizes: Story = {
           <org-button color="primary" size="lg">Large Button</org-button>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Small</strong>: Compact button for tight spaces or secondary actions</li>
           <li><strong>Base</strong>: Standard button size for most use cases (default)</li>
           <li><strong>Large</strong>: Prominent button for primary/important actions</li>
@@ -303,7 +303,7 @@ export const IconVariations: Story = {
           <org-button color="primary" icon="gear"></org-button>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Pre-Icon</strong>: Icon displayed before text (e.g., "Add", "Create")</li>
           <li><strong>Post-Icon</strong>: Icon displayed after text (e.g., "Next", "Continue")</li>
           <li><strong>Both Icons</strong>: Icons on both sides for emphasis</li>
@@ -347,7 +347,7 @@ export const States: Story = {
           <org-button color="primary" [loading]="true" preIcon="upload-simple">Uploading...</org-button>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Normal</strong>: Interactive with hover and focus states</li>
           <li><strong>Disabled</strong>: Non-interactive, reduced opacity, no hover effects</li>
           <li><strong>Loading</strong>: Shows spinner, non-interactive during operation</li>
@@ -440,7 +440,7 @@ export const Variants: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Filled</strong>: Default variant with colored background and border</li>
           <li><strong>Ghost</strong>: Transparent background and border in default state, colored text</li>
           <li><strong>Hover/Focus/Active</strong>: Ghost variant matches filled variant styling on interaction</li>
@@ -501,7 +501,7 @@ export const ExcludeSpacing: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Default</strong>: Button includes padding based on size</li>
           <li><strong>excludeSpacing=true</strong>: Removes all padding, useful for custom layouts where spacing is controlled externally</li>
           <li><strong>Text Size</strong>: Font size and gap are preserved regardless of excludeSpacing setting</li>

@@ -142,7 +142,7 @@ export const Sizes: Story = {
           <org-icon name="check" size="lg"></org-icon>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>small</strong>: 0.875rem / 14px (text-sm)</li>
           <li><strong>base</strong>: 1.125rem / 18px (text-lg) - default</li>
           <li><strong>large</strong>: 1.25rem / 20px (text-xl)</li>
@@ -181,7 +181,7 @@ export const Weights: Story = {
           <org-icon name="check" weight="fill"></org-icon>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>regular</strong>: Standard icon weight - default</li>
           <li><strong>bold</strong>: Thicker icon strokes</li>
           <li><strong>fill</strong>: Filled/solid icon style</li>
@@ -244,7 +244,7 @@ export const Colors: Story = {
           <org-icon name="check" color="danger"></org-icon>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>inherit</strong>: Inherits text color from parent elements (default)</li>
           <li><strong>primary</strong>: Primary color</li>
           <li><strong>secondary</strong>: Secondary accent color</li>
@@ -299,7 +299,7 @@ export const ColorInheritance: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Icons automatically inherit the text color from their parent element</li>
           <li>Use Tailwind text color classes on parent elements to style icons</li>
           <li>This allows icons to adapt to different contexts and themes</li>

@@ -125,9 +125,9 @@ const meta: Meta<UsersList> = {
   <!-- Basic users list -->
   <org-users-list
     [users]="userList"
-    [isLoading]="false"
-    (userEdit)="handleEdit($event)"
-    (userDelete)="handleDelete($event)"
+    [isInitialLoading]="false"
+    (userEdit)="onEdit($event)"
+    (userDelete)="onDelete($event)"
   />
 
   <!-- With filtering and sorting enabled -->
@@ -135,10 +135,10 @@ const meta: Meta<UsersList> = {
     [users]="userList"
     [enableFilters]="true"
     [enableSorting]="true"
-    (filtersChanged)="handleFiltersChanged($event)"
-    (sortingChanged)="handleSortingChanged($event)"
-    (userEdit)="handleEdit($event)"
-    (userDelete)="handleDelete($event)"
+    (filtersChanged)="onFiltersChanged($event)"
+    (sortingChanged)="onSortingChanged($event)"
+    (userEdit)="onEdit($event)"
+    (userDelete)="onDelete($event)"
   />
 
   <!-- With custom sort defaults -->
@@ -147,28 +147,28 @@ const meta: Meta<UsersList> = {
     [enableSorting]="true"
     [defaultSortKey]="'name'"
     [defaultSortDirection]="'asc'"
-    (sortingChanged)="handleSortingChanged($event)"
+    (sortingChanged)="onSortingChanged($event)"
   />
   \`\`\`
 
   \`\`\`typescript
   // In your component
-  handleFiltersChanged(filters: UsersListFilterValues) {
+  onFiltersChanged(filters: UsersListFilterValues) {
     console.log('Filters changed:', filters);
     // Apply filters to your data source
   }
 
-  handleSortingChanged(sorting: UsersListSortingData) {
+  onSortingChanged(sorting: UsersListSortingData) {
     console.log('Sorting changed:', sorting);
     // Apply sorting to your data source
   }
 
-  handleEdit(user: User) {
+  onEdit(user: User) {
     console.log('Editing user:', user);
     // Navigate to edit page or open edit dialog
   }
 
-  handleDelete(user: User) {
+  onDelete(user: User) {
     console.log('Deleting user:', user);
     // Show confirmation dialog and delete user
   }
@@ -182,7 +182,7 @@ const meta: Meta<UsersList> = {
 
   ### Inputs
   - **users**: Required array of User objects to display
-  - **isLoading**: Optional boolean to show loading state (default: false)
+  - **isInitialLoading**: Optional boolean to show loading state (default: false)
   - **enableFilters**: Optional boolean to enable filters (default: false)
   - **enableSorting**: Optional boolean to enable sorting (default: false)
   - **defaultSortKey**: Optional default sort key (default: 'createdAt')
@@ -206,7 +206,7 @@ type Story = StoryObj<UsersList>;
 export const Default: Story = {
   args: {
     users: sampleUsers,
-    isLoading: false,
+    isInitialLoading: false,
     enableFilters: false,
     enableSorting: false,
     defaultSortKey: 'createdAt',
@@ -219,7 +219,7 @@ export const Default: Story = {
       control: 'object',
       description: 'Array of users to display in the table',
     },
-    isLoading: {
+    isInitialLoading: {
       control: 'boolean',
       description: 'Whether the component is in loading state',
     },
@@ -277,7 +277,7 @@ export const Default: Story = {
     template: `
       <org-users-list
         [users]="users"
-        [isLoading]="isLoading"
+        [isInitialLoading]="isInitialLoading"
         [enableFilters]="enableFilters"
         [enableSorting]="enableSorting"
         [defaultSortKey]="defaultSortKey"
@@ -311,18 +311,18 @@ export const States: Story = {
         currentState="Comparing default, loading, and empty states"
       >
         <org-storybook-example-container-section label="Default (with users)">
-          <org-users-list [users]="users" [isLoading]="false" />
+          <org-users-list [users]="users" [isInitialLoading]="false" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Loading State">
-          <org-users-list [users]="[]" [isLoading]="true" />
+          <org-users-list [users]="[]" [isInitialLoading]="true" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Empty State">
-          <org-users-list [users]="[]" [isLoading]="false" />
+          <org-users-list [users]="[]" [isInitialLoading]="false" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Default</strong>: Shows full table with user data and actions</li>
           <li><strong>Loading</strong>: Displays loading message while fetching data</li>
           <li><strong>Empty</strong>: Shows "No users found" message when list is empty</li>
@@ -353,18 +353,18 @@ export const DataVariations: Story = {
         currentState="Comparing different user list configurations"
       >
         <org-storybook-example-container-section label="Single User">
-          <org-users-list [users]="singleUser" [isLoading]="false" />
+          <org-users-list [users]="singleUser" [isInitialLoading]="false" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Multiple Users (5 users)">
-          <org-users-list [users]="multipleUsers" [isLoading]="false" />
+          <org-users-list [users]="multipleUsers" [isInitialLoading]="false" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="User with Multiple Roles">
-          <org-users-list [users]="multiRoleUser" [isLoading]="false" />
+          <org-users-list [users]="multiRoleUser" [isInitialLoading]="false" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Single User</strong>: Table displays correctly with just one row</li>
           <li><strong>Multiple Users</strong>: Full list with scrollable content in table container</li>
           <li><strong>Multiple Roles</strong>: User can have both Admin and User tag badges displayed</li>
@@ -398,18 +398,18 @@ export const RoleTypes: Story = {
         currentState="Comparing different user role configurations"
       >
         <org-storybook-example-container-section label="Admin Role Only">
-          <org-users-list [users]="adminUsers" [isLoading]="false" />
+          <org-users-list [users]="adminUsers" [isInitialLoading]="false" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="User Role Only">
-          <org-users-list [users]="regularUsers" [isLoading]="false" />
+          <org-users-list [users]="regularUsers" [isInitialLoading]="false" />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Mixed Roles">
-          <org-users-list [users]="mixedUsers" [isLoading]="false" />
+          <org-users-list [users]="mixedUsers" [isInitialLoading]="false" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Admin Role</strong>: Danger/red tag badge indicating administrator privileges</li>
           <li><strong>User Role</strong>: Info/blue tag badge indicating standard user</li>
           <li><strong>Mixed</strong>: Some users have one role, others have multiple</li>
@@ -454,7 +454,7 @@ export const FilteringAndSorting: Story = {
           <org-users-list [users]="users" [enableFilters]="true" [enableSorting]="true" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Filters</strong>: Name search with 300ms debounce, date field selector, date range picker</li>
           <li><strong>Sorting</strong>: Click on Name or Created headers to sort (icons indicate sort state)</li>
           <li><strong>Name Search</strong>: Debounced to avoid excessive event firing</li>
@@ -505,7 +505,7 @@ export const Interactive: Story = {
 
       <org-users-list
         [users]="users"
-        [isLoading]="isLoading()"
+        [isInitialLoading]="isInitialLoading()"
         [enableFilters]="enableFilters()"
         [enableSorting]="enableSorting()"
         (filtersChanged)="onFiltersChanged($event)"
@@ -523,7 +523,7 @@ export const Interactive: Story = {
               id="loading-state-checkbox"
               name="loading-state"
               value="loading-state"
-              [checked]="isLoading()"
+              [checked]="isInitialLoading()"
               (checkedChange)="toggleLoading()"
             >
               <strong>Loading State</strong>
@@ -579,7 +579,7 @@ export const Interactive: Story = {
 })
 class UsersListInteractiveStory {
   public users = sampleUsers;
-  public isLoading = signal(false);
+  public isInitialLoading = signal(false);
   public enableFilters = signal(true);
   public enableSorting = signal(true);
   public events = signal<
@@ -591,7 +591,7 @@ class UsersListInteractiveStory {
   >([]);
 
   public toggleLoading(): void {
-    this.isLoading.update((loading) => !loading);
+    this.isInitialLoading.update((loading) => !loading);
   }
 
   public toggleFilters(): void {
@@ -604,7 +604,7 @@ class UsersListInteractiveStory {
 
   public onFiltersChanged(filters: UsersListFilterValues): void {
     const timestamp = new Date().toLocaleTimeString();
-    const details = `Name Search: "${filters.nameSearch}"\nDate Field: ${filters.dateField}\nDate Range: ${filters.dateValue.startDate?.toISO() || 'null'} - ${filters.dateValue.endDate?.toISO() || 'null'}`;
+    const details = `Name Search: "${filters.name}"\nDate type: ${filters.dateType}\nDate Value: ${filters.startDate?.toISO() || 'null'} - ${filters.endDate?.toISO() || 'null'}`;
 
     this.events.update((events) => [
       {
@@ -690,7 +690,7 @@ export const WithPagination: Story = {
 
       <org-users-list
         [users]="displayedUsers"
-        [isLoading]="isLoading()"
+        [isInitialLoading]="isInitialLoading()"
         [enableFilters]="enableFilters()"
         [enableSorting]="enableSorting()"
         (filtersChanged)="onFiltersChanged($event)"
@@ -709,7 +709,7 @@ export const WithPagination: Story = {
               id="loading-state-checkbox"
               name="loading-state"
               value="loading-state"
-              [checked]="isLoading()"
+              [checked]="isInitialLoading()"
               (checkedChange)="toggleLoading()"
             >
               <strong>Loading State</strong>
@@ -785,7 +785,7 @@ class UsersListPaginationStory {
 
   public allUsers: User[] = [];
   public displayedUsers: User[] = [];
-  public isLoading = signal(false);
+  public isInitialLoading = signal(false);
   public enableFilters = signal(false);
   public enableSorting = signal(false);
   public events = signal<
@@ -812,7 +812,7 @@ class UsersListPaginationStory {
   }
 
   public toggleLoading(): void {
-    this.isLoading.update((loading) => !loading);
+    this.isInitialLoading.update((loading) => !loading);
   }
 
   public toggleFilters(): void {
@@ -825,7 +825,7 @@ class UsersListPaginationStory {
 
   public onFiltersChanged(filters: UsersListFilterValues): void {
     const timestamp = new Date().toLocaleTimeString();
-    const details = `Name Search: "${filters.nameSearch}"\nDate Field: ${filters.dateField}\nDate Range: ${filters.dateValue.startDate?.toISO() || 'null'} - ${filters.dateValue.endDate?.toISO() || 'null'}`;
+    const details = `Name Search: "${filters.name}"\nDate type: ${filters.dateType}\nDate Value: ${filters.startDate?.toISO() || 'null'} - ${filters.endDate?.toISO() || 'null'}`;
 
     this.events.update((events) => [
       {

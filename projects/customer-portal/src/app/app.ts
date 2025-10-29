@@ -28,11 +28,11 @@ export class App {
     this.authenticationManager.check();
   }
 
-  protected handleSettingsMenuItemClick(item: SettingsMenuItem): void {
+  protected onSettingsMenuItemClick(item: SettingsMenuItem): void {
     console.log('Settings menu item clicked:', item);
   }
 
-  protected handleLogout(): void {
+  protected onLogout(): void {
     this.authenticationManager.logout();
   }
 }

@@ -13,7 +13,7 @@ import { LogManager } from '../log-manager/log-manager';
   imports: [NgTemplateOutlet, Icon, RouterLink],
   templateUrl: './list-item.html',
   host: {
-    dataid: 'list-item',
+    ['attr.data-testid']: 'list-item',
   },
 })
 export class ListItem {
@@ -77,7 +77,7 @@ export class ListItem {
     });
   }
 
-  public handleClick(event: MouseEvent): void {
+  public onClick(event: MouseEvent): void {
     if (this.disabled()) {
       event.preventDefault();
       event.stopPropagation();

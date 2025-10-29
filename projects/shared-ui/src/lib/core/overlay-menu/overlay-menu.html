@@ -10,7 +10,7 @@
 >
   <org-list>
     @for (item of menuItems(); track item.id) {
-      <button cdkMenuItem (cdkMenuItemTriggered)="handleMenuItemClick(item)" class="w-full">
+      <button cdkMenuItem (cdkMenuItemTriggered)="onMenuItemClick(item)" class="w-full">
         <org-list-item [forceClickable]="true" [preIcon]="item.icon">
           {{ item.label }}
         </org-list-item>

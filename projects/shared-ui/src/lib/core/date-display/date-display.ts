@@ -9,7 +9,7 @@ import { TextDirective } from '../text-directive/text-directive';
   imports: [TextDirective],
   templateUrl: './date-display.html',
   host: {
-    dataid: 'date-display',
+    ['attr.data-testid']: 'date-display',
     class: 'inline-flex',
   },
 })

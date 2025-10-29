@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { LoadingBlocker } from './loading-blocker';
 import { Component, OnInit, OnDestroy, signal } from '@angular/core';
+import { StorybookExampleContainer } from '../../private/storybook-example-container/storybook-example-container';
+import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 
 const meta: Meta<LoadingBlocker> = {
   title: 'Core/Components/Loading Blocker',
@@ -100,7 +102,7 @@ export const States: Story = {
     props: {},
     template: `
       <org-storybook-example-container>
-        <org-storybook-example-container-section title="Visible Without Text">
+        <org-storybook-example-container-section label="Visible Without Text">
           <div class="relative h-[200px] border border-neutral-300 rounded-md p-4">
             <org-loading-blocker [isVisible]="true" />
             <div>
@@ -110,7 +112,7 @@ export const States: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section title="Visible With Text">
+        <org-storybook-example-container-section label="Visible With Text">
           <div class="relative h-[200px] border border-neutral-300 rounded-md p-4">
             <org-loading-blocker [isVisible]="true" text="Loading data..." />
             <div>
@@ -120,7 +122,7 @@ export const States: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section title="Hidden">
+        <org-storybook-example-container-section label="Hidden">
           <div class="relative h-[200px] border border-neutral-300 rounded-md p-4">
             <org-loading-blocker [isVisible]="false" text="Loading..." />
             <div>
@@ -131,6 +133,9 @@ export const States: Story = {
         </org-storybook-example-container-section>
       </org-storybook-example-container>
     `,
+    moduleMetadata: {
+      imports: [LoadingBlocker, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
   }),
 };
 
@@ -139,21 +144,21 @@ export const WithDifferentTextLengths: Story = {
     props: {},
     template: `
       <org-storybook-example-container>
-        <org-storybook-example-container-section title="Short Text">
+        <org-storybook-example-container-section label="Short Text">
           <div class="relative h-[200px] border border-neutral-300 rounded-md p-4">
             <org-loading-blocker [isVisible]="true" text="Loading..." />
             <div>Content</div>
           </div>
         </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section title="Medium Text">
+        <org-storybook-example-container-section label="Medium Text">
           <div class="relative h-[200px] border border-neutral-300 rounded-md p-4">
             <org-loading-blocker [isVisible]="true" text="Loading your data, please wait..." />
             <div>Content</div>
           </div>
         </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section title="Long Text">
+        <org-storybook-example-container-section label="Long Text">
           <div class="relative h-[200px] border border-neutral-300 rounded-md p-4">
             <org-loading-blocker [isVisible]="true" text="Loading your data from the server, this may take a few moments..." />
             <div>Content</div>
@@ -161,6 +166,9 @@ export const WithDifferentTextLengths: Story = {
         </org-storybook-example-container-section>
       </org-storybook-example-container>
     `,
+    moduleMetadata: {
+      imports: [LoadingBlocker, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
   }),
 };
 
@@ -222,21 +230,21 @@ export const DifferentContainerSizes: Story = {
     props: {},
     template: `
       <org-storybook-example-container>
-        <org-storybook-example-container-section title="Small Container">
+        <org-storybook-example-container-section label="Small Container">
           <div class="relative h-[100px] w-[300px] border border-neutral-300 rounded-md p-4">
             <org-loading-blocker [isVisible]="true" text="Loading..." />
             <div>Small content area</div>
           </div>
         </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section title="Medium Container">
+        <org-storybook-example-container-section label="Medium Container">
           <div class="relative h-[200px] w-[500px] border border-neutral-300 rounded-md p-4">
             <org-loading-blocker [isVisible]="true" text="Loading your data..." />
             <div>Medium content area</div>
           </div>
         </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section title="Large Container">
+        <org-storybook-example-container-section label="Large Container">
           <div class="relative h-[400px] w-full border border-neutral-300 rounded-md p-4">
             <org-loading-blocker [isVisible]="true" text="Loading all records from the database..." />
             <div>Large content area with more space</div>
@@ -244,5 +252,8 @@ export const DifferentContainerSizes: Story = {
         </org-storybook-example-container-section>
       </org-storybook-example-container>
     `,
+    moduleMetadata: {
+      imports: [LoadingBlocker, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
   }),
 };

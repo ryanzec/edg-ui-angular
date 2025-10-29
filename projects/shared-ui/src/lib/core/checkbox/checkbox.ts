@@ -27,7 +27,7 @@ export const checkboxSizes: CheckboxSize[] = ['sm', 'base', 'lg'];
   imports: [Icon, TextDirective],
   templateUrl: './checkbox.html',
   host: {
-    dataid: 'checkbox',
+    ['attr.data-testid']: 'checkbox',
     class: 'inline-flex',
   },
   providers: [
@@ -119,7 +119,7 @@ export class Checkbox implements ControlValueAccessor {
 
   public readonly ariaDescribedBy = computed<string | null>(() => {
     if (this.hasValidationMessage()) {
-      return 'validation-message';
+      return `validation-message-${this.name()}`;
     }
 
     return null;
@@ -135,7 +135,7 @@ export class Checkbox implements ControlValueAccessor {
 
   public mergeClasses = tailwindUtils.merge;
 
-  protected handleClick(event: Event): void {
+  protected onClick(event: Event): void {
     if (this.isDisabled()) {
       event.preventDefault();
 
@@ -155,14 +155,14 @@ export class Checkbox implements ControlValueAccessor {
     this.indeterminateChange.emit(newIndeterminate);
   }
 
-  protected handleKeyDown(event: KeyboardEvent): void {
+  protected onKeyDown(event: KeyboardEvent): void {
     if (this.isDisabled()) {
       return;
     }
 
     if (event.key === ' ' || event.key === 'Enter') {
       event.preventDefault();
-      this.handleClick(event);
+      this.onClick(event);
     }
   }
 

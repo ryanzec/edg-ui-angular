@@ -48,12 +48,12 @@ const meta: Meta<List> = {
 
   <!-- With click handler (clickable items) -->
   <org-list>
-    <org-list-item (clicked)="handleClick()">Clickable Item</org-list-item>
+    <org-list-item (clicked)="onClick()">Clickable Item</org-list-item>
   </org-list>
 
   <!-- Mixed clickable and non-clickable -->
   <org-list>
-    <org-list-item (clicked)="handleClick()">Clickable Item</org-list-item>
+    <org-list-item (clicked)="onClick()">Clickable Item</org-list-item>
     <org-list-item>Non-Clickable Label</org-list-item>
   </org-list>
 </div>
@@ -122,7 +122,7 @@ export const BasicList: Story = {
           </org-list>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>List items are displayed in a vertical column</li>
           <li>No gap between items by default</li>
           <li>Items are clickable and show hover effects</li>
@@ -170,7 +170,7 @@ export const ListItemStates: Story = {
           </org-list>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Normal</strong>: Shows hover effect on mouse over (neutral subtle background)</li>
           <li><strong>Selected</strong>: Has primary subtle background that overrides hover</li>
           <li>Both states maintain focus-visible styles for keyboard navigation</li>
@@ -207,7 +207,7 @@ export const WithLongContent: Story = {
           </org-list>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Items adjust height based on content</li>
           <li>Content is centered vertically using flexbox</li>
           <li>Text wraps naturally within items</li>
@@ -259,7 +259,7 @@ export const Interactive: Story = {
           </org-list>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Items with click listeners show pointer cursor and hover effects</li>
           <li>Items without click listeners have default cursor and no hover effects</li>
           <li>Focus-visible styles only appear on clickable items</li>
@@ -311,7 +311,7 @@ export const CustomStyling: Story = {
           </org-list>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>containerClass allows custom styling of the list wrapper</li>
           <li>List items also support containerClass for individual styling</li>
           <li>Can add borders, gaps, and other styling as needed</li>
@@ -350,7 +350,7 @@ export const ItemTypes: Story = {
           </org-list>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Button (asTag="button")</strong>: Renders as button element, requires clicked event handler</li>
           <li><strong>Anchor (asTag="a")</strong>: Renders as anchor element, requires href input</li>
           <li><strong>Div (default)</strong>: Renders as div element when no asTag is specified</li>
@@ -413,7 +413,7 @@ export const DisabledState: Story = {
           </org-list>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Disabled items show cursor-not-allowed cursor</li>
           <li>Disabled items do not respond to clicks or keyboard interactions</li>
           <li>Disabled items have reduced text color and background to indicate their state</li>

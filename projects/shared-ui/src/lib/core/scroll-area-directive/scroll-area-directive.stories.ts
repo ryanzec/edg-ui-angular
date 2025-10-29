@@ -254,7 +254,7 @@ export const Directions: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>vertical</strong>: Only y-axis scrolling, x-axis hidden</li>
           <li><strong>horizontal</strong>: Only x-axis scrolling, y-axis hidden</li>
           <li><strong>both</strong>: Both axes can scroll independently</li>
@@ -323,7 +323,7 @@ export const VisibilityModes: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Always visible</strong>: Scrollbar shown whenever content is scrollable</li>
           <li><strong>Hover only</strong>: Scrollbar hidden by default, appears on mouse hover</li>
           <li>Both modes use smooth transitions for a polished experience</li>
@@ -422,7 +422,7 @@ export const StableContent: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Stable content (true)</strong>: Scrollbar space is reserved, preventing layout shift when scrollbar appears/disappears</li>
           <li><strong>Stable content (false)</strong>: Scrollbar appears on top of content, may cause horizontal shift</li>
           <li>Stable content is especially useful with hover-only scrollbars to maintain consistent layout</li>

@@ -8,7 +8,7 @@ import { Tabs } from './tabs';
   imports: [],
   templateUrl: './tab.html',
   host: {
-    dataid: 'tab',
+    ['attr.data-testid']: 'tab',
   },
 })
 export class Tab {
@@ -29,12 +29,12 @@ export class Tab {
 
   public mergeClasses = tailwindUtils.merge;
 
-  public handleClick(): void {
+  public onClick(): void {
     if (this.isDisabled()) {
       return;
     }
 
-    this._tabs.handleTabClick(this.value());
+    this._tabs.onTabClick(this.value());
     this.clicked.emit(this.value());
   }
 

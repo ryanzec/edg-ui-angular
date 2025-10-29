@@ -42,7 +42,7 @@ export const tableRowVariants: TableRowVariant[] = ['header', 'body'] as const;
     </tr>
   `,
   host: {
-    dataid: 'table-tr',
+    ['attr.data-testid']: 'table-tr',
     style: 'display: contents',
   },
 })

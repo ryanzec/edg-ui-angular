@@ -43,16 +43,16 @@ const meta: Meta<ApplicationNavigation> = {
     userName="John Doe"
     [navigationItems]="navItems"
     [settingsMenuItems]="settings"
-    (navigationItemClicked)="handleNavClick($event)"
-    (settingsMenuItemClicked)="handleSettingsClick($event)"
-    (logout)="handleLogout()"
+    (navigationItemClicked)="onNavClick($event)"
+    (settingsMenuItemClicked)="onSettingsClick($event)"
+    (logout)="onLogout()"
   />
 
   <!-- Without logo -->
   <org-application-navigation
     userName="Jane Smith"
     [navigationItems]="navItems"
-    (logout)="handleLogout()"
+    (logout)="onLogout()"
   />
 
   <!-- Minimal configuration -->
@@ -124,13 +124,13 @@ export const Default: Story = {
   render: (args) => ({
     props: {
       ...args,
-      handleNavigationClick: (item: any) => {
+      onNavigationClick: (item: any) => {
         console.log('Navigation clicked:', item);
       },
-      handleSettingsClick: (item: any) => {
+      onSettingsClick: (item: any) => {
         console.log('Settings clicked:', item);
       },
-      handleLogout: () => {
+      onLogout: () => {
         console.log('Logout clicked');
       },
     },
@@ -142,9 +142,9 @@ export const Default: Story = {
           [navigationItems]="navigationItems"
           [settingsMenuItems]="settingsMenuItems"
           [containerClass]="containerClass"
-          (navigationItemClicked)="handleNavigationClick($event)"
-          (settingsMenuItemClicked)="handleSettingsClick($event)"
-          (logout)="handleLogout()"
+          (navigationItemClicked)="onNavigationClick($event)"
+          (settingsMenuItemClicked)="onSettingsClick($event)"
+          (logout)="onLogout()"
         />
       </div>
     `,
@@ -480,7 +480,7 @@ export const EmptyStates: Story = {
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
-          <li>Component gracefully handles empty data arrays</li>
+          <li>Component gracefully ons empty data arrays</li>
           <li>All sections remain functional with no data</li>
           <li>Layout maintains structure without items</li>
           <li>Settings button still appears even with no settings items</li>
@@ -508,20 +508,20 @@ export const InteractiveDemo: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Interactive demo with event handlers logging to console. Open browser console to see events.',
+        story: 'Interactive demo with event onrs logging to console. Open browser console to see events.',
       },
     },
   },
   render: (args) => ({
     props: {
       ...args,
-      handleNavigationClick: (item: any) => {
+      onNavigationClick: (item: any) => {
         console.log('Navigation item clicked:', item);
       },
-      handleSettingsClick: (item: any) => {
+      onSettingsClick: (item: any) => {
         console.log('Settings item clicked:', item);
       },
-      handleLogout: () => {
+      onLogout: () => {
         console.log('Logout clicked');
       },
     },
@@ -533,9 +533,9 @@ export const InteractiveDemo: Story = {
           [navigationItems]="navigationItems"
           [settingsMenuItems]="settingsMenuItems"
           [containerClass]="containerClass"
-          (navigationItemClicked)="handleNavigationClick($event)"
-          (settingsMenuItemClicked)="handleSettingsClick($event)"
-          (logout)="handleLogout()"
+          (navigationItemClicked)="onNavigationClick($event)"
+          (settingsMenuItemClicked)="onSettingsClick($event)"
+          (logout)="onLogout()"
         />
       </div>
     `,

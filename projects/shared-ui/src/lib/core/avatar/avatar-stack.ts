@@ -13,7 +13,7 @@ export const AVATAR_STACK_SIZE_DEFAULT: AvatarStackSize = 'base';
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './avatar-stack.html',
   host: {
-    dataid: 'avatar-stack',
+    ['attr.data-testid']: 'avatar-stack',
   },
 })
 export class AvatarStack {

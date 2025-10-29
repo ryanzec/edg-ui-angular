@@ -26,7 +26,7 @@ export type ChartState = {
   templateUrl: './chart.html',
   styleUrl: './chart.css',
   host: {
-    dataid: 'chart',
+    ['attr.data-testid']: 'chart',
     class: 'contents',
   },
 })

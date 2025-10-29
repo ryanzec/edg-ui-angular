@@ -18,7 +18,7 @@ export const globalNotificationsYPositions: GlobalNotificationsYPosition[] = ['t
   imports: [Card, Button],
   templateUrl: './global-notifications.html',
   host: {
-    dataid: 'global-notifications',
+    ['attr.data-testid']: 'global-notifications',
     '[class]': 'hostClass()',
   },
 })
@@ -73,7 +73,7 @@ export class GlobalNotifications implements OnDestroy {
       for (const notification of notifications) {
         if (notification.autoCloseIn && !this._autoCloseTimers.has(notification.id)) {
           const timer = setTimeout(() => {
-            this.handleClose(notification.id);
+            this.onClose(notification.id);
             this._autoCloseTimers.delete(notification.id);
           }, notification.autoCloseIn);
           this._autoCloseTimers.set(notification.id, timer as unknown as number);
@@ -94,7 +94,7 @@ export class GlobalNotifications implements OnDestroy {
   /**
    * handles closing a notification with fade-out animation
    */
-  protected handleClose(id: string): void {
+  protected onClose(id: string): void {
     const notification = this.notifications().find((n) => n.id === id);
 
     if (!notification || this.isRemoving(id)) {

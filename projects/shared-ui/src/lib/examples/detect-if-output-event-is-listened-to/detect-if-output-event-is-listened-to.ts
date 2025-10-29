@@ -26,7 +26,7 @@ export class DetectIfOutputEventIsListenedTo {
 
   public readonly clickCount = computed(() => this._clickCount());
 
-  public handleClick(): void {
+  public onClick(): void {
     this._clickCount.update((count) => count + 1);
 
     // Only emit if someone is listening (optional performance optimization)

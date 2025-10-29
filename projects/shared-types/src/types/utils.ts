@@ -21,8 +21,8 @@ export type ResponseError = {
   meta?: ResponseMeta;
 };
 
-export type ResponseStructure<TData> = {
+export type ResponseStructure<TData, TMeta = ResponseMeta, TError = ResponseError> = {
   data?: TData;
-  meta?: ResponseMeta;
-  error?: ResponseError;
+  meta?: TMeta;
+  error?: TError;
 };

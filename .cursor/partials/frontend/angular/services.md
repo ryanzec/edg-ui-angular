@@ -5,3 +5,6 @@ You MUST ALWAYS use these patterns when work on Angular 20 services:
 - ALWAYS make sure the public API of the service is clean and intuitive for other developers to understand
 - ALWAYS make sure complex logic (especially with RxJS) is broken down into readable methods
 - ALWAYS make sure errors (like one from `HttpClient`) are handled gracefully
+
+You can NEVER use these patterns when work on Angular 20 services:
+- NEVER create storybook files for `*-api` or `*-state-store` services

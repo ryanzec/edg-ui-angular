@@ -97,7 +97,10 @@ public preIconClicked = outputFromObservable(this._preIconClicked$);
 // ...
 ```
 - ALWAYS use the `host` property when possible of the `@Component` decorator
-- ALWAYS add a `dataid` property to top level custom component that is `snake-case` of the component name like `Button` would be `dataid="button"` or `UserList` would be `dataid="user-list"`
+<!--
+This is for testing
+-->
+- ALWAYS add a `data-testid` property to top level custom component that is `snake-case` of the component name like `Button` would be `data-testid="button"` or `UserList` would be `data-testid="user-list"`
 - ALWAYS set `changeDetection: ChangeDetectionStrategy.OnPush` in `@Component` decorator
 - ALWAYS have an input for `class` that is placed on the wrapping element for the component
 - ALWAYS have selector be prefixed with `org-`
@@ -191,7 +194,7 @@ export type TestSize = Extract<ComponentSize, 'sm' | 'base' | 'lg'>;
 ```ts
 export type TestColor = Extract<ComponentSize, 'primary' | 'danger'>;
 ```
-- ALWAYS make sure they are NO rules in the component css file (`component.css`) and remove that file
+- ALWAYS make sure they are NO styles in the component css file (`component.css`) and remove that file
 - ALWAYS suffix data types specific to component with `*Data`
 - ALWAYS make sure the form component properly support angular's reactive form system
 - ALWAYS abstract css class values that need to be keep in sync across multiple element in the template into a `computed()` property in the component class suffixed with `*Class`
@@ -210,6 +213,45 @@ While there are other patterns for child -> pattern communication, this is the g
 -->
 - ALWAYS communicate child internal state changes to parent components with an `output()` event unless EXPLICITLY told otherwise
 - ALWAYS prefix event handlers with `on*`
+- ALWAYS use `toObservable()` on request data that is passed to methods of api or data store services
+```ts
+export class MyView implements AfterViewInit {
+  // other code...
+ 
+  private _fetchRequestData = signal<GetRequest>({
+    limit: 10,
+    offset: 0,
+    orderBy: 'updatedAt',
+    orderDirection: 'desc',
+  });
+ 
+  // other code...
+ 
+  public ngAfterViewInit(): void {
+    // we run this in here to avoid the init event storm that happens when the children components emit events that
+    // update the fetch request data to prevent unnecessary duplicate fetch requests
+    runInInjectionContext(this._injector, () => {
+      toObservable(this._fetchRequestData)
+        .pipe(
+          debounceTime(0),
+          takeUntilDestroyed(),
+          distinctUntilChanged((previous, current) => JSON.stringify(previous) === JSON.stringify(current))
+        )
+        .subscribe((requestData) => {
+          this._myDataStore.fetch(requestData);
+        });
+    });
+  }
+ 
+  protected onSortingChanged(sortingData: MySortingData): void {
+    // code to update _fetchRequestData
+  }
+ 
+  protected onFilterChanged(filterData: MyFilterData): void {
+    // code to update _fetchRequestData
+  }
+}
+```
 
 You can NEVER use these patterns when work on Angular 20 components:
 - NEVER re-create functionality that is already available in angular CDK

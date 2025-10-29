@@ -164,7 +164,7 @@ export const DateFormats: Story = {
           <org-date-display [date]="sampleDate" [dateFormat]="DateFormat.DAY" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Standard</strong>: Short date format (M/d/yy)</li>
           <li><strong>Month Year</strong>: Displays month name and year</li>
           <li><strong>SQL</strong>: Database-friendly format</li>
@@ -212,7 +212,7 @@ export const TimeFormats: Story = {
           <org-date-display [date]="sampleDate" [timeFormat]="TimeFormat.SQL" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Date Only</strong>: No time information displayed</li>
           <li><strong>Standard Time</strong>: 12-hour format with AM/PM</li>
           <li><strong>With Seconds</strong>: Includes seconds in the time</li>
@@ -264,7 +264,7 @@ export const TimezoneDisplay: Story = {
           />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Date Only</strong>: Timezone is not shown when time is not displayed</li>
           <li><strong>No Timezone</strong>: Time is shown without timezone information</li>
           <li><strong>With Timezone</strong>: Full date, time, and timezone (default)</li>
@@ -303,7 +303,7 @@ export const InvalidDate: Story = {
           <org-date-display [date]="invalidDate" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Valid Date</strong>: Displays formatted date normally</li>
           <li><strong>Invalid Date</strong>: Shows "----" in neutral text color</li>
         </ul>
@@ -354,7 +354,7 @@ export const DisplayModes: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Inline</strong>: Flows with surrounding text (default)</li>
           <li><strong>Block</strong>: Takes up full width, on its own line</li>
         </ul>

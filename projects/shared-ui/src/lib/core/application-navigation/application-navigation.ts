@@ -28,7 +28,7 @@ export type SettingsMenuItem = OverlayMenuItem;
   host: {
     '[class]':
       'mergeClasses("w-[225px] bg-application-navigation-background border-r border-application-navigation-border flex flex-col", containerClass())',
-    dataid: 'application-navigation',
+    ['attr.data-testid']: 'application-navigation',
   },
 })
 export class ApplicationNavigation {
@@ -93,15 +93,15 @@ export class ApplicationNavigation {
     });
   }
 
-  public handleNavigationItemClick(item: NavigationItem): void {
+  public onNavigationItemClick(item: NavigationItem): void {
     this.navigationItemClicked.emit(item);
   }
 
-  public handleSettingsMenuItemClick(item: SettingsMenuItem): void {
+  public onSettingsMenuItemClick(item: SettingsMenuItem): void {
     this.settingsMenuItemClicked.emit(item);
   }
 
-  public handleLogoutClick(): void {
+  public onLogoutClick(): void {
     this.logout.emit();
   }
 }

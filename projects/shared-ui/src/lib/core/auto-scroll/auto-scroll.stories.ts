@@ -138,7 +138,7 @@ type Story = StoryObj<AutoScroll>;
         </div>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Click "Start Adding Items" to add items every 500ms</li>
         <li>Container auto-scrolls to bottom as new items appear</li>
         <li>Click state buttons to manually set the auto-scroll state</li>
@@ -252,7 +252,7 @@ class AutoScrollInteractiveTestComponent {
         </div>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Container starts with enough content to require scrolling</li>
         <li>Click "Scroll to Bottom" to trigger programmatic scroll with callback</li>
         <li>Click "Scroll to Top" or "Scroll to Middle" to test user scroll behavior</li>
@@ -540,7 +540,7 @@ export const ProgrammaticDemo: Story = {
         </div>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Click "Switch to Large Container" / "Switch to Small Container" to toggle the parent container</li>
         <li>The component automatically detects the new scrollable parent when it changes</li>
         <li>Auto-scroll continues to work after the parent change</li>
@@ -670,7 +670,7 @@ export const DynamicParent: Story = {
         </div>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li><strong>enabled</strong>: Auto-scrolling is active, new content triggers scroll</li>
         <li><strong>disabled</strong>: Auto-scrolling paused (happens when user scrolls up)</li>
         <li><strong>forced-disabled</strong>: Auto-scrolling disabled via autoScrollEnabled input</li>

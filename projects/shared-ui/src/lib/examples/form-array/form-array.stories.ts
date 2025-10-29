@@ -204,7 +204,7 @@ const itemSchema = z.object({
         </div>
       </div>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li><strong>Nested FormGroup</strong>: Profile object contains all form fields in a nested structure</li>
         <li><strong>formGroupName</strong>: Used to bind to nested form group</li>
         <li><strong>Validation</strong>: Zod schema validates all fields with required checks</li>
@@ -458,7 +458,7 @@ class NestedObjectDemoComponent {
         </div>
       </div>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li><strong>Default Values</strong>: Form is pre-populated with valid default data</li>
         <li><strong>Nested FormGroup</strong>: Profile object contains all form fields in a nested structure</li>
         <li><strong>Validation</strong>: All fields are already valid on load</li>
@@ -652,7 +652,7 @@ class NestedObjectWithDefaultsDemoComponent {
         </div>
       </div>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li><strong>FormArray</strong>: Dynamic array of text input controls</li>
         <li><strong>Add/Remove</strong>: Buttons to dynamically add or remove array items</li>
         <li><strong>Validation</strong>: Each tag is validated using Zod schema</li>
@@ -790,7 +790,7 @@ class ArrayOfTextDemoComponent {
         </div>
       </div>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li><strong>Default Values</strong>: Form starts with 2 pre-populated tags</li>
         <li><strong>FormArray</strong>: Dynamic array of text input controls</li>
         <li><strong>Add/Remove</strong>: Can add more tags or remove existing ones</li>
@@ -1044,7 +1044,7 @@ class ArrayOfTextWithDefaultsDemoComponent {
         </div>
       </div>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li><strong>FormArray with FormGroups</strong>: Array of complex objects with multiple fields</li>
         <li><strong>Dynamic Add/Remove</strong>: Buttons to manage array items</li>
         <li>
@@ -1333,7 +1333,7 @@ class ArrayOfObjectsDemoComponent {
         </div>
       </div>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li><strong>Default Values</strong>: Form starts with 2 pre-populated items with valid data</li>
         <li><strong>FormArray with FormGroups</strong>: Array of complex objects with multiple fields</li>
         <li><strong>Dynamic Add/Remove</strong>: Can add more items or remove existing ones</li>

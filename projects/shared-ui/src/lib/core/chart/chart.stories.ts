@@ -160,7 +160,7 @@ export const VerticalBarChart: Story = {
       },
     });
 
-    const handleRefresh = () => {
+    const onRefresh = () => {
       const newDataPointCount = getRandomInt(10, 30);
       chartConfig.set({
         type: 'bar',
@@ -201,14 +201,14 @@ export const VerticalBarChart: Story = {
     return {
       props: {
         chartConfig,
-        handleRefresh,
+        onRefresh,
       },
       template: `
         <org-storybook-example-container title="Vertical Bar Chart">
           <org-storybook-example-container-section label="Example">
             <org-chart containerClass="self-stretch h-[500px]" [configuration]="chartConfig()" />
             <div>
-              <org-button (clicked)="handleRefresh()">Refresh Data</org-button>
+              <org-button (clicked)="onRefresh()">Refresh Data</org-button>
             </div>
           </org-storybook-example-container-section>
         </org-storybook-example-container>
@@ -259,7 +259,7 @@ export const HorizontalBarChart: Story = {
       },
     });
 
-    const handleRefresh = () => {
+    const onRefresh = () => {
       const newDataPointCount = getRandomInt(10, 30);
       chartConfig.set({
         type: 'bar',
@@ -301,14 +301,14 @@ export const HorizontalBarChart: Story = {
     return {
       props: {
         chartConfig,
-        handleRefresh,
+        onRefresh,
       },
       template: `
         <org-storybook-example-container title="Horizontal Bar Chart">
           <org-storybook-example-container-section label="Example">
             <org-chart [configuration]="chartConfig()" />
             <div>
-              <org-button (clicked)="handleRefresh()">Refresh Data</org-button>
+              <org-button (clicked)="onRefresh()">Refresh Data</org-button>
             </div>
           </org-storybook-example-container-section>
         </org-storybook-example-container>
@@ -376,7 +376,7 @@ export const StackedBarChart: Story = {
       },
     });
 
-    const handleRefresh = () => {
+    const onRefresh = () => {
       const newDataPointCount = getRandomInt(10, 30);
       chartConfig.set({
         type: 'bar',
@@ -435,14 +435,14 @@ export const StackedBarChart: Story = {
     return {
       props: {
         chartConfig,
-        handleRefresh,
+        onRefresh,
       },
       template: `
         <org-storybook-example-container title="Stacked Bar Chart">
           <org-storybook-example-container-section label="Example">
             <org-chart [configuration]="chartConfig()" />
             <div>
-              <org-button (clicked)="handleRefresh()">Refresh Data</org-button>
+              <org-button (clicked)="onRefresh()">Refresh Data</org-button>
             </div>
           </org-storybook-example-container-section>
         </org-storybook-example-container>
@@ -500,7 +500,7 @@ export const LineChart: Story = {
       },
     });
 
-    const handleRefresh = () => {
+    const onRefresh = () => {
       const newDataPointCount = getRandomInt(10, 30);
       const newLineColor = getCssVariable('--chart-purple-500');
       chartConfig.set({
@@ -549,14 +549,14 @@ export const LineChart: Story = {
     return {
       props: {
         chartConfig,
-        handleRefresh,
+        onRefresh,
       },
       template: `
         <org-storybook-example-container title="Line Chart with Fill">
           <org-storybook-example-container-section label="Example">
             <org-chart [configuration]="chartConfig()" />
             <div>
-              <org-button (clicked)="handleRefresh()">Refresh Data</org-button>
+              <org-button (clicked)="onRefresh()">Refresh Data</org-button>
             </div>
           </org-storybook-example-container-section>
         </org-storybook-example-container>
@@ -626,7 +626,7 @@ export const BubbleChart: Story = {
       },
     });
 
-    const handleRefresh = () => {
+    const onRefresh = () => {
       const newDataPointCount = getRandomInt(10, 30);
       chartConfig.set({
         type: 'bubble',
@@ -678,14 +678,14 @@ export const BubbleChart: Story = {
     return {
       props: {
         chartConfig,
-        handleRefresh,
+        onRefresh,
       },
       template: `
         <org-storybook-example-container title="Bubble Chart">
           <org-storybook-example-container-section label="Example">
             <org-chart [configuration]="chartConfig()" />
             <div>
-              <org-button (clicked)="handleRefresh()">Refresh Data</org-button>
+              <org-button (clicked)="onRefresh()">Refresh Data</org-button>
             </div>
           </org-storybook-example-container-section>
         </org-storybook-example-container>
@@ -750,7 +750,7 @@ export const PieChart: Story = {
       },
     });
 
-    const handleRefresh = () => {
+    const onRefresh = () => {
       const newDataPointCount = getRandomInt(10, 30);
       chartConfig.set({
         type: 'pie',
@@ -786,14 +786,14 @@ export const PieChart: Story = {
     return {
       props: {
         chartConfig,
-        handleRefresh,
+        onRefresh,
       },
       template: `
         <org-storybook-example-container title="Pie Chart">
           <org-storybook-example-container-section label="Example">
             <org-chart [configuration]="chartConfig()" />
             <div>
-              <org-button (clicked)="handleRefresh()">Refresh Data</org-button>
+              <org-button (clicked)="onRefresh()">Refresh Data</org-button>
             </div>
           </org-storybook-example-container-section>
         </org-storybook-example-container>
@@ -858,7 +858,7 @@ export const PolarChart: Story = {
       },
     });
 
-    const handleRefresh = () => {
+    const onRefresh = () => {
       const newDataPointCount = getRandomInt(10, 30);
       chartConfig.set({
         type: 'polarArea',
@@ -894,14 +894,14 @@ export const PolarChart: Story = {
     return {
       props: {
         chartConfig,
-        handleRefresh,
+        onRefresh,
       },
       template: `
         <org-storybook-example-container title="Polar Area Chart">
           <org-storybook-example-container-section label="Example">
             <org-chart [configuration]="chartConfig()" />
             <div>
-              <org-button (clicked)="handleRefresh()">Refresh Data</org-button>
+              <org-button (clicked)="onRefresh()">Refresh Data</org-button>
             </div>
           </org-storybook-example-container-section>
         </org-storybook-example-container>
@@ -957,7 +957,7 @@ export const RadarChart: Story = {
       },
     });
 
-    const handleRefresh = () => {
+    const onRefresh = () => {
       const newDataPointCount = getRandomInt(10, 30);
       chartConfig.set({
         type: 'radar',
@@ -1004,14 +1004,14 @@ export const RadarChart: Story = {
     return {
       props: {
         chartConfig,
-        handleRefresh,
+        onRefresh,
       },
       template: `
         <org-storybook-example-container title="Radar Chart">
           <org-storybook-example-container-section label="Example">
             <org-chart [configuration]="chartConfig()" />
             <div>
-              <org-button (clicked)="handleRefresh()">Refresh Data</org-button>
+              <org-button (clicked)="onRefresh()">Refresh Data</org-button>
             </div>
           </org-storybook-example-container-section>
         </org-storybook-example-container>

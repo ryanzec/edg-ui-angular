@@ -196,7 +196,7 @@ export const Sizes: Story = {
           </org-checkbox>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Small</strong>: Compact checkbox for tight spaces</li>
           <li><strong>Base</strong>: Standard checkbox size (default)</li>
           <li><strong>Large</strong>: Prominent checkbox for emphasis</li>
@@ -241,7 +241,7 @@ export const States: Story = {
           </org-checkbox>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Unchecked</strong>: Shows square icon, clicking will check it</li>
           <li><strong>Checked</strong>: Shows check-square icon, clicking will uncheck it</li>
           <li><strong>Indeterminate</strong>: Shows minus-square icon, clicking will check it</li>
@@ -286,7 +286,7 @@ export const DisabledStates: Story = {
           </org-checkbox>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Disabled checkboxes have reduced opacity</li>
           <li>Disabled checkboxes cannot be clicked or interacted with</li>
           <li>Cursor changes to not-allowed when hovering over disabled checkboxes</li>
@@ -395,7 +395,7 @@ export const GroupedCheckboxes: Story = {
         </form>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Checkboxes emit <strong>checkedChange</strong> events when toggled</li>
         <li>Can be integrated with reactive forms by handling change events</li>
         <li>Form state updates in real-time as checkboxes are toggled</li>
@@ -507,7 +507,7 @@ export const ReactiveFormIntegration: Story = {
         </div>
       </org-storybook-example-container-section>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li><strong>Select All</strong> is checked when all items are selected</li>
         <li><strong>Select All</strong> is indeterminate when some (but not all) items are selected</li>
         <li><strong>Select All</strong> is unchecked when no items are selected</li>
@@ -590,7 +590,7 @@ export const SelectAllPattern: Story = {
         </org-form-fields>
       </form>
 
-      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+      <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
         <li>Validation message appears below the checkbox when provided</li>
         <li>Message uses <strong>text-validation-error-text</strong> color (danger/red)</li>
         <li>Message is visible only when validationMessage input is provided</li>
@@ -648,7 +648,7 @@ export const ValidationSpaceReservation: Story = {
         currentState="Comparing space reservation behaviors"
       >
         <org-storybook-example-container-section label="Reserve Space = true (default)">
-          <div class="space-y-4">
+          <div class="flex flex-col gap-4">
             <org-form-field [reserveValidationSpace]="true">
               <org-checkbox
                 name="reserve-true-checkbox-1"
@@ -677,7 +677,7 @@ export const ValidationSpaceReservation: Story = {
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Reserve Space = false">
-          <div class="space-y-4">
+          <div class="flex flex-col gap-4">
             <org-form-field [reserveValidationSpace]="false">
               <org-checkbox
                 name="reserve-false-checkbox-1"
@@ -705,7 +705,7 @@ export const ValidationSpaceReservation: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>reserveValidationSpace=true</strong>: Space is always reserved for validation messages (maintains consistent spacing between checkboxes)</li>
           <li><strong>reserveValidationSpace=false</strong>: Space is only allocated when a validation message is present (checkboxes collapse together when no errors)</li>
           <li>Notice how the left column maintains equal spacing between all checkboxes</li>

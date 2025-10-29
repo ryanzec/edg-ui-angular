@@ -119,7 +119,7 @@ export const Headings: Story = {
           <org-markdown [markdown]="markdown"></org-markdown>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>H1 is the largest heading (3xl)</li>
           <li>H6 is the smallest heading (sm)</li>
           <li>All headings have proper spacing and hierarchy</li>
@@ -167,7 +167,7 @@ export const TextFormatting: Story = {
           <org-markdown [markdown]="markdown"></org-markdown>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Bold</strong>: Use ** or __ around text</li>
           <li><em>Italic</em>: Use * or _ around text</li>
           <li><del>Strikethrough</del>: Use ~~ around text (GitHub flavored)</li>
@@ -227,7 +227,7 @@ export const Lists: Story = {
           <org-markdown [markdown]="markdown"></org-markdown>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Unordered</strong>: Use *, -, or + for bullet points</li>
           <li><strong>Ordered</strong>: Use numbers followed by a period</li>
           <li><strong>Task Lists</strong>: Use - [ ] for unchecked, - [x] for checked (GitHub flavored)</li>
@@ -276,7 +276,7 @@ export const LinksAndImages: Story = {
           <org-markdown [markdown]="markdown"></org-markdown>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Links</strong>: Use [text](url) or [text](url "title")</li>
           <li><strong>Auto-linking</strong>: URLs are automatically converted to links</li>
           <li><strong>Images</strong>: Use ![alt](url) or ![alt](url "title")</li>
@@ -349,7 +349,7 @@ export const Code: Story = {
           <org-markdown [markdown]="markdown"></org-markdown>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Inline Code</strong>: Use backticks around text</li>
           <li><strong>Code Blocks</strong>: Use triple backticks with optional language</li>
           <li><strong>Languages</strong>: Specify language for syntax awareness</li>
@@ -404,7 +404,7 @@ export const Blockquotes: Story = {
           <org-markdown [markdown]="markdown"></org-markdown>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Basic</strong>: Use > at the start of lines</li>
           <li><strong>Nested</strong>: Use >> for nested quotes</li>
           <li><strong>Formatting</strong>: All markdown formatting works inside blockquotes</li>
@@ -463,7 +463,7 @@ export const Tables: Story = {
           <org-markdown [markdown]="markdown"></org-markdown>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Structure</strong>: Use pipes | to separate columns</li>
           <li><strong>Headers</strong>: First row with --- separator</li>
           <li><strong>Alignment</strong>: Use :--- (left), :---: (center), ---: (right)</li>
@@ -520,7 +520,7 @@ export const HorizontalRules: Story = {
           <org-markdown [markdown]="markdown"></org-markdown>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Syntax</strong>: Use ---, ***, or ___ on their own line</li>
           <li><strong>Purpose</strong>: Visual separation between content sections</li>
           <li><strong>Styling</strong>: Rendered as a horizontal line with spacing</li>
@@ -694,7 +694,7 @@ export const ComprehensiveExample: Story = {
           <org-markdown [markdown]="markdown"></org-markdown>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>All heading levels (H1-H6)</li>
           <li>Text formatting (bold, italic, combined)</li>
           <li><strong>Strikethrough</strong> with ~~ syntax (GitHub flavored)</li>

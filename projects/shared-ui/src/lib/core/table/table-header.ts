@@ -18,7 +18,7 @@ import { tailwindUtils } from '@organization/shared-utils';
     </th>
   `,
   host: {
-    dataid: 'table-th',
+    ['attr.data-testid']: 'table-th',
     style: 'display: contents',
   },
 })

@@ -1,23 +1,41 @@
-<div class="p-6">
+<div class="flex items-center justify-between gap-2 mb-2">
   <h1>Users</h1>
-
-  @if (error()) {
-    <div>
-      <div>ERROR:{{ error() }}</div>
-    </div>
-  }
-  <org-users-list
-    #usersListComponent
-    [users]="users()"
-    [isLoading]="loadingState() === 'initial'"
-    [isBackgroundLoading]="loadingState() === 'pending'"
-    [enableSorting]="true"
-    (userEdit)="onUserEdit($event)"
-    (userDelete)="onUserDelete($event)"
-    [enableFilters]="true"
-    (filtersChanged)="onFiltersChanged($event)"
-    (pageChanged)="onPageChanged($event)"
-    (sortingChanged)="onSortingChanged($event)"
-  >
-  </org-users-list>
+  <org-button color="safe" preIcon="plus" (clicked)="onAddUserClick()">Add User</org-button>
 </div>
+
+@if (usersError() || true) {
+  <org-card class="mb-2" color="danger">
+    <org-card-header title="Error" />
+    <org-card-content>
+      <div>{{ usersError() }} Just testing</div>
+    </org-card-content>
+  </org-card>
+}
+<org-users-list
+  #usersListComponent
+  [users]="users()"
+  [isInitialLoading]="usersInitialized() === false"
+  [isLoading]="loadingState() === 'pending'"
+  [enableSorting]="true"
+  (userEdit)="onUserEdit($event)"
+  (userDelete)="onUserDelete($event)"
+  [enableFilters]="true"
+  (filtersChanged)="onFiltersChanged($event)"
+  (pageChanged)="onPageChanged($event)"
+  (sortingChanged)="onSortingChanged($event)"
+>
+</org-users-list>
+
+<org-dialog-controller
+  #userFormDialogController
+  [dialogComponent]="UserFormDialogComponent"
+  position="right"
+  (closed)="clearSelectedUser()"
+/>
+
+<org-dialog-controller
+  #userDeleteDialogController
+  [dialogComponent]="UserDeleteDialogComponent"
+  position="center"
+  (closed)="clearSelectedUser()"
+/>

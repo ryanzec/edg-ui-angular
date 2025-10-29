@@ -5,6 +5,9 @@ import { tailwindUtils } from 'projects/shared-utils/src/utils/tailwind';
   selector: 'org-card-content',
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './card-content.html',
+  host: {
+    class: 'first:pt-card',
+  },
 })
 export class CardContent {
   public class = input<string>('');

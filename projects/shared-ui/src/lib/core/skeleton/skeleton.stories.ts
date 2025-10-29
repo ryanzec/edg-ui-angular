@@ -106,7 +106,7 @@ export const Types: Story = {
           <org-skeleton type="card" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Table</strong>: 7 bars of varying widths with animated gradient shimmer</li>
           <li><strong>Card</strong>: Rectangular card with animated gradient shimmer</li>
           <li><strong>Animation</strong>: Both types have a smooth left-to-right gradient animation</li>
@@ -146,7 +146,7 @@ export const TableVariations: Story = {
           <org-skeleton type="table" containerClass="w-full gap-4" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Default</strong>: Uses full width available with standard gap</li>
           <li><strong>Custom Width</strong>: Fixed width can be set via containerClass</li>
           <li><strong>Custom Gap</strong>: Spacing between bars can be customized</li>
@@ -190,7 +190,7 @@ export const CardVariations: Story = {
           <org-skeleton type="card" containerClass="w-[200px] h-[400px]" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Default</strong>: Full width with 200px height</li>
           <li><strong>Square</strong>: Equal width and height for square cards</li>
           <li><strong>Wide</strong>: Wider aspect ratio for horizontal layouts</li>
@@ -241,7 +241,7 @@ export const UsageExamples: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>User List</strong>: Table skeleton for loading list data</li>
           <li><strong>Product Cards</strong>: Multiple card skeletons for grid layouts</li>
           <li><strong>Profile Section</strong>: Combined card and table skeletons for complex layouts</li>

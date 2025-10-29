@@ -50,7 +50,7 @@ type AutoScrollInternalState = {
     },
   ],
   host: {
-    '[attr.dataid]': '"auto-scroll"',
+    '[attr.data-testid]': '"auto-scroll"',
   },
 })
 export class AutoScroll {
@@ -217,7 +217,7 @@ export class AutoScroll {
     const element = this._elementRef.nativeElement as HTMLElement;
 
     this._mutationObserver = new MutationObserver(() => {
-      this._handleScrollableParentChange();
+      this._onScrollableParentChange();
     });
 
     // observe the content wrapper for content changes
@@ -238,7 +238,7 @@ export class AutoScroll {
   /**
    * handles scrollable parent changes
    */
-  private _handleScrollableParentChange(): void {
+  private _onScrollableParentChange(): void {
     const previousParent = this._scrollableParent;
     this._detectScrollableParent();
 
@@ -264,7 +264,7 @@ export class AutoScroll {
 
     this._intersectionObserver = new IntersectionObserver(
       (entries) => {
-        this._handleIntersection(entries);
+        this._onIntersection(entries);
       },
       {
         root: this._scrollableParent,
@@ -302,7 +302,7 @@ export class AutoScroll {
     }
 
     this._scrollableParent.addEventListener('scroll', () => {
-      this._handleScroll();
+      this._onScroll();
     });
   }
 
@@ -358,7 +358,7 @@ export class AutoScroll {
   /**
    * handles intersection observer entries
    */
-  private _handleIntersection(entries: IntersectionObserverEntry[]): void {
+  private _onIntersection(entries: IntersectionObserverEntry[]): void {
     // if forced-disabled or programmatic scroll, don't change state
     if (this._state().autoScrollState === 'forced-disabled' || this._targetScrollTop !== null) {
       return;
@@ -375,7 +375,7 @@ export class AutoScroll {
   /**
    * handles scroll events
    */
-  private _handleScroll(): void {
+  private _onScroll(): void {
     if (!this._scrollableParent) {
       return;
     }

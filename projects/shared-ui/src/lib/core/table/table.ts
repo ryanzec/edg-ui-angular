@@ -33,7 +33,7 @@ type TableState = {
   imports: [NgTemplateOutlet, ScrollAreaDirective, LoadingSpinner, LoadingBlocker],
   templateUrl: './table.html',
   host: {
-    dataid: 'table',
+    ['attr.data-testid']: 'table',
   },
 })
 export class Table<T = unknown> {

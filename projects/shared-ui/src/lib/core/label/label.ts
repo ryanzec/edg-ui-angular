@@ -10,7 +10,7 @@ import { LogManager } from '../log-manager/log-manager';
   imports: [LoadingSpinner, NgTemplateOutlet],
   templateUrl: './label.html',
   host: {
-    dataid: 'label',
+    ['attr.data-testid']: 'label',
     class: 'inline-flex',
   },
 })

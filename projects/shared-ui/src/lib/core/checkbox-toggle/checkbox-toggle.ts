@@ -27,7 +27,7 @@ export const checkboxToggleSizes: CheckboxToggleSize[] = ['sm', 'base', 'lg'];
   imports: [Icon, TextDirective],
   templateUrl: './checkbox-toggle.html',
   host: {
-    dataid: 'checkbox-toggle',
+    ['attr.data-testid']: 'checkbox-toggle',
     class: 'inline-flex',
   },
   providers: [
@@ -117,7 +117,7 @@ export class CheckboxToggle implements ControlValueAccessor {
 
   public readonly ariaDescribedBy = computed<string | null>(() => {
     if (this.hasValidationMessage()) {
-      return 'validation-message';
+      return `validation-message-${this.name()}`;
     }
 
     return null;
@@ -133,7 +133,7 @@ export class CheckboxToggle implements ControlValueAccessor {
 
   public mergeClasses = tailwindUtils.merge;
 
-  protected handleClick(event: Event): void {
+  protected onClick(event: Event): void {
     if (this.isDisabled()) {
       event.preventDefault();
 
@@ -150,14 +150,14 @@ export class CheckboxToggle implements ControlValueAccessor {
     this.checkedChange.emit(newChecked);
   }
 
-  protected handleKeyDown(event: KeyboardEvent): void {
+  protected onKeyDown(event: KeyboardEvent): void {
     if (this.isDisabled()) {
       return;
     }
 
     if (event.key === ' ' || event.key === 'Enter') {
       event.preventDefault();
-      this.handleClick(event);
+      this.onClick(event);
     }
   }
 

@@ -21,7 +21,7 @@
         color="primary"
         variant="weak"
         [removable]="!!(item.removable && !isDisabled() && !isReadonly())"
-        (removed)="handleInlineItemRemove(item)"
+        (removed)="onInlineItemRemove(item)"
       >
         {{ item.label }}
       </org-tag>
@@ -40,7 +40,7 @@
             }
           )
         "
-        (click)="handlePreIconClick()"
+        (click)="onPreIconClick()"
         [disabled]="isDisabled() || isReadonly()"
         [attr.aria-label]="'Pre icon'"
       >
@@ -65,9 +65,9 @@
       [readonly]="isReadonly()"
       [rows]="rows()"
       [attr.autofocus]="autoFocus() || null"
-      (input)="handleInputChange($event)"
-      (blur)="handleBlur()"
-      (keydown)="handleKeyDown($event)"
+      (input)="onInputChange($event)"
+      (blur)="onBlur()"
+      (keydown)="onKeyDown($event)"
       [name]="name()"
       [attr.id]="name()"
       [attr.aria-describedby]="ariaDescribedBy()"
@@ -87,7 +87,7 @@
             }
           )
         "
-        (click)="handlePostIconClick()"
+        (click)="onPostIconClick()"
         [disabled]="isDisabled() || isReadonly()"
         [attr.aria-label]="'Post icon'"
       >

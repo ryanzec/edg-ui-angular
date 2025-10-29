@@ -5,7 +5,7 @@
       variant="ghost"
       icon="caret-left"
       [disabled]="!canScrollLeft()"
-      (clicked)="handleScrollLeft()"
+      (clicked)="onScrollLeft()"
       buttonClass="shrink-0 self-center"
     />
   }
@@ -22,8 +22,8 @@
         tabsClass()
       )
     "
-    (scroll)="handleScroll()"
-    (scrollend)="handleScrollEnd()"
+    (scroll)="onScroll()"
+    (scrollend)="onScrollEnd()"
   >
     <ng-content />
   </div>
@@ -34,7 +34,7 @@
       variant="ghost"
       icon="caret-right"
       [disabled]="!canScrollRight()"
-      (clicked)="handleScrollRight()"
+      (clicked)="onScrollRight()"
       buttonClass="shrink-0 self-center"
     />
   }

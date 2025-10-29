@@ -4,13 +4,13 @@
       <form [formGroup]="filterForm">
         <org-form-fields [reserveValidationSpace]="false">
           <org-form-field>
-            <org-input formControlName="nameSearch" name="users-list-name-search" placeholder="Search by name..." />
+            <org-input formControlName="name" name="users-list-name-search" placeholder="Search by name..." />
           </org-form-field>
           <org-form-field>
             <org-form-fields [reserveValidationSpace]="false" containerClass="flex-row">
               <org-form-field containerClass="w-auto">
                 <org-combobox
-                  formControlName="dateField"
+                  formControlName="dateType"
                   name="users-list-date-field"
                   [options]="dateFieldOptions"
                   placeholder="Select date field..."
@@ -34,7 +34,7 @@
     </div>
   }
 
-  @if (isLoading()) {
+  @if (isInitialLoading()) {
     <div class="flex justify-center items-center w-full">
       <org-skeleton type="table" class="w-full" />
     </div>
@@ -43,44 +43,26 @@
       <div>No users found</div>
     </div>
   } @else {
-    <org-table [data]="users()" [containerClass]="tableContainerClass()" [isBackgroundLoading]="isBackgroundLoading()">
+    <org-table [data]="users()" [containerClass]="tableContainerClass()" [isLoading]="isLoading()">
       <ng-template #header>
-        <tr>
-          <th
-            class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            [orgSortable]="'name'"
-            [sortableEnabled]="enableSorting()"
-          >
-            Name
-          </th>
-          <th
-            class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-          >
-            Email
-          </th>
-          <th
-            class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-          >
-            Roles
-          </th>
-          <th
-            class="px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-            [orgSortable]="'createdAt'"
-            [sortableEnabled]="enableSorting()"
-          >
-            Created
-          </th>
-          <th
-            class="w-[50px] px-4 py-3 text-left font-semibold text-sm text-table-header-text bg-table-header-background sticky top-0 z-10"
-          ></th>
-        </tr>
+        <org-table-tr variant="header" [isSticky]="true">
+          <org-table-th>
+            <div [orgSortable]="'name'" [sortableEnabled]="enableSorting()">Name</div>
+          </org-table-th>
+          <org-table-th>Email</org-table-th>
+          <org-table-th>Roles</org-table-th>
+          <org-table-th>
+            <div [orgSortable]="'createdAt'" [sortableEnabled]="enableSorting()">Created</div>
+          </org-table-th>
+          <org-table-th containerClass="w-[50px]"></org-table-th>
+        </org-table-tr>
       </ng-template>
       <ng-template #body let-tempUser>
         @let user = asUser(tempUser);
-        <tr class="border-b border-table-row-border last:border-b-0 hover:bg-table-row-hover">
-          <td class="px-4 py-3 text-sm text-table-text">{{ user.name }}</td>
-          <td class="px-4 py-3 text-sm text-table-text">{{ user.email }}</td>
-          <td class="px-4 py-3 text-sm text-table-text">
+        <org-table-tr>
+          <org-table-td>{{ user.name }}</org-table-td>
+          <org-table-td>{{ user.email }}</org-table-td>
+          <org-table-td>
             <div class="flex flex-row gap-1.5">
               @for (role of user.roles; track role) {
                 <org-tag [color]="getRoleColor(role)" variant="weak">
@@ -88,13 +70,13 @@
                 </org-tag>
               }
             </div>
-          </td>
-          <td class="px-4 py-3 text-sm text-table-text"><org-date-display [date]="toDateTime(user.createdAt)" /></td>
-          <td class="px-4 py-3 text-sm text-table-text">
+          </org-table-td>
+          <org-table-td><org-date-display [date]="toDateTime(user.createdAt)" /></org-table-td>
+          <org-table-td>
             <div class="flex justify-end">
               <org-button
                 [cdkMenuTriggerFor]="userActionsMenu"
-                [cdkMenuPosition]="menuPosition"
+                [cdkMenuPosition]="usersActionsMenuPosition"
                 color="neutral"
                 variant="ghost"
                 [icon]="'dots-three'"
@@ -104,13 +86,13 @@
               />
               <ng-template #userActionsMenu>
                 <org-overlay-menu
-                  [menuItems]="getUserActionsMenuItems(user)"
+                  [menuItems]="usersActionsMenuItems"
                   (menuItemClicked)="onUserActionMenuItemClick($event, user)"
                 />
               </ng-template>
             </div>
-          </td>
-        </tr>
+          </org-table-td>
+        </org-table-tr>
       </ng-template>
     </org-table>
     @if (hasPagination()) {

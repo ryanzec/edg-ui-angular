@@ -138,7 +138,7 @@ export const Variants: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Block</strong>: Standalone code block with border, background, and padding</li>
           <li><strong>Inline</strong>: Inline code that flows with surrounding text</li>
         </ul>
@@ -176,7 +176,7 @@ export const CopyFeature: Story = {
           />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Copy button appears in the top-right corner when enabled</li>
           <li>Button has 0.3 opacity by default</li>
           <li>Opacity increases to 0.7 when hovering over the container</li>
@@ -242,7 +242,7 @@ export const EllipsisFeature: Story = {
           />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>When <code>ellipsisAt</code> is 0, all content is shown</li>
           <li>When <code>ellipsisAt</code> is greater than 0, content is clamped to that many lines</li>
           <li>Uses CSS line-clamp for pure CSS implementation</li>
@@ -305,7 +305,7 @@ export const MultilineCode: Story = {
           />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Preserves whitespace and line breaks</li>
           <li>Horizontal scrolling for long lines</li>
           <li>Monospace font for code readability</li>
@@ -347,7 +347,7 @@ export const CombinedFeatures: Story = {
           />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Copy button copies the full text, not just visible lines</li>
           <li>Ellipsis only affects display, not clipboard content</li>
           <li>Both features work independently</li>
@@ -466,7 +466,7 @@ export class UserDashboardComponent implements OnInit {
             />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Scrollbars only appear when hovering over the content area</li>
           <li>Both horizontal and vertical scrolling are enabled</li>
           <li>CodeBlock component maintains its styling within the scroll area</li>

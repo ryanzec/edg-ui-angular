@@ -42,10 +42,10 @@
       }
     )
   "
-  (click)="handleClick()"
-  (mousedown)="handleMouseDown()"
-  (mouseup)="handleMouseUp()"
-  (mouseleave)="handleMouseLeave()"
+  (click)="onClick()"
+  (mousedown)="onMouseDown()"
+  (mouseup)="onMouseUp()"
+  (mouseleave)="onMouseLeave()"
 >
   @if (preIcon() && !isIconOnly() && !isLoading()) {
     <org-icon [name]="preIcon()!" [size]="size()" />

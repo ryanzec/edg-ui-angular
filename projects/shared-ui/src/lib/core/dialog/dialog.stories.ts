@@ -3,7 +3,7 @@ import { DialogController, DialogPosition, dialogPositions } from '../../core/di
 import { StorybookExampleContainer } from '../../private/storybook-example-container/storybook-example-container';
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 import { Button } from '../../core/button/button';
-import { ChangeDetectionStrategy, Component, inject, input, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, ViewChild, signal } from '@angular/core';
 import { DialogHeader } from '../../core/dialog/dialog-header';
 import { DialogContent } from '../../core/dialog/dialog-content';
 import { DialogFooter } from '../../core/dialog/dialog-footer';
@@ -26,13 +26,13 @@ export type EXAMPLEDialogData = {
       <org-dialog-header [title]="data.title" />
       <org-dialog-content>{{ data.message }}</org-dialog-content>
       <org-dialog-footer>
-        <org-button color="neutral" (clicked)="handleCancel()">Cancel</org-button>
-        <org-button color="primary" (clicked)="handleConfirm()">Confirm</org-button>
+        <org-button color="neutral" (clicked)="onCancel()">Cancel</org-button>
+        <org-button color="primary" (clicked)="onConfirm()">Confirm</org-button>
       </org-dialog-footer>
     </org-dialog>
   `,
   host: {
-    dataid: 'example-dialog-content',
+    ['attr.data-testid']: 'example-dialog-content',
   },
 })
 class EXAMPLEDialog {
@@ -40,12 +40,12 @@ class EXAMPLEDialog {
 
   protected readonly data = inject<EXAMPLEDialogData>(DIALOG_DATA);
 
-  protected handleCancel(): void {
-    console.log('cancel button clicked', this.data);
+  protected onCancel(): void {
+    console.log('cancel button clicked');
     this._dialogRef.close();
   }
 
-  protected handleConfirm(): void {
+  protected onConfirm(): void {
     console.log('confirm button clicked');
     this._dialogRef.close();
   }
@@ -59,10 +59,6 @@ class EXAMPLEDialog {
     <org-button (click)="openDialog()">Open Dialog</org-button>
     <org-dialog-controller
       [dialogComponent]="EXAMPLEDialogComponent"
-      [dialogData]="{
-        title: 'Example Dialog',
-        message: 'This is a minimalistic example of Angular CDK Dialog.',
-      }"
       [position]="position()"
       [hasRoundedCorners]="hasRoundedCorners()"
       [enableCloseOnClickOutside]="enableCloseOnClickOutside()"
@@ -70,7 +66,7 @@ class EXAMPLEDialog {
     />
   `,
   host: {
-    dataid: 'example-story-dialog',
+    ['attr.data-testid']: 'example-story-dialog',
   },
 })
 export class EXAMPLEStoryDialog {
@@ -84,7 +80,10 @@ export class EXAMPLEStoryDialog {
   public readonly dialogControllerComponent!: DialogController<EXAMPLEDialog>;
 
   protected openDialog(): void {
-    this.dialogControllerComponent.openDialog();
+    this.dialogControllerComponent.openDialog({
+      title: 'Example Dialog',
+      message: 'This is a minimalistic example of Angular CDK Dialog.',
+    });
   }
 }
 
@@ -104,7 +103,7 @@ const meta: Meta<DialogController<EXAMPLEDialog>> = {
   - Uses Angular CDK Dialog module for accessible modals
   - Demonstrates dialog positioning (center, top, bottom)
   - Backdrop click to close (disabled by default, can be enabled via enableCloseOnClickOutside input)
-  - Keyboard support (Escape to close, always enabled for accessibility)
+  - Keyboard support (Escape to close, controlled via enableEscapeKey input and dialogRef.disableClose for processing states)
   - Automatic focus management
   - Programmatic dialog opening and closing
 
@@ -191,7 +190,7 @@ export const Positions: Story = {
           <org-example-story-dialog position="right" [hasRoundedCorners]="false" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="flex flex-col gap-1 mt-1 list-inside list-disc">
           <li><strong>Center</strong>: Dialog appears in the center of the screen</li>
           <li><strong>Top</strong>: Dialog appears at the top of the screen</li>
           <li><strong>Bottom</strong>: Dialog appears at the bottom of the screen</li>
@@ -227,7 +226,7 @@ export const CloseOnClickOutsideEnabled: Story = {
           <org-example-story-dialog position="center" [enableCloseOnClickOutside]="true" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="flex flex-col gap-1 mt-1 list-inside list-disc">
           <li><strong>Backdrop Click</strong>: Click outside dialog to close it (enabled in this story)</li>
           <li><strong>Escape Key</strong>: Press Escape to close the dialog</li>
           <li><strong>Confirm Button</strong>: Logs confirmation and closes dialog</li>
@@ -239,6 +238,87 @@ export const CloseOnClickOutsideEnabled: Story = {
     `,
     moduleMetadata: {
       imports: [EXAMPLEStoryDialog, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+@Component({
+  selector: 'org-example-story-dialog-with-closed-event',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [DialogController, Button],
+  template: `
+    <div class="flex flex-col gap-4">
+      <org-button (click)="openDialog()">Open Dialog</org-button>
+
+      @if (closeCount() > 0) {
+        <div class="p-4 bg-secondary-background-subtle rounded-lg">
+          <p class="text-sm font-medium">Dialog Closed Events: {{ closeCount() }}</p>
+          <p class="text-xs text-text-subtle mt-1">Open and close the dialog to see the count increase</p>
+        </div>
+      }
+
+      <org-dialog-controller
+        [dialogComponent]="EXAMPLEDialogComponent"
+        position="center"
+        (closed)="onDialogClosed()"
+        #dialogControllerComponent
+      />
+    </div>
+  `,
+  host: {
+    ['attr.data-testid']: 'example-story-dialog-with-closed-event',
+  },
+})
+export class EXAMPLEStoryDialogWithClosedEvent {
+  protected readonly EXAMPLEDialogComponent = EXAMPLEDialog;
+  protected readonly closeCount = signal(0);
+
+  @ViewChild('dialogControllerComponent')
+  public readonly dialogControllerComponent!: DialogController<EXAMPLEDialog>;
+
+  protected openDialog(): void {
+    this.dialogControllerComponent.openDialog({
+      title: 'Dialog with Closed Event',
+      message: 'Close this dialog to see the closed event being triggered.',
+    });
+  }
+
+  protected onDialogClosed(): void {
+    this.closeCount.update((count) => count + 1);
+    console.log('Dialog closed event triggered. Total closes:', this.closeCount());
+  }
+}
+
+export const ClosedEvent: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Example demonstrating the closed output event. The dialog controller emits a closed event whenever the dialog is closed by any means (backdrop click, escape key, or programmatic close).',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Dialog with Closed Event"
+        currentState="Demonstrating dialog closed event handling"
+      >
+        <org-storybook-example-container-section label="Try Opening and Closing">
+          <org-example-story-dialog-with-closed-event />
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="flex flex-col gap-1 mt-1 list-inside list-disc">
+          <li><strong>Closed Event</strong>: Emitted whenever dialog closes by any means</li>
+          <li><strong>Event Counter</strong>: Tracks how many times the dialog has been closed</li>
+          <li><strong>Console Logging</strong>: Check console for logged close events</li>
+          <li><strong>State Management</strong>: Useful for clearing selected data when dialog closes</li>
+          <li><strong>Multiple Close Methods</strong>: Works with backdrop click, Escape key, and button clicks</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [EXAMPLEStoryDialogWithClosedEvent, StorybookExampleContainer, StorybookExampleContainerSection],
     },
   }),
 };

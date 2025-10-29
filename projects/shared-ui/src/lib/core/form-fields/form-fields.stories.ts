@@ -135,7 +135,7 @@ export const WithMixedFormElements: Story = {
           </org-form-fields>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>All form elements maintain consistent vertical spacing (gap-1)</li>
           <li>Works seamlessly with inputs, textareas, checkboxes, and labels</li>
           <li>Labels and their corresponding inputs are grouped naturally</li>
@@ -200,7 +200,7 @@ export const WithValidation: Story = {
           </org-form-fields>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Validation messages appear below their respective inputs</li>
           <li>Spacing remains consistent even with validation messages</li>
           <li>Error styling is applied to invalid inputs</li>
@@ -228,7 +228,7 @@ export const MultipleGroups: Story = {
         currentState="Showing multiple form field containers for organizing sections"
       >
         <org-storybook-example-container-section label="Personal Information + Account Details">
-          <div class="space-y-6">
+          <div class="flex flex-col gap-6">
             <div>
               <h3 class="mb-2 text-base font-semibold">Personal Information</h3>
               <org-form-fields>
@@ -261,7 +261,7 @@ export const MultipleGroups: Story = {
           </div>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Multiple form-fields containers can be used to organize form sections</li>
           <li>Each container maintains its own internal spacing</li>
           <li>Additional spacing between containers should be handled externally</li>
@@ -312,7 +312,7 @@ export const WithInputIcons: Story = {
           </org-form-fields>
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li>Icons in inputs don't affect the consistent spacing</li>
           <li>Works with pre-icons, post-icons, and password toggles</li>
           <li>Labels align properly regardless of input icon configuration</li>

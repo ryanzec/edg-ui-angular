@@ -7,7 +7,7 @@ import { Button } from '../button/button';
   imports: [Button],
   templateUrl: './dialog-content.html',
   host: {
-    dataid: 'dialog',
+    ['attr.data-testid']: 'dialog',
   },
 })
 export class DialogContent {}

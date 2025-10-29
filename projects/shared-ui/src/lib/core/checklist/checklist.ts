@@ -24,7 +24,7 @@ type ChecklistState = {
   imports: [Icon],
   templateUrl: './checklist.html',
   host: {
-    dataid: 'checklist',
+    ['attr.data-testid']: 'checklist',
   },
 })
 export class Checklist {

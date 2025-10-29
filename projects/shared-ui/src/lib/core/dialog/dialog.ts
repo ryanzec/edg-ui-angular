@@ -6,11 +6,12 @@ import { tailwindUtils } from '@organization/shared-utils';
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './dialog.html',
   host: {
-    dataid: 'dialog',
+    ['attr.data-testid']: 'dialog',
   },
 })
 export class Dialog {
   public readonly hasRoundedCorners = input<boolean>(true);
+  public readonly containerClass = input<string>('');
 
   protected mergeClasses = tailwindUtils.merge;
 }

@@ -11,7 +11,7 @@ import { tailwindUtils } from '@organization/shared-utils';
   templateUrl: './markdown.html',
   styleUrl: './markdown.css',
   host: {
-    dataid: 'markdown',
+    ['attr.data-testid']: 'markdown',
   },
 })
 export class Markdown {

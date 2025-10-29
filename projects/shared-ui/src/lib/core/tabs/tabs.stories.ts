@@ -102,7 +102,7 @@ export const Default: Story = {
       props: {
         ...args,
         activeTab,
-        handleTabSelected: (value: string) => {
+        onTabSelected: (value: string) => {
           console.log('tab selected:', value);
           activeTab.set(value);
         },
@@ -112,7 +112,7 @@ export const Default: Story = {
           [value]="activeTab()"
           [scrollable]="scrollable"
           [tabsClass]="tabsClass"
-          (tabSelected)="handleTabSelected($event)"
+          (tabSelected)="onTabSelected($event)"
         >
           <org-tab value="home">Home</org-tab>
           <org-tab value="profile">Profile</org-tab>
@@ -140,7 +140,7 @@ export const BasicTabs: Story = {
     return {
       props: {
         activeTab,
-        handleTabSelected: (value: string) => {
+        onTabSelected: (value: string) => {
           console.log('tab selected:', value);
           activeTab.set(value);
         },
@@ -153,7 +153,7 @@ export const BasicTabs: Story = {
           <org-storybook-example-container-section label="Default">
             <org-tabs
               [value]="activeTab()"
-              (tabSelected)="handleTabSelected($event)"
+              (tabSelected)="onTabSelected($event)"
             >
               <org-tab value="home">Home</org-tab>
               <org-tab value="profile">Profile</org-tab>
@@ -161,7 +161,7 @@ export const BasicTabs: Story = {
             </org-tabs>
           </org-storybook-example-container-section>
 
-          <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
             <li><strong>Active Tab</strong>: Bold border and darker text</li>
             <li><strong>Inactive Tabs</strong>: Subtle border and text, hover effect on mouse over</li>
             <li><strong>Click</strong>: Switches active tab and emits tabSelected event</li>
@@ -189,7 +189,7 @@ export const WithContent: Story = {
     return {
       props: {
         activeTab,
-        handleTabSelected: (value: string) => {
+        onTabSelected: (value: string) => {
           console.log('tab selected:', value);
           activeTab.set(value);
         },
@@ -203,7 +203,7 @@ export const WithContent: Story = {
             <div class="flex flex-col gap-4">
               <org-tabs
                 [value]="activeTab()"
-                (tabSelected)="handleTabSelected($event)"
+                (tabSelected)="onTabSelected($event)"
               >
                 <org-tab value="home">Home</org-tab>
                 <org-tab value="profile">Profile</org-tab>
@@ -239,7 +239,7 @@ export const WithContent: Story = {
             </div>
           </org-storybook-example-container-section>
 
-          <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
             <li><strong>Content Switching</strong>: Content changes based on active tab</li>
             <li><strong>Conditional Rendering</strong>: Only active tab content is rendered</li>
             <li><strong>Smooth Transitions</strong>: Tab and content changes are smooth</li>
@@ -267,7 +267,7 @@ export const DisabledTabs: Story = {
     return {
       props: {
         activeTab,
-        handleTabSelected: (value: string) => {
+        onTabSelected: (value: string) => {
           console.log('tab selected:', value);
           activeTab.set(value);
         },
@@ -280,7 +280,7 @@ export const DisabledTabs: Story = {
           <org-storybook-example-container-section label="With Disabled Tab">
             <org-tabs
               [value]="activeTab()"
-              (tabSelected)="handleTabSelected($event)"
+              (tabSelected)="onTabSelected($event)"
             >
               <org-tab value="home">Home</org-tab>
               <org-tab value="profile" [disabled]="true">Profile (Disabled)</org-tab>
@@ -288,7 +288,7 @@ export const DisabledTabs: Story = {
             </org-tabs>
           </org-storybook-example-container-section>
 
-          <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
             <li><strong>Disabled Appearance</strong>: Reduced opacity applied to disabled tab</li>
             <li><strong>No Interaction</strong>: Click events are prevented on disabled tabs</li>
             <li><strong>Cursor</strong>: Cursor changes to not-allowed on hover</li>
@@ -318,7 +318,7 @@ export const ScrollableTabs: Story = {
     return {
       props: {
         activeTab,
-        handleTabSelected: (value: string) => {
+        onTabSelected: (value: string) => {
           console.log('tab selected:', value);
           activeTab.set(value);
         },
@@ -332,7 +332,7 @@ export const ScrollableTabs: Story = {
             <org-tabs
               [value]="activeTab()"
               [scrollable]="true"
-              (tabSelected)="handleTabSelected($event)"
+              (tabSelected)="onTabSelected($event)"
             >
               <org-tab value="tab1">Dashboard</org-tab>
               <org-tab value="tab2">Analytics</org-tab>
@@ -345,7 +345,7 @@ export const ScrollableTabs: Story = {
             </org-tabs>
           </org-storybook-example-container-section>
 
-          <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
             <li><strong>Navigation Buttons</strong>: Caret icons appear on both sides</li>
             <li><strong>Scroll Amount</strong>: Buttons scroll 80% of container width</li>
             <li><strong>Smooth Scrolling</strong>: Animated scroll behavior</li>
@@ -378,11 +378,11 @@ export const ManyTabs: Story = {
       props: {
         activeTab1,
         activeTab2,
-        handleTab1Selected: (value: string) => {
+        onTab1Selected: (value: string) => {
           console.log('tab 1 selected:', value);
           activeTab1.set(value);
         },
-        handleTab2Selected: (value: string) => {
+        onTab2Selected: (value: string) => {
           console.log('tab 2 selected:', value);
           activeTab2.set(value);
         },
@@ -395,7 +395,7 @@ export const ManyTabs: Story = {
           <org-storybook-example-container-section label="Non-Scrollable (Overflows)">
             <org-tabs
               [value]="activeTab1()"
-              (tabSelected)="handleTab1Selected($event)"
+              (tabSelected)="onTab1Selected($event)"
             >
               <org-tab value="tab1">Tab 1</org-tab>
               <org-tab value="tab2">Tab 2</org-tab>
@@ -414,7 +414,7 @@ export const ManyTabs: Story = {
             <org-tabs
               [value]="activeTab2()"
               [scrollable]="true"
-              (tabSelected)="handleTab2Selected($event)"
+              (tabSelected)="onTab2Selected($event)"
               class="w-full"
             >
               <org-tab value="tab1">Tab 1</org-tab>
@@ -450,7 +450,7 @@ export const ManyTabs: Story = {
             </org-tabs>
           </org-storybook-example-container-section>
 
-          <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
             <li><strong>Non-Scrollable</strong>: Tabs may overflow container without scrollable mode</li>
             <li><strong>Scrollable</strong>: Navigation buttons allow access to all tabs</li>
             <li><strong>Use Case</strong>: Enable scrollable when you have many tabs that won't fit</li>
@@ -479,7 +479,7 @@ export const ProgrammaticTabSelection: Story = {
     return {
       props: {
         activeTab,
-        handleTabSelected: (value: string) => {
+        onTabSelected: (value: string) => {
           console.log('tab selected:', value);
           activeTab.set(value);
         },
@@ -519,7 +519,7 @@ export const ProgrammaticTabSelection: Story = {
                 <org-tabs
                   [value]="activeTab()"
                   [scrollable]="true"
-                  (tabSelected)="handleTabSelected($event)"
+                  (tabSelected)="onTabSelected($event)"
                 >
                   <org-tab value="tab1">Tab 1</org-tab>
                   <org-tab value="tab2">Tab 2</org-tab>
@@ -546,7 +546,7 @@ export const ProgrammaticTabSelection: Story = {
             </div>
           </org-storybook-example-container-section>
 
-          <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+          <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
             <li><strong>Programmatic Control</strong>: Tab selection can be controlled externally via signal</li>
             <li><strong>Jump Button</strong>: Click to instantly set active tab to the last one</li>
             <li><strong>Auto-Scroll</strong>: When scrollable is enabled, the tabs container automatically scrolls to center the active tab</li>

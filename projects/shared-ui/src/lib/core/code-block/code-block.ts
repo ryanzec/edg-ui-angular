@@ -14,7 +14,7 @@ export const codeBlockVariants: CodeBlockVariant[] = ['block', 'inline'];
   imports: [Icon, CdkCopyToClipboard, ScrollAreaDirective],
   templateUrl: './code-block.html',
   host: {
-    dataid: 'code-block',
+    ['attr.data-testid']: 'code-block',
   },
 })
 export class CodeBlock {

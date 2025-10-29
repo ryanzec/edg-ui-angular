@@ -1,4 +1,4 @@
-import { Component, computed, inject, InjectionToken, input, OnInit } from '@angular/core';
+import { Component, computed, inject, InjectionToken, input } from '@angular/core';
 import { tailwindUtils } from '@organization/shared-utils';
 import { FORM_FIELDS_COMPONENT } from '../form-fields/form-fields';
 
@@ -13,7 +13,7 @@ export const FORM_FIELD_COMPONENT = new InjectionToken<FormField>('FormField');
     class: 'contents',
   },
 })
-export class FormField implements OnInit {
+export class FormField {
   private readonly _formFields = inject(FORM_FIELDS_COMPONENT, { optional: true, host: true });
 
   public readonly containerClass = input<string>('');
@@ -27,12 +27,8 @@ export class FormField implements OnInit {
       return this.reserveValidationSpace();
     }
 
-    return this._formFields?.reserveValidationSpace() && true;
+    return !!this._formFields?.reserveValidationSpace();
   });
 
   protected mergeClasses = tailwindUtils.merge;
-
-  public ngOnInit(): void {
-    console.log('form fields', this._formFields?.reserveValidationSpace());
-  }
 }

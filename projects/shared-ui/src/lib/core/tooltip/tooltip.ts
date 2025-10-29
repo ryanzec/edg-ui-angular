@@ -50,11 +50,11 @@ type TooltipState = {
   imports: [],
   template: '<ng-content />',
   host: {
-    dataid: 'tooltip',
+    ['attr.data-testid']: 'tooltip',
     class: 'contents',
-    '(mouseenter)': 'handleTriggerMouseEnter()',
-    '(mouseleave)': 'handleTriggerMouseLeave()',
-    '(click)': 'handleTriggerClick()',
+    '(mouseenter)': 'onTriggerMouseEnter()',
+    '(mouseleave)': 'onTriggerMouseLeave()',
+    '(click)': 'onTriggerClick()',
   },
 })
 export class Tooltip implements OnDestroy {
@@ -137,7 +137,7 @@ export class Tooltip implements OnDestroy {
     this._onCloseSubject.complete();
   }
 
-  protected handleTriggerMouseEnter(): void {
+  protected onTriggerMouseEnter(): void {
     if (this.triggerType() !== 'hover') {
       return;
     }
@@ -145,7 +145,7 @@ export class Tooltip implements OnDestroy {
     this._scheduleOpen();
   }
 
-  protected handleTriggerMouseLeave(): void {
+  protected onTriggerMouseLeave(): void {
     if (this.triggerType() !== 'hover') {
       return;
     }
@@ -153,7 +153,7 @@ export class Tooltip implements OnDestroy {
     this._scheduleClose();
   }
 
-  protected handleTriggerClick(): void {
+  protected onTriggerClick(): void {
     if (this.triggerType() !== 'click') {
       return;
     }
@@ -324,11 +324,11 @@ export class Tooltip implements OnDestroy {
 
     const overlayElement = this._overlayRef.overlayElement;
 
-    overlayElement.addEventListener('mouseenter', this._handleTooltipMouseEnter);
-    overlayElement.addEventListener('mouseleave', this._handleTooltipMouseLeave);
+    overlayElement.addEventListener('mouseenter', this._onTooltipMouseEnter);
+    overlayElement.addEventListener('mouseleave', this._onTooltipMouseLeave);
   }
 
-  private _handleTooltipMouseEnter = (): void => {
+  private _onTooltipMouseEnter = (): void => {
     this._clearCloseTimeout();
 
     this._state.update((state) => ({
@@ -337,7 +337,7 @@ export class Tooltip implements OnDestroy {
     }));
   };
 
-  private _handleTooltipMouseLeave = (): void => {
+  private _onTooltipMouseLeave = (): void => {
     this._state.update((state) => ({
       ...state,
       isHoveringTooltip: false,

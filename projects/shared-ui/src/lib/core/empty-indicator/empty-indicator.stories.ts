@@ -36,7 +36,7 @@ const meta: Meta<EmptyIndicator> = {
   <org-empty-indicator
     title="No items to display"
     actionLabel="Add Item"
-    (actionTriggered)="handleAddItem()"
+    (actionTriggered)="onAddItem()"
   />
   \`\`\`
 
@@ -89,7 +89,7 @@ export const Default: Story = {
   render: (args) => ({
     props: {
       ...args,
-      handleAction: () => {
+      onAction: () => {
         console.log('action triggered');
       },
     },
@@ -99,7 +99,7 @@ export const Default: Story = {
         [actionLabel]="actionLabel"
         [hasBorder]="hasBorder"
         [containerClass]="containerClass"
-        (actionTriggered)="handleAction()"
+        (actionTriggered)="onAction()"
       />
     `,
     moduleMetadata: {
@@ -130,7 +130,7 @@ export const WithBorder: Story = {
           <org-empty-indicator title="No data available" [hasBorder]="false" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>With Border</strong>: Displays a rounded border around the content (default behavior)</li>
           <li><strong>Without Border</strong>: No border is displayed, useful for minimal layouts</li>
         </ul>
@@ -153,10 +153,10 @@ export const WithActionButton: Story = {
   },
   render: () => ({
     props: {
-      handleAddItem: () => {
+      onAddItem: () => {
         console.log('add item clicked');
       },
-      handleCreateNew: () => {
+      onCreateNew: () => {
         console.log('create new clicked');
       },
     },
@@ -173,7 +173,7 @@ export const WithActionButton: Story = {
           <org-empty-indicator
             title="No items to display"
             actionLabel="Add Item"
-            (actionTriggered)="handleAddItem()"
+            (actionTriggered)="onAddItem()"
           />
         </org-storybook-example-container-section>
 
@@ -181,11 +181,11 @@ export const WithActionButton: Story = {
           <org-empty-indicator
             title="No results found"
             actionLabel="Create New"
-            (actionTriggered)="handleCreateNew()"
+            (actionTriggered)="onCreateNew()"
           />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>No Action Button</strong>: Only displays the title text</li>
           <li><strong>With Action Button</strong>: Displays a primary button below the title when actionLabel is provided and actionTriggered has a listener</li>
           <li><strong>Different Labels</strong>: The action button label can be customized for different contexts</li>
@@ -208,13 +208,13 @@ export const DifferentContexts: Story = {
   },
   render: () => ({
     props: {
-      handleAddTask: () => {
+      onAddTask: () => {
         console.log('add task clicked');
       },
-      handleSearch: () => {
+      onSearch: () => {
         console.log('search clicked');
       },
-      handleUpload: () => {
+      onUpload: () => {
         console.log('upload clicked');
       },
     },
@@ -227,7 +227,7 @@ export const DifferentContexts: Story = {
           <org-empty-indicator
             title="No tasks yet"
             actionLabel="Add Task"
-            (actionTriggered)="handleAddTask()"
+            (actionTriggered)="onAddTask()"
           />
         </org-storybook-example-container-section>
 
@@ -235,7 +235,7 @@ export const DifferentContexts: Story = {
           <org-empty-indicator
             title="No results found for your search"
             actionLabel="Try Different Search"
-            (actionTriggered)="handleSearch()"
+            (actionTriggered)="onSearch()"
           />
         </org-storybook-example-container-section>
 
@@ -243,7 +243,7 @@ export const DifferentContexts: Story = {
           <org-empty-indicator
             title="No files uploaded"
             actionLabel="Upload File"
-            (actionTriggered)="handleUpload()"
+            (actionTriggered)="onUpload()"
           />
         </org-storybook-example-container-section>
 
@@ -251,7 +251,7 @@ export const DifferentContexts: Story = {
           <org-empty-indicator title="Data will appear here once available" />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Task List</strong>: Empty state for a task management interface</li>
           <li><strong>Search Results</strong>: Empty state when no search results are found</li>
           <li><strong>File List</strong>: Empty state for a file upload interface</li>
@@ -275,7 +275,7 @@ export const CustomStyling: Story = {
   },
   render: () => ({
     props: {
-      handleAction: () => {
+      onAction: () => {
         console.log('action clicked');
       },
     },
@@ -302,7 +302,7 @@ export const CustomStyling: Story = {
           />
         </org-storybook-example-container-section>
 
-        <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>Default</strong>: Standard minimum height of 200px</li>
           <li><strong>Custom Height</strong>: Increased minimum height using containerClass</li>
           <li><strong>Custom Background</strong>: Added background color using containerClass</li>

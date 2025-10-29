@@ -10,7 +10,7 @@ export type IndicatorColor = ComponentColor;
   imports: [],
   templateUrl: './indicator.html',
   host: {
-    dataid: 'indicator',
+    ['attr.data-testid']: 'indicator',
     class: 'inline-flex',
   },
 })

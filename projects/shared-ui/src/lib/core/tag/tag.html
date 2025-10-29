@@ -45,7 +45,7 @@
             'cursor-pointer hover:opacity-80': isPreIconClickable(),
           })
         "
-        (click)="handlePreIconClick()"
+        (click)="onPreIconClick()"
         [attr.aria-label]="'Pre icon'"
       >
         <org-icon [name]="preIcon()!" size="sm" />
@@ -60,7 +60,7 @@
             'cursor-pointer hover:opacity-80': isPostIconClickable(),
           })
         "
-        (click)="handlePostIconClick()"
+        (click)="onPostIconClick()"
         [attr.aria-label]="removable() ? 'Remove tag' : 'Post icon'"
       >
         <org-icon [name]="currentPostIcon()!" size="sm" />

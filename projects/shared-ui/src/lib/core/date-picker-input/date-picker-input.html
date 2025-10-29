@@ -1,4 +1,4 @@
-<div [class]="mergeClasses('relative w-full', containerClass())" (keydown)="handleKeyDown($event)" tabindex="-1">
+<div [class]="mergeClasses('relative w-full', containerClass())">
   <div cdkOverlayOrigin #trigger="cdkOverlayOrigin">
     <org-input
       #inputComponent
@@ -9,9 +9,9 @@
       [readonly]="true"
       preIcon="calendar"
       postIcon="caret-down"
-      (postIconClicked)="handlePostIconClick()"
-      (click)="handleInputClick()"
-      (keydown)="handleInputKeyDown($event)"
+      (postIconClicked)="onPostIconClick()"
+      (click)="onInputClick()"
+      (keydown)="onInputKeyDown($event)"
       [name]="name()"
     />
   </div>
@@ -24,25 +24,26 @@
     [cdkConnectedOverlayHasBackdrop]="true"
     [cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'"
     [cdkConnectedOverlayPanelClass]="'org-date-picker-input-overlay'"
-    (backdropClick)="handleBackdropClick()"
-    (attach)="handleOverlayAttach()"
-    (detach)="handleOverlayDetach()"
+    (backdropClick)="onBackdropClick()"
+    (attach)="onOverlayAttach()"
+    (detach)="onOverlayDetach()"
   >
     <org-calendar
       #calendarComponent
       [defaultDisplayDate]="defaultDisplayDate()"
       [startYear]="startYear()"
       [endYear]="endYear()"
-      [selectedStartDate]="currentSelectedStartDate()"
-      [selectedEndDate]="currentSelectedEndDate()"
+      [selectedStartDate]="inProgressStartDate()"
+      [selectedEndDate]="inProgressEndDate()"
       [allowRangeSelection]="allowRangeSelection()"
       [allowPartialRangeSelection]="allowPartialRangeSelection()"
-      [partialRangeSelectionType]="partialRangeSelectionType()"
+      [partialRangeSelectionType]="inProgressPartialRangeSelectionType()"
       [disableBefore]="disableBefore()"
       [disableAfter]="disableAfter()"
       [allowedDateRange]="allowedDateRange()"
-      (dateSelected)="handleDateSelected($event)"
-      (partialRangeSelectionTypeChange)="handlePartialRangeSelectionTypeChange($event)"
+      [enableDeselection]="false"
+      (dateSelected)="onDateSelected($event)"
+      (partialRangeSelectionTypeChange)="onPartialRangeSelectionTypeChange($event)"
     />
   </ng-template>
 </div>

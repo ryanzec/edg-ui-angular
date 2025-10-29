@@ -60,7 +60,7 @@ export type CalendarDateData = {
   imports: [CalendarHeader, CalendarDates, RadioGroup, Radio],
   templateUrl: './calendar.html',
   host: {
-    dataid: 'calendar',
+    ['attr.data-testid']: 'calendar',
   },
 })
 export class Calendar {
@@ -91,6 +91,7 @@ export class Calendar {
   public disableBefore = input<DateTime | null>(null);
   public disableAfter = input<DateTime | null>(null);
   public allowedDateRange = input<number>(0);
+  public enableDeselection = input<boolean>(true);
   public containerClass = input<string>('');
 
   // output events
@@ -289,7 +290,7 @@ export class Calendar {
           } else if (currentStart && !currentEnd) {
             // has only start date, move to end and clear start
             newStart = null;
-            newEnd = currentStart.endOf('day').minus({ seconds: 1 });
+            newEnd = currentStart.endOf('day');
           }
         }
 
@@ -341,7 +342,7 @@ export class Calendar {
   /**
    * handles year change from dropdown
    */
-  public handleYearChange(year: number): void {
+  public onYearChange(year: number): void {
     const previousYear = this._state().displayYear;
     const previousMonth = this._state().displayMonth;
 
@@ -361,7 +362,7 @@ export class Calendar {
   /**
    * handles month change from dropdown
    */
-  public handleMonthChange(month: number): void {
+  public onMonthChange(month: number): void {
     const previousYear = this._state().displayYear;
     const previousMonth = this._state().displayMonth;
 
@@ -381,7 +382,7 @@ export class Calendar {
   /**
    * handles previous month navigation
    */
-  public handlePreviousMonth(): void {
+  public onPreviousMonth(): void {
     const currentYear = this._state().displayYear;
     const currentMonth = this._state().displayMonth;
     const previousYear = currentYear;
@@ -406,7 +407,7 @@ export class Calendar {
   /**
    * handles next month navigation
    */
-  public handleNextMonth(): void {
+  public onNextMonth(): void {
     const currentYear = this._state().displayYear;
     const currentMonth = this._state().displayMonth;
     const previousYear = currentYear;
@@ -431,7 +432,7 @@ export class Calendar {
   /**
    * handles date click
    */
-  public handleDateClick(dateData: CalendarDateData): void {
+  public onDateClick(dateData: CalendarDateData): void {
     if (dateData.isDisabled) {
       return;
     }
@@ -441,18 +442,21 @@ export class Calendar {
     const currentEnd = this.selectedEndDate();
     const selectionType = this.partialRangeSelectionType();
 
-    // clicking on already selected start date - clear it
-    if (currentStart && clickedDate.hasSame(currentStart, 'day')) {
-      this.dateSelected.emit({ startDate: null, endDate: currentEnd });
+    // handle deselection if enabled
+    if (this.enableDeselection()) {
+      // clicking on already selected start date - clear it
+      if (currentStart && clickedDate.hasSame(currentStart, 'day')) {
+        this.dateSelected.emit({ startDate: null, endDate: currentEnd });
 
-      return;
-    }
+        return;
+      }
 
-    // clicking on already selected end date - clear it
-    if (currentEnd && clickedDate.hasSame(currentEnd, 'day')) {
-      this.dateSelected.emit({ startDate: currentStart, endDate: null });
+      // clicking on already selected end date - clear it
+      if (currentEnd && clickedDate.hasSame(currentEnd, 'day')) {
+        this.dateSelected.emit({ startDate: currentStart, endDate: null });
 
-      return;
+        return;
+      }
     }
 
     // handle partial range selection modes
@@ -467,7 +471,7 @@ export class Calendar {
 
       // onOrBefore mode - only populate end date
       if (selectionType === 'onOrBefore') {
-        const endDate = clickedDate.endOf('day').minus({ seconds: 1 });
+        const endDate = clickedDate.endOf('day');
         this.dateSelected.emit({ startDate: null, endDate });
 
         return;
@@ -487,12 +491,17 @@ export class Calendar {
       if (this.allowRangeSelection()) {
         // if clicked date is after start, it becomes end date
         if (clickedDate > currentStart) {
-          const endDate = clickedDate.endOf('day').minus({ seconds: 1 });
+          const endDate = clickedDate.endOf('day');
           this.dateSelected.emit({ startDate: currentStart, endDate });
         } else if (clickedDate < currentStart) {
           // if clicked date is before start, swap them
           const startDate = clickedDate.startOf('day');
-          const endDate = currentStart.endOf('day').minus({ seconds: 1 });
+          const endDate = currentStart.endOf('day');
+          this.dateSelected.emit({ startDate, endDate });
+        } else {
+          // clicked date equals start date - create same day range
+          const startDate = clickedDate.startOf('day');
+          const endDate = clickedDate.endOf('day');
           this.dateSelected.emit({ startDate, endDate });
         }
       } else {
@@ -508,7 +517,7 @@ export class Calendar {
     if (this.allowRangeSelection()) {
       // if date is between, it becomes new end date
       if (clickedDate > currentStart && clickedDate < currentEnd) {
-        const endDate = clickedDate.endOf('day').minus({ seconds: 1 });
+        const endDate = clickedDate.endOf('day');
         this.dateSelected.emit({ startDate: currentStart, endDate });
 
         return;
@@ -516,7 +525,7 @@ export class Calendar {
 
       // if date is after current start, it becomes new end date
       if (clickedDate > currentStart) {
-        const endDate = clickedDate.endOf('day').minus({ seconds: 1 });
+        const endDate = clickedDate.endOf('day');
         this.dateSelected.emit({ startDate: currentStart, endDate });
 
         return;
@@ -525,7 +534,7 @@ export class Calendar {
       // if date is before current start, swap them
       if (clickedDate < currentStart) {
         const startDate = clickedDate.startOf('day');
-        const endDate = currentStart.endOf('day').minus({ seconds: 1 });
+        const endDate = currentStart.endOf('day');
         this.dateSelected.emit({ startDate, endDate });
 
         return;
@@ -536,7 +545,7 @@ export class Calendar {
   /**
    * handles keyboard navigation
    */
-  public handleKeyDown(event: KeyboardEvent): void {
+  public onKeyDown(event: KeyboardEvent): void {
     const currentFocused = this.focusedDate();
 
     if (!currentFocused) {
@@ -550,7 +559,7 @@ export class Calendar {
       const dateData = this._findDateData(currentFocused);
 
       if (dateData) {
-        this.handleDateClick(dateData);
+        this.onDateClick(dateData);
       }
     }).bind(this);
 
@@ -633,7 +642,7 @@ export class Calendar {
   /**
    * updates focused date when date is hovered
    */
-  public handleDateHover(dateData: CalendarDateData): void {
+  public onDateHover(dateData: CalendarDateData): void {
     this._state.update((state) => ({
       ...state,
       focusedDate: dateData.date,
@@ -643,7 +652,7 @@ export class Calendar {
   /**
    * handles partial range selection type change from radio group
    */
-  public handlePartialRangeSelectionTypeChange(type: string): void {
+  public onPartialRangeSelectionTypeChange(type: string): void {
     this.partialRangeSelectionTypeChange.emit(type as CalendarPartialRangeSelectionType);
   }
 

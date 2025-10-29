@@ -14,8 +14,8 @@
       @for (dateData of week; track dateData.date.toISO()) {
         <button
           type="button"
-          (click)="handleDateClick(dateData)"
-          (mouseenter)="handleDateHover(dateData)"
+          (click)="onDateClick(dateData)"
+          (mouseenter)="onDateHover(dateData)"
           [disabled]="dateData.isDisabled"
           [attr.aria-label]="dateData.date.toFormat('MMMM d, yyyy')"
           [attr.aria-selected]="dateData.isSelected"

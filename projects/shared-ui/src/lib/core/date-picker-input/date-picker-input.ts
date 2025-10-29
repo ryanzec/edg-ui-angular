@@ -7,12 +7,11 @@ import {
   signal,
   ViewChild,
   forwardRef,
-  effect,
-  untracked,
   AfterViewInit,
   afterNextRender,
   inject,
   Injector,
+  effect,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
@@ -23,8 +22,20 @@ import { DateFormat, TimeFormat } from '@organization/shared-utils';
 import { tailwindUtils } from '@organization/shared-utils';
 
 type DatePickerInputState = {
-  selectedStartDate: DateTime | null;
-  selectedEndDate: DateTime | null;
+  // committed values (shown in input field, sent to form control)
+  committedStartDate: DateTime | null;
+  committedEndDate: DateTime | null;
+  committedPartialRangeSelectionType: CalendarPartialRangeSelectionType;
+  // in-progress values (being selected in calendar)
+  inProgressStartDate: DateTime | null;
+  inProgressEndDate: DateTime | null;
+  inProgressPartialRangeSelectionType: CalendarPartialRangeSelectionType;
+  // snapshot when overlay opened (for cancel behavior)
+  snapshotStartDate: DateTime | null;
+  snapshotEndDate: DateTime | null;
+  snapshotPartialRangeSelectionType: CalendarPartialRangeSelectionType;
+  // track if first selection in range mode has been made
+  hasFirstRangeSelection: boolean;
   disabled: boolean;
 };
 
@@ -44,7 +55,7 @@ type DatePickerInputState = {
     },
   ],
   host: {
-    dataid: 'date-picker-input',
+    ['attr.data-testid']: 'date-picker-input',
   },
 })
 export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
@@ -69,12 +80,19 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
   };
 
   /**
-   * internal state for form control values
-   * used when the component is form-controlled
+   * internal state for managing committed, in-progress, and snapshot values
    */
   private readonly _state = signal<DatePickerInputState>({
-    selectedStartDate: null,
-    selectedEndDate: null,
+    committedStartDate: null,
+    committedEndDate: null,
+    committedPartialRangeSelectionType: 'range',
+    inProgressStartDate: null,
+    inProgressEndDate: null,
+    inProgressPartialRangeSelectionType: 'range',
+    snapshotStartDate: null,
+    snapshotEndDate: null,
+    snapshotPartialRangeSelectionType: 'range',
+    hasFirstRangeSelection: false,
     disabled: false,
   });
 
@@ -137,37 +155,61 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
   });
 
   /**
-   * get the current start date - uses internal state if form-controlled, otherwise uses input
+   * get the committed start date (shown in input field)
    */
-  public readonly currentSelectedStartDate = computed<DateTime | null>(() => {
+  public readonly committedStartDate = computed<DateTime | null>(() => {
     if (this._isFormControlled) {
-      return this._state().selectedStartDate;
+      return this._state().committedStartDate;
     }
 
     return this.selectedStartDate();
   });
 
   /**
-   * get the current end date - uses internal state if form-controlled, otherwise uses input
+   * get the committed end date (shown in input field)
    */
-  public readonly currentSelectedEndDate = computed<DateTime | null>(() => {
+  public readonly committedEndDate = computed<DateTime | null>(() => {
     if (this._isFormControlled) {
-      return this._state().selectedEndDate;
+      return this._state().committedEndDate;
     }
 
     return this.selectedEndDate();
   });
 
   /**
-   * formatted display value for the input
+   * get the in-progress start date (shown in calendar during selection)
+   */
+  public readonly inProgressStartDate = computed<DateTime | null>(() => {
+    return this._state().inProgressStartDate;
+  });
+
+  /**
+   * get the in-progress end date (shown in calendar during selection)
+   */
+  public readonly inProgressEndDate = computed<DateTime | null>(() => {
+    return this._state().inProgressEndDate;
+  });
+
+  /**
+   * get the in-progress partial range selection type (shown in calendar during selection)
+   */
+  public readonly inProgressPartialRangeSelectionType = computed<CalendarPartialRangeSelectionType>(() => {
+    return this._state().inProgressPartialRangeSelectionType;
+  });
+
+  /**
+   * formatted display value for the input (uses committed values only)
    */
   public readonly displayValue = computed<string>(() => {
-    const startDate = this.currentSelectedStartDate();
-    const endDate = this.currentSelectedEndDate();
+    const startDate = this.committedStartDate();
+    const endDate = this.committedEndDate();
     const dateFormat = this.dateFormat();
     const timeFormat = this.timeFormat() ? ` ${this.timeFormat()}` : '';
     const allowPartial = this.allowPartialRangeSelection();
-    const selectionType = this.partialRangeSelectionType();
+    // use committed partial range selection type for display
+    const selectionType = this._isFormControlled
+      ? this._state().committedPartialRangeSelectionType
+      : this.partialRangeSelectionType();
     const isRange = this.allowRangeSelection();
     const format = `${dateFormat}${timeFormat}`;
 
@@ -246,34 +288,15 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
   public mergeClasses = tailwindUtils.merge;
 
   constructor() {
-    // handle date selection from calendar
+    // sync partialRangeSelectionType input to internal state for form-controlled components
     effect(() => {
-      const startDate = this.currentSelectedStartDate();
-      const endDate = this.currentSelectedEndDate();
-
-      // skip during initialization
-      if (this._isInitializing) {
-        return;
-      }
-
-      untracked(() => {
-        // check if value actually changed
-        const hasChanged =
-          this._lastEmittedValue.startDate?.toMillis() !== startDate?.toMillis() ||
-          this._lastEmittedValue.endDate?.toMillis() !== endDate?.toMillis();
-
-        if (!hasChanged) {
-          return;
-        }
-
-        // update last emitted value
-        this._lastEmittedValue = { startDate, endDate };
-
-        // emit to form control if controlled
-        if (this._isFormControlled) {
-          this._onChange({ startDate, endDate });
-        }
-      });
+      const type = this.partialRangeSelectionType();
+      this._state.update((state) => ({
+        ...state,
+        committedPartialRangeSelectionType: type,
+        inProgressPartialRangeSelectionType: type,
+        snapshotPartialRangeSelectionType: type,
+      }));
     });
   }
 
@@ -285,7 +308,7 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
   /**
    * handles input click - opens overlay when clicked
    */
-  public handleInputClick(): void {
+  public onInputClick(): void {
     if (this.isDisabled()) {
       return;
     }
@@ -299,7 +322,7 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
   /**
    * handles post-icon (caret) click
    */
-  public handlePostIconClick(): void {
+  public onPostIconClick(): void {
     if (this.isDisabled()) {
       return;
     }
@@ -314,41 +337,100 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
   /**
    * handles date selection from calendar
    */
-  public handleDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
-    // update internal state if form-controlled
-    if (this._isFormControlled) {
+  public onDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
+    const isRange = this.allowRangeSelection();
+    const currentState = this._state();
+    const selectionType = currentState.inProgressPartialRangeSelectionType;
+
+    // handle range mode with first selection
+    if (isRange && !currentState.hasFirstRangeSelection && selectionType === 'range') {
+      // first click in range mode - detect which date was actually clicked
+      // by comparing what changed from the previous in-progress state
+      let clickedDate: DateTime | null = null;
+
+      // check if start date changed
+      const startChanged = dates.startDate?.toMillis() !== currentState.inProgressStartDate?.toMillis();
+      // check if end date changed
+      const endChanged = dates.endDate?.toMillis() !== currentState.inProgressEndDate?.toMillis();
+
+      if (startChanged && dates.startDate) {
+        // start date changed, so user clicked that date
+        clickedDate = dates.startDate;
+      } else if (endChanged && dates.endDate) {
+        // end date changed, so user clicked that date
+        clickedDate = dates.endDate;
+      } else if (dates.startDate) {
+        // fallback: use start date if nothing changed
+        clickedDate = dates.startDate;
+      }
+
+      // use the clicked date as new start, clear end
       this._state.update((state) => ({
         ...state,
-        selectedStartDate: dates.startDate,
-        selectedEndDate: dates.endDate,
+        inProgressStartDate: clickedDate,
+        inProgressEndDate: null,
+        hasFirstRangeSelection: true,
       }));
-    } else {
-      // emit immediately for non-form-controlled usage so parent can update inputs
-      this.dateSelected.emit(dates);
+
+      return;
+    }
+
+    // update in-progress state
+    this._state.update((state) => ({
+      ...state,
+      inProgressStartDate: dates.startDate,
+      inProgressEndDate: dates.endDate,
+    }));
+
+    // check if selection is complete
+    const isComplete = this._isSelectionComplete(dates.startDate, dates.endDate);
+
+    if (isComplete) {
+      // commit the values and close
+      this._commitSelection(dates.startDate, dates.endDate);
     }
   }
 
   /**
    * handles partial range selection type change from calendar
+   * updates in-progress mode but does NOT emit change event until selection commits
    */
-  public handlePartialRangeSelectionTypeChange(type: CalendarPartialRangeSelectionType): void {
-    this.partialRangeSelectionTypeChange.emit(type);
-  }
+  public onPartialRangeSelectionTypeChange(type: CalendarPartialRangeSelectionType): void {
+    const currentType = this._state().inProgressPartialRangeSelectionType;
 
-  /**
-   * handles escape key to close overlay
-   */
-  public handleKeyDown(event: KeyboardEvent): void {
-    if (event.key === 'Escape' && this.isOverlayOpen()) {
-      event.preventDefault();
-      this._closeOverlay();
+    // determine if we should clear the selection
+    const shouldClear =
+      // switching FROM range mode to any partial mode
+      (currentType === 'range' && type !== 'range') ||
+      // switching between partial modes (onOrBefore ↔ onOrAfter)
+      (currentType === 'onOrBefore' && type === 'onOrAfter') ||
+      (currentType === 'onOrAfter' && type === 'onOrBefore') ||
+      // switching FROM partial mode to range mode
+      (currentType !== 'range' && type === 'range');
+
+    if (shouldClear) {
+      this._state.update((state) => ({
+        ...state,
+        inProgressPartialRangeSelectionType: type,
+        inProgressStartDate: null,
+        inProgressEndDate: null,
+        hasFirstRangeSelection: false,
+      }));
+    } else {
+      // just update the mode
+      this._state.update((state) => ({
+        ...state,
+        inProgressPartialRangeSelectionType: type,
+      }));
     }
+
+    // do NOT emit the change here - it will be emitted when selection is committed
   }
 
   /**
    * handles escape key to close overlay
    */
-  public handleInputKeyDown(event: KeyboardEvent): void {
+  public onInputKeyDown(event: KeyboardEvent): void {
     if ((event.key === 'Enter' || event.key === ' ') && this.isOverlayOpen() == false) {
       event.preventDefault();
 
@@ -358,15 +440,16 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
 
   /**
    * handles backdrop click to close overlay
+   * cancellation logic is handled in onOverlayDetach()
    */
-  public handleBackdropClick(): void {
+  public onBackdropClick(): void {
     this._closeOverlay();
   }
 
   /**
    * handles overlay attach event from CDK
    */
-  public handleOverlayAttach(): void {
+  public onOverlayAttach(): void {
     this._isOverlayOpen.set(true);
 
     // focus the calendar after it's rendered
@@ -382,37 +465,41 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
 
   /**
    * handles overlay detach event from CDK
+   * this is called whenever the overlay closes (backdrop click, escape key, or programmatic close)
    */
-  public handleOverlayDetach(): void {
+  public onOverlayDetach(): void {
+    // always revert or clear selection when overlay closes without explicit commit
+    this._revertOrClearSelection();
+
     this._isOverlayOpen.set(false);
     this._onTouched();
   }
 
   /**
-   * public api: get selected dates
+   * public api: get committed selected dates
    */
   public getSelectedDates(): { startDate: DateTime | null; endDate: DateTime | null } {
     return {
-      startDate: this.currentSelectedStartDate(),
-      endDate: this.currentSelectedEndDate(),
+      startDate: this.committedStartDate(),
+      endDate: this.committedEndDate(),
     };
   }
 
   // control value accessor implementation
   public writeValue(value: { startDate: DateTime | null; endDate: DateTime | null } | null): void {
-    // update internal state that drives the display
+    // update committed values
     if (value) {
       this._state.update((state) => ({
         ...state,
-        selectedStartDate: value.startDate,
-        selectedEndDate: value.endDate,
+        committedStartDate: value.startDate,
+        committedEndDate: value.endDate,
       }));
       this._lastEmittedValue = value;
     } else {
       this._state.update((state) => ({
         ...state,
-        selectedStartDate: null,
-        selectedEndDate: null,
+        committedStartDate: null,
+        committedEndDate: null,
       }));
       this._lastEmittedValue = { startDate: null, endDate: null };
     }
@@ -436,12 +523,182 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
   }
 
   /**
-   * opens the overlay (triggers CDK attach event which syncs state)
+   * checks if the current selection is complete based on selection mode
+   */
+  private _isSelectionComplete(startDate: DateTime | null, endDate: DateTime | null): boolean {
+    const isRange = this.allowRangeSelection();
+    const allowPartial = this.allowPartialRangeSelection();
+    const selectionType = this._state().inProgressPartialRangeSelectionType;
+
+    // single date mode - complete when we have a start date
+    if (!isRange) {
+      return startDate !== null;
+    }
+
+    // range mode with partial selection
+    if (allowPartial) {
+      // onOrAfter mode - complete when we have start date
+      if (selectionType === 'onOrAfter') {
+        return startDate !== null;
+      }
+
+      // onOrBefore mode - complete when we have end date
+      if (selectionType === 'onOrBefore') {
+        return endDate !== null;
+      }
+    }
+
+    // normal range mode - complete when we have both dates
+    return startDate !== null && endDate !== null;
+  }
+
+  /**
+   * checks if current in-progress selection is incomplete and needs clearing
+   */
+  private _shouldClearIncompleteRange(): boolean {
+    const isRange = this.allowRangeSelection();
+    const allowPartial = this.allowPartialRangeSelection();
+    const state = this._state();
+    const selectionType = state.inProgressPartialRangeSelectionType;
+
+    if (!isRange) {
+      return false;
+    }
+
+    // check if we have a previous committed value to revert to
+    const hasSnapshot = state.snapshotStartDate !== null || state.snapshotEndDate !== null;
+
+    // if we have a snapshot, always revert instead of clearing
+    if (hasSnapshot) {
+      return false;
+    }
+
+    // if partial range is allowed and we're in range mode, check for incomplete
+    if (allowPartial && selectionType === 'range') {
+      const hasOnlyOne = (state.inProgressStartDate !== null) !== (state.inProgressEndDate !== null);
+
+      return hasOnlyOne;
+    }
+
+    // if partial range is not allowed, check for incomplete
+    if (!allowPartial) {
+      const hasOnlyOne = (state.inProgressStartDate !== null) !== (state.inProgressEndDate !== null);
+
+      return hasOnlyOne;
+    }
+
+    return false;
+  }
+
+  /**
+   * reverts to snapshot or clears selection based on current state
+   * does not close the overlay - caller is responsible for that
+   */
+  private _revertOrClearSelection(): void {
+    const state = this._state();
+    const shouldClear = this._shouldClearIncompleteRange();
+
+    if (shouldClear) {
+      // clear incomplete range for form-controlled
+      if (this._isFormControlled) {
+        this._state.update((s) => ({
+          ...s,
+          committedStartDate: null,
+          committedEndDate: null,
+        }));
+
+        const value = { startDate: null, endDate: null };
+        this._onChange(value);
+        this._lastEmittedValue = value;
+      } else {
+        // emit clear for non-form mode
+        this.dateSelected.emit({ startDate: null, endDate: null });
+      }
+    } else {
+      // revert to snapshot for form-controlled
+      if (this._isFormControlled) {
+        this._state.update((s) => ({
+          ...s,
+          committedStartDate: state.snapshotStartDate,
+          committedEndDate: state.snapshotEndDate,
+          committedPartialRangeSelectionType: state.snapshotPartialRangeSelectionType,
+        }));
+
+        const value = { startDate: state.snapshotStartDate, endDate: state.snapshotEndDate };
+        this._onChange(value);
+        this._lastEmittedValue = value;
+      }
+      // for non-form mode, no need to emit - inputs already have the right values
+    }
+  }
+
+  /**
+   * commits the selection, updates form control, emits events, and closes overlay
+   */
+  private _commitSelection(startDate: DateTime | null, endDate: DateTime | null): void {
+    const state = this._state();
+    const inProgressMode = state.inProgressPartialRangeSelectionType;
+    const committedMode = state.committedPartialRangeSelectionType;
+
+    // update committed state
+    if (this._isFormControlled) {
+      this._state.update((s) => ({
+        ...s,
+        committedStartDate: startDate,
+        committedEndDate: endDate,
+        committedPartialRangeSelectionType: inProgressMode,
+      }));
+
+      // call onChange immediately
+      const value = { startDate, endDate };
+      this._onChange(value);
+      this._lastEmittedValue = value;
+    } else {
+      // for non-form mode, emit the event
+      // but still update the committed mode for proper comparison
+      this._state.update((s) => ({
+        ...s,
+        committedPartialRangeSelectionType: inProgressMode,
+      }));
+      this.dateSelected.emit({ startDate, endDate });
+    }
+
+    // emit partial range selection type change if it changed
+    if (inProgressMode !== committedMode) {
+      this.partialRangeSelectionTypeChange.emit(inProgressMode);
+    }
+
+    // close the overlay
+    this._closeOverlay();
+  }
+
+  /**
+   * opens the overlay, snapshots current values, and initializes in-progress state
    */
   private _openOverlay(): void {
     if (this.isDisabled()) {
       return;
     }
+
+    // get current committed values
+    const currentStart = this.committedStartDate();
+    const currentEnd = this.committedEndDate();
+    const currentMode = this._isFormControlled
+      ? this._state().committedPartialRangeSelectionType
+      : this.partialRangeSelectionType();
+
+    // snapshot and initialize in-progress state
+    // show existing dates in calendar for visual reference
+    this._state.update((state) => ({
+      ...state,
+      snapshotStartDate: currentStart,
+      snapshotEndDate: currentEnd,
+      snapshotPartialRangeSelectionType: currentMode,
+      inProgressStartDate: currentStart,
+      inProgressEndDate: currentEnd,
+      inProgressPartialRangeSelectionType: currentMode,
+      hasFirstRangeSelection: false,
+    }));
 
     this._isOverlayOpen.set(true);
   }

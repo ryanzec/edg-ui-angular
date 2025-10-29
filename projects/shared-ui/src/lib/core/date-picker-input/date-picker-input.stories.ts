@@ -10,6 +10,7 @@ import { Button } from '../button/button';
 import { JsonPipe } from '@angular/common';
 import { FormFields } from '../form-fields/form-fields';
 import { FormField } from '../form-field/form-field';
+import type { CalendarPartialRangeSelectionType } from '../calendar/calendar';
 
 const meta: Meta<DatePickerInput> = {
   title: 'Core/Components/Date Picker Input',
@@ -42,7 +43,7 @@ const meta: Meta<DatePickerInput> = {
   <org-date-picker-input
     placeholder="Select date..."
     [selectedStartDate]="startDate"
-    (dateSelected)="handleDateSelected($event)"
+    (dateSelected)="onDateSelected($event)"
   />
 
   <!-- Date range -->
@@ -51,7 +52,7 @@ const meta: Meta<DatePickerInput> = {
     [allowRangeSelection]="true"
     [selectedStartDate]="startDate"
     [selectedEndDate]="endDate"
-    (dateSelected)="handleDateSelected($event)"
+    (dateSelected)="onDateSelected($event)"
   />
 
   <!-- With reactive forms -->
@@ -64,7 +65,7 @@ const meta: Meta<DatePickerInput> = {
   <!-- With validation -->
   <org-date-picker-input
     placeholder="Select date..."
-    (dateSelected)="handleDateSelected($event)"
+    (dateSelected)="onDateSelected($event)"
   />
 </div>
 \`\`\`
@@ -184,7 +185,7 @@ export const Default: Story = {
             name="single-date"
             placeholder="Select a date..."
             [selectedStartDate]="selectedDate()"
-            (dateSelected)="handleDateSelected($event)"
+            (dateSelected)="onDateSelected($event)"
           />
         </div>
       </org-storybook-example-container-section>
@@ -213,10 +214,11 @@ export const Default: Story = {
       <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
         <li>Input is readonly - dates can only be selected via calendar</li>
         <li>Calendar opens when clicking input, calendar icon, or dropdown caret</li>
-        <li>Calendar closes when input loses focus</li>
-        <li>Escape key closes the calendar</li>
+        <li>Calendar closes automatically when a date is selected</li>
+        <li>Clicking the same date commits that date and closes calendar</li>
+        <li>Input value updates only when calendar closes with selection</li>
+        <li>Escape key or clicking outside cancels and reverts to previous value</li>
         <li>Focus moves to calendar when opened for keyboard navigation</li>
-        <li>Selected date is displayed with date and time format</li>
       </ul>
     </org-storybook-example-container>
   `,
@@ -224,7 +226,7 @@ export const Default: Story = {
 class DatePickerInputSingleSelectDemo {
   protected selectedDate = signal<DateTime | null>(null);
 
-  protected handleDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
+  protected onDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
     console.log('Date selected:', dates);
     this.selectedDate.set(dates.startDate);
   }
@@ -270,7 +272,7 @@ export const SingleSelect: Story = {
             [allowRangeSelection]="true"
             [selectedStartDate]="startDate()"
             [selectedEndDate]="endDate()"
-            (dateSelected)="handleDateSelected($event)"
+            (dateSelected)="onDateSelected($event)"
           />
         </div>
       </org-storybook-example-container-section>
@@ -298,10 +300,13 @@ export const SingleSelect: Story = {
 
       <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
         <li>Allows selection of start and end dates</li>
-        <li>Input displays both dates with a dash separator</li>
-        <li>Calendar highlights dates in range</li>
-        <li>Click date to set start, click another to set end</li>
-        <li>Click on selected date to deselect it</li>
+        <li>Calendar shows existing range when reopening for visual reference</li>
+        <li>First click on any date starts a fresh range with that date as start</li>
+        <li>Second click sets end date and closes calendar automatically</li>
+        <li>Clicking same date twice creates a same-day range (00:00 - 23:59)</li>
+        <li>Input value updates only when calendar closes with complete range</li>
+        <li>Escape or clicking outside with incomplete range clears all dates</li>
+        <li>Calendar highlights dates in range during selection</li>
       </ul>
     </org-storybook-example-container>
   `,
@@ -310,7 +315,7 @@ class DatePickerInputRangeSelectDemo {
   protected startDate = signal<DateTime | null>(null);
   protected endDate = signal<DateTime | null>(null);
 
-  protected handleDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
+  protected onDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
     console.log('Dates selected:', dates);
     this.startDate.set(dates.startDate);
     this.endDate.set(dates.endDate);
@@ -319,13 +324,13 @@ class DatePickerInputRangeSelectDemo {
   protected setThisWeek(): void {
     const now = DateTime.now();
     this.startDate.set(now.startOf('week').startOf('day'));
-    this.endDate.set(now.endOf('week').endOf('day').minus({ seconds: 1 }));
+    this.endDate.set(now.endOf('week').endOf('day'));
   }
 
   protected setLastWeek(): void {
     const lastWeek = DateTime.now().minus({ weeks: 1 });
     this.startDate.set(lastWeek.startOf('week').startOf('day'));
-    this.endDate.set(lastWeek.endOf('week').endOf('day').minus({ seconds: 1 }));
+    this.endDate.set(lastWeek.endOf('week').endOf('day'));
   }
 
   protected clearDates(): void {
@@ -369,8 +374,8 @@ export const RangeSelect: Story = {
             [selectedStartDate]="startDate()"
             [selectedEndDate]="endDate()"
             [partialRangeSelectionType]="selectionType()"
-            (dateSelected)="handleDateSelected($event)"
-            (partialRangeSelectionTypeChange)="handleSelectionTypeChange($event)"
+            (dateSelected)="onDateSelected($event)"
+            (partialRangeSelectionTypeChange)="onSelectionTypeChange($event)"
           />
         </div>
       </org-storybook-example-container-section>
@@ -401,10 +406,13 @@ export const RangeSelect: Story = {
       <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
         <li>Radio group appears below month/year selection in calendar</li>
         <li>Three modes: range, on or before, on or after</li>
-        <li>Range mode: standard range selection (both dates)</li>
-        <li>On or after mode: only populates start date, displays "On or after [DATE]"</li>
-        <li>On or before mode: only populates end date, displays "On or before [DATE]"</li>
-        <li>Switching modes automatically adjusts dates as needed</li>
+        <li>Range mode: standard range selection, closes after second date</li>
+        <li>On or after mode: selects start date only, closes immediately, displays "On or after [DATE]"</li>
+        <li>On or before mode: selects end date only, closes immediately, displays "On or before [DATE]"</li>
+        <li>Switching between ANY modes clears calendar selection</li>
+        <li>Input value remains unchanged while switching modes</li>
+        <li>Mode change only emits when new date is selected and committed</li>
+        <li>Overlay remains open when mode changes</li>
       </ul>
     </org-storybook-example-container>
   `,
@@ -414,13 +422,13 @@ class DatePickerInputPartialRangeDemo {
   protected endDate = signal<DateTime | null>(null);
   protected selectionType = signal<'range' | 'onOrBefore' | 'onOrAfter'>('range');
 
-  protected handleDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
+  protected onDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
     console.log('Dates selected:', dates);
     this.startDate.set(dates.startDate);
     this.endDate.set(dates.endDate);
   }
 
-  protected handleSelectionTypeChange(type: 'range' | 'onOrBefore' | 'onOrAfter'): void {
+  protected onSelectionTypeChange(type: 'range' | 'onOrBefore' | 'onOrAfter'): void {
     console.log('Selection type changed:', type);
     this.selectionType.set(type);
   }
@@ -433,13 +441,13 @@ class DatePickerInputPartialRangeDemo {
 
   protected setEndOnly(): void {
     this.startDate.set(null);
-    this.endDate.set(DateTime.now().plus({ days: 7 }).endOf('day').minus({ seconds: 1 }));
+    this.endDate.set(DateTime.now().plus({ days: 7 }).endOf('day'));
     this.selectionType.set('onOrBefore');
   }
 
   protected setRange(): void {
     this.startDate.set(DateTime.now().startOf('day'));
-    this.endDate.set(DateTime.now().plus({ days: 7 }).endOf('day').minus({ seconds: 1 }));
+    this.endDate.set(DateTime.now().plus({ days: 7 }).endOf('day'));
     this.selectionType.set('range');
   }
 
@@ -472,14 +480,36 @@ export const PartialRangeSelect: Story = {
   template: `
     <org-storybook-example-container
       title="Reactive Forms Integration"
-      [currentState]="'Form value: ' + (formControl.value | json)"
+      currentState="Multiple form controls with different configurations"
     >
-      <org-storybook-example-container-section label="Date Picker with FormControl">
+      <org-storybook-example-container-section label="Single Date Selection">
         <div class="max-w-[400px]">
           <org-date-picker-input
-            name="reactive-form-date"
-            [formControl]="formControl"
+            name="reactive-form-single-date"
+            [formControl]="singleDateFormControl"
+            placeholder="Select a date..."
+          />
+        </div>
+      </org-storybook-example-container-section>
+
+      <org-storybook-example-container-section label="Range Selection (No Partial)">
+        <div class="max-w-[400px]">
+          <org-date-picker-input
+            name="reactive-form-date-range"
+            [formControl]="rangeFormControl"
             [allowRangeSelection]="true"
+            placeholder="Select date range..."
+          />
+        </div>
+      </org-storybook-example-container-section>
+
+      <org-storybook-example-container-section label="Range Selection (With Partial)">
+        <div class="max-w-[400px]">
+          <org-date-picker-input
+            name="reactive-form-partial-range"
+            [formControl]="partialRangeFormControl"
+            [allowRangeSelection]="true"
+            [allowPartialRangeSelection]="true"
             placeholder="Select date range..."
           />
         </div>
@@ -487,46 +517,89 @@ export const PartialRangeSelect: Story = {
 
       <org-storybook-example-container-section label="Controls">
         <div class="flex flex-wrap gap-2">
-          <org-button color="primary" size="sm" (clicked)="formControl.setValue({ startDate: now, endDate: nowPlus7 })">
-            Set This Week
-          </org-button>
-          <org-button color="secondary" size="sm" (clicked)="formControl.setValue({ startDate: null, endDate: null })">
-            Clear
-          </org-button>
-          <org-button color="secondary" size="sm" (clicked)="formControl.disable()"> Disable </org-button>
-          <org-button color="secondary" size="sm" (clicked)="formControl.enable()"> Enable </org-button>
+          <org-button color="primary" size="sm" (clicked)="setToday()"> Set Single to Today </org-button>
+          <org-button color="primary" size="sm" (clicked)="setThisWeek()"> Set Range to This Week </org-button>
+          <org-button color="primary" size="sm" (clicked)="setOnOrAfter()"> Set Partial to On or After </org-button>
+          <org-button color="secondary" size="sm" (clicked)="clearAll()"> Clear All </org-button>
+          <org-button color="secondary" size="sm" (clicked)="disableAll()"> Disable All </org-button>
+          <org-button color="secondary" size="sm" (clicked)="enableAll()"> Enable All </org-button>
         </div>
       </org-storybook-example-container-section>
 
-      <org-storybook-example-container-section label="Form State">
-        <div class="text-sm space-y-1">
+      <org-storybook-example-container-section label="Form Values">
+        <div class="text-sm space-y-3">
           <div>
-            <strong>Form Value:</strong>
-            {{ formControl.value | json }}
+            <strong>Single Date Value:</strong>
+            {{ singleDateFormControl.value | json }}
           </div>
-          <div><strong>Valid:</strong> {{ formControl.valid }}</div>
-          <div><strong>Touched:</strong> {{ formControl.touched }}</div>
-          <div><strong>Dirty:</strong> {{ formControl.dirty }}</div>
-          <div><strong>Disabled:</strong> {{ formControl.disabled }}</div>
+          <div>
+            <strong>Range Value:</strong>
+            {{ rangeFormControl.value | json }}
+          </div>
+          <div>
+            <strong>Partial Range Value:</strong>
+            {{ partialRangeFormControl.value | json }}
+          </div>
         </div>
       </org-storybook-example-container-section>
 
       <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
         <li>Implements ControlValueAccessor for reactive forms</li>
-        <li>Form control value is an object with startDate and endDate</li>
+        <li>Each form control value is an object with startDate and endDate</li>
+        <li>Single date mode only uses startDate property</li>
+        <li>Form value updates immediately when selection completes</li>
+        <li>Form marked as touched when calendar closes (any reason)</li>
         <li>Supports setValue, disable, enable</li>
-        <li>Tracks touched and dirty states</li>
+        <li>Calendar closes automatically after complete selection</li>
       </ul>
     </org-storybook-example-container>
   `,
 })
 class DatePickerInputReactiveFormsDemo {
-  protected formControl = new FormControl<{ startDate: DateTime | null; endDate: DateTime | null }>({
+  protected singleDateFormControl = new FormControl<{ startDate: DateTime | null; endDate: DateTime | null }>({
+    startDate: null,
+    endDate: null,
+  });
+  protected rangeFormControl = new FormControl<{ startDate: DateTime | null; endDate: DateTime | null }>({
+    startDate: null,
+    endDate: null,
+  });
+  protected partialRangeFormControl = new FormControl<{ startDate: DateTime | null; endDate: DateTime | null }>({
     startDate: null,
     endDate: null,
   });
   protected now = DateTime.now().startOf('day');
-  protected nowPlus7 = DateTime.now().plus({ days: 7 }).endOf('day').minus({ seconds: 1 });
+  protected nowPlus7 = DateTime.now().plus({ days: 7 }).endOf('day');
+
+  protected setToday(): void {
+    this.singleDateFormControl.setValue({ startDate: this.now, endDate: null });
+  }
+
+  protected setThisWeek(): void {
+    this.rangeFormControl.setValue({ startDate: this.now, endDate: this.nowPlus7 });
+  }
+
+  protected setOnOrAfter(): void {
+    this.partialRangeFormControl.setValue({ startDate: this.now, endDate: null });
+  }
+
+  protected clearAll(): void {
+    this.singleDateFormControl.setValue({ startDate: null, endDate: null });
+    this.rangeFormControl.setValue({ startDate: null, endDate: null });
+    this.partialRangeFormControl.setValue({ startDate: null, endDate: null });
+  }
+
+  protected disableAll(): void {
+    this.singleDateFormControl.disable();
+    this.rangeFormControl.disable();
+    this.partialRangeFormControl.disable();
+  }
+
+  protected enableAll(): void {
+    this.singleDateFormControl.enable();
+    this.rangeFormControl.enable();
+    this.partialRangeFormControl.enable();
+  }
 }
 
 export const ReactiveForms: Story = {
@@ -545,75 +618,136 @@ export const ReactiveForms: Story = {
   template: `
     <org-storybook-example-container
       title="Simple Forms Integration"
-      [currentState]="
-        'Selected: ' +
-        (startDate() ? startDate()!.toISO() : 'None') +
-        ' to ' +
-        (endDate() ? endDate()!.toISO() : 'None')
-      "
+      currentState="Multiple date pickers with different configurations"
     >
-      <org-storybook-example-container-section label="Date Picker with Event Binding">
+      <org-storybook-example-container-section label="Single Date Selection">
         <div class="max-w-[400px]">
           <org-date-picker-input
-            #datePicker
-            name="simple-form-date"
+            name="simple-form-single-date"
+            placeholder="Select a date..."
+            [selectedStartDate]="singleDate()"
+            (dateSelected)="onSingleDateSelected($event)"
+          />
+        </div>
+      </org-storybook-example-container-section>
+
+      <org-storybook-example-container-section label="Range Selection (No Partial)">
+        <div class="max-w-[400px]">
+          <org-date-picker-input
+            name="simple-form-date-range"
             placeholder="Select date range..."
             [allowRangeSelection]="true"
-            [selectedStartDate]="startDate()"
-            [selectedEndDate]="endDate()"
-            (dateSelected)="handleDateSelected($event)"
+            [selectedStartDate]="rangeStartDate()"
+            [selectedEndDate]="rangeEndDate()"
+            (dateSelected)="onRangeDateSelected($event)"
+          />
+        </div>
+      </org-storybook-example-container-section>
+
+      <org-storybook-example-container-section label="Range Selection (With Partial)">
+        <div class="max-w-[400px]">
+          <org-date-picker-input
+            name="simple-form-partial-range"
+            placeholder="Select date range..."
+            [allowRangeSelection]="true"
+            [allowPartialRangeSelection]="true"
+            [selectedStartDate]="partialRangeStartDate()"
+            [selectedEndDate]="partialRangeEndDate()"
+            (dateSelected)="onPartialRangeDateSelected($event)"
           />
         </div>
       </org-storybook-example-container-section>
 
       <org-storybook-example-container-section label="Controls">
         <div class="flex flex-wrap gap-2">
-          <org-button color="primary" size="sm" (clicked)="setThisWeek()"> Set This Week </org-button>
-          <org-button color="secondary" size="sm" (clicked)="clearDates()"> Clear </org-button>
+          <org-button color="primary" size="sm" (clicked)="setToday()"> Set Single to Today </org-button>
+          <org-button color="primary" size="sm" (clicked)="setThisWeek()"> Set Range to This Week </org-button>
+          <org-button color="primary" size="sm" (clicked)="setOnOrAfter()"> Set Partial to On or After </org-button>
+          <org-button color="secondary" size="sm" (clicked)="clearAll()"> Clear All </org-button>
         </div>
       </org-storybook-example-container-section>
 
-      <org-storybook-example-container-section label="State">
-        <div class="text-sm space-y-1">
+      <org-storybook-example-container-section label="Current Values">
+        <div class="text-sm space-y-3">
           <div>
-            <strong>Start Date:</strong>
-            {{ startDate() ? startDate()!.toISO() : 'None' }}
+            <strong>Single Date:</strong>
+            {{ singleDate() ? singleDate()!.toISO() : 'None' }}
           </div>
           <div>
-            <strong>End Date:</strong>
-            {{ endDate() ? endDate()!.toISO() : 'None' }}
+            <strong>Range Start:</strong>
+            {{ rangeStartDate() ? rangeStartDate()!.toISO() : 'None' }}
+          </div>
+          <div>
+            <strong>Range End:</strong>
+            {{ rangeEndDate() ? rangeEndDate()!.toISO() : 'None' }}
+          </div>
+          <div>
+            <strong>Partial Range Start:</strong>
+            {{ partialRangeStartDate() ? partialRangeStartDate()!.toISO() : 'None' }}
+          </div>
+          <div>
+            <strong>Partial Range End:</strong>
+            {{ partialRangeEndDate() ? partialRangeEndDate()!.toISO() : 'None' }}
           </div>
         </div>
       </org-storybook-example-container-section>
 
       <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
         <li>Simple event-based integration without forms</li>
-        <li>Use dateSelected output event to handle changes</li>
+        <li>dateSelected event emits immediately when selection completes</li>
         <li>Pass selectedStartDate and selectedEndDate as inputs</li>
-        <li>Perfect for non-form use cases</li>
+        <li>Single date mode only uses startDate</li>
+        <li>Calendar closes automatically after complete selection</li>
+        <li>Parent component responsible for updating input values</li>
       </ul>
     </org-storybook-example-container>
   `,
 })
 class DatePickerInputSimpleFormsDemo {
-  protected startDate = signal<DateTime | null>(null);
-  protected endDate = signal<DateTime | null>(null);
+  protected singleDate = signal<DateTime | null>(null);
+  protected rangeStartDate = signal<DateTime | null>(null);
+  protected rangeEndDate = signal<DateTime | null>(null);
+  protected partialRangeStartDate = signal<DateTime | null>(null);
+  protected partialRangeEndDate = signal<DateTime | null>(null);
 
-  protected handleDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
-    console.log('Dates selected:', dates);
-    this.startDate.set(dates.startDate);
-    this.endDate.set(dates.endDate);
+  protected onSingleDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
+    console.log('Single date selected:', dates);
+    this.singleDate.set(dates.startDate);
+  }
+
+  protected onRangeDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
+    console.log('Range dates selected:', dates);
+    this.rangeStartDate.set(dates.startDate);
+    this.rangeEndDate.set(dates.endDate);
+  }
+
+  protected onPartialRangeDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
+    console.log('Partial range dates selected:', dates);
+    this.partialRangeStartDate.set(dates.startDate);
+    this.partialRangeEndDate.set(dates.endDate);
+  }
+
+  protected setToday(): void {
+    this.singleDate.set(DateTime.now().startOf('day'));
   }
 
   protected setThisWeek(): void {
     const now = DateTime.now();
-    this.startDate.set(now.startOf('week').startOf('day'));
-    this.endDate.set(now.endOf('week').endOf('day').minus({ seconds: 1 }));
+    this.rangeStartDate.set(now.startOf('week').startOf('day'));
+    this.rangeEndDate.set(now.endOf('week').endOf('day'));
   }
 
-  protected clearDates(): void {
-    this.startDate.set(null);
-    this.endDate.set(null);
+  protected setOnOrAfter(): void {
+    this.partialRangeStartDate.set(DateTime.now().startOf('day'));
+    this.partialRangeEndDate.set(null);
+  }
+
+  protected clearAll(): void {
+    this.singleDate.set(null);
+    this.rangeStartDate.set(null);
+    this.rangeEndDate.set(null);
+    this.partialRangeStartDate.set(null);
+    this.partialRangeEndDate.set(null);
   }
 }
 
@@ -622,6 +756,328 @@ export const SimpleForms: Story = {
     template: '<org-date-picker-input-simple-forms-demo />',
     moduleMetadata: {
       imports: [DatePickerInputSimpleFormsDemo],
+    },
+  }),
+};
+
+@Component({
+  selector: 'org-date-picker-input-reactive-forms-prepopulated-demo',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    DatePickerInput,
+    ReactiveFormsModule,
+    StorybookExampleContainer,
+    StorybookExampleContainerSection,
+    Button,
+    JsonPipe,
+  ],
+  template: `
+    <org-storybook-example-container
+      title="Reactive Forms Integration (Prepopulated)"
+      currentState="Multiple form controls with different configurations and prepopulated values"
+    >
+      <org-storybook-example-container-section label="Single Date Selection">
+        <div class="max-w-[400px]">
+          <org-date-picker-input
+            name="reactive-form-prepopulated-single-date"
+            [formControl]="singleDateFormControl"
+            placeholder="Select a date..."
+          />
+        </div>
+      </org-storybook-example-container-section>
+
+      <org-storybook-example-container-section label="Range Selection (No Partial)">
+        <div class="max-w-[400px]">
+          <org-date-picker-input
+            name="reactive-form-prepopulated-date-range"
+            [formControl]="rangeFormControl"
+            [allowRangeSelection]="true"
+            placeholder="Select date range..."
+          />
+        </div>
+      </org-storybook-example-container-section>
+
+      <org-storybook-example-container-section label="Range Selection (With Partial)">
+        <div class="max-w-[400px]">
+          <org-date-picker-input
+            name="reactive-form-prepopulated-partial-range"
+            [formControl]="partialRangeFormControl"
+            [allowRangeSelection]="true"
+            [allowPartialRangeSelection]="true"
+            [partialRangeSelectionType]="partialRangeSelectionType()"
+            (partialRangeSelectionTypeChange)="onPartialRangeSelectionTypeChange($event)"
+            placeholder="Select date range..."
+          />
+        </div>
+      </org-storybook-example-container-section>
+
+      <org-storybook-example-container-section label="Controls">
+        <div class="flex flex-wrap gap-2">
+          <org-button color="primary" size="sm" (clicked)="setToday()"> Set Single to Today </org-button>
+          <org-button color="primary" size="sm" (clicked)="setThisWeek()"> Set Range to This Week </org-button>
+          <org-button color="primary" size="sm" (clicked)="setOnOrAfter()"> Set Partial to On or After </org-button>
+          <org-button color="secondary" size="sm" (clicked)="clearAll()"> Clear All </org-button>
+          <org-button color="secondary" size="sm" (clicked)="disableAll()"> Disable All </org-button>
+          <org-button color="secondary" size="sm" (clicked)="enableAll()"> Enable All </org-button>
+        </div>
+      </org-storybook-example-container-section>
+
+      <org-storybook-example-container-section label="Form Values">
+        <div class="text-sm space-y-3">
+          <div>
+            <strong>Single Date Value:</strong>
+            {{ singleDateFormControl.value | json }}
+          </div>
+          <div>
+            <strong>Range Value:</strong>
+            {{ rangeFormControl.value | json }}
+          </div>
+          <div>
+            <strong>Partial Range Value:</strong>
+            {{ partialRangeFormControl.value | json }}
+          </div>
+          <div>
+            <strong>Partial Range Selection Type:</strong>
+            {{ partialRangeSelectionType() }}
+          </div>
+        </div>
+      </org-storybook-example-container-section>
+
+      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <li>Implements ControlValueAccessor for reactive forms</li>
+        <li>Each form control value is an object with startDate and endDate</li>
+        <li>Single date mode only uses startDate property</li>
+        <li>All date pickers are prepopulated with values on load</li>
+        <li>Form value updates immediately when selection completes</li>
+        <li>Form marked as touched when calendar closes (any reason)</li>
+        <li>Supports setValue, disable, enable</li>
+        <li>Calendar closes automatically after complete selection</li>
+      </ul>
+    </org-storybook-example-container>
+  `,
+})
+class DatePickerInputReactiveFormsPrepopulatedDemo {
+  protected partialRangeSelectionType = signal<CalendarPartialRangeSelectionType>('onOrAfter');
+
+  protected now = DateTime.now().startOf('day');
+  protected nowPlus7 = DateTime.now().plus({ days: 7 }).endOf('day');
+
+  protected singleDateFormControl = new FormControl<{ startDate: DateTime | null; endDate: DateTime | null }>({
+    startDate: this.now,
+    endDate: null,
+  });
+  protected rangeFormControl = new FormControl<{ startDate: DateTime | null; endDate: DateTime | null }>({
+    startDate: DateTime.now().startOf('week').startOf('day'),
+    endDate: DateTime.now().endOf('week').endOf('day'),
+  });
+  protected partialRangeFormControl = new FormControl<{ startDate: DateTime | null; endDate: DateTime | null }>({
+    startDate: this.now,
+    endDate: null,
+  });
+
+  protected setToday(): void {
+    this.singleDateFormControl.setValue({ startDate: this.now, endDate: null });
+  }
+
+  protected setThisWeek(): void {
+    this.rangeFormControl.setValue({ startDate: this.now, endDate: this.nowPlus7 });
+  }
+
+  protected setOnOrAfter(): void {
+    this.partialRangeFormControl.setValue({ startDate: this.now, endDate: null });
+  }
+
+  protected clearAll(): void {
+    this.singleDateFormControl.setValue({ startDate: null, endDate: null });
+    this.rangeFormControl.setValue({ startDate: null, endDate: null });
+    this.partialRangeFormControl.setValue({ startDate: null, endDate: null });
+  }
+
+  protected disableAll(): void {
+    this.singleDateFormControl.disable();
+    this.rangeFormControl.disable();
+    this.partialRangeFormControl.disable();
+  }
+
+  protected enableAll(): void {
+    this.singleDateFormControl.enable();
+    this.rangeFormControl.enable();
+    this.partialRangeFormControl.enable();
+  }
+
+  protected onPartialRangeSelectionTypeChange(type: CalendarPartialRangeSelectionType): void {
+    console.log('Partial range selection type changed:', type);
+    this.partialRangeSelectionType.set(type);
+  }
+}
+
+export const ReactiveFormsPrepopulated: Story = {
+  render: () => ({
+    template: '<org-date-picker-input-reactive-forms-prepopulated-demo />',
+    moduleMetadata: {
+      imports: [DatePickerInputReactiveFormsPrepopulatedDemo],
+    },
+  }),
+};
+
+@Component({
+  selector: 'org-date-picker-input-simple-forms-prepopulated-demo',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [DatePickerInput, StorybookExampleContainer, StorybookExampleContainerSection, Button, JsonPipe],
+  template: `
+    <org-storybook-example-container
+      title="Simple Forms Integration (Prepopulated)"
+      currentState="Multiple date pickers with different configurations and prepopulated values"
+    >
+      <org-storybook-example-container-section label="Single Date Selection">
+        <div class="max-w-[400px]">
+          <org-date-picker-input
+            name="simple-form-prepopulated-single-date"
+            placeholder="Select a date..."
+            [selectedStartDate]="singleDate()"
+            (dateSelected)="onSingleDateSelected($event)"
+          />
+        </div>
+      </org-storybook-example-container-section>
+
+      <org-storybook-example-container-section label="Range Selection (No Partial)">
+        <div class="max-w-[400px]">
+          <org-date-picker-input
+            name="simple-form-prepopulated-date-range"
+            placeholder="Select date range..."
+            [allowRangeSelection]="true"
+            [selectedStartDate]="rangeStartDate()"
+            [selectedEndDate]="rangeEndDate()"
+            (dateSelected)="onRangeDateSelected($event)"
+          />
+        </div>
+      </org-storybook-example-container-section>
+
+      <org-storybook-example-container-section label="Range Selection (With Partial)">
+        <div class="max-w-[400px]">
+          <org-date-picker-input
+            name="simple-form-prepopulated-partial-range"
+            placeholder="Select date range..."
+            [allowRangeSelection]="true"
+            [allowPartialRangeSelection]="true"
+            [partialRangeSelectionType]="partialRangeSelectionType()"
+            [selectedStartDate]="partialRangeStartDate()"
+            [selectedEndDate]="partialRangeEndDate()"
+            (dateSelected)="onPartialRangeDateSelected($event)"
+            (partialRangeSelectionTypeChange)="onPartialRangeSelectionTypeChange($event)"
+          />
+        </div>
+      </org-storybook-example-container-section>
+
+      <org-storybook-example-container-section label="Controls">
+        <div class="flex flex-wrap gap-2">
+          <org-button color="primary" size="sm" (clicked)="setToday()"> Set Single to Today </org-button>
+          <org-button color="primary" size="sm" (clicked)="setThisWeek()"> Set Range to This Week </org-button>
+          <org-button color="primary" size="sm" (clicked)="setOnOrAfter()"> Set Partial to On or After </org-button>
+          <org-button color="secondary" size="sm" (clicked)="clearAll()"> Clear All </org-button>
+        </div>
+      </org-storybook-example-container-section>
+
+      <org-storybook-example-container-section label="Current Values">
+        <div class="text-sm space-y-3">
+          <div>
+            <strong>Single Date:</strong>
+            {{ singleDate() ? singleDate()!.toISO() : 'None' }}
+          </div>
+          <div>
+            <strong>Range Start:</strong>
+            {{ rangeStartDate() ? rangeStartDate()!.toISO() : 'None' }}
+          </div>
+          <div>
+            <strong>Range End:</strong>
+            {{ rangeEndDate() ? rangeEndDate()!.toISO() : 'None' }}
+          </div>
+          <div>
+            <strong>Partial Range Start:</strong>
+            {{ partialRangeStartDate() ? partialRangeStartDate()!.toISO() : 'None' }}
+          </div>
+          <div>
+            <strong>Partial Range End:</strong>
+            {{ partialRangeEndDate() ? partialRangeEndDate()!.toISO() : 'None' }}
+          </div>
+          <div>
+            <strong>Partial Range Selection Type:</strong>
+            {{ partialRangeSelectionType() }}
+          </div>
+        </div>
+      </org-storybook-example-container-section>
+
+      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <li>Simple event-based integration without forms</li>
+        <li>dateSelected event emits immediately when selection completes</li>
+        <li>Pass selectedStartDate and selectedEndDate as inputs</li>
+        <li>Single date mode only uses startDate</li>
+        <li>All date pickers are prepopulated with values on load</li>
+        <li>Calendar closes automatically after complete selection</li>
+        <li>Parent component responsible for updating input values</li>
+      </ul>
+    </org-storybook-example-container>
+  `,
+})
+class DatePickerInputSimpleFormsPrepopulatedDemo {
+  protected singleDate = signal<DateTime | null>(DateTime.now().startOf('day'));
+  protected rangeStartDate = signal<DateTime | null>(DateTime.now().startOf('week').startOf('day'));
+  protected rangeEndDate = signal<DateTime | null>(DateTime.now().endOf('week').endOf('day'));
+  protected partialRangeStartDate = signal<DateTime | null>(DateTime.now().startOf('day'));
+  protected partialRangeEndDate = signal<DateTime | null>(null);
+  protected partialRangeSelectionType = signal<CalendarPartialRangeSelectionType>('onOrAfter');
+
+  protected onSingleDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
+    console.log('Single date selected:', dates);
+    this.singleDate.set(dates.startDate);
+  }
+
+  protected onRangeDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
+    console.log('Range dates selected:', dates);
+    this.rangeStartDate.set(dates.startDate);
+    this.rangeEndDate.set(dates.endDate);
+  }
+
+  protected onPartialRangeDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
+    console.log('Partial range dates selected:', dates);
+    this.partialRangeStartDate.set(dates.startDate);
+    this.partialRangeEndDate.set(dates.endDate);
+  }
+
+  protected setToday(): void {
+    this.singleDate.set(DateTime.now().startOf('day'));
+  }
+
+  protected setThisWeek(): void {
+    const now = DateTime.now();
+    this.rangeStartDate.set(now.startOf('week').startOf('day'));
+    this.rangeEndDate.set(now.endOf('week').endOf('day'));
+  }
+
+  protected setOnOrAfter(): void {
+    this.partialRangeStartDate.set(DateTime.now().startOf('day'));
+    this.partialRangeEndDate.set(null);
+  }
+
+  protected clearAll(): void {
+    this.singleDate.set(null);
+    this.rangeStartDate.set(null);
+    this.rangeEndDate.set(null);
+    this.partialRangeStartDate.set(null);
+    this.partialRangeEndDate.set(null);
+  }
+
+  protected onPartialRangeSelectionTypeChange(type: CalendarPartialRangeSelectionType): void {
+    console.log('Partial range selection type changed:', type);
+    this.partialRangeSelectionType.set(type);
+  }
+}
+
+export const SimpleFormsPrepopulated: Story = {
+  render: () => ({
+    template: '<org-date-picker-input-simple-forms-prepopulated-demo />',
+    moduleMetadata: {
+      imports: [DatePickerInputSimpleFormsPrepopulatedDemo],
     },
   }),
 };
@@ -642,7 +1098,7 @@ export const SimpleForms: Story = {
               name="validation-single"
               placeholder="Select a date..."
               [selectedStartDate]="selectedDate()"
-              (dateSelected)="handleDateSelected($event)"
+              (dateSelected)="onDateSelected($event)"
             />
           </org-form-field>
         </div>
@@ -681,7 +1137,7 @@ class DatePickerInputValidationSingleDemo {
   protected validationMessage = signal<string | null>(null);
   protected hasError = computed<boolean>(() => !!this.validationMessage()?.trim());
 
-  protected handleDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
+  protected onDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
     console.log('Date selected:', dates);
     this.selectedDate.set(dates.startDate);
 
@@ -735,7 +1191,7 @@ export const ValidationSingleRequired: Story = {
               [allowPartialRangeSelection]="true"
               [selectedStartDate]="startDate()"
               [selectedEndDate]="endDate()"
-              (dateSelected)="handleDateSelected($event)"
+              (dateSelected)="onDateSelected($event)"
             />
           </org-form-field>
         </div>
@@ -778,7 +1234,7 @@ class DatePickerInputValidationRangeEitherDemo {
   protected validationMessage = signal<string | null>(null);
   protected hasError = computed<boolean>(() => !!this.validationMessage()?.trim());
 
-  protected handleDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
+  protected onDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
     console.log('Dates selected:', dates);
     this.startDate.set(dates.startDate);
     this.endDate.set(dates.endDate);
@@ -833,7 +1289,7 @@ export const ValidationRangeEitherRequired: Story = {
               [allowRangeSelection]="true"
               [selectedStartDate]="startDate()"
               [selectedEndDate]="endDate()"
-              (dateSelected)="handleDateSelected($event)"
+              (dateSelected)="onDateSelected($event)"
             />
           </org-form-field>
         </div>
@@ -876,7 +1332,7 @@ class DatePickerInputValidationRangeBothDemo {
   protected validationMessage = signal<string | null>(null);
   protected hasError = computed<boolean>(() => !!this.validationMessage()?.trim());
 
-  protected handleDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
+  protected onDateSelected(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
     console.log('Dates selected:', dates);
     this.startDate.set(dates.startDate);
     this.endDate.set(dates.endDate);

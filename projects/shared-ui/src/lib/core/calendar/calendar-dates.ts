@@ -24,14 +24,14 @@ export class CalendarDates {
   /**
    * handles date click
    */
-  protected handleDateClick(dateData: CalendarDateData): void {
+  protected onDateClick(dateData: CalendarDateData): void {
     this.dateClick.emit(dateData);
   }
 
   /**
    * handles date hover
    */
-  protected handleDateHover(dateData: CalendarDateData): void {
+  protected onDateHover(dateData: CalendarDateData): void {
     this.dateHover.emit(dateData);
   }
 

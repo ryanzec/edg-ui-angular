@@ -36,7 +36,7 @@ export class CalendarHeader {
   /**
    * handles year dropdown change
    */
-  protected handleYearChange(event: Event): void {
+  protected onYearChange(event: Event): void {
     const target = event.target as HTMLSelectElement;
     const year = parseInt(target.value, 10);
     this.yearChanged.emit(year);
@@ -45,7 +45,7 @@ export class CalendarHeader {
   /**
    * handles month dropdown change
    */
-  protected handleMonthChange(event: Event): void {
+  protected onMonthChange(event: Event): void {
     const target = event.target as HTMLSelectElement;
     const month = parseInt(target.value, 10);
     this.monthChanged.emit(month);
@@ -54,14 +54,14 @@ export class CalendarHeader {
   /**
    * handles previous month click
    */
-  protected handlePreviousClick(): void {
+  protected onPreviousClick(): void {
     this.previousMonth.emit();
   }
 
   /**
    * handles next month click
    */
-  protected handleNextClick(): void {
+  protected onNextClick(): void {
     this.nextMonth.emit();
   }
 }

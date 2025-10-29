@@ -7,7 +7,7 @@
       containerClass()
     )
   "
-  (keydown)="handleKeyDown($event)"
+  (keydown)="onKeyDown($event)"
   tabindex="0"
   role="application"
   aria-label="Calendar"
@@ -17,18 +17,18 @@
     [displayMonth]="displayMonth()"
     [yearOptions]="yearOptions()"
     [monthOptions]="monthOptions()"
-    (yearChanged)="handleYearChange($event)"
-    (monthChanged)="handleMonthChange($event)"
-    (previousMonth)="handlePreviousMonth()"
-    (nextMonth)="handleNextMonth()"
+    (yearChanged)="onYearChange($event)"
+    (monthChanged)="onMonthChange($event)"
+    (previousMonth)="onPreviousMonth()"
+    (nextMonth)="onNextMonth()"
   />
 
   @if (showPartialRangeSelectionType()) {
-    <div class="flex align-center justify-around p-2 border-b border-calendar-footer-border">
+    <div class="flex items-center justify-around p-2 border-b border-calendar-footer-border">
       <org-radio-group
         name="partial-range-selection-type"
         [value]="partialRangeSelectionType()"
-        (valueChange)="handlePartialRangeSelectionTypeChange($event)"
+        (valueChange)="onPartialRangeSelectionTypeChange($event)"
       >
         <div class="flex flex-row gap-3">
           <org-radio value="range">range</org-radio>
@@ -42,8 +42,8 @@
   <org-calendar-dates
     [calendarDates]="calendarDates()"
     [dayLabels]="dayLabels"
-    (dateClick)="handleDateClick($event)"
-    (dateHover)="handleDateHover($event)"
+    (dateClick)="onDateClick($event)"
+    (dateHover)="onDateHover($event)"
   />
 
   <ng-content select="org-calendar-footer" />

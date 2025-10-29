@@ -7,13 +7,13 @@
     icon="caret-left"
     variant="ghost"
     [excludeSpacing]="true"
-    (clicked)="handlePreviousClick()"
+    (clicked)="onPreviousClick()"
     aria-label="Previous month"
   />
 
   <div class="flex items-center gap-2">
     <select
-      (change)="handleMonthChange($event)"
+      (change)="onMonthChange($event)"
       [class]="
         mergeClasses(
           'px-2 py-1 rounded border',
@@ -29,7 +29,7 @@
     </select>
 
     <select
-      (change)="handleYearChange($event)"
+      (change)="onYearChange($event)"
       [class]="
         mergeClasses(
           'px-2 py-1 rounded border',
@@ -49,7 +49,7 @@
     icon="caret-right"
     variant="ghost"
     [excludeSpacing]="true"
-    (clicked)="handleNextClick()"
+    (clicked)="onNextClick()"
     aria-label="Next month"
   />
 </div>

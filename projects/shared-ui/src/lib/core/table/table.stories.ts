@@ -197,35 +197,27 @@ class SortableTableDemo {
         </ng-template>
       </org-table>
       <org-pagination
-        [defaultCurrentPage]="1"
-        [defaultTotalItems]="users.length"
-        [defaultItemsPerPage]="5"
-        [defaultItemsPerPageOptions]="[5, 10, 15]"
-        (pageChanged)="onPageChange($event)"
-        (itemsPerPageChanged)="onItemsPerPageChange($event)"
+        [(currentPage)]="currentPage"
+        [totalItems]="users.length"
+        [(itemsPerPage)]="itemsPerPage"
+        [itemsPerPageOptions]="[5, 10, 15]"
       />
     </div>
   `,
 })
 class PaginatedTableDemo {
-  private readonly _paginationStore = inject(PaginationStore);
+  protected readonly paginationStore = inject(PaginationStore);
 
   protected readonly users = SAMPLE_USERS;
+  protected readonly currentPage = signal(1);
+  protected readonly itemsPerPage = signal(5);
 
   protected readonly paginatedUsers = computed<User[]>(() => {
-    const start = this._paginationStore.startIndex();
-    const end = this._paginationStore.endIndex();
+    const start = this.paginationStore.startIndex();
+    const end = this.paginationStore.endIndex();
 
     return this.users.slice(start, end);
   });
-
-  protected onPageChange(page: number): void {
-    console.log('page changed', page);
-  }
-
-  protected onItemsPerPageChange(itemsPerPage: number): void {
-    console.log('items per page changed', itemsPerPage);
-  }
 }
 
 @Component({
@@ -282,24 +274,25 @@ class PaginatedTableDemo {
         </ng-template>
       </org-table>
       <org-pagination
-        [defaultCurrentPage]="1"
-        [defaultTotalItems]="users.length"
-        [defaultItemsPerPage]="5"
-        [defaultItemsPerPageOptions]="[5, 10, 15]"
-        (pageChanged)="onPageChange($event)"
+        [(currentPage)]="currentPage"
+        [totalItems]="users.length"
+        [(itemsPerPage)]="itemsPerPage"
+        [itemsPerPageOptions]="[5, 10, 15]"
       />
     </div>
   `,
 })
 class SelectionTableDemo {
-  private readonly _paginationStore = inject(PaginationStore);
+  protected readonly paginationStore = inject(PaginationStore);
   protected readonly selectionStore = inject(USER_SELECTION_STORE_TOKEN);
 
   protected readonly users = SAMPLE_USERS;
+  protected readonly currentPage = signal(1);
+  protected readonly itemsPerPage = signal(5);
 
   protected readonly paginatedUsers = computed<User[]>(() => {
-    const start = this._paginationStore.startIndex();
-    const end = this._paginationStore.endIndex();
+    const start = this.paginationStore.startIndex();
+    const end = this.paginationStore.endIndex();
 
     return this.users.slice(start, end);
   });
@@ -311,10 +304,6 @@ class SelectionTableDemo {
   protected readonly isSomeCurrentPageSelected = computed<boolean>(() => {
     return this.selectionStore.areSomeSelected(this.paginatedUsers());
   });
-
-  protected onPageChange(page: number): void {
-    console.log('page changed', page);
-  }
 }
 
 @Component({
@@ -386,21 +375,22 @@ class SelectionTableDemo {
         </ng-template>
       </org-table>
       <org-pagination
-        [defaultCurrentPage]="1"
-        [defaultTotalItems]="users.length"
-        [defaultItemsPerPage]="5"
-        [defaultItemsPerPageOptions]="[5, 10, 15]"
-        (pageChanged)="onPageChange($event)"
+        [(currentPage)]="currentPage"
+        [totalItems]="users.length"
+        [(itemsPerPage)]="itemsPerPage"
+        [itemsPerPageOptions]="[5, 10, 15]"
       />
     </div>
   `,
 })
 class FullFeaturedTableDemo {
-  private readonly _paginationStore = inject(PaginationStore);
+  protected readonly paginationStore = inject(PaginationStore);
   protected readonly sortingStore = inject(SortingStore);
   protected readonly selectionStore = inject(USER_SELECTION_STORE_TOKEN);
 
   protected readonly users = SAMPLE_USERS;
+  protected readonly currentPage = signal(1);
+  protected readonly itemsPerPage = signal(5);
 
   protected readonly sortedUsers = computed<User[]>(() => {
     const users = [...this.users];
@@ -429,8 +419,8 @@ class FullFeaturedTableDemo {
 
   protected readonly displayUsers = computed<User[]>(() => {
     const sorted = this.sortedUsers();
-    const start = this._paginationStore.startIndex();
-    const end = this._paginationStore.endIndex();
+    const start = this.paginationStore.startIndex();
+    const end = this.paginationStore.endIndex();
 
     return sorted.slice(start, end);
   });
@@ -442,10 +432,6 @@ class FullFeaturedTableDemo {
   protected readonly isSomeCurrentPageSelected = computed<boolean>(() => {
     return this.selectionStore.areSomeSelected(this.displayUsers());
   });
-
-  protected onPageChange(page: number): void {
-    console.log('page changed', page);
-  }
 }
 
 @Component({

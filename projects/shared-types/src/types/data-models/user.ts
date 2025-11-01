@@ -51,6 +51,7 @@ export type GetUsersRequest = {
   limit?: number;
   orderBy?: 'name' | 'createdAt' | null;
   orderDirection?: 'asc' | 'desc' | null;
+  cursor?: string;
 };
 export type GetUsersResponse = ResponseStructure<User[]>;
 

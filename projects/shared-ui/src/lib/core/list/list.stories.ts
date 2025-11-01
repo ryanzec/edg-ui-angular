@@ -429,3 +429,57 @@ export const DisabledState: Story = {
     },
   }),
 };
+
+export const Sizes: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Lists and list items support different sizes. The list component sets the default size for all items, but individual items can override it with the overrideSize input.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="List Sizes"
+        currentState="Demonstrating different size configurations"
+      >
+        <org-storybook-example-container-section label="Default (Base Size)">
+          <org-list>
+            <org-list-item preIcon="arrow-down">Dashboard</org-list-item>
+            <org-list-item preIcon="arrow-down">Projects</org-list-item>
+            <org-list-item preIcon="arrow-down">Settings</org-list-item>
+          </org-list>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Small Size on List">
+          <org-list size="sm">
+            <org-list-item preIcon="arrow-down">Dashboard</org-list-item>
+            <org-list-item preIcon="arrow-down">Projects</org-list-item>
+            <org-list-item preIcon="arrow-down">Settings</org-list-item>
+          </org-list>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Default List with One Small Item">
+          <org-list>
+            <org-list-item preIcon="arrow-down">Dashboard (base)</org-list-item>
+            <org-list-item preIcon="arrow-down" overrideSize="sm">Projects (sm)</org-list-item>
+            <org-list-item preIcon="arrow-down">Settings (base)</org-list-item>
+          </org-list>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
+          <li><strong>Base size (default)</strong>: px-2.5 py-2 text-base with base icon size</li>
+          <li><strong>Small size</strong>: px-1.5 py-1 text-sm with sm icon size</li>
+          <li>List component sets the default size for all items</li>
+          <li>Individual items can override the list size using overrideSize input</li>
+          <li>Icons automatically adjust size based on the item size</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [List, ListItem, StorybookExampleContainer, StorybookExampleContainerSection, Icon],
+    },
+  }),
+};

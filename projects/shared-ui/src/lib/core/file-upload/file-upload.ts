@@ -40,7 +40,7 @@ export class FileUploadComponent {
   protected isUploading = computed(() => this.progress() > 0 && this.progress() < 100);
 
   @ViewChild('fileInput')
-  private readonly input!: ElementRef<HTMLInputElement>;
+  private readonly _inputRef!: ElementRef<HTMLInputElement>;
 
   protected onDragOver(event: DragEvent): void {
     event.preventDefault();
@@ -81,7 +81,7 @@ export class FileUploadComponent {
   protected openFileSelector(): void {
     if (this.isUploading()) return;
 
-    this.input.nativeElement.click();
+    this._inputRef.nativeElement.click();
   }
 
   private _isFileValid(file: File): boolean {

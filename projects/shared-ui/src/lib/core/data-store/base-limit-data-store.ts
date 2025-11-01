@@ -9,13 +9,15 @@ type LimitState = {
   currentPage: number;
 };
 
+const generateDefaultLimitState = (): LimitState => ({
+  offset: 0,
+  limit: 10,
+  totalItemCount: 0,
+  currentPage: 1,
+});
+
 export abstract class BaseLimitDataStore<T> extends BaseDataStore<T> {
-  private readonly _limitState = signal<LimitState>({
-    offset: 0,
-    limit: 10,
-    totalItemCount: 0,
-    currentPage: 1,
-  });
+  private readonly _limitState = signal<LimitState>(generateDefaultLimitState());
 
   public readonly totalPages = computed(() => Math.ceil(this._limitState().totalItemCount / this._limitState().limit));
   public readonly currentPage = computed(() => this._limitState().currentPage);
@@ -55,5 +57,10 @@ export abstract class BaseLimitDataStore<T> extends BaseDataStore<T> {
       totalItemCount: meta?.totalItemCount ?? 0,
       currentPage: meta?.currentPage ?? 1,
     });
+  }
+
+  public override reset(): void {
+    super.reset();
+    this._limitState.set(generateDefaultLimitState());
   }
 }

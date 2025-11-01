@@ -8,6 +8,7 @@ import {
   InjectionToken,
   computed,
   afterNextRender,
+  model,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CdkMenuTrigger } from '@angular/cdk/menu';
@@ -34,8 +35,9 @@ import { FormFields } from '../../core/form-fields/form-fields';
 import { FormField } from '../../core/form-field/form-field';
 import { DateDisplay } from '@organization/shared-ui';
 import { Pagination } from '../../core/pagination/pagination';
-import { PaginationStore } from '../../core/pagination-store/pagination-store';
+import { PaginationState, PaginationStore } from '../../core/pagination-store/pagination-store';
 import { LogManager } from '../../core/log-manager/log-manager';
+import { RemoteRetrievalType } from '../../core/types';
 
 /**
  * injection token for users list pagination store
@@ -100,9 +102,10 @@ export type UsersListSortingData = {
 export class UsersList {
   private readonly _logManager = inject(LogManager);
   private readonly _sortingStore = inject(SortingStore);
-  private readonly _paginationStore = inject(USERS_LIST_PAGINATION_STORE, { optional: true });
 
   private _filterFormInitialized = false;
+
+  protected readonly itemsPerPageOptions = [1, 2, 5, 10];
 
   public users = input.required<User[]>();
   public isInitialLoading = input<boolean>(false);
@@ -111,15 +114,21 @@ export class UsersList {
   public tableContainerClass = input<string>('');
   public enableFilters = input<boolean>(false);
   public enableSorting = input<boolean>(false);
-  public defaultSortKey = input<string | null>('createdAt');
-  public defaultSortDirection = input<SortingDirection | null>('desc');
+  public sortKey = model<string | null>('createdAt');
+  public sortDirection = model<SortingDirection | null>('desc');
+  public listingType = input<RemoteRetrievalType>('page');
 
-  public userEdit = output<User>();
-  public userDelete = output<User>();
+  // pagination pass through props
+  public currentPage = model<PaginationState['currentPage']>(1);
+  public totalItems = input<PaginationState['totalItems']>(0);
+  public itemsPerPage = model<PaginationState['itemsPerPage']>(10);
+  public visiblePages = input<PaginationState['visiblePages']>(7);
+  public hasMore = input<boolean>(false);
+
+  public editUser = output<User>();
+  public deleteUser = output<User>();
   public filtersChanged = output<UsersListFilterValues>();
-  public sortingChanged = output<UsersListSortingData>();
-  public pageChanged = output<number>();
-  public itemsPerPageChanged = output<number>();
+  public requestMoreUsers = output<void>();
 
   public mergeClasses = tailwindUtils.merge;
   public readonly dateFieldOptions = dateFieldOptions;
@@ -145,11 +154,8 @@ export class UsersList {
     },
   ];
 
-  public readonly key = computed<string | null>(() => this._sortingStore.key());
-  public readonly direction = computed<SortingDirection | null>(() => this._sortingStore.direction());
-
-  protected readonly hasPagination = computed<boolean>(() => this._paginationStore !== null);
   protected readonly paginationDisabled = computed<boolean>(() => this.isLoading() || this.isInitialLoading());
+  protected readonly loadMoreDisabled = computed<boolean>(() => this.isLoading() || this.isInitialLoading());
 
   /**
    * reactive form for filters
@@ -167,6 +173,8 @@ export class UsersList {
   });
 
   constructor() {
+    this._sortingStore.setSort(this.sortKey(), this.sortDirection());
+
     const nameControl = this.filterForm.get('name');
     const dateTypeControl = this.filterForm.get('dateType');
     const dateValueControl = this.filterForm.get('dateValue');
@@ -211,8 +219,11 @@ export class UsersList {
       const key = this._sortingStore.direction() ? this._sortingStore.key() : null;
       const direction = this._sortingStore.direction();
 
+      console.log('effect3', key, direction);
+
       this._resetPaginationToFirstPage();
-      this.sortingChanged.emit({ key, direction });
+      this.sortKey.set(key);
+      this.sortDirection.set(direction);
     });
 
     afterNextRender(() => {
@@ -228,13 +239,13 @@ export class UsersList {
 
   protected onUserActionMenuItemClick(menuItem: OverlayMenuItem, user: User): void {
     if (menuItem.id === 'edit') {
-      this.userEdit.emit(user);
+      this.editUser.emit(user);
 
       return;
     }
 
     if (menuItem.id === 'delete') {
-      this.userDelete.emit(user);
+      this.deleteUser.emit(user);
 
       return;
     }
@@ -254,20 +265,18 @@ export class UsersList {
   }
 
   protected onPageChanged(page: number): void {
-    this.pageChanged.emit(page);
+    this.currentPage.set(page);
   }
 
   protected onItemsPerPageChanged(itemsPerPage: number): void {
-    this.itemsPerPageChanged.emit(itemsPerPage);
+    this.itemsPerPage.set(itemsPerPage);
   }
 
   /**
    * reset pagination to first page when filters or sorting changes
    */
   private _resetPaginationToFirstPage(): void {
-    if (this._paginationStore) {
-      this._paginationStore.setCurrentPage(1);
-    }
+    this.currentPage.set(1);
   }
 
   private _initializeFilterForm(): void {
@@ -275,13 +284,16 @@ export class UsersList {
       return;
     }
 
-    console.log('initializeFilterForm');
     this._filterFormInitialized = true;
 
     this.filterForm.patchValue({
       dateType: ['updatedAt'],
     });
 
-    this._sortingStore.setSort(this.defaultSortKey(), this.defaultSortDirection());
+    this._sortingStore.setSort(this.sortKey(), this.sortDirection());
+  }
+
+  protected onRequestMoreUsers(): void {
+    this.requestMoreUsers.emit();
   }
 }

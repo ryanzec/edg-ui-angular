@@ -1,27 +1,42 @@
-import { Component, ChangeDetectionStrategy, input, output, inject, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, model, inject, OnInit, computed, effect } from '@angular/core';
 import { Button } from '../button/button';
 import { tailwindUtils } from '@organization/shared-utils';
-import { PaginationStore } from '../pagination-store/pagination-store';
+import { PaginationStore, type PaginationState } from '../pagination-store/pagination-store';
 
 @Component({
   selector: 'org-pagination',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Button],
+  providers: [PaginationStore],
   templateUrl: './pagination.html',
 })
 export class Pagination implements OnInit {
   private readonly _paginationStore = inject(PaginationStore);
 
-  public defaultCurrentPage = input<number>(1);
-  public defaultTotalItems = input<number>(0);
-  public defaultItemsPerPage = input<number>(10);
-  public defaultVisiblePages = input<number>(7);
-  public defaultItemsPerPageOptions = input<number[]>([5, 10, 20, 50]);
+  public currentPage = model<number>(1);
+  public totalItems = input<number>(0);
+  public itemsPerPage = model<number>(10);
+  public visiblePages = input<number>(7);
+  public itemsPerPageOptions = input<number[]>([5, 10, 20, 50]);
   public class = input<string>('');
   public disabled = input<boolean>(false);
 
-  public pageChanged = output<number>();
-  public itemsPerPageChanged = output<number>();
+  protected readonly inputState = computed<Partial<PaginationState>>(() => ({
+    currentPage: this.currentPage(),
+    totalItems: this.totalItems(),
+    itemsPerPage: this.itemsPerPage(),
+    visiblePages: this.visiblePages(),
+    itemsPerPageOptions: this.itemsPerPageOptions(),
+    disabled: this.disabled(),
+  }));
+
+  constructor() {
+    effect(() => {
+      const state = this.inputState();
+
+      this._paginationStore.setState(state);
+    });
+  }
 
   // expose store computed properties
   protected readonly activePage = this._paginationStore.activePage;
@@ -33,66 +48,52 @@ export class Pagination implements OnInit {
   protected readonly hasNext = this._paginationStore.hasNext;
   protected readonly visiblePageItems = this._paginationStore.visiblePageItems;
   protected readonly resultText = this._paginationStore.resultText;
-  protected readonly itemsPerPageOptions = this._paginationStore.itemsPerPageOptions;
 
   protected mergeClasses = tailwindUtils.merge;
 
   public ngOnInit(): void {
     // initialize the store with component inputs
-    this._paginationStore.initialize({
-      defaultCurrentPage: this.defaultCurrentPage(),
-      defaultTotalItems: this.defaultTotalItems(),
-      defaultItemsPerPage: this.defaultItemsPerPage(),
-      visiblePages: this.defaultVisiblePages(),
-      itemsPerPageOptions: this.defaultItemsPerPageOptions(),
-      disabled: this.disabled(),
-    });
+    this._paginationStore.initialize(this.inputState());
   }
 
-  public setTotalItems(total: number): void {
-    this._paginationStore.setTotalItems(total);
+  protected onGoToPage(page: number): void {
+    const newPage = this._paginationStore.goToPage(page);
+
+    this.currentPage.set(newPage);
   }
 
-  public setCurrentPage(page: number): void {
-    const newPage = this._paginationStore.setCurrentPage(page);
-    this.pageChanged.emit(newPage);
-  }
+  protected onPreviousPage(): void {
+    const activePage = this.activePage();
+    const newPage = this._paginationStore.goToPreviousPage();
 
-  public setItemsPerPage(itemsPerPage: number): void {
-    this._paginationStore.setItemsPerPage(itemsPerPage);
-    this.itemsPerPageChanged.emit(itemsPerPage);
-
-    this.setCurrentPage(1);
-  }
-
-  public goToPage(page: number): void {
-    this.setCurrentPage(page);
-  }
-
-  public previousPage(): void {
-    const currentPage = this.activePage();
-    const previousPage = this._paginationStore.previousPage();
-
-    if (previousPage !== currentPage) {
-      this.setCurrentPage(previousPage);
+    if (newPage !== activePage) {
+      this.currentPage.set(newPage);
     }
   }
 
-  public nextPage(): void {
-    const currentPage = this.activePage();
-    const nextPage = this._paginationStore.nextPage();
+  protected onNextPage(): void {
+    const activePage = this.activePage();
+    const newPage = this._paginationStore.goToNextPage();
 
-    if (nextPage !== currentPage) {
-      this.setCurrentPage(nextPage);
+    if (newPage !== activePage) {
+      this.currentPage.set(newPage);
     }
   }
 
-  public firstPage(): void {
-    this.setCurrentPage(1);
+  protected onFirstPage(): void {
+    const newPage = this._paginationStore.goToFirstPage();
+
+    this.currentPage.set(newPage);
   }
 
-  public lastPage(): void {
-    const newPage = this._paginationStore.lastPage();
-    this.pageChanged.emit(newPage);
+  protected onLastPage(): void {
+    const newPage = this._paginationStore.goToLastPage();
+
+    this.currentPage.set(newPage);
+  }
+
+  protected onItemsPerPageChange(itemsPerPage: number): void {
+    this.itemsPerPage.set(itemsPerPage);
+    this.currentPage.set(1);
   }
 }

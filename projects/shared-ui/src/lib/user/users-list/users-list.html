@@ -49,9 +49,9 @@
           <org-table-th>
             <div [orgSortable]="'name'" [sortableEnabled]="enableSorting()">Name</div>
           </org-table-th>
-          <org-table-th>Email</org-table-th>
-          <org-table-th>Roles</org-table-th>
-          <org-table-th>
+          <org-table-th containerClass="w-[200px]">Email</org-table-th>
+          <org-table-th containerClass="w-[200px]">Roles</org-table-th>
+          <org-table-th containerClass="w-[200px]">
             <div [orgSortable]="'createdAt'" [sortableEnabled]="enableSorting()">Created</div>
           </org-table-th>
           <org-table-th containerClass="w-[50px]"></org-table-th>
@@ -95,12 +95,29 @@
         </org-table-tr>
       </ng-template>
     </org-table>
-    @if (hasPagination()) {
+
+    @if (listingType() === 'page') {
       <org-pagination
         [disabled]="paginationDisabled()"
-        (pageChanged)="onPageChanged($event)"
-        (itemsPerPageChanged)="onItemsPerPageChanged($event)"
+        [(currentPage)]="currentPage"
+        [totalItems]="totalItems()"
+        [(itemsPerPage)]="itemsPerPage"
+        [visiblePages]="visiblePages()"
+        [itemsPerPageOptions]="itemsPerPageOptions"
       />
+    }
+
+    @if (listingType() === 'infinite' && hasMore()) {
+      <org-button
+        color="neutral"
+        variant="ghost"
+        aria-label="Load more users"
+        data-testid="load-more-users-button"
+        [disabled]="loadMoreDisabled()"
+        (clicked)="onRequestMoreUsers()"
+      >
+        Load more
+      </org-button>
     }
   }
 </div>

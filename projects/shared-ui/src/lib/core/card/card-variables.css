@@ -41,7 +41,7 @@
   --color-card-text: var(--color-text);
   --color-card-subtitle-text: var(--color-text-subtle);
 
-  --spacing-card: 0.5rem;
+  --spacing-card: 0.75rem;
   --spacing-card-footer-top: 0.75rem;
 }
 
@@ -90,7 +90,4 @@
   --color-card-title-text: var(--color-text);
   --color-card-text: var(--color-text);
   --color-card-subtitle-text: var(--color-text-subtle);
-
-  --spacing-card: 0.5rem;
-  --spacing-card-footer-top: 0.75rem;
 }

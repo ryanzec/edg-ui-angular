@@ -12,17 +12,19 @@
   </org-card>
 }
 <org-users-list
-  #usersListComponent
+  [(currentPage)]="currentPage"
+  [totalItems]="totalItems()"
+  [(sortKey)]="sortKey"
+  [(sortDirection)]="sortDirection"
+  [(itemsPerPage)]="itemsPerPage"
   [users]="users()"
   [isInitialLoading]="usersInitialized() === false"
   [isLoading]="loadingState() === 'pending'"
   [enableSorting]="true"
-  (userEdit)="onUserEdit($event)"
-  (userDelete)="onUserDelete($event)"
+  (editUser)="onEditUser($event)"
+  (deleteUser)="onDeleteUser($event)"
   [enableFilters]="true"
   (filtersChanged)="onFiltersChanged($event)"
-  (pageChanged)="onPageChanged($event)"
-  (sortingChanged)="onSortingChanged($event)"
 >
 </org-users-list>
 

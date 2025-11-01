@@ -252,6 +252,40 @@ export class MyView implements AfterViewInit {
   }
 }
 ```
+- ALWAYS use a component custom injection token when a sub component need to access property of the parent component
+```ts
+// parent component
+export const LIST_COMPONENT = new InjectionToken<List>('List Component');
+
+@Component({
+  // ...
+  providers: [{ provide: LIST_COMPONENT, useExisting: List }],
+})
+export class List {
+  // ...
+
+
+// child component
+import { LIST_COMPONENT } from './list';
+
+@Component({ /* ... */})
+export class ListItem {
+  private readonly _listComponent = inject(LIST_COMPONENT, { host: true });
+  // ...
+```
+- ALWAY group and comment on properties of a component that are there to be pass through to another component
+```ts
+// pagination pass through props
+public currentPage = input<PaginationState['currentPage']>(1);
+public totalItems = input<PaginationState['totalItems']>(0);
+public itemsPerPage = input<PaginationState['itemsPerPage']>(10);
+public visiblePages = input<PaginationState['visiblePages']>(7);
+```
+<!--
+Two way data binding in the recommend modern approach instead of inout() + output() on change event
+-->
+- ALWAYS use a model() when instead of an input() when that input needed to be modifyable by the component that it is being passed to 
+- ALWAYS add the option of `host: true` when doing a component based injection
 
 You can NEVER use these patterns when work on Angular 20 components:
 - NEVER re-create functionality that is already available in angular CDK
@@ -290,5 +324,6 @@ Size inputs should always hava a default and that should also be assumed the def
 - NEVER use `(ngSubmit)` for form element UNLESS also using a reactive form
 - NEVER prefix event handlers with `handle*`
 - NEVER prefix event outputs with `on*`
+- NEVER do an input() + output() when that input changes
 
 ALWAYS ASK ABOUT ACCESSIBILITY FEATURES IF NO GUIDE GIVEN ON IT OR GUIDE GIVEN IS INCOMPLETE

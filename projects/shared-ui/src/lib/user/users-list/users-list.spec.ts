@@ -3,8 +3,8 @@ import { describe, it } from 'vitest';
 describe('UsersList', () => {
   it.todo('should create');
   it.todo('should display users in table');
-  it.todo('should emit userEdit when edit button is clicked');
-  it.todo('should emit userDelete when delete button is clicked');
+  it.todo('should emit editUser when edit button is clicked');
+  it.todo('should emit deleteUser when delete button is clicked');
   it.todo('should format dates correctly');
   it.todo('should show loading state');
   it.todo('should show empty state when no users');

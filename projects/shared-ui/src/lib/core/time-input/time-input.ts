@@ -94,20 +94,22 @@ export class TimeInput implements AfterViewInit, ControlValueAccessor {
     }
 
     const key = event.key;
+    const hasModifier = event.ctrlKey || event.metaKey || event.altKey;
 
     // prevent default for most keys we handle
     if (
-      key === 'ArrowLeft' ||
-      key === 'ArrowRight' ||
-      key === 'ArrowUp' ||
-      key === 'ArrowDown' ||
-      key === 'Backspace' ||
-      key === 'Delete' ||
-      /^[0-9]$/.test(key) ||
-      key === 'a' ||
-      key === 'A' ||
-      key === 'p' ||
-      key === 'P'
+      !hasModifier &&
+      (key === 'ArrowLeft' ||
+        key === 'ArrowRight' ||
+        key === 'ArrowUp' ||
+        key === 'ArrowDown' ||
+        key === 'Backspace' ||
+        key === 'Delete' ||
+        /^[0-9]$/.test(key) ||
+        key === 'a' ||
+        key === 'A' ||
+        key === 'p' ||
+        key === 'P')
     ) {
       event.preventDefault();
       event.stopPropagation();
@@ -147,7 +149,7 @@ export class TimeInput implements AfterViewInit, ControlValueAccessor {
     const state = this._state();
 
     // handle am/pm keys
-    if (state.activeSegment === 'ampm') {
+    if (state.activeSegment === 'ampm' && !hasModifier) {
       if (key === 'a' || key === 'A') {
         this._updateAmPm('am');
 
@@ -501,6 +503,8 @@ export class TimeInput implements AfterViewInit, ControlValueAccessor {
   }
 
   public setDisabledState(_isDisabled: boolean): void {
-    // handled via disabled input
+    // the disabled state is handled via the disabled input
+    // this method is required by ControlValueAccessor but the implementation
+    // can be empty since we're using the disabled input signal
   }
 }

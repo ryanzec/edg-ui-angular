@@ -6,6 +6,7 @@ import { NgTemplateOutlet } from '@angular/common';
 import { Icon, type IconName } from '../icon/icon';
 import { RouterLink } from '@angular/router';
 import { LogManager } from '../log-manager/log-manager';
+import { LIST_COMPONENT, type ListSize } from './list';
 
 @Component({
   selector: 'org-list-item',
@@ -18,6 +19,7 @@ import { LogManager } from '../log-manager/log-manager';
 })
 export class ListItem {
   private readonly _logManager = inject(LogManager);
+  private readonly _listComponent = inject(LIST_COMPONENT, { host: true });
 
   private readonly _clicked$ = new Subject<void>();
 
@@ -30,6 +32,7 @@ export class ListItem {
   public isExternalHref = input<boolean>(false);
   public preIcon = input<IconName | null>(null);
   public postIcon = input<IconName | null>(null);
+  public overrideSize = input<ListSize | null>(null);
 
   // there are cases where the item is clickable but not the item itself so this allows us to force the item to
   // be clickable so it has the correct styles
@@ -43,25 +46,36 @@ export class ListItem {
   public readonly isClickable = computed<boolean>(
     () => !this.disabled() && (this.forceClickable() || this.isValidLink() || this._clicked$.observed)
   );
+  public readonly finalSize = computed<ListSize>(() => {
+    if (this.overrideSize() !== null) {
+      return this.overrideSize()!;
+    }
+
+    return this._listComponent.size();
+  });
 
   // have these styles in the code instead of template as they are needed in 3 locations in the template
-  protected finalContainerClass = computed<string>(() =>
-    this.mergeClasses(
+  protected finalContainerClass = computed<string>(() => {
+    const size = this.finalSize();
+
+    return this.mergeClasses(
       'w-full flex items-center gap-2',
-      'px-2.5 py-2 text-base',
       'text-list-item-text bg-list-item-background',
       'focus:outline-none',
       this.containerClass(),
       {
+        'px-2.5 py-2 text-base': size === 'base',
+        'px-1.5 py-1 text-sm': size === 'sm',
         'cursor-pointer': this.isClickable(),
         'cursor-pointer hover:bg-list-item-hover': !this.isSelected() && this.isClickable(),
         'focus-visible:bg-list-item-hover': !this.isSelected() && this.isClickable(),
         'bg-list-item-selected': this.isSelected(),
         'text-list-item-text-disabled bg-list-item-background-disabled cursor-not-allowed': this.disabled(),
         'pointer-events-auto': this.disabled(),
+        'text-left': this.asTag() === 'button',
       }
-    )
-  );
+    );
+  });
 
   public mergeClasses = tailwindUtils.merge;
 

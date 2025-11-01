@@ -1,11 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { Component, signal, inject } from '@angular/core';
-import {
-  UsersList,
-  type UsersListFilterValues,
-  type UsersListSortingData,
-  USERS_LIST_PAGINATION_STORE,
-} from './users-list';
+import { Component, signal, computed, effect } from '@angular/core';
+import { UsersList, type UsersListFilterValues } from './users-list';
 import { User } from '@organization/shared-types';
 import { StorybookExampleContainer } from '../../private/storybook-example-container/storybook-example-container';
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
@@ -13,7 +8,6 @@ import { Label } from '../../core/label/label';
 import { FormFields } from '../../core/form-fields/form-fields';
 import { FormField } from '../../core/form-field/form-field';
 import { Checkbox } from '../../core/checkbox/checkbox';
-import { PaginationStore } from '../../core/pagination-store/pagination-store';
 
 const sampleUsers: User[] = [
   {
@@ -121,13 +115,13 @@ const meta: Meta<UsersList> = {
   - **With Sorting**: Enables sortable column headers
 
   ### Usage Examples
-  \`\`\`html
+  \\\`\\\`\\\`html
   <!-- Basic users list -->
   <org-users-list
     [users]="userList"
     [isInitialLoading]="false"
-    (userEdit)="onEdit($event)"
-    (userDelete)="onDelete($event)"
+    (editUser)="onEdit($event)"
+    (deleteUser)="onDeleteUser($event)"
   />
 
   <!-- With filtering and sorting enabled -->
@@ -135,32 +129,34 @@ const meta: Meta<UsersList> = {
     [users]="userList"
     [enableFilters]="true"
     [enableSorting]="true"
+    [(sortKey)]="sortKey"
+    [(sortDirection)]="sortDirection"
     (filtersChanged)="onFiltersChanged($event)"
-    (sortingChanged)="onSortingChanged($event)"
-    (userEdit)="onEdit($event)"
-    (userDelete)="onDelete($event)"
+    (editUser)="onEdit($event)"
+    (deleteUser)="onDeleteUser($event)"
   />
 
-  <!-- With custom sort defaults -->
+  <!-- With pagination -->
   <org-users-list
     [users]="userList"
-    [enableSorting]="true"
-    [defaultSortKey]="'name'"
-    [defaultSortDirection]="'asc'"
-    (sortingChanged)="onSortingChanged($event)"
+    [(currentPage)]="currentPage"
+    [totalItems]="totalItems"
+    [(itemsPerPage)]="itemsPerPage"
+    (editUser)="onEdit($event)"
+    (deleteUser)="onDeleteUser($event)"
   />
-  \`\`\`
+  \\\`\\\`\\\`
 
-  \`\`\`typescript
+  \\\`\\\`\\\`typescript
   // In your component
+  protected sortKey = signal<string | null>('createdAt');
+  protected sortDirection = signal<SortingDirection | null>('desc');
+  protected currentPage = signal<number>(1);
+  protected itemsPerPage = signal<number>(10);
+
   onFiltersChanged(filters: UsersListFilterValues) {
     console.log('Filters changed:', filters);
     // Apply filters to your data source
-  }
-
-  onSortingChanged(sorting: UsersListSortingData) {
-    console.log('Sorting changed:', sorting);
-    // Apply sorting to your data source
   }
 
   onEdit(user: User) {
@@ -168,25 +164,31 @@ const meta: Meta<UsersList> = {
     // Navigate to edit page or open edit dialog
   }
 
-  onDelete(user: User) {
+  onDeleteUser(user: User) {
     console.log('Deleting user:', user);
     // Show confirmation dialog and delete user
   }
-  \`\`\`
+  \\\`\\\`\\\`
+
+  ### Pagination
+  - **currentPage**: Two-way binding for current page (use \\\`[(currentPage)]\\\`)
+  - **totalItems**: Total number of items across all pages
+  - **itemsPerPage**: Two-way binding for items per page (use \\\`[(itemsPerPage)]\\\`)
+  - **visiblePages**: Number of visible page buttons (default: 7)
 
   ### Events
   - **filtersChanged**: Emitted when filter values change (emits \`UsersListFilterValues\`)
-  - **sortingChanged**: Emitted when sorting changes (emits \`UsersListSortingData\`)
-  - **userEdit**: Emitted when the edit action is clicked (emits \`User\` object)
-  - **userDelete**: Emitted when the delete action is clicked (emits \`User\` object)
+  - **editUser**: Emitted when the edit action is clicked (emits \`User\` object)
+  - **deleteUser**: Emitted when the delete action is clicked (emits \`User\` object)
 
   ### Inputs
   - **users**: Required array of User objects to display
   - **isInitialLoading**: Optional boolean to show loading state (default: false)
+  - **isLoading**: Optional boolean to show loading state overlay (default: false)
   - **enableFilters**: Optional boolean to enable filters (default: false)
   - **enableSorting**: Optional boolean to enable sorting (default: false)
-  - **defaultSortKey**: Optional default sort key (default: 'createdAt')
-  - **defaultSortDirection**: Optional default sort direction (default: 'desc')
+  - **sortKey**: Two-way binding for sort key (use \\\`[(sortKey)]\\\`, default: 'createdAt')
+  - **sortDirection**: Two-way binding for sort direction (use \\\`[(sortDirection)]\\\`, default: 'desc')
   - **containerClass**: Optional CSS classes for the container element
   - **tableContainerClass**: Optional CSS classes for the table container
 
@@ -209,8 +211,6 @@ export const Default: Story = {
     isInitialLoading: false,
     enableFilters: false,
     enableSorting: false,
-    defaultSortKey: 'createdAt',
-    defaultSortDirection: 'desc',
     containerClass: '',
     tableContainerClass: 'h-[400px]',
   },
@@ -231,15 +231,6 @@ export const Default: Story = {
       control: 'boolean',
       description: 'Whether to enable sorting on table headers',
     },
-    defaultSortKey: {
-      control: 'text',
-      description: 'Default sort key',
-    },
-    defaultSortDirection: {
-      control: 'select',
-      options: ['asc', 'desc', null],
-      description: 'Default sort direction',
-    },
     containerClass: {
       control: 'text',
       description: 'Additional CSS classes for the container element',
@@ -252,16 +243,12 @@ export const Default: Story = {
       action: 'filtersChanged',
       description: 'Emitted when filter values change',
     },
-    sortingChanged: {
-      action: 'sortingChanged',
-      description: 'Emitted when sorting changes',
-    },
-    userEdit: {
-      action: 'userEdit',
+    editUser: {
+      action: 'editUser',
       description: 'Emitted when edit action is triggered for a user',
     },
-    userDelete: {
-      action: 'userDelete',
+    deleteUser: {
+      action: 'deleteUser',
       description: 'Emitted when delete action is triggered for a user',
     },
   },
@@ -280,14 +267,11 @@ export const Default: Story = {
         [isInitialLoading]="isInitialLoading"
         [enableFilters]="enableFilters"
         [enableSorting]="enableSorting"
-        [defaultSortKey]="defaultSortKey"
-        [defaultSortDirection]="defaultSortDirection"
         [containerClass]="containerClass"
         [tableContainerClass]="tableContainerClass"
         (filtersChanged)="filtersChanged($event)"
-        (sortingChanged)="sortingChanged($event)"
-        (userEdit)="userEdit($event)"
-        (userDelete)="userDelete($event)"
+        (editUser)="editUser($event)"
+        (deleteUser)="deleteUser($event)"
       />
     `,
     moduleMetadata: {
@@ -509,9 +493,8 @@ export const Interactive: Story = {
         [enableFilters]="enableFilters()"
         [enableSorting]="enableSorting()"
         (filtersChanged)="onFiltersChanged($event)"
-        (sortingChanged)="onSortingChanged($event)"
-        (userEdit)="onUserEdit($event)"
-        (userDelete)="onUserDelete($event)"
+        (editUser)="onEditUser($event)"
+        (deleteUser)="onDeleteUser($event)"
       />
 
       <!-- Controls -->
@@ -616,21 +599,7 @@ class UsersListInteractiveStory {
     ]);
   }
 
-  public onSortingChanged(sorting: UsersListSortingData): void {
-    const timestamp = new Date().toLocaleTimeString();
-    const details = `Key: ${sorting.key || 'null'}\nDirection: ${sorting.direction || 'null'}`;
-
-    this.events.update((events) => [
-      {
-        timestamp,
-        action: 'SORTING_CHANGED',
-        details,
-      },
-      ...events.slice(0, 9),
-    ]);
-  }
-
-  public onUserEdit(user: User): void {
+  public onEditUser(user: User): void {
     const timestamp = new Date().toLocaleTimeString();
     const details = `User: ${user.name} (${user.email})\nID: ${user.id}`;
 
@@ -644,7 +613,7 @@ class UsersListInteractiveStory {
     ]);
   }
 
-  public onUserDelete(user: User): void {
+  public onDeleteUser(user: User): void {
     const timestamp = new Date().toLocaleTimeString();
     const details = `User: ${user.name} (${user.email})\nID: ${user.id}`;
 
@@ -664,7 +633,7 @@ export const WithPagination: Story = {
     docs: {
       description: {
         story:
-          'Demonstrates the users list with pagination functionality. The pagination store must be provided via the USERS_LIST_PAGINATION_STORE injection token. Pagination automatically resets to page 1 when filters or sorting changes.',
+          'Demonstrates the users list with pagination functionality. Pagination uses two-way binding for currentPage and itemsPerPage. Pagination automatically resets to page 1 when filters or sorting changes.',
       },
     },
   },
@@ -683,8 +652,8 @@ export const WithPagination: Story = {
       <div class="flex flex-col gap-2">
         <h3 class="text-lg font-semibold">Users List with Pagination</h3>
         <div class="text-sm text-text-subtle">
-          Pagination is enabled by providing a PaginationStore via the USERS_LIST_PAGINATION_STORE injection token. The
-          component automatically resets to page 1 when filters or sorting changes.
+          Pagination uses two-way binding for currentPage and itemsPerPage. The component automatically resets to page 1
+          when filters or sorting changes.
         </div>
       </div>
 
@@ -693,12 +662,12 @@ export const WithPagination: Story = {
         [isInitialLoading]="isInitialLoading()"
         [enableFilters]="enableFilters()"
         [enableSorting]="enableSorting()"
+        [(currentPage)]="currentPage"
+        [totalItems]="totalItems"
+        [(itemsPerPage)]="itemsPerPage"
         (filtersChanged)="onFiltersChanged($event)"
-        (sortingChanged)="onSortingChanged($event)"
-        (pageChanged)="onPageChanged($event)"
-        (itemsPerPageChanged)="onItemsPerPageChanged($event)"
-        (userEdit)="onUserEdit($event)"
-        (userDelete)="onUserDelete($event)"
+        (editUser)="onEditUser($event)"
+        (deleteUser)="onDeleteUser($event)"
       />
 
       <div class="p-4 bg-secondary-background-subtle rounded-lg">
@@ -745,11 +714,11 @@ export const WithPagination: Story = {
       <div class="flex flex-col gap-2">
         <h4 class="font-medium">Pagination State:</h4>
         <div class="p-3 bg-secondary-background-subtle rounded text-sm">
-          <div class="mb-2"><strong>Current Page:</strong> {{ paginationStore.activePage() }}</div>
-          <div class="mb-2"><strong>Items Per Page:</strong> {{ paginationStore.activeItemsPerPage() }}</div>
-          <div class="mb-2"><strong>Total Items:</strong> {{ paginationStore.totalItems() }}</div>
-          <div class="mb-2"><strong>Total Pages:</strong> {{ paginationStore.totalPages() }}</div>
-          <div><strong>Result Range:</strong> {{ paginationStore.resultText() }}</div>
+          <div class="mb-2"><strong>Current Page:</strong> {{ currentPage() }}</div>
+          <div class="mb-2"><strong>Items Per Page:</strong> {{ itemsPerPage() }}</div>
+          <div class="mb-2"><strong>Total Items:</strong> {{ totalItems }}</div>
+          <div class="mb-2"><strong>Displayed Items:</strong> {{ displayedUsers.length }}</div>
+          <div><strong>Showing:</strong> {{ startIndex() + 1 }} - {{ endIndex() }} of {{ totalItems }}</div>
         </div>
       </div>
 
@@ -772,19 +741,13 @@ export const WithPagination: Story = {
     </div>
   `,
   imports: [UsersList, Label, FormFields, FormField, Checkbox],
-  providers: [
-    PaginationStore,
-    {
-      provide: USERS_LIST_PAGINATION_STORE,
-      useExisting: PaginationStore,
-    },
-  ],
 })
 class UsersListPaginationStory {
-  public readonly paginationStore = inject(PaginationStore);
-
   public allUsers: User[] = [];
   public displayedUsers: User[] = [];
+  public totalItems = 0;
+  public currentPage = signal<number>(1);
+  public itemsPerPage = signal<number>(10);
   public isInitialLoading = signal(false);
   public enableFilters = signal(false);
   public enableSorting = signal(false);
@@ -796,19 +759,24 @@ class UsersListPaginationStory {
     }[]
   >([]);
 
+  protected readonly startIndex = computed<number>(() => (this.currentPage() - 1) * this.itemsPerPage());
+  protected readonly endIndex = computed<number>(() =>
+    Math.min(this.startIndex() + this.itemsPerPage(), this.totalItems)
+  );
+
   constructor() {
     this.allUsers = this._generateManyUsers(100);
-
-    this.paginationStore.initialize({
-      defaultCurrentPage: 1,
-      defaultTotalItems: this.allUsers.length,
-      defaultItemsPerPage: 10,
-      visiblePages: 7,
-      itemsPerPageOptions: [5, 10, 20, 50],
-      disabled: false,
-    });
+    this.totalItems = this.allUsers.length;
 
     this._updateDisplayedUsers();
+
+    effect(() => {
+      const _page = this.currentPage();
+      const _perPage = this.itemsPerPage();
+
+      this._updateDisplayedUsers();
+      this._logPaginationChange();
+    });
   }
 
   public toggleLoading(): void {
@@ -837,53 +805,7 @@ class UsersListPaginationStory {
     ]);
   }
 
-  public onSortingChanged(sorting: UsersListSortingData): void {
-    const timestamp = new Date().toLocaleTimeString();
-    const details = `Key: ${sorting.key || 'null'}\nDirection: ${sorting.direction || 'null'}`;
-
-    this.events.update((events) => [
-      {
-        timestamp,
-        action: 'SORTING_CHANGED',
-        details,
-      },
-      ...events.slice(0, 9),
-    ]);
-  }
-
-  public onPageChanged(page: number): void {
-    const timestamp = new Date().toLocaleTimeString();
-    const details = `New Page: ${page}\nItems Per Page: ${this.paginationStore.activeItemsPerPage()}`;
-
-    this.events.update((events) => [
-      {
-        timestamp,
-        action: 'PAGE_CHANGED',
-        details,
-      },
-      ...events.slice(0, 9),
-    ]);
-
-    this._updateDisplayedUsers();
-  }
-
-  public onItemsPerPageChanged(itemsPerPage: number): void {
-    const timestamp = new Date().toLocaleTimeString();
-    const details = `New Items Per Page: ${itemsPerPage}\nCurrent Page: ${this.paginationStore.activePage()}`;
-
-    this.events.update((events) => [
-      {
-        timestamp,
-        action: 'ITEMS_PER_PAGE_CHANGED',
-        details,
-      },
-      ...events.slice(0, 9),
-    ]);
-
-    this._updateDisplayedUsers();
-  }
-
-  public onUserEdit(user: User): void {
+  public onEditUser(user: User): void {
     const timestamp = new Date().toLocaleTimeString();
     const details = `User: ${user.name} (${user.email})\nID: ${user.id}`;
 
@@ -897,7 +819,7 @@ class UsersListPaginationStory {
     ]);
   }
 
-  public onUserDelete(user: User): void {
+  public onDeleteUser(user: User): void {
     const timestamp = new Date().toLocaleTimeString();
     const details = `User: ${user.name} (${user.email})\nID: ${user.id}`;
 
@@ -912,10 +834,24 @@ class UsersListPaginationStory {
   }
 
   private _updateDisplayedUsers(): void {
-    const startIndex = this.paginationStore.startIndex();
-    const endIndex = this.paginationStore.endIndex();
+    const startIndex = this.startIndex();
+    const endIndex = this.endIndex();
 
     this.displayedUsers = this.allUsers.slice(startIndex, endIndex);
+  }
+
+  private _logPaginationChange(): void {
+    const timestamp = new Date().toLocaleTimeString();
+    const details = `Current Page: ${this.currentPage()}\nItems Per Page: ${this.itemsPerPage()}\nShowing: ${this.startIndex() + 1} - ${this.endIndex()} of ${this.totalItems}`;
+
+    this.events.update((events) => [
+      {
+        timestamp,
+        action: 'PAGINATION_CHANGED',
+        details,
+      },
+      ...events.slice(0, 9),
+    ]);
   }
 
   private _generateManyUsers(count: number): User[] {

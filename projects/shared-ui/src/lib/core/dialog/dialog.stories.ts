@@ -9,6 +9,7 @@ import { DialogContent } from '../../core/dialog/dialog-content';
 import { DialogFooter } from '../../core/dialog/dialog-footer';
 import { Dialog } from '../../core/dialog/dialog';
 import { DialogRef, DIALOG_DATA } from '@angular/cdk/dialog';
+import { CheckboxToggle } from '../../core/checkbox-toggle/checkbox-toggle';
 
 export type EXAMPLEDialogData = {
   title: string;
@@ -319,6 +320,90 @@ export const ClosedEvent: Story = {
     `,
     moduleMetadata: {
       imports: [EXAMPLEStoryDialogWithClosedEvent, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+@Component({
+  selector: 'org-example-story-dialog-with-backdrop-toggle',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [DialogController, Button, CheckboxToggle],
+  template: `
+    <div class="flex flex-col gap-4">
+      <div class="flex items-center gap-2">
+        <org-checkbox-toggle
+          name="hasBackdrop"
+          value="hasBackdrop"
+          [checked]="hasBackdrop()"
+          (checkedChange)="onBackdropToggle($event)"
+        >
+          Has Backdrop
+        </org-checkbox-toggle>
+      </div>
+
+      <org-button (click)="openDialog()">Open Dialog</org-button>
+
+      <org-dialog-controller
+        [dialogComponent]="EXAMPLEDialogComponent"
+        [position]="hasBackdrop() ? 'center' : 'right'"
+        [hasBackdrop]="hasBackdrop()"
+        #dialogControllerComponent
+      />
+    </div>
+  `,
+  host: {
+    ['attr.data-testid']: 'example-story-dialog-with-backdrop-toggle',
+  },
+})
+export class EXAMPLEStoryDialogWithBackdropToggle {
+  protected readonly EXAMPLEDialogComponent = EXAMPLEDialog;
+  protected readonly hasBackdrop = signal(true);
+
+  @ViewChild('dialogControllerComponent')
+  public readonly dialogControllerComponent!: DialogController<EXAMPLEDialog>;
+
+  protected openDialog(): void {
+    this.dialogControllerComponent.openDialog({
+      title: 'Dialog with Backdrop Toggle',
+      message: 'Try toggling the backdrop setting and opening the dialog to see the difference.',
+    });
+  }
+
+  protected onBackdropToggle(value: boolean): void {
+    this.hasBackdrop.set(value);
+  }
+}
+
+export const Backdrop: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Example demonstrating dialog with and without backdrop. Toggle the backdrop setting before opening the dialog to see how it affects the visual presentation and interaction behavior.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Dialog Backdrop Toggle"
+        currentState="Demonstrating dialog with backdrop enabled/disabled"
+      >
+        <org-storybook-example-container-section label="Try Backdrop Toggle">
+          <org-example-story-dialog-with-backdrop-toggle />
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="flex flex-col gap-1 mt-1 list-inside list-disc">
+          <li><strong>Backdrop Enabled</strong>: Dialog appears with a semi-transparent overlay covering the page content</li>
+          <li><strong>Backdrop Disabled</strong>: Dialog appears without overlay, allowing interaction with page content behind it</li>
+          <li><strong>Escape Key</strong>: Works to close dialog regardless of backdrop setting</li>
+          <li><strong>Page Interaction</strong>: When backdrop is disabled, you can interact with elements behind the dialog</li>
+          <li><strong>Visual Contrast</strong>: Backdrop provides visual separation and focus on the dialog content</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [EXAMPLEStoryDialogWithBackdropToggle, StorybookExampleContainer, StorybookExampleContainerSection],
     },
   }),
 };

@@ -28,22 +28,32 @@
     (attach)="onOverlayAttach()"
     (detach)="onOverlayDetach()"
   >
-    <org-calendar
-      #calendarComponent
-      [defaultDisplayDate]="defaultDisplayDate()"
-      [startYear]="startYear()"
-      [endYear]="endYear()"
-      [selectedStartDate]="inProgressStartDate()"
-      [selectedEndDate]="inProgressEndDate()"
-      [allowRangeSelection]="allowRangeSelection()"
-      [allowPartialRangeSelection]="allowPartialRangeSelection()"
-      [partialRangeSelectionType]="inProgressPartialRangeSelectionType()"
-      [disableBefore]="disableBefore()"
-      [disableAfter]="disableAfter()"
-      [allowedDateRange]="allowedDateRange()"
-      [enableDeselection]="false"
-      (dateSelected)="onDateSelected($event)"
-      (partialRangeSelectionTypeChange)="onPartialRangeSelectionTypeChange($event)"
-    />
+    <div tabindex="0" (keydown)="onCalendarKeyDown($event)">
+      <org-calendar
+        #calendarComponent
+        [defaultDisplayDate]="defaultDisplayDate()"
+        [startYear]="startYear()"
+        [endYear]="endYear()"
+        [selectedStartDate]="inProgressStartDate()"
+        [selectedEndDate]="inProgressEndDate()"
+        [allowRangeSelection]="allowRangeSelection()"
+        [allowPartialRangeSelection]="allowPartialRangeSelection()"
+        [partialRangeSelectionType]="inProgressPartialRangeSelectionType()"
+        [disableBefore]="disableBefore()"
+        [disableAfter]="disableAfter()"
+        [allowedDateRange]="allowedDateRange()"
+        [enableDeselection]="false"
+        (dateSelected)="onDateSelected($event)"
+        (partialRangeSelectionTypeChange)="onPartialRangeSelectionTypeChange($event)"
+      >
+        @if (allowClear()) {
+          <org-calendar-footer>
+            <div class="flex justify-end">
+              <org-button color="neutral" [disabled]="isClearDisabled()" (clicked)="onClearClick()">Clear</org-button>
+            </div>
+          </org-calendar-footer>
+        }
+      </org-calendar>
+    </div>
   </ng-template>
 </div>

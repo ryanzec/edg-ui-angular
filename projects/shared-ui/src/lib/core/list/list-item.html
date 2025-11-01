@@ -1,10 +1,10 @@
 <ng-template #contentTemplate>
   @if (preIcon(); as preIcon) {
-    <org-icon [name]="preIcon" size="base" />
+    <org-icon [name]="preIcon" [size]="finalSize()" />
   }
   <ng-content />
   @if (postIcon(); as postIcon) {
-    <org-icon [name]="postIcon" size="base" />
+    <org-icon [name]="postIcon" [size]="finalSize()" />
   }
 </ng-template>
 

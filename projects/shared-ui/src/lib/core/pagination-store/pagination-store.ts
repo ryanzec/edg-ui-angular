@@ -5,21 +5,15 @@ export type PaginationState = {
   currentPage: number;
   totalItems: number;
   itemsPerPage: number;
+  visiblePages: number;
+  itemsPerPageOptions: number[];
+  disabled: boolean;
 };
 
 export type VisiblePage = {
   type: 'page' | 'ellipsis';
   value: number | null;
   isActive: boolean;
-};
-
-export type PaginationConfig = {
-  defaultCurrentPage: number;
-  defaultTotalItems: number;
-  defaultItemsPerPage: number;
-  visiblePages: number;
-  itemsPerPageOptions: number[];
-  disabled: boolean;
 };
 
 @Injectable()
@@ -32,12 +26,6 @@ export class PaginationStore {
     currentPage: 1,
     totalItems: 0,
     itemsPerPage: 10,
-  });
-
-  private readonly _config = signal<PaginationConfig>({
-    defaultCurrentPage: 1,
-    defaultTotalItems: 0,
-    defaultItemsPerPage: 10,
     visiblePages: 7,
     itemsPerPageOptions: [5, 10, 20, 50],
     disabled: false,
@@ -46,9 +34,9 @@ export class PaginationStore {
   public readonly activePage = computed<number>(() => this._state().currentPage);
   public readonly activeItemsPerPage = computed<number>(() => this._state().itemsPerPage);
   public readonly totalItems = computed<number>(() => this._state().totalItems);
-  public readonly disabled = computed<boolean>(() => this._config().disabled);
-  public readonly itemsPerPageOptions = computed<number[]>(() => this._config().itemsPerPageOptions);
-  public readonly visiblePages = computed<number>(() => this._config().visiblePages);
+  public readonly disabled = computed<boolean>(() => this._state().disabled);
+  public readonly itemsPerPageOptions = computed<number[]>(() => this._state().itemsPerPageOptions);
+  public readonly visiblePages = computed<number>(() => this._state().visiblePages);
 
   public readonly totalPages = computed<number>(
     () => Math.ceil(this._state().totalItems / this._state().itemsPerPage) || 1
@@ -67,7 +55,7 @@ export class PaginationStore {
   public readonly visiblePageItems = computed<VisiblePage[]>(() => {
     const totalPages = this.totalPages();
     const currentPage = this._state().currentPage;
-    let visiblePages = this._config().visiblePages;
+    let visiblePages = this._state().visiblePages;
 
     // log warning for even visiblePages and adjust
     if (visiblePages % 2 === 0) {
@@ -163,96 +151,107 @@ export class PaginationStore {
     return `result ${start} - ${end} of ${total}`;
   });
 
-  public initialize(config: Partial<PaginationConfig>): void {
+  public initialize(state: Partial<PaginationState>): void {
     if (this._hasInitialized) {
       return;
     }
 
     this._hasInitialized = true;
 
-    this._config.update((currentConfig) => ({ ...currentConfig, ...config }));
+    this.setState(state);
+  }
 
-    const defaultItemsPerPage = this._config().defaultItemsPerPage;
-    const validItemsPerPage = this._config().itemsPerPageOptions.includes(defaultItemsPerPage)
-      ? defaultItemsPerPage
-      : this._config().itemsPerPageOptions[0];
+  public setState(partialState: Partial<PaginationState>): void {
+    this._state.update((currentState) => {
+      const newState = { ...currentState };
 
-    this._state.set({
-      currentPage: this._config().defaultCurrentPage,
-      totalItems: this._config().defaultTotalItems,
-      itemsPerPage: validItemsPerPage,
+      // update itemsPerPageOptions first if provided, as it's needed for validation
+      if (partialState.itemsPerPageOptions !== undefined) {
+        newState.itemsPerPageOptions = partialState.itemsPerPageOptions;
+      }
+
+      // validate and update itemsPerPage
+      if (partialState.itemsPerPage !== undefined) {
+        if (newState.itemsPerPageOptions.includes(partialState.itemsPerPage)) {
+          newState.itemsPerPage = partialState.itemsPerPage;
+        }
+      }
+
+      // update totalItems
+      if (partialState.totalItems !== undefined) {
+        newState.totalItems = Math.max(0, partialState.totalItems);
+      }
+
+      // update other properties
+      if (partialState.visiblePages !== undefined) {
+        newState.visiblePages = partialState.visiblePages;
+      }
+
+      if (partialState.disabled !== undefined) {
+        newState.disabled = partialState.disabled;
+      }
+
+      // calculate total pages with potentially updated values
+      const newTotalPages = Math.ceil(newState.totalItems / newState.itemsPerPage) || 1;
+
+      // validate and update currentPage last, as it depends on totalPages
+      if (partialState.currentPage !== undefined) {
+        newState.currentPage = Math.max(1, Math.min(partialState.currentPage, newTotalPages));
+      }
+
+      // adjust current page if it exceeds new total pages (even if not explicitly updated)
+      if (newState.currentPage > newTotalPages) {
+        newState.currentPage = Math.max(1, newTotalPages);
+      }
+
+      return newState;
     });
   }
 
-  public setTotalItems(total: number): void {
-    const validTotal = Math.max(0, total);
-    this._state.update((state) => ({
-      ...state,
-      totalItems: validTotal,
-    }));
-
-    // adjust current page if it exceeds new total pages
-    const newTotalPages = Math.ceil(validTotal / this._state().itemsPerPage) || 1;
-
-    if (this._state().currentPage > newTotalPages) {
-      this.setCurrentPage(Math.max(1, newTotalPages));
-    }
-  }
-
-  public setCurrentPage(page: number): number {
-    if (this._config().disabled) {
+  public goToPage(page: number): number {
+    if (this._state().disabled) {
       return this._state().currentPage;
     }
 
-    const validPage = Math.max(1, Math.min(page, this.totalPages()));
-    this._state.update((state) => ({
-      ...state,
-      currentPage: validPage,
-    }));
+    const totalPages = this.totalPages();
+    const validPage = Math.max(1, Math.min(page, totalPages));
+    this.setState({ currentPage: validPage });
 
     return validPage;
   }
 
-  public setItemsPerPage(itemsPerPage: number): void {
-    if (this._config().disabled || !this._config().itemsPerPageOptions.includes(itemsPerPage)) {
-      return;
-    }
-
-    this._state.update((state) => ({
-      ...state,
-      itemsPerPage,
-    }));
-  }
-
-  public goToPage(page: number): number {
-    return this.setCurrentPage(page);
-  }
-
-  public previousPage(): number {
+  public goToPreviousPage(): number {
     if (this.hasPrevious()) {
-      return this.setCurrentPage(this.activePage() - 1);
+      const newPage = this.activePage() - 1;
+      this.setState({ currentPage: newPage });
+
+      return newPage;
     }
 
     return this.activePage();
   }
 
-  public nextPage(): number {
+  public goToNextPage(): number {
     if (this.hasNext()) {
-      return this.setCurrentPage(this.activePage() + 1);
+      const newPage = this.activePage() + 1;
+      this.setState({ currentPage: newPage });
+
+      return newPage;
     }
 
     return this.activePage();
   }
 
-  public firstPage(): number {
-    return this.setCurrentPage(1);
+  public goToFirstPage(): number {
+    this.setState({ currentPage: 1 });
+
+    return 1;
   }
 
-  public lastPage(): number {
-    return this.setCurrentPage(this.totalPages());
-  }
+  public goToLastPage(): number {
+    const lastPage = this.totalPages();
+    this.setState({ currentPage: lastPage });
 
-  public updateConfig(config: Partial<PaginationConfig>): void {
-    this._config.update((currentConfig) => ({ ...currentConfig, ...config }));
+    return lastPage;
   }
 }

@@ -97,6 +97,7 @@ export const Default: Story = {
     disableAfter: null,
     allowedDateRange: 0,
     disabled: false,
+    allowClear: true,
     containerClass: '',
   },
   argTypes: {
@@ -139,6 +140,10 @@ export const Default: Story = {
       control: 'boolean',
       description: 'Disable the date picker',
     },
+    allowClear: {
+      control: 'boolean',
+      description: 'Show clear button in calendar footer',
+    },
   },
   render: (args) => ({
     props: args,
@@ -162,6 +167,7 @@ export const Default: Story = {
           [disableAfter]="disableAfter"
           [allowedDateRange]="allowedDateRange"
           [disabled]="disabled"
+          [allowClear]="allowClear"
           [containerClass]="containerClass"
         />
       </div>
@@ -1448,5 +1454,114 @@ export const ValidationSpaceReservation: Story = {
         FormFields,
       ],
     },
+  }),
+};
+
+@Component({
+  selector: 'org-date-picker-input-clear-button-demo',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [DatePickerInput, StorybookExampleContainer, StorybookExampleContainerSection, Button, JsonPipe],
+  template: `
+    <org-storybook-example-container
+      title="Clear Button Feature"
+      description="The date picker can include a clear button in the calendar footer to clear selected dates."
+    >
+      <org-storybook-example-container-section label="With Clear Button (default)">
+        <org-date-picker-input
+          name="with-clear"
+          placeholder="Select date..."
+          [selectedStartDate]="singleDateWithClear()"
+          (dateSelected)="onSingleDateWithClearChange($event)"
+        />
+        <div class="mt-2 text-sm">Selected: {{ singleDateWithClear() ? singleDateWithClear()!.toISO() : 'None' }}</div>
+      </org-storybook-example-container-section>
+
+      <org-storybook-example-container-section label="Without Clear Button">
+        <org-date-picker-input
+          name="without-clear"
+          placeholder="Select date..."
+          [allowClear]="false"
+          [selectedStartDate]="singleDateWithoutClear()"
+          (dateSelected)="onSingleDateWithoutClearChange($event)"
+        />
+        <div class="mt-2 text-sm">
+          Selected: {{ singleDateWithoutClear() ? singleDateWithoutClear()!.toISO() : 'None' }}
+        </div>
+      </org-storybook-example-container-section>
+
+      <org-storybook-example-container-section label="Range Selection With Clear">
+        <org-date-picker-input
+          name="range-with-clear"
+          placeholder="Select date range..."
+          [allowRangeSelection]="true"
+          [selectedStartDate]="rangeStartDate()"
+          [selectedEndDate]="rangeEndDate()"
+          (dateSelected)="onRangeDateChange($event)"
+        />
+        <div class="mt-2 text-sm">
+          Start: {{ rangeStartDate() ? rangeStartDate()!.toISO() : 'None' }}<br />
+          End: {{ rangeEndDate() ? rangeEndDate()!.toISO() : 'None' }}
+        </div>
+      </org-storybook-example-container-section>
+
+      <org-storybook-example-container-section label="Keyboard Support">
+        <div class="mb-2 text-sm">
+          Press <kbd class="px-1 py-0.5 bg-neutral-background rounded border border-neutral-border">Delete</kbd> or
+          <kbd class="px-1 py-0.5 bg-neutral-background rounded border border-neutral-border">Backspace</kbd>
+          while the calendar is focused to clear the selection.
+        </div>
+        <org-date-picker-input
+          name="keyboard-clear"
+          placeholder="Select date..."
+          [selectedStartDate]="keyboardClearDate()"
+          (dateSelected)="onKeyboardClearDateChange($event)"
+        />
+        <div class="mt-2 text-sm">Selected: {{ keyboardClearDate() ? keyboardClearDate()!.toISO() : 'None' }}</div>
+      </org-storybook-example-container-section>
+
+      <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
+        <li><strong>Clear button</strong>: Appears in the calendar footer when allowClear is true (default)</li>
+        <li><strong>Disabled state</strong>: Clear button is disabled when no date is selected</li>
+        <li>
+          <strong>Keyboard shortcuts</strong>: Delete and Backspace keys clear the selection when calendar is focused
+        </li>
+        <li><strong>Close on clear</strong>: The calendar overlay closes automatically after clearing</li>
+        <li><strong>Form integration</strong>: Clearing marks the form as dirty and touched in reactive forms</li>
+        <li><strong>Works with ranges</strong>: Clear button works for both single date and range selection modes</li>
+      </ul>
+    </org-storybook-example-container>
+  `,
+})
+class DatePickerInputClearButtonDemo {
+  protected singleDateWithClear = signal<DateTime | null>(DateTime.now());
+  protected singleDateWithoutClear = signal<DateTime | null>(DateTime.now());
+  protected rangeStartDate = signal<DateTime | null>(DateTime.now().minus({ days: 3 }));
+  protected rangeEndDate = signal<DateTime | null>(DateTime.now().plus({ days: 3 }));
+  protected keyboardClearDate = signal<DateTime | null>(DateTime.now());
+
+  protected onSingleDateWithClearChange(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
+    this.singleDateWithClear.set(dates.startDate);
+  }
+
+  protected onSingleDateWithoutClearChange(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
+    this.singleDateWithoutClear.set(dates.startDate);
+  }
+
+  protected onRangeDateChange(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
+    this.rangeStartDate.set(dates.startDate);
+    this.rangeEndDate.set(dates.endDate);
+  }
+
+  protected onKeyboardClearDateChange(dates: { startDate: DateTime | null; endDate: DateTime | null }): void {
+    this.keyboardClearDate.set(dates.startDate);
+  }
+}
+
+export const ClearButton: Story = {
+  render: () => ({
+    moduleMetadata: {
+      imports: [DatePickerInputClearButtonDemo],
+    },
+    template: '<org-date-picker-input-clear-button-demo />',
   }),
 };

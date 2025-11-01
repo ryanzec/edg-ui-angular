@@ -18,6 +18,8 @@ import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { DateTime } from 'luxon';
 import { Input } from '../input/input';
 import { Calendar, CalendarPartialRangeSelectionType } from '../calendar/calendar';
+import { CalendarFooter } from '../calendar/calendar-footer';
+import { Button } from '../button/button';
 import { DateFormat, TimeFormat } from '@organization/shared-utils';
 import { tailwindUtils } from '@organization/shared-utils';
 
@@ -45,7 +47,7 @@ type DatePickerInputState = {
 @Component({
   selector: 'org-date-picker-input',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Input, CdkOverlayOrigin, CdkConnectedOverlay, Calendar],
+  imports: [Input, CdkOverlayOrigin, CdkConnectedOverlay, Calendar, CalendarFooter, Button],
   templateUrl: './date-picker-input.html',
   providers: [
     {
@@ -110,6 +112,11 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
    */
   private readonly _isOverlayOpen = signal<boolean>(false);
 
+  /**
+   * tracks whether the overlay is closing due to a committed selection (vs cancellation)
+   */
+  private _isClosingAfterCommit = false;
+
   // custom input properties
   public dateFormat = input<DateFormat>(DateFormat.STANDARD);
   public timeFormat = input<TimeFormat | null>(null);
@@ -134,6 +141,7 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
 
   // additional input properties
   public disabled = input<boolean>(false);
+  public allowClear = input<boolean>(true);
   public containerClass = input<string>('');
 
   // output events - proxied from input
@@ -195,6 +203,13 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
    */
   public readonly inProgressPartialRangeSelectionType = computed<CalendarPartialRangeSelectionType>(() => {
     return this._state().inProgressPartialRangeSelectionType;
+  });
+
+  /**
+   * check if clear button should be disabled (no dates selected)
+   */
+  public readonly isClearDisabled = computed<boolean>(() => {
+    return this.committedStartDate() === null && this.committedEndDate() === null;
   });
 
   /**
@@ -439,6 +454,52 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
   }
 
   /**
+   * handles calendar keyboard events including clear shortcuts
+   */
+  public onCalendarKeyDown(event: KeyboardEvent): void {
+    // handle delete/backspace to clear selection
+    if ((event.key === 'Delete' || event.key === 'Backspace') && this.allowClear() && !this.isClearDisabled()) {
+      event.preventDefault();
+      this.onClearClick();
+    }
+  }
+
+  /**
+   * handles clear button click
+   */
+  public onClearClick(): void {
+    if (this.isClearDisabled()) {
+      return;
+    }
+
+    // clear both dates
+    this._state.update((state) => ({
+      ...state,
+      committedStartDate: null,
+      committedEndDate: null,
+      inProgressStartDate: null,
+      inProgressEndDate: null,
+      hasFirstRangeSelection: false,
+    }));
+
+    // emit changes
+    if (this._isFormControlled) {
+      const value = { startDate: null, endDate: null };
+      this._onChange(value);
+      this._lastEmittedValue = value;
+      this._onTouched();
+    } else {
+      this.dateSelected.emit({ startDate: null, endDate: null });
+    }
+
+    // set flag to indicate we're closing after a commit
+    this._isClosingAfterCommit = true;
+
+    // close the overlay
+    this._closeOverlay();
+  }
+
+  /**
    * handles backdrop click to close overlay
    * cancellation logic is handled in onOverlayDetach()
    */
@@ -468,8 +529,13 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
    * this is called whenever the overlay closes (backdrop click, escape key, or programmatic close)
    */
   public onOverlayDetach(): void {
-    // always revert or clear selection when overlay closes without explicit commit
-    this._revertOrClearSelection();
+    // only revert or clear selection when overlay closes without explicit commit
+    if (!this._isClosingAfterCommit) {
+      this._revertOrClearSelection();
+    }
+
+    // reset the flag
+    this._isClosingAfterCommit = false;
 
     this._isOverlayOpen.set(false);
     this._onTouched();
@@ -667,6 +733,9 @@ export class DatePickerInput implements AfterViewInit, ControlValueAccessor {
     if (inProgressMode !== committedMode) {
       this.partialRangeSelectionTypeChange.emit(inProgressMode);
     }
+
+    // set flag to indicate we're closing after a commit (not a cancellation)
+    this._isClosingAfterCommit = true;
 
     // close the overlay
     this._closeOverlay();

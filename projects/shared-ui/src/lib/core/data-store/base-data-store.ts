@@ -97,6 +97,13 @@ export abstract class BaseDataStore<T> {
     }));
   }
 
+  protected pushLocalData(items: T[]): void {
+    this.state.update((currentState) => ({
+      ...currentState,
+      data: [...currentState.data, ...items],
+    }));
+  }
+
   protected updateLocalData(updateItem: T): void {
     this.state.update((currentState) => {
       const existingUserIndex = currentState.data.findIndex(

@@ -38,21 +38,21 @@ import { Button } from '../button/button';
       </div>
 
       <div class="flex flex-wrap gap-2">
-        <org-button color="primary" size="sm" (click)="paginationStore.firstPage()"> First Page </org-button>
-        <org-button color="primary" size="sm" (click)="paginationStore.previousPage()"> Previous Page </org-button>
-        <org-button color="primary" size="sm" (click)="paginationStore.nextPage()"> Next Page </org-button>
-        <org-button color="primary" size="sm" (click)="paginationStore.lastPage()"> Last Page </org-button>
+        <org-button color="primary" size="sm" (click)="paginationStore.goToFirstPage()"> First Page </org-button>
+        <org-button color="primary" size="sm" (click)="paginationStore.goToPreviousPage()"> Previous Page </org-button>
+        <org-button color="primary" size="sm" (click)="paginationStore.goToNextPage()"> Next Page </org-button>
+        <org-button color="primary" size="sm" (click)="paginationStore.goToLastPage()"> Last Page </org-button>
         <org-button color="secondary" size="sm" (click)="paginationStore.goToPage(5)"> Go to Page 5 </org-button>
-        <org-button color="secondary" size="sm" (click)="paginationStore.setItemsPerPage(20)">
+        <org-button color="secondary" size="sm" (click)="paginationStore.setState({ itemsPerPage: 20 })">
           Set Items Per Page: 20
         </org-button>
-        <org-button color="secondary" size="sm" (click)="paginationStore.setItemsPerPage(50)">
+        <org-button color="secondary" size="sm" (click)="paginationStore.setState({ itemsPerPage: 50 })">
           Set Items Per Page: 50
         </org-button>
-        <org-button color="neutral" size="sm" (click)="paginationStore.setTotalItems(100)">
+        <org-button color="neutral" size="sm" (click)="paginationStore.setState({ totalItems: 100 })">
           Set Total Items: 100
         </org-button>
-        <org-button color="neutral" size="sm" (click)="paginationStore.setTotalItems(500)">
+        <org-button color="neutral" size="sm" (click)="paginationStore.setState({ totalItems: 500 })">
           Set Total Items: 500
         </org-button>
       </div>
@@ -64,9 +64,9 @@ class PaginationDemo {
 
   constructor() {
     this.paginationStore.initialize({
-      defaultCurrentPage: 1,
-      defaultTotalItems: 250,
-      defaultItemsPerPage: 10,
+      currentPage: 1,
+      totalItems: 250,
+      itemsPerPage: 10,
       visiblePages: 7,
       itemsPerPageOptions: [5, 10, 20, 50],
       disabled: false,
@@ -112,16 +112,13 @@ const meta: Meta<PaginationStore> = {
   - **visiblePages**: Number of visible page buttons
 
   ### Methods
-  - **initialize(config)**: Initialize pagination with configuration
-  - **setTotalItems(total)**: Update total items count
-  - **setCurrentPage(page)**: Set specific page number
-  - **setItemsPerPage(itemsPerPage)**: Change items per page
+  - **initialize(state)**: Initialize pagination with initial state
+  - **setState(partialState)**: Update pagination state (validates and applies changes)
   - **goToPage(page)**: Navigate to specific page
-  - **previousPage()**: Navigate to previous page
-  - **nextPage()**: Navigate to next page
-  - **firstPage()**: Navigate to first page
-  - **lastPage()**: Navigate to last page
-  - **updateConfig(config)**: Update pagination configuration
+  - **goToPreviousPage()**: Navigate to previous page
+  - **goToNextPage()**: Navigate to next page
+  - **goToFirstPage()**: Navigate to first page
+  - **goToLastPage()**: Navigate to last page
 
   ### Usage Examples
   \`\`\`typescript
@@ -130,24 +127,22 @@ const meta: Meta<PaginationStore> = {
 
   // initialize with configuration
   this.paginationStore.initialize({
-    defaultCurrentPage: 1,
-    defaultTotalItems: 100,
-    defaultItemsPerPage: 10,
+    currentPage: 1,
+    totalItems: 100,
+    itemsPerPage: 10,
     visiblePages: 7,
     itemsPerPageOptions: [5, 10, 20, 50],
     disabled: false,
   });
 
   // navigate pages
-  this.paginationStore.nextPage();
-  this.paginationStore.previousPage();
+  this.paginationStore.goToNextPage();
+  this.paginationStore.goToPreviousPage();
   this.paginationStore.goToPage(5);
 
-  // update items per page
-  this.paginationStore.setItemsPerPage(20);
-
-  // update total items (e.g., after data load)
-  this.paginationStore.setTotalItems(250);
+  // update state
+  this.paginationStore.setState({ itemsPerPage: 20 });
+  this.paginationStore.setState({ totalItems: 250 });
 
   // access current state
   const currentPage = this.paginationStore.activePage();

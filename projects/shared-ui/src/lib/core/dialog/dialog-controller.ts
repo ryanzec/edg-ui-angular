@@ -38,6 +38,7 @@ export class DialogController<T> {
   public dialogComponent = input.required<ComponentType<T>>();
   public position = input<DialogPosition>('center');
   public hasRoundedCorners = input<boolean>(true);
+  public hasBackdrop = input<boolean>(true);
 
   /**
    * This disables the close on click outside of the dialog
@@ -69,7 +70,7 @@ export class DialogController<T> {
         hasRoundedCorners: this.hasRoundedCorners(),
       },
       panelClass: this._getPanelClass(),
-      hasBackdrop: true,
+      hasBackdrop: this.hasBackdrop(),
       closeOnNavigation: true,
       disableClose: this.enableCloseOnClickOutside() === false,
     });

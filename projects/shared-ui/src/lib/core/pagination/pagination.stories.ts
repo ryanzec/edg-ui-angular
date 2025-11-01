@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { Pagination } from './pagination';
-import { PaginationStore } from '../pagination-store/pagination-store';
 import { StorybookExampleContainer } from '../../private/storybook-example-container/storybook-example-container';
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
 
@@ -30,44 +29,43 @@ const meta: Meta<Pagination> = {
   ### Key Options
   - **visiblePages**: Number of page buttons to display (default: 7, recommended: odd numbers)
   - **itemsPerPageOptions**: Array of options for items per page selector (default: [5, 10, 20, 50])
-  - **defaultTotalItems**: Total number of items in the dataset
-  - **defaultItemsPerPage**: Initial items per page value
-  - **defaultCurrentPage**: Initial active page (default: 1)
+  - **totalItems**: Total number of items in the dataset
+  - **itemsPerPage**: Initial items per page value
+  - **currentPage**: Initial active page (default: 1)
   - **disabled**: Disables all pagination interactions
 
   ### Usage Examples
-  \`\`\`html
+  \\\`\\\`\\\`html
   <!-- Basic pagination -->
   <org-pagination
-    [defaultTotalItems]="100"
-    [defaultItemsPerPage]="10"
+    [totalItems]="100"
+  />
+
+  <!-- Pagination with two-way binding -->
+  <org-pagination
+    [totalItems]="500"
+    [(currentPage)]="currentPage"
+    [(itemsPerPage)]="itemsPerPage"
   />
 
   <!-- Pagination with custom visible pages -->
   <org-pagination
-    [defaultTotalItems]="500"
-    [defaultItemsPerPage]="20"
+    [totalItems]="1000"
+    [(currentPage)]="currentPage"
+    [(itemsPerPage)]="itemsPerPage"
     [visiblePages]="5"
-  />
-
-  <!-- Pagination with events -->
-  <org-pagination
-    [defaultTotalItems]="1000"
-    [defaultItemsPerPage]="50"
-    (pageChanged)="onPageChange($event)"
-    (itemsPerPageChanged)="onItemsPerPageChange($event)"
   />
 
   <!-- Disabled pagination -->
   <org-pagination
-    [defaultTotalItems]="100"
+    [totalItems]="100"
     [disabled]="true"
   />
-  \`\`\`
+  \\\`\\\`\\\`
 
-  ### Events
-  - **pageChanged**: Emitted when the current page changes (emits page number)
-  - **itemsPerPageChanged**: Emitted when items per page selection changes (emits items per page value)
+  ### Two-Way Binding
+  - **currentPage**: Current active page (use \\\`[(currentPage)]\\\` for two-way binding)
+  - **itemsPerPage**: Items per page (use \\\`[(itemsPerPage)]\\\` for two-way binding)
 </div>
 \`\`\`
         `,
@@ -81,32 +79,32 @@ type Story = StoryObj<Pagination>;
 
 export const Default: Story = {
   args: {
-    defaultCurrentPage: 1,
-    defaultTotalItems: 100,
-    defaultItemsPerPage: 10,
-    defaultVisiblePages: 7,
-    defaultItemsPerPageOptions: [5, 10, 20, 50],
+    currentPage: 1,
+    totalItems: 100,
+    itemsPerPage: 10,
+    visiblePages: 7,
+    itemsPerPageOptions: [5, 10, 20, 50],
     disabled: false,
   },
   argTypes: {
-    defaultCurrentPage: {
+    currentPage: {
       control: 'number',
       description: 'The initial active page',
     },
-    defaultTotalItems: {
+    totalItems: {
       control: 'number',
       description: 'Total number of items in the dataset',
     },
-    defaultItemsPerPage: {
+    itemsPerPage: {
       control: 'select',
       options: [5, 10, 20, 50],
       description: 'Initial items per page value',
     },
-    defaultVisiblePages: {
+    visiblePages: {
       control: 'number',
       description: 'Number of page buttons to display (odd numbers recommended)',
     },
-    defaultItemsPerPageOptions: {
+    itemsPerPageOptions: {
       control: 'object',
       description: 'Array of options for items per page selector',
     },
@@ -126,17 +124,16 @@ export const Default: Story = {
     props: args,
     template: `
       <org-pagination
-        [defaultCurrentPage]="defaultCurrentPage"
-        [defaultTotalItems]="defaultTotalItems"
-        [defaultItemsPerPage]="defaultItemsPerPage"
-        [defaultItemsPerPageOptions]="defaultItemsPerPageOptions"
+        [(currentPage)]="currentPage"
+        [totalItems]="totalItems"
+        [(itemsPerPage)]="itemsPerPage"
+        [visiblePages]="visiblePages"
         [itemsPerPageOptions]="itemsPerPageOptions"
         [disabled]="disabled"
       />
     `,
     moduleMetadata: {
       imports: [Pagination],
-      providers: [PaginationStore],
     },
   }),
 };
@@ -157,23 +154,20 @@ export const DatasetSizes: Story = {
       >
         <org-storybook-example-container-section label="Small Dataset (25 items)">
           <org-pagination
-            [defaultTotalItems]="25"
-            [defaultItemsPerPage]="10"
+            [totalItems]="25"
           />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Medium Dataset (100 items)">
           <org-pagination
-            [defaultTotalItems]="100"
-            [defaultItemsPerPage]="10"
+            [totalItems]="100"
           />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Large Dataset (1000 items)">
           <org-pagination
-            [defaultTotalItems]="1000"
-            [defaultItemsPerPage]="20"
-            [defaultCurrentPage]="25"
+            [totalItems]="1000"
+            [currentPage]="25"
           />
         </org-storybook-example-container-section>
 
@@ -186,7 +180,6 @@ export const DatasetSizes: Story = {
     `,
     moduleMetadata: {
       imports: [Pagination, StorybookExampleContainer, StorybookExampleContainerSection],
-      providers: [PaginationStore],
     },
   }),
 };
@@ -207,25 +200,22 @@ export const PagePositions: Story = {
       >
         <org-storybook-example-container-section label="First Page">
           <org-pagination
-            [defaultTotalItems]="500"
-            [defaultItemsPerPage]="10"
-            [defaultCurrentPage]="1"
+            [totalItems]="500"
+            [currentPage]="1"
           />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Middle Page">
           <org-pagination
-            [defaultTotalItems]="500"
-            [defaultItemsPerPage]="10"
-            [defaultCurrentPage]="25"
+            [totalItems]="500"
+            [currentPage]="25"
           />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Last Page">
           <org-pagination
-            [defaultTotalItems]="500"
-            [defaultItemsPerPage]="10"
-            [defaultCurrentPage]="50"
+            [totalItems]="500"
+            [currentPage]="50"
           />
         </org-storybook-example-container-section>
 
@@ -238,7 +228,6 @@ export const PagePositions: Story = {
     `,
     moduleMetadata: {
       imports: [Pagination, StorybookExampleContainer, StorybookExampleContainerSection],
-      providers: [PaginationStore],
     },
   }),
 };
@@ -259,27 +248,24 @@ export const VisiblePageVariations: Story = {
       >
         <org-storybook-example-container-section label="5 Visible Pages (Compact)">
           <org-pagination
-            [defaultTotalItems]="500"
-            [defaultItemsPerPage]="10"
-            [defaultCurrentPage]="25"
+            [totalItems]="500"
+            [currentPage]="25"
             [visiblePages]="5"
           />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="7 Visible Pages (Default)">
           <org-pagination
-            [defaultTotalItems]="500"
-            [defaultItemsPerPage]="10"
-            [defaultCurrentPage]="25"
+            [totalItems]="500"
+            [currentPage]="25"
             [visiblePages]="7"
           />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="11 Visible Pages (Expanded)">
           <org-pagination
-            [defaultTotalItems]="500"
-            [defaultItemsPerPage]="10"
-            [defaultCurrentPage]="25"
+            [totalItems]="500"
+            [currentPage]="25"
             [visiblePages]="11"
           />
         </org-storybook-example-container-section>
@@ -294,7 +280,6 @@ export const VisiblePageVariations: Story = {
     `,
     moduleMetadata: {
       imports: [Pagination, StorybookExampleContainer, StorybookExampleContainerSection],
-      providers: [PaginationStore],
     },
   }),
 };
@@ -315,24 +300,22 @@ export const ItemsPerPageOptions: Story = {
       >
         <org-storybook-example-container-section label="Standard Options (5, 10, 20, 50)">
           <org-pagination
-            [defaultTotalItems]="300"
-            [defaultItemsPerPage]="10"
+            [totalItems]="300"
             [itemsPerPageOptions]="[5, 10, 20, 50]"
           />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Custom Options (10, 25, 50, 100)">
           <org-pagination
-            [defaultTotalItems]="300"
-            [defaultItemsPerPage]="25"
+            [totalItems]="300"
+            [itemsPerPage]="25"
             [itemsPerPageOptions]="[10, 25, 50, 100]"
           />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Fewer Options (10, 50)">
           <org-pagination
-            [defaultTotalItems]="300"
-            [defaultItemsPerPage]="10"
+            [totalItems]="300"
             [itemsPerPageOptions]="[10, 50]"
           />
         </org-storybook-example-container-section>
@@ -347,7 +330,6 @@ export const ItemsPerPageOptions: Story = {
     `,
     moduleMetadata: {
       imports: [Pagination, StorybookExampleContainer, StorybookExampleContainerSection],
-      providers: [PaginationStore],
     },
   }),
 };
@@ -368,17 +350,15 @@ export const States: Story = {
       >
         <org-storybook-example-container-section label="Normal (Enabled)">
           <org-pagination
-            [defaultTotalItems]="100"
-            [defaultItemsPerPage]="10"
-            [defaultCurrentPage]="5"
+            [totalItems]="100"
+            [currentPage]="5"
           />
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Disabled">
           <org-pagination
-            [defaultTotalItems]="100"
-            [defaultItemsPerPage]="10"
-            [defaultCurrentPage]="5"
+            [totalItems]="100"
+            [currentPage]="5"
             [disabled]="true"
           />
         </org-storybook-example-container-section>
@@ -392,7 +372,6 @@ export const States: Story = {
     `,
     moduleMetadata: {
       imports: [Pagination, StorybookExampleContainer, StorybookExampleContainerSection],
-      providers: [PaginationStore],
     },
   }),
 };

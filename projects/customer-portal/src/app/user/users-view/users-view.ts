@@ -12,11 +12,8 @@ import {
 } from '@angular/core';
 import {
   UsersList,
-  PaginationStore,
   UsersDataStore,
   UsersListFilterValues,
-  USERS_LIST_PAGINATION_STORE,
-  UsersListSortingData,
   GlobalNotificationManager,
   LogManager,
   Button,
@@ -35,22 +32,15 @@ import { DialogRef } from '@angular/cdk/dialog';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { isEqual } from 'es-toolkit';
+import { SortingDirection } from 'projects/shared-ui/src/lib/core/sorting-store/sorting-store';
 @Component({
   selector: 'cp-users-view',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [UsersList, DialogController, Button, Card, CardHeader, CardContent],
-  providers: [
-    PaginationStore,
-    {
-      provide: USERS_LIST_PAGINATION_STORE,
-      useExisting: PaginationStore,
-    },
-  ],
   templateUrl: './users-view.html',
 })
 export class UsersView implements AfterViewInit {
   private readonly _usersDataStore = inject(UsersDataStore);
-  private readonly _paginationStore = inject(USERS_LIST_PAGINATION_STORE);
   private readonly _globalNotificationManager = inject(GlobalNotificationManager);
   private readonly _logManager = inject(LogManager);
   private readonly _injector = inject(Injector);
@@ -66,13 +56,15 @@ export class UsersView implements AfterViewInit {
   protected readonly UserFormDialogComponent = UserFormDialog;
   protected readonly UserDeleteDialogComponent = UserDeleteDialog;
 
-  public readonly users = this._usersDataStore.data;
-  public readonly usersInitialized = this._usersDataStore.hasInitialized;
-  public readonly loadingState = this._usersDataStore.loadingState;
-  public readonly usersError = this._usersDataStore.error;
-
-  @ViewChild('usersListComponent')
-  public usersListComponent!: UsersList;
+  protected readonly totalItems = signal<number>(0);
+  protected readonly currentPage = signal<number>(1);
+  protected readonly itemsPerPage = signal<number>(1);
+  protected readonly sortKey = signal<string | null>('createdAt');
+  protected readonly sortDirection = signal<SortingDirection | null>('desc');
+  protected readonly users = this._usersDataStore.data;
+  protected readonly usersInitialized = this._usersDataStore.hasInitialized;
+  protected readonly loadingState = this._usersDataStore.loadingState;
+  protected readonly usersError = this._usersDataStore.error;
 
   @ViewChild('userFormDialogController')
   public userFormDialogController!: DialogController<UserFormDialog>;
@@ -81,20 +73,48 @@ export class UsersView implements AfterViewInit {
   public userDeleteDialogController!: DialogController<UserDeleteDialog>;
 
   constructor() {
-    this._paginationStore.initialize({
-      itemsPerPageOptions: [1, 2, 5, 10],
-    });
-
-    // sync pagination data
+    // sync the pagination data with the meta response from the latest fetch request since the total item count
+    // can change between requests
     effect(() => {
       const totalItemCount = this._usersDataStore.totalItemCount();
-      const currentPage = this._usersDataStore.currentPage();
-      const limit = this._usersDataStore.limit();
 
       untracked(() => {
-        this._paginationStore.setTotalItems(totalItemCount);
-        this._paginationStore.setCurrentPage(currentPage);
-        this._paginationStore.setItemsPerPage(limit);
+        this.totalItems.set(totalItemCount);
+      });
+    });
+
+    // sync page / items per page update to request new data based on those values
+    effect(() => {
+      const currentPage = this.currentPage();
+      const itemsPerPage = this.itemsPerPage();
+
+      untracked(() => {
+        // since we are changing this data it can't be part of the main effect otherwise it will cause a infinite loop
+        const requestData = structuredClone(this._fetchRequestData());
+
+        requestData.offset = (currentPage - 1) * itemsPerPage;
+        requestData.limit = itemsPerPage;
+
+        this._fetchRequestData.set(requestData);
+      });
+    });
+
+    effect(() => {
+      const sortKey = this.sortKey();
+      const sortDirection = this.sortDirection();
+
+      untracked(() => {
+        const requestData = structuredClone(this._fetchRequestData());
+
+        delete requestData.orderBy;
+        delete requestData.orderDirection;
+
+        if (sortKey && sortDirection) {
+          requestData.orderBy = sortKey as GetUsersRequest['orderBy'];
+          requestData.orderDirection = sortDirection;
+        }
+
+        this._fetchRequestData.set(requestData);
       });
     });
   }
@@ -146,11 +166,11 @@ export class UsersView implements AfterViewInit {
     this._openFormDialog(null);
   }
 
-  protected onUserEdit(user: User): void {
+  protected onEditUser(user: User): void {
     this._openFormDialog(user);
   }
 
-  protected onUserDelete(user: User): void {
+  protected onDeleteUser(user: User): void {
     this._selectedUser.set(user);
 
     this._userDeleteDialogRef = this.userDeleteDialogController.openDialog({
@@ -228,35 +248,15 @@ export class UsersView implements AfterViewInit {
     this._fetchRequestData.set(requestData);
   }
 
-  protected onSortingChanged(sorting: UsersListSortingData): void {
-    const requestData = structuredClone(this._fetchRequestData());
-
-    requestData.orderBy = sorting.key as GetUsersRequest['orderBy'];
-    requestData.orderDirection = sorting.direction;
-
-    this._fetchRequestData.set(requestData);
-  }
-
-  protected onPageChanged(page: number): void {
-    const requestData = structuredClone(this._fetchRequestData());
-
-    requestData.offset = (page - 1) * this._paginationStore.activeItemsPerPage();
-    requestData.limit = this._paginationStore.activeItemsPerPage();
-
-    this._fetchRequestData.set(requestData);
-  }
-
-  protected onItemsPerPageChanged(itemsPerPage: number): void {
-    const requestData = structuredClone(this._fetchRequestData());
-
-    requestData.offset = 0;
-    requestData.limit = itemsPerPage;
-
-    this._fetchRequestData.set(requestData);
-  }
-
   protected clearSelectedUser(): void {
     this._selectedUser.set(null);
+  }
+
+  protected onRequestMoreUsers(): void {
+    this._usersDataStore.fetch({
+      offset: this._usersDataStore.offset() + this._usersDataStore.limit(),
+      limit: this._usersDataStore.limit(),
+    });
   }
 
   private async _processUserForm(formData: UserFormData): Promise<void> {

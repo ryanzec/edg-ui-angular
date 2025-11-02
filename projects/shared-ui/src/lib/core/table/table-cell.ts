@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, computed } from '@angular/core';
 import { tailwindUtils } from '@organization/shared-utils';
 
 @Component({
@@ -37,9 +37,10 @@ import { tailwindUtils } from '@organization/shared-utils';
   },
 })
 export class TableCell {
-  public useEllipsis = input<boolean>(false);
-  public ellipsisLines = input<number>(1);
+  public ellipsisLines = input<number>(0);
   public containerClass = input<string>('');
+
+  public useEllipsis = computed<boolean>(() => this.ellipsisLines() > 0);
 
   public mergeClasses = tailwindUtils.merge;
 }

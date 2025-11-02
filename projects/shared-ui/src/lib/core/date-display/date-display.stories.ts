@@ -334,7 +334,7 @@ export const DisplayModes: Story = {
         currentState="Comparing inline and block display"
       >
         <org-storybook-example-container-section label="Inline (default)">
-          <div>
+          <div class="text-sm">
             Event on <org-date-display
               [date]="sampleDate"
               [timeFormat]="TimeFormat.STANDARD"
@@ -344,7 +344,7 @@ export const DisplayModes: Story = {
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Block">
-          <div>
+          <div class="text-sm">
             <div>Event Details:</div>
             <org-date-display
               [date]="sampleDate"

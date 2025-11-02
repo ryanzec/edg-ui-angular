@@ -3,6 +3,7 @@ import { tailwindUtils } from 'projects/shared-utils/src/utils/tailwind';
 import { GlobalNotificationManager } from '../global-notification-manager/global-notification-manager';
 import { Card } from '../card/card';
 import { Button } from '../button/button';
+import { CardContent } from '../card/card-content';
 
 export type GlobalNotificationsXPosition = 'left' | 'center' | 'right';
 
@@ -15,7 +16,7 @@ export const globalNotificationsYPositions: GlobalNotificationsYPosition[] = ['t
 @Component({
   selector: 'org-global-notifications',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Card, Button],
+  imports: [Card, CardContent, Button],
   templateUrl: './global-notifications.html',
   host: {
     ['attr.data-testid']: 'global-notifications',

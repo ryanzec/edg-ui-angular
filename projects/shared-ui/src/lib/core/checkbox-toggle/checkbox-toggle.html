@@ -1,4 +1,4 @@
-<div class="org-checkbox-toggle inline-block w-full">
+<div class="org-checkbox-toggle inline-flex w-full">
   <label
     orgText
     [textSize]="textSize()"
@@ -72,23 +72,7 @@
         "
       >
         @if (displayIcon()) {
-          <org-icon
-            [name]="displayIcon()!"
-            [size]="size() === 'sm' ? 'sm' : size() === 'lg' ? 'base' : 'sm'"
-            class="text-checkbox-toggle-icon"
-          />
-        } @else if (displayText()) {
-          <span
-            class="text-checkbox-toggle-icon"
-            [class]="
-              mergeClasses({
-                'text-[8px]': size() === 'sm',
-                'text-[10px]': size() === 'base',
-                'text-xs': size() === 'lg',
-              })
-            "
-            >{{ displayText() }}</span
-          >
+          <org-icon [name]="displayIcon()!" [size]="iconSize()" class="text-checkbox-toggle-icon p1" />
         }
       </div>
     </div>

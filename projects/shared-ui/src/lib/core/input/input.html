@@ -43,14 +43,14 @@
         [attr.aria-label]="'Pre icon'"
         [tabindex]="isPreIconClickable() === false || isDisabled() ? -1 : 0"
       >
-        <org-icon [name]="preIcon()!" size="base" />
+        <org-icon [name]="preIcon()!" />
       </button>
     }
     <input
       #inputRef
       [class]="
         mergeClasses(
-          'flex-1 bg-transparent border-0 outline-none placeholder-input-text-placeholder text-base',
+          'flex-1 bg-transparent border-0 outline-none placeholder-input-text-placeholder text-sm',
           'selection:bg-input-selection',
           {
             'cursor-not-allowed': isDisabled(),
@@ -97,7 +97,7 @@
         "
         [tabindex]="(showPasswordToggle() === false && isPostIconClickable()) === false || isDisabled() ? -1 : 0"
       >
-        <org-icon [name]="currentPostIcon()!" size="base" />
+        <org-icon [name]="currentPostIcon()!" />
       </button>
     }
   </div>

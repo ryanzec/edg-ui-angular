@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, input, computed } from '@angular/core';
 import { type DateTime } from 'luxon';
 import { DateFormat, TimeFormat } from '@organization/shared-utils';
-import { TextDirective } from '../text-directive/text-directive';
+import { TextDirective, TextSize } from '../text-directive/text-directive';
 
 @Component({
   selector: 'org-date-display',
@@ -20,6 +20,7 @@ export class DateDisplay {
   public showTimezone = input<boolean>(true);
   public isInline = input<boolean>(true);
   public containerClass = input<string>('');
+  public textSize = input<TextSize>('sm');
 
   public isDateValid = computed<boolean>(() => {
     return this.date().isValid;

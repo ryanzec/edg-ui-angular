@@ -185,7 +185,6 @@ public containerClass = input<string>('');
 public iconClass = input<string>('');
 public inputClass = input<string>('');
 ```
-- ALWAYS default size inputs to `base`
 - ALWAYS use `Extract<>` on the ComponentSize type in `projects/shared-ui/src/lib/core/types/component-types.ts` when a component has a size type input for defining the component's size
 ```ts
 export type TestSize = Extract<ComponentSize, 'sm' | 'base' | 'lg'>;

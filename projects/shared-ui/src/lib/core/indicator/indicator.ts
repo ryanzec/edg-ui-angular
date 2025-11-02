@@ -1,8 +1,10 @@
 import { Component, ChangeDetectionStrategy, input, computed } from '@angular/core';
-import { ComponentColor } from '../types/component-types';
+import { ComponentColor, ComponentSize } from '../types/component-types';
 import { tailwindUtils } from '@organization/shared-utils';
 
 export type IndicatorColor = ComponentColor;
+
+export type IndicatorSize = Extract<ComponentSize, 'sm' | 'base' | 'lg'>;
 
 @Component({
   selector: 'org-indicator',
@@ -18,6 +20,7 @@ export class Indicator {
   public color = input<IndicatorColor>('primary');
   public number = input<number | null>(null);
   public containerClass = input<string>('');
+  public size = input<IndicatorSize>('sm');
 
   public readonly displayValue = computed<string>(() => {
     const num = this.number();

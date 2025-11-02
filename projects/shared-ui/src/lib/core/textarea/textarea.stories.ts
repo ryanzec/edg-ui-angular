@@ -4,6 +4,7 @@ import { iconNames } from '../icon/icon';
 import { FormField } from '../form-field/form-field';
 import { StorybookExampleContainer } from '../../private/storybook-example-container/storybook-example-container';
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
+import { FormFields } from '../form-fields/form-fields';
 
 const meta: Meta<Textarea> = {
   title: 'Core/Components/Textarea',
@@ -637,7 +638,7 @@ export const ValidationSpaceReservation: Story = {
         currentState="Comparing space reservation behaviors"
       >
         <org-storybook-example-container-section label="Reserve Space = true (default)">
-          <div class="flex flex-col gap-4">
+          <org-form-fields>
             <org-form-field [reserveValidationSpace]="true">
               <org-textarea
                 name="reserve-true-textarea-1"
@@ -656,11 +657,11 @@ export const ValidationSpaceReservation: Story = {
                 placeholder="Textarea 3 (no error)"
               />
             </org-form-field>
-          </div>
+          </org-form-fields>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Reserve Space = false">
-          <div class="flex flex-col gap-4">
+          <org-form-fields>
             <org-form-field [reserveValidationSpace]="false">
               <org-textarea
                 name="reserve-false-textarea-1"
@@ -679,7 +680,7 @@ export const ValidationSpaceReservation: Story = {
                 placeholder="Textarea 3 (no error)"
               />
             </org-form-field>
-          </div>
+          </org-form-fields>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
@@ -691,7 +692,7 @@ export const ValidationSpaceReservation: Story = {
       </org-storybook-example-container>
     `,
     moduleMetadata: {
-      imports: [Textarea, FormField, StorybookExampleContainer, StorybookExampleContainerSection],
+      imports: [Textarea, FormField, FormFields, StorybookExampleContainer, StorybookExampleContainerSection],
     },
   }),
 };

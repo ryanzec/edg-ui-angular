@@ -83,7 +83,7 @@ export const Default: Story = {
   args: {
     name: 'radio',
     value: 'value',
-    size: 'base',
+    size: 'sm',
     containerClass: '',
   },
   argTypes: {
@@ -418,9 +418,6 @@ export const MultipleGroups: Story = {
               <org-radio value="option3">Option 3</org-radio>
             </org-radio-group>
           </org-form-field>
-        </org-form-fields>
-
-        <org-form-fields>
           <org-form-field>
             <org-label [asLabel]="false" [label]="'Radio Group with Validation Error'" />
             <org-radio-group formControlName="valid" name="valid">
@@ -491,7 +488,7 @@ export const ValidationSpaceReservation: Story = {
         currentState="Comparing space reservation behaviors"
       >
         <org-storybook-example-container-section label="Reserve Space = true (default)">
-          <div class="flex flex-col gap-4">
+          <org-form-fields>
             <org-form-field [reserveValidationSpace]="true">
               <org-radio-group name="reserve-true-group-1">
                 <org-radio value="option1">Option 1 (no error)</org-radio>
@@ -510,11 +507,11 @@ export const ValidationSpaceReservation: Story = {
                 <org-radio value="option2">Option 2 (no error)</org-radio>
               </org-radio-group>
             </org-form-field>
-          </div>
+          </org-form-fields>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Reserve Space = false">
-          <div class="flex flex-col gap-4">
+          <org-form-fields>
             <org-form-field [reserveValidationSpace]="false">
               <org-radio-group name="reserve-false-group-1">
                 <org-radio value="option1">Option 1 (no error)</org-radio>
@@ -533,7 +530,7 @@ export const ValidationSpaceReservation: Story = {
                 <org-radio value="option2">Option 2 (no error)</org-radio>
               </org-radio-group>
             </org-form-field>
-          </div>
+          </org-form-fields>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
@@ -545,7 +542,7 @@ export const ValidationSpaceReservation: Story = {
       </org-storybook-example-container>
     `,
     moduleMetadata: {
-      imports: [Radio, RadioGroup, FormField, StorybookExampleContainer, StorybookExampleContainerSection],
+      imports: [Radio, RadioGroup, FormField, FormFields, StorybookExampleContainer, StorybookExampleContainerSection],
     },
   }),
 };

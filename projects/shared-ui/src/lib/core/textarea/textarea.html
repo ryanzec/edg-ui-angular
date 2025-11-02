@@ -44,14 +44,14 @@
         [disabled]="isDisabled() || isReadonly()"
         [attr.aria-label]="'Pre icon'"
       >
-        <org-icon [name]="preIcon()!" size="base" />
+        <org-icon [name]="preIcon()!" />
       </button>
     }
     <textarea
       #textareaRef
       [class]="
         mergeClasses(
-          'flex-1 border-0 outline-none placeholder-textarea-text-placeholder text-base resize-none bg-transparent',
+          'flex-1 border-0 outline-none placeholder-textarea-text-placeholder text-sm resize-none bg-transparent',
           'selection:bg-textarea-selection',
           {
             'cursor-not-allowed': isDisabled(),
@@ -91,7 +91,7 @@
         [disabled]="isDisabled() || isReadonly()"
         [attr.aria-label]="'Post icon'"
       >
-        <org-icon [name]="postIcon()!" size="base" />
+        <org-icon [name]="postIcon()!" />
       </button>
     }
   </div>

@@ -1,3 +1,8 @@
-<span orgText [textColor]="isDateValid() ? null : 'neutral'" [class]="isInline() ? 'inline' : 'block'">
+<span
+  orgText
+  [textSize]="textSize()"
+  [textColor]="isDateValid() ? null : 'neutral'"
+  [class]="isInline() ? 'inline' : 'block'"
+>
   {{ formattedDate() }}
 </span>

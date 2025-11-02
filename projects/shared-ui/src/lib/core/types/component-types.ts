@@ -11,6 +11,6 @@ export const componentColors: ComponentColor[] = [
   'danger',
 ];
 
-export type ComponentSize = 'xs' | 'sm' | 'base' | 'lg' | 'xl' | '2xl';
+export type ComponentSize = '2xs' | 'xs' | 'sm' | 'base' | 'lg' | 'xl' | '2xl';
 
 export const componentSizes: ComponentSize[] = ['xs', 'sm', 'base', 'lg', 'xl', '2xl'];

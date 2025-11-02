@@ -1,9 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/angular';
-import { Tag, tagVariants } from './tag';
+import { Tag, tagVariants, type TagSize } from './tag';
 import { iconNames } from '../icon/icon';
 import { componentColors } from '../types/component-types';
 import { StorybookExampleContainer } from '../../private/storybook-example-container/storybook-example-container';
 import { StorybookExampleContainerSection } from '../../private/storybook-example-container-section/storybook-example-container-section';
+
+const tagSizes: TagSize[] = ['xs', 'sm', 'base'];
 
 const meta: Meta<Tag> = {
   title: 'Core/Components/Tag',
@@ -19,6 +21,7 @@ const meta: Meta<Tag> = {
   A flexible tag/badge component with multiple color schemes, variants, icons, and removable functionality.
 
   ### Features
+  - Three size options: xs, sm (default), and base
   - Two visual variants: weak (default) and strong
   - Eight color options: primary, secondary, neutral, safe, info, caution, warning, danger
   - Optional pre and post icons
@@ -75,6 +78,7 @@ type Story = StoryObj<Tag>;
 export const Default: Story = {
   args: {
     color: 'primary',
+    size: 'sm',
     variant: 'weak',
     preIcon: null,
     postIcon: null,
@@ -85,6 +89,11 @@ export const Default: Story = {
       control: 'select',
       options: componentColors,
       description: 'The color variant of the tag',
+    },
+    size: {
+      control: 'select',
+      options: tagSizes,
+      description: 'The size of the tag',
     },
     variant: {
       control: 'select',
@@ -119,6 +128,7 @@ export const Default: Story = {
     template: `
       <org-tag
         [color]="color"
+        [size]="size"
         [variant]="variant"
         [preIcon]="preIcon"
         [postIcon]="postIcon"
@@ -129,6 +139,67 @@ export const Default: Story = {
     `,
     moduleMetadata: {
       imports: [Tag],
+    },
+  }),
+};
+
+export const Sizes: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Comparison of all three size options: xs, sm (default), and base.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Size Variants"
+        currentState="Comparing all three size options"
+      >
+        <org-storybook-example-container-section label="Extra Small (xs)">
+          <org-tag color="primary" size="xs">Extra Small</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Small (sm) - Default">
+          <org-tag color="primary" size="sm">Small</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Base">
+          <org-tag color="primary" size="base">Base</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="With Icons - xs">
+          <org-tag color="info" size="xs" preIcon="gear" postIcon="arrow-right">Extra Small</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="With Icons - sm">
+          <org-tag color="info" size="sm" preIcon="gear" postIcon="arrow-right">Small</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="With Icons - base">
+          <org-tag color="info" size="base" preIcon="gear" postIcon="arrow-right">Base</org-tag>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Removable - Different Sizes">
+          <div class="flex flex-wrap items-center gap-2">
+            <org-tag color="safe" size="xs" [removable]="true">xs</org-tag>
+            <org-tag color="safe" size="sm" [removable]="true">sm</org-tag>
+            <org-tag color="safe" size="base" [removable]="true">base</org-tag>
+          </div>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
+          <li><strong>xs</strong>: Extra small size with reduced padding and text</li>
+          <li><strong>sm</strong>: Small size (default)</li>
+          <li><strong>base</strong>: Base size with larger padding and text</li>
+          <li>Icon sizes scale proportionally with tag size</li>
+          <li>All sizes work with all variants and colors</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [Tag, StorybookExampleContainer, StorybookExampleContainerSection],
     },
   }),
 };
@@ -147,37 +218,73 @@ export const Colors: Story = {
         title="Color Variants (Weak)"
         currentState="Comparing all 8 color options with weak variant"
       >
-        <org-storybook-example-container-section label="Primary">
-          <org-tag color="primary">Primary</org-tag>
-        </org-storybook-example-container-section>
+        <div>
+          <org-storybook-example-container-section label="Primary">
+            <org-tag color="primary">Primary</org-tag>
+          </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section label="Secondary">
-          <org-tag color="secondary">Secondary</org-tag>
-        </org-storybook-example-container-section>
+          <org-storybook-example-container-section label="Secondary">
+            <org-tag color="secondary">Secondary</org-tag>
+          </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section label="Neutral">
-          <org-tag color="neutral">Neutral</org-tag>
-        </org-storybook-example-container-section>
+          <org-storybook-example-container-section label="Neutral">
+            <org-tag color="neutral">Neutral</org-tag>
+          </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section label="Safe">
-          <org-tag color="safe">Safe</org-tag>
-        </org-storybook-example-container-section>
+          <org-storybook-example-container-section label="Safe">
+            <org-tag color="safe">Safe</org-tag>
+          </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section label="Info">
-          <org-tag color="info">Info</org-tag>
-        </org-storybook-example-container-section>
+          <org-storybook-example-container-section label="Info">
+            <org-tag color="info">Info</org-tag>
+          </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section label="Caution">
-          <org-tag color="caution">Caution</org-tag>
-        </org-storybook-example-container-section>
+          <org-storybook-example-container-section label="Caution">
+            <org-tag color="caution">Caution</org-tag>
+          </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section label="Warning">
-          <org-tag color="warning">Warning</org-tag>
-        </org-storybook-example-container-section>
+          <org-storybook-example-container-section label="Warning">
+            <org-tag color="warning">Warning</org-tag>
+          </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section label="Danger">
-          <org-tag color="danger">Danger</org-tag>
-        </org-storybook-example-container-section>
+          <org-storybook-example-container-section label="Danger">
+            <org-tag color="danger">Danger</org-tag>
+          </org-storybook-example-container-section>
+        </div>
+
+        <div>
+          <org-storybook-example-container-section label="Primary">
+            <org-tag color="primary" variant="strong">Primary</org-tag>
+          </org-storybook-example-container-section>
+
+          <org-storybook-example-container-section label="Secondary">
+            <org-tag color="secondary" variant="strong">Secondary</org-tag>
+          </org-storybook-example-container-section>
+
+          <org-storybook-example-container-section label="Neutral">
+            <org-tag color="neutral" variant="strong">Neutral</org-tag>
+          </org-storybook-example-container-section>
+
+          <org-storybook-example-container-section label="Safe">
+            <org-tag color="safe" variant="strong">Safe</org-tag>
+          </org-storybook-example-container-section>
+
+          <org-storybook-example-container-section label="Info">
+            <org-tag color="info" variant="strong">Info</org-tag>
+          </org-storybook-example-container-section>
+
+          <org-storybook-example-container-section label="Caution">
+            <org-tag color="caution" variant="strong">Caution</org-tag>
+          </org-storybook-example-container-section>
+
+          <org-storybook-example-container-section label="Warning">
+            <org-tag color="warning" variant="strong">Warning</org-tag>
+          </org-storybook-example-container-section>
+
+          <org-storybook-example-container-section label="Danger">
+            <org-tag color="danger" variant="strong">Danger</org-tag>
+          </org-storybook-example-container-section>
+        </div>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
           <li><strong>primary</strong>: Primary primary color</li>

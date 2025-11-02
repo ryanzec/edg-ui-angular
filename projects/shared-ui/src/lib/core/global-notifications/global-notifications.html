@@ -5,20 +5,22 @@
       class="org-global-notification"
       [style.animation]="getAnimationStyle(notification.id, notification.animationDuration)"
     >
-      <div class="flex items-start justify-between gap-2 p-2">
-        <div class="flex-1">
-          {{ notification.message }}
+      <org-card-content>
+        <div class="flex items-start justify-between gap-2">
+          <div class="flex-1">
+            {{ notification.message }}
+          </div>
+          @if (notification.canClose) {
+            <org-button
+              icon="x"
+              variant="text"
+              color="neutral"
+              [excludeSpacing]="true"
+              (click)="onClose(notification.id)"
+            />
+          }
         </div>
-        @if (notification.canClose) {
-          <org-button
-            icon="x"
-            variant="text"
-            color="neutral"
-            [excludeSpacing]="true"
-            (click)="onClose(notification.id)"
-          />
-        }
-      </div>
+      </org-card-content>
     </org-card>
   }
 </div>

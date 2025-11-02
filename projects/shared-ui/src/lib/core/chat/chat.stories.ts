@@ -23,7 +23,7 @@ const meta: Meta<Chat> = {
   - Status indicators (in-progress, completed, failed)
   - Expandable steps with checklist
   - Duration display
-  - Custom name and actions slots
+  - Custom actions slots
   - Responsive alignment based on message source
 
   ### Message Sources
@@ -423,46 +423,6 @@ export const WithCustomActions: Story = {
     },
     moduleMetadata: {
       imports: [Chat, ChatMessage, StorybookExampleContainer, StorybookExampleContainerSection, Button],
-    },
-  }),
-};
-
-export const WithNameSlot: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: 'Message with custom name slot displayed inline with the message.',
-      },
-    },
-  },
-  render: () => ({
-    template: `
-      <org-storybook-example-container
-        title="Message with Name Slot"
-        currentState="Message with name content"
-      >
-        <org-storybook-example-container-section label="AI Message with Name Badge">
-          <div class="w-[500px]">
-            <org-chat>
-              <org-chat-message [chatMessage]="sampleAiMessage">
-                <span name class="px-2 py-0.5 text-xs rounded-full bg-primary-background text-text-inverse">AI Assistant</span>
-              </org-chat-message>
-            </org-chat>
-          </div>
-        </org-storybook-example-container-section>
-
-        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
-          <li>Name slot content appears on the same line as the message</li>
-          <li>Aligned to the right of the status indicator</li>
-          <li>Use the <code>[name]</code> selector for the ng-content slot</li>
-        </ul>
-      </org-storybook-example-container>
-    `,
-    props: {
-      sampleAiMessage,
-    },
-    moduleMetadata: {
-      imports: [Chat, ChatMessage, StorybookExampleContainer, StorybookExampleContainerSection],
     },
   }),
 };

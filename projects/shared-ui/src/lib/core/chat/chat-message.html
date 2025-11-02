@@ -11,7 +11,7 @@
   <div
     class="flex flex-col"
     [class]="
-      mergeClasses({
+      mergeClasses('text-sm', {
         'max-w-[80%]': chatMessage().source === 'user' || chatMessage().source === 'ai',
         'max-w-[90%]': chatMessage().source === 'system',
       })
@@ -20,7 +20,7 @@
     <!-- message content -->
     <div
       [class]="
-        mergeClasses('px-3 py-2 text-base', {
+        mergeClasses('flex flex-col gap-1 px-3 py-2', {
           'rounded-2xl bg-chat-message-user-background text-chat-message-user-text': chatMessage().source === 'user',
           'rounded-2xl bg-chat-message-ai-background text-chat-message-ai-text': chatMessage().source === 'ai',
           'text-center font-bold text-chat-message-system-text': chatMessage().source === 'system',
@@ -43,20 +43,19 @@
           </org-button>
 
           @if (isStepsExpanded()) {
-            <org-checklist [items]="chatMessage().steps!" containerClass="pl-2" />
+            <org-checklist [items]="chatMessage().steps!" />
           }
         </div>
       }
       <div class="flex items-center gap-2">
         <span class="flex-1">{{ chatMessage().message }}</span>
-        <ng-content select="[name]" />
       </div>
     </div>
   </div>
 
   <!-- metadata section (status, duration, actions) -->
   @if (hasStatus() || hasDuration()) {
-    <div class="flex items-center leading-[1rem] gap-1 text-sm text-chat-message-metadata-text">
+    <div class="flex items-center leading-[1rem] gap-1 text-xs text-chat-message-metadata-text">
       @if (hasStatus()) {
         <div class="flex items-center gap-1.5">
           <org-indicator

@@ -13,7 +13,7 @@
 
   @if (hasError()) {
     <div
-      class="flex items-center justify-center rounded border border-danger-500 bg-danger-50 p-4 text-danger-700"
+      class="flex items-center justify-center rounded border border-danger-500 bg-danger-50 p-4 text-danger-700 h-full"
       style="aspect-ratio: 16/9"
     >
       <p class="text-sm">{{ error() }}</p>
@@ -21,7 +21,7 @@
   }
 
   @if (shouldShowChart()) {
-    <div class="relative w-full" style="aspect-ratio: 16/9">
+    <div class="relative w-full h-full" style="aspect-ratio: 16/9">
       <canvas #canvasRef></canvas>
     </div>
   }

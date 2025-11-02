@@ -25,6 +25,8 @@ const meta: Meta<Icon> = {
   - Accessible with aria-hidden attribute
 
   ### Size Options
+  - **2xs**: 0.625rem / 10px
+  - **xs**: 0.75rem / 12px (text-xs)
   - **small**: 0.875rem / 14px (text-sm)
   - **base**: 1.125rem / 18px (text-lg) - default
   - **large**: 1.25rem / 20px (text-xl)
@@ -92,7 +94,7 @@ export const Default: Story = {
     },
     size: {
       control: 'select',
-      options: ['sm', 'base', 'lg'],
+      options: ['2xs', 'xs', 'sm', 'base', 'lg'],
       description: 'The size of the icon',
     },
     weight: {
@@ -120,7 +122,7 @@ export const Sizes: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Comparison of all available size variants (small, base, large).',
+        story: 'Comparison of all available size variants (2xs, xs, small, base, large).',
       },
     },
   },
@@ -128,8 +130,16 @@ export const Sizes: Story = {
     template: `
       <org-storybook-example-container
         title="Size Variants"
-        currentState="Comparing small, base, and large sizes"
+        currentState="Comparing 2xs, xs, small, base, and large sizes"
       >
+        <org-storybook-example-container-section label="Double Extra Small (0.625rem / 10px)">
+          <org-icon name="check" size="2xs"></org-icon>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Extra Small (text-xs / 12px)">
+          <org-icon name="check" size="xs"></org-icon>
+        </org-storybook-example-container-section>
+
         <org-storybook-example-container-section label="Small (text-sm / 14px)">
           <org-icon name="check" size="sm"></org-icon>
         </org-storybook-example-container-section>
@@ -143,6 +153,8 @@ export const Sizes: Story = {
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
+          <li><strong>2xs</strong>: 0.625rem / 10px</li>
+          <li><strong>xs</strong>: 0.75rem / 12px (text-xs)</li>
           <li><strong>small</strong>: 0.875rem / 14px (text-sm)</li>
           <li><strong>base</strong>: 1.125rem / 18px (text-lg) - default</li>
           <li><strong>large</strong>: 1.25rem / 20px (text-xl)</li>

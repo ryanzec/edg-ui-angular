@@ -169,6 +169,55 @@ export const Colors: Story = {
   }),
 };
 
+export const Sizes: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Comparison of all size variants (sm, base, lg) with and without numbers.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Size Variants"
+        currentState="Comparing all 3 size options"
+      >
+        <org-storybook-example-container-section label="Small (sm)">
+          <div class="flex gap-4 items-center">
+            <org-indicator color="primary" size="sm" />
+            <org-indicator color="primary" size="sm" [number]="5" />
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Base (default)">
+          <div class="flex gap-4 items-center">
+            <org-indicator color="primary" size="base" />
+            <org-indicator color="primary" size="base" [number]="5" />
+          </div>
+        </org-storybook-example-container-section>
+
+        <org-storybook-example-container-section label="Large (lg)">
+          <div class="flex gap-4 items-center">
+            <org-indicator color="primary" size="lg" />
+            <org-indicator color="primary" size="lg" [number]="5" />
+          </div>
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
+          <li><strong>sm</strong>: 10x10px dot (without number)</li>
+          <li><strong>base</strong>: 14x14px dot (default, without number)</li>
+          <li><strong>lg</strong>: 18x18px dot (without number)</li>
+          <li>Note: Size only affects the dot state; numbered badges maintain consistent sizing</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [Indicator, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
 export const WithNumbers: Story = {
   parameters: {
     docs: {

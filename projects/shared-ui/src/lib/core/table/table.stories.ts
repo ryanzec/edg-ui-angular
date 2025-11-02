@@ -451,9 +451,9 @@ class FullFeaturedTableDemo {
         </ng-template>
         <ng-template #body let-user>
           <org-table-tr>
-            <org-table-td [useEllipsis]="true" [ellipsisLines]="2">{{ user.name }}</org-table-td>
-            <org-table-td [useEllipsis]="true" [ellipsisLines]="2">{{ user.email }}</org-table-td>
-            <org-table-td [useEllipsis]="true" [ellipsisLines]="2">{{ user.description }}</org-table-td>
+            <org-table-td [ellipsisLines]="2">{{ user.name }}</org-table-td>
+            <org-table-td [ellipsisLines]="2">{{ user.email }}</org-table-td>
+            <org-table-td [ellipsisLines]="2">{{ user.description }}</org-table-td>
           </org-table-tr>
         </ng-template>
       </org-table>
@@ -766,7 +766,7 @@ const meta: Meta<Table> = {
   - **Sorting**: Use \`orgSortable\` directive on table headers wrapped in divs
   - **Pagination**: Integrate with \`org-pagination\` component
   - **Selection**: Use \`DataSelectionStore\` service for row selection
-  - **Ellipsis**: Set \`[useEllipsis]="true"\` and \`[ellipsisLines]="2"\` on \`org-table-td\`
+  - **Ellipsis**: Set \`[ellipsisLines]="2"\` on \`org-table-td\` to enable text truncation (ellipsis is automatically enabled when ellipsisLines > 0)
   - **Dynamic Widths**: Use \`containerClass\` input on headers/cells (e.g., \`containerClass="w-[50px]"\`)
   - **Loading States**: Use \`isLoading\` for initial loads (blocks table), \`isBackgroundLoading\` for refreshes (shows spinner)
 </div>
@@ -1033,8 +1033,7 @@ export const WithEllipsis: Story = {
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc space-y-1">
-          <li>Set <code>[useEllipsis]="true"</code> on table cells to enable truncation</li>
-          <li>Use <code>[ellipsisLines]</code> input to control number of lines before truncation (defaults to 1)</li>
+          <li>Set <code>[ellipsisLines]</code> input to control number of lines before truncation (ellipsis is automatically enabled when > 0)</li>
           <li>Ellipsis preserves layout consistency</li>
           <li>Works with both horizontal and vertical scrolling</li>
         </ul>

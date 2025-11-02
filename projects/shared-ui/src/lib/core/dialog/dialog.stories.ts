@@ -15,6 +15,7 @@ export type EXAMPLEDialogData = {
   title: string;
   message: string;
   hasRoundedCorners: boolean;
+  onEscapeKeyToggle?: (enabled: boolean) => void;
 };
 
 @Component({
@@ -63,6 +64,7 @@ class EXAMPLEDialog {
       [position]="position()"
       [hasRoundedCorners]="hasRoundedCorners()"
       [enableCloseOnClickOutside]="enableCloseOnClickOutside()"
+      [showCloseIcon]="showCloseIcon()"
       #dialogControllerComponent
     />
   `,
@@ -76,6 +78,7 @@ export class EXAMPLEStoryDialog {
   public position = input<DialogPosition>('center');
   public enableCloseOnClickOutside = input<boolean>(false);
   public hasRoundedCorners = input<boolean>(true);
+  public showCloseIcon = input<boolean>(true);
 
   @ViewChild('dialogControllerComponent')
   public readonly dialogControllerComponent!: DialogController<EXAMPLEDialog>;
@@ -404,6 +407,223 @@ export const Backdrop: Story = {
     `,
     moduleMetadata: {
       imports: [EXAMPLEStoryDialogWithBackdropToggle, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+@Component({
+  selector: 'org-example-story-dialog-with-close-icon',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [DialogController, Button, CheckboxToggle],
+  template: `
+    <div class="flex flex-col gap-4">
+      <div class="flex items-center gap-2">
+        <org-checkbox-toggle
+          name="showCloseIcon"
+          value="showCloseIcon"
+          [checked]="showCloseIcon()"
+          (checkedChange)="onShowCloseIconToggle($event)"
+        >
+          Show Close Icon
+        </org-checkbox-toggle>
+      </div>
+
+      <org-button (click)="openDialog()">Open Dialog</org-button>
+
+      <org-dialog-controller
+        [dialogComponent]="EXAMPLEDialogComponent"
+        position="center"
+        [showCloseIcon]="showCloseIcon()"
+        #dialogControllerComponent
+      />
+    </div>
+  `,
+  host: {
+    ['attr.data-testid']: 'example-story-dialog-with-close-icon',
+  },
+})
+export class EXAMPLEStoryDialogWithCloseIcon {
+  protected readonly EXAMPLEDialogComponent = EXAMPLEDialog;
+  protected readonly showCloseIcon = signal(true);
+
+  @ViewChild('dialogControllerComponent')
+  public readonly dialogControllerComponent!: DialogController<EXAMPLEDialog>;
+
+  protected openDialog(): void {
+    this.dialogControllerComponent.openDialog({
+      title: 'Dialog with Close Icon',
+      message: 'Try toggling the close icon setting and opening the dialog to see the X button appear/disappear.',
+    });
+  }
+
+  protected onShowCloseIconToggle(value: boolean): void {
+    this.showCloseIcon.set(value);
+  }
+}
+
+export const CloseIcon: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Example demonstrating the close icon (X button) in the dialog. The close icon appears in the top-right corner and allows users to close the dialog. Toggle the setting before opening to control its visibility.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Dialog Close Icon"
+        currentState="Demonstrating dialog close icon (X button)"
+      >
+        <org-storybook-example-container-section label="Try Close Icon Toggle">
+          <org-example-story-dialog-with-close-icon />
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="flex flex-col gap-1 mt-1 list-inside list-disc">
+          <li><strong>Close Icon</strong>: X button appears in the top-right corner when enabled (default: enabled)</li>
+          <li><strong>Click to Close</strong>: Clicking the X button closes the dialog</li>
+          <li><strong>Toggle Setting</strong>: Use the checkbox to enable/disable the close icon before opening the dialog</li>
+          <li><strong>Accessibility</strong>: Close icon has proper aria-label for screen readers</li>
+          <li><strong>Styling</strong>: Matches the global-notifications pattern (text variant, neutral color)</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [EXAMPLEStoryDialogWithCloseIcon, StorybookExampleContainer, StorybookExampleContainerSection],
+    },
+  }),
+};
+
+@Component({
+  standalone: true,
+  selector: 'org-example-dialog-with-escape-toggle',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [Button, DialogHeader, DialogContent, DialogFooter, Dialog, CheckboxToggle],
+  template: `
+    <org-dialog [hasRoundedCorners]="data.hasRoundedCorners">
+      <org-dialog-header [title]="data.title" />
+      <org-dialog-content>
+        <div class="flex flex-col gap-4">
+          <p>{{ data.message }}</p>
+
+          <div class="p-4 bg-secondary-background-subtle rounded-lg">
+            <p class="text-sm font-medium mb-2">Dynamic Close Control</p>
+            <org-checkbox-toggle
+              name="enableEscapeKey"
+              value="enableEscapeKey"
+              [checked]="enableEscapeKey()"
+              (checkedChange)="onEnableEscapeKeyToggle($event)"
+            >
+              Enable Escape Key & Close Icon
+            </org-checkbox-toggle>
+            <p class="text-xs text-text-subtle mt-2">
+              Toggle this checkbox to see the close icon (X button) become enabled/disabled in real-time. When disabled,
+              it appears with reduced opacity and doesn't respond to clicks.
+            </p>
+          </div>
+        </div>
+      </org-dialog-content>
+      <org-dialog-footer>
+        <org-button color="neutral" (clicked)="onCancel()">Cancel</org-button>
+        <org-button color="primary" (clicked)="onConfirm()">Confirm</org-button>
+      </org-dialog-footer>
+    </org-dialog>
+  `,
+  host: {
+    ['attr.data-testid']: 'example-dialog-with-escape-toggle',
+  },
+})
+class EXAMPLEDialogWithEscapeToggle {
+  private readonly _dialogRef = inject(DialogRef<DialogContent>);
+
+  protected readonly data = inject<EXAMPLEDialogData>(DIALOG_DATA);
+  protected readonly enableEscapeKey = signal(true);
+
+  protected onCancel(): void {
+    console.log('cancel button clicked');
+    this._dialogRef.close();
+  }
+
+  protected onConfirm(): void {
+    console.log('confirm button clicked');
+    this._dialogRef.close();
+  }
+
+  protected onEnableEscapeKeyToggle(value: boolean): void {
+    this.enableEscapeKey.set(value);
+    this.data.onEscapeKeyToggle?.(value);
+  }
+}
+
+@Component({
+  selector: 'org-example-story-dialog-dynamic-escape-key',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [DialogController, Button],
+  template: `
+    <div class="flex flex-col gap-4">
+      <org-button (click)="openDialog()">Open Dialog</org-button>
+
+      <org-dialog-controller
+        [dialogComponent]="EXAMPLEDialogWithEscapeToggleComponent"
+        position="center"
+        #dialogControllerComponent
+      />
+    </div>
+  `,
+  host: {
+    ['attr.data-testid']: 'example-story-dialog-dynamic-escape-key',
+  },
+})
+export class EXAMPLEStoryDialogDynamicEscapeKey {
+  protected readonly EXAMPLEDialogWithEscapeToggleComponent = EXAMPLEDialogWithEscapeToggle;
+
+  @ViewChild('dialogControllerComponent')
+  public readonly dialogControllerComponent!: DialogController<EXAMPLEDialogWithEscapeToggle>;
+
+  protected openDialog(): void {
+    this.dialogControllerComponent.openDialog({
+      title: 'Dialog with Dynamic Close Control',
+      message: 'Use the toggle inside this dialog to enable/disable the escape key and close icon.',
+      onEscapeKeyToggle: (enabled: boolean) => {
+        this.dialogControllerComponent.setEnableEscapeKey(enabled);
+      },
+    });
+  }
+}
+
+export const DynamicCloseControl: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Example demonstrating dynamic control of the close icon and escape key. The toggle is inside the dialog itself - use it to see the close icon (X button) become enabled/disabled in real-time. When disabled, the icon appears with reduced opacity and does not respond to clicks. The close icon state is synced with the escape key setting.',
+      },
+    },
+  },
+  render: () => ({
+    template: `
+      <org-storybook-example-container
+        title="Dialog Dynamic Close Control"
+        currentState="Demonstrating dynamic close icon and escape key control"
+      >
+        <org-storybook-example-container-section label="Try Dynamic Toggle">
+          <org-example-story-dialog-dynamic-escape-key />
+        </org-storybook-example-container-section>
+
+        <ul expected-behaviour class="flex flex-col gap-1 mt-1 list-inside list-disc">
+          <li><strong>Open Dialog</strong>: Click the button to open the dialog</li>
+          <li><strong>Inside Dialog Toggle</strong>: Use the checkbox INSIDE the dialog to enable/disable escape key and close icon</li>
+          <li><strong>Synchronized State</strong>: Close icon (X button) and escape key are always in sync</li>
+          <li><strong>Real-time Update</strong>: Close icon becomes enabled/disabled immediately when toggled while dialog is open</li>
+          <li><strong>Disabled State</strong>: When disabled, the X button appears with reduced opacity (40%) and does not respond to clicks</li>
+          <li><strong>Use Case</strong>: Useful for preventing accidental closes during critical operations (like form submission)</li>
+          <li><strong>Button Close</strong>: Cancel and Confirm buttons still work regardless of escape key setting</li>
+        </ul>
+      </org-storybook-example-container>
+    `,
+    moduleMetadata: {
+      imports: [EXAMPLEStoryDialogDynamicEscapeKey, StorybookExampleContainer, StorybookExampleContainerSection],
     },
   }),
 };

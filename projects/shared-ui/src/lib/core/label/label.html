@@ -12,13 +12,13 @@
   <ng-content />
 </ng-template>
 
-<span [class]="mergeClasses('inline-flex items-center gap-1.5 text-label-text', containerClass())">
+<span [class]="mergeClasses('inline-flex items-center gap-1.5 text-label-text text-sm', containerClass())">
   @if (asLabel()) {
-    <label [for]="htmlFor()">
+    <label class="inline-flex items-center gap-1" [for]="htmlFor()">
       <ng-container [ngTemplateOutlet]="labelTemplate" />
     </label>
   } @else {
-    <div>
+    <div class="inline-flex items-center gap-1">
       <ng-container [ngTemplateOutlet]="labelTemplate" />
     </div>
   }

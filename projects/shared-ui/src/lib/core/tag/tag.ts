@@ -3,9 +3,11 @@ import { Icon, type IconName } from '../icon/icon';
 import { tailwindUtils } from '@organization/shared-utils';
 import { Subject } from 'rxjs';
 import { outputFromObservable } from '@angular/core/rxjs-interop';
-import { ComponentColor } from '../types/component-types';
+import { ComponentColor, ComponentSize } from '../types/component-types';
 
 export type TagColor = ComponentColor;
+
+export type TagSize = Extract<ComponentSize, 'xs' | 'sm' | 'base'>;
 
 export type TagVariant = 'strong' | 'weak';
 
@@ -22,6 +24,7 @@ export class Tag {
 
   // Input properties
   public color = input.required<ComponentColor>();
+  public size = input<TagSize>('sm');
   public variant = input<TagVariant>('weak');
   public preIcon = input<IconName | null>(null);
   public postIcon = input<IconName | null>(null);

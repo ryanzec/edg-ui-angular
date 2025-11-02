@@ -288,7 +288,7 @@ export const CustomStyling: Story = {
         currentState="Lists with custom classes and styling"
       >
         <org-storybook-example-container-section label="With Border">
-          <org-list containerClass="border border-border rounded-md">
+          <org-list containerClass="border border-border rounded-md overflow-hidden">
             <org-list-item>Dashboard</org-list-item>
             <org-list-item [isSelected]="true">Projects</org-list-item>
             <org-list-item>Settings</org-list-item>
@@ -445,7 +445,7 @@ export const Sizes: Story = {
         title="List Sizes"
         currentState="Demonstrating different size configurations"
       >
-        <org-storybook-example-container-section label="Default (Base Size)">
+        <org-storybook-example-container-section label="Small Size (Base Size)">
           <org-list>
             <org-list-item preIcon="arrow-down">Dashboard</org-list-item>
             <org-list-item preIcon="arrow-down">Projects</org-list-item>
@@ -453,18 +453,18 @@ export const Sizes: Story = {
           </org-list>
         </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section label="Small Size on List">
-          <org-list size="sm">
+        <org-storybook-example-container-section label="Base">
+          <org-list size="base">
             <org-list-item preIcon="arrow-down">Dashboard</org-list-item>
             <org-list-item preIcon="arrow-down">Projects</org-list-item>
             <org-list-item preIcon="arrow-down">Settings</org-list-item>
           </org-list>
         </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section label="Default List with One Small Item">
+        <org-storybook-example-container-section label="Default List with One Base Item">
           <org-list>
             <org-list-item preIcon="arrow-down">Dashboard (base)</org-list-item>
-            <org-list-item preIcon="arrow-down" overrideSize="sm">Projects (sm)</org-list-item>
+            <org-list-item preIcon="arrow-down" overrideSize="base">Projects (base)</org-list-item>
             <org-list-item preIcon="arrow-down">Settings (base)</org-list-item>
           </org-list>
         </org-storybook-example-container-section>

@@ -6,7 +6,7 @@ import { tailwindUtils } from 'projects/shared-utils/src/utils/tailwind';
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './card-content.html',
   host: {
-    class: 'first:pt-card',
+    class: 'first:pt-card [&:not(:has(~org-card-footer))]:pb-card',
   },
 })
 export class CardContent {

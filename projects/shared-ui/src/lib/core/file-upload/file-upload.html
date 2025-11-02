@@ -32,14 +32,14 @@
     } @else if (fileName()) {
       <div class="flex flex-col items-center gap-2 text-center p-4">
         <org-icon name="check" size="lg" class="text-file-upload-success-icon"></org-icon>
-        <span class="text-base font-medium">{{ fileName() }} ready!</span>
-        <small class="text-file-upload-subtle-text text-sm">Click or drag another file to replace.</small>
+        <span class="text-sm font-medium">{{ fileName() }} ready!</span>
+        <small class="text-file-upload-subtle-text text-xs">Click or drag another file to replace.</small>
       </div>
     } @else {
       <div class="flex flex-col items-center gap-2 text-center p-4">
         <org-icon name="upload-simple" size="lg" class="text-file-upload-upload-icon"></org-icon>
-        <span class="text-base font-medium">Drag & Drop your file here</span>
-        <small class="text-file-upload-subtle-text text-sm"
+        <span class="text-sm font-medium">Drag & Drop your file here</span>
+        <small class="text-file-upload-subtle-text text-xs"
           >or <b class="text-file-upload-accent-text font-medium">click</b> to select one</small
         >
       </div>

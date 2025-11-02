@@ -1,7 +1,7 @@
 <div
   [class]="
     mergeClasses(
-      'flex flex-col h-full gap-4 p-6 bg-background min-w-[300px]',
+      'relative flex flex-col h-full gap-4 p-6 bg-background min-w-[300px]',
       {
         'rounded-md': hasRoundedCorners(),
       },
@@ -9,5 +9,22 @@
     )
   "
 >
+  @if (showCloseIcon()) {
+    <org-button
+      icon="x"
+      variant="text"
+      color="neutral"
+      [excludeSpacing]="true"
+      [disabled]="!closeIconEnabled()"
+      (clicked)="onCloseClick()"
+      [class]="
+        mergeClasses('absolute top-[16px] right-[16px]', {
+          'opacity-40 cursor-not-allowed': !closeIconEnabled(),
+        })
+      "
+      [attr.aria-label]="'Close'"
+      [attr.aria-disabled]="!closeIconEnabled()"
+    />
+  }
   <ng-content />
 </div>

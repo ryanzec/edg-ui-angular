@@ -819,7 +819,7 @@ export const ValidationSpaceReservation: Story = {
         currentState="Comparing space reservation behaviors"
       >
         <org-storybook-example-container-section label="Reserve Space = true (default)">
-          <div class="flex flex-col gap-4">
+          <org-form-fields>
             <org-form-field [reserveValidationSpace]="true">
               <org-combobox
                 name="reserve-true-combobox-1"
@@ -850,11 +850,11 @@ export const ValidationSpaceReservation: Story = {
                 ]"
               />
             </org-form-field>
-          </div>
+          </org-form-fields>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Reserve Space = false">
-          <div class="flex flex-col gap-4">
+          <org-form-fields>
             <org-form-field [reserveValidationSpace]="false">
               <org-combobox
                 name="reserve-false-combobox-1"
@@ -885,7 +885,7 @@ export const ValidationSpaceReservation: Story = {
                 ]"
               />
             </org-form-field>
-          </div>
+          </org-form-fields>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">

@@ -2,7 +2,7 @@
   <div
     [class]="
       mergeClasses(
-        'org-avatar-circle flex items-center justify-center rounded-full overflow-hidden text-avatar-text bg-avatar-background',
+        'org-avatar-circle flex items-center justify-center rounded-full overflow-hidden text-avatar-text bg-avatar-background ',
         {
           'w-[24px] h-[24px] text-xs': size() === 'sm',
           'w-[32px] h-[32px] text-sm': size() === 'base',
@@ -24,8 +24,8 @@
       @if (label()) {
         <span
           [class]="
-            mergeClasses('font-medium text-text', {
-              'text-sm': size() === 'sm',
+            mergeClasses('font-medium text-text text-sm', {
+              'text-xs': size() === 'sm',
             })
           "
           >{{ label() }}</span
@@ -34,8 +34,8 @@
       @if (subLabel()) {
         <span
           [class]="
-            mergeClasses('text-sm text-secondary', {
-              'text-xs': size() === 'sm',
+            mergeClasses('text-sm text-secondary text-xs', {
+              'text-2xs': size() === 'sm',
             })
           "
           >{{ subLabel() }}</span

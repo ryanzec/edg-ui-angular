@@ -145,21 +145,21 @@ export const WithDifferentTextLengths: Story = {
     template: `
       <org-storybook-example-container>
         <org-storybook-example-container-section label="Short Text">
-          <div class="relative h-[200px] border border-neutral-300 rounded-md p-4">
+          <div class="relative h-[200px] w-[300px] border border-neutral-300 rounded-md p-4 overflow-hidden">
             <org-loading-blocker [isVisible]="true" text="Loading..." />
             <div>Content</div>
           </div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Medium Text">
-          <div class="relative h-[200px] border border-neutral-300 rounded-md p-4">
+          <div class="relative h-[200px] w-[300px] border border-neutral-300 rounded-md p-4 overflow-hidden">
             <org-loading-blocker [isVisible]="true" text="Loading your data, please wait..." />
             <div>Content</div>
           </div>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Long Text">
-          <div class="relative h-[200px] border border-neutral-300 rounded-md p-4">
+          <div class="relative h-[200px] w-[300px] border border-neutral-300 rounded-md p-4 overflow-hidden">
             <org-loading-blocker [isVisible]="true" text="Loading your data from the server, this may take a few moments..." />
             <div>Content</div>
           </div>

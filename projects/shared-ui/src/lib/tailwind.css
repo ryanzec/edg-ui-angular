@@ -54,23 +54,11 @@
   --color-transparent: transparent;
   --color-current: currentColor;
 
-  /* font size overrides */
-  --text-xs: 0.625rem; /* 10px */
-  --text-sm: 0.75rem; /* 12px */
-  --text-base: 0.875rem; /* 14px */
+  /* extra text sizes */
+  --text-2xs: 0.625rem; /* 10px */
 
   /* line height configurations */
-  --leading-xs: 0.875rem; /* 14px - 1.4x font size */
-  --leading-sm: 1rem; /* 16px - 1.33x font size */
-  --leading: 1.25rem; /* 20px - 1.43x font size */
-}
-
-html {
-  /* including tailwind causes a weird issue so this resolved */
-  .mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field
-    .mdc-notched-outline__notch {
-    border-right: 0;
-  }
+  --leading-2xs: 0.875rem; /* 14px - 1.4x font size */
 }
 
 @import './variables.css';

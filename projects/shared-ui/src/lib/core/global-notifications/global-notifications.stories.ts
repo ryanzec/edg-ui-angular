@@ -357,6 +357,7 @@ class GlobalNotificationsAutoCloseStory {
       message: 'This notification can only be closed manually',
       color: 'danger',
       canClose: true,
+      autoCloseIn: 0,
     });
   }
 

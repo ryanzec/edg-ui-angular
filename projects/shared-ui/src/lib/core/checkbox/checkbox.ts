@@ -65,7 +65,7 @@ export class Checkbox implements ControlValueAccessor {
   public checked = input<boolean>(false);
   public indeterminate = input<boolean>(false);
   public disabled = input<boolean>(false);
-  public size = input<CheckboxSize>('base');
+  public size = input<CheckboxSize>('sm');
   public containerClass = input<string>('');
 
   // outputs
@@ -92,12 +92,12 @@ export class Checkbox implements ControlValueAccessor {
   public readonly isDisabled = computed<boolean>(() => this.disabled());
   public readonly textSize = computed<TextSize>(() => {
     switch (this.size()) {
-      case 'sm':
-        return 'sm';
+      case 'base':
+        return 'base';
       case 'lg':
         return 'lg';
       default:
-        return 'base';
+        return 'sm';
     }
   });
 

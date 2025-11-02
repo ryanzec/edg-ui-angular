@@ -542,10 +542,6 @@ export const Positioning: Story = {
           </ng-template>
 
           <div class="flex gap-4">
-            <org-tooltip [templateRef]="topLeftTooltip" xPosition="left" yPosition="top">
-              <org-button color="primary">Top Left</org-button>
-            </org-tooltip>
-
             <org-tooltip [templateRef]="topRightTooltip" xPosition="right" yPosition="top">
               <org-button color="primary">Top Right</org-button>
             </org-tooltip>
@@ -556,6 +552,10 @@ export const Positioning: Story = {
 
             <org-tooltip [templateRef]="bottomRightTooltip" xPosition="right" yPosition="bottom">
               <org-button color="primary">Bottom Right</org-button>
+            </org-tooltip>
+
+            <org-tooltip [templateRef]="topLeftTooltip" xPosition="left" yPosition="top">
+              <org-button color="primary">Top Left</org-button>
             </org-tooltip>
           </div>
         </org-storybook-example-container-section>

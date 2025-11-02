@@ -22,7 +22,7 @@ const meta: Meta<CheckboxToggle> = {
 
   ### Features
   - Toggle switch visual representation
-  - Optional display values: text or icons
+  - Optional display values: icons
   - Three size options: small, base, and large
   - Form integration support with reactive forms
   - Disabled state
@@ -30,8 +30,8 @@ const meta: Meta<CheckboxToggle> = {
   - Keyboard navigation support (Space and Enter keys)
 
   ### States
-  - **Off**: Shows off state with optional off text/icon
-  - **On**: Shows on state with optional on text/icon
+  - **Off**: Shows off state with optional off icon
+  - **On**: Shows on state with optional on icon
 
   ### Sizes
   - **Small**: Compact toggle for tight spaces (28x16px track)
@@ -48,16 +48,6 @@ const meta: Meta<CheckboxToggle> = {
   <!-- Toggle with checked state -->
   <org-checkbox-toggle name="darkMode" value="dark" [checked]="true">
     Dark mode
-  </org-checkbox-toggle>
-
-  <!-- Toggle with text display values -->
-  <org-checkbox-toggle
-    name="status"
-    value="active"
-    onText="ON"
-    offText="OFF"
-  >
-    Status
   </org-checkbox-toggle>
 
   <!-- Toggle with icon display values -->
@@ -119,8 +109,6 @@ export const Default: Story = {
     containerClass: '',
     onIcon: null,
     offIcon: null,
-    onText: null,
-    offText: null,
   },
   argTypes: {
     name: {
@@ -156,14 +144,6 @@ export const Default: Story = {
       control: 'text',
       description: 'Icon to display when toggle is off',
     },
-    onText: {
-      control: 'text',
-      description: 'Text to display when toggle is on',
-    },
-    offText: {
-      control: 'text',
-      description: 'Text to display when toggle is off',
-    },
   },
   parameters: {
     docs: {
@@ -184,8 +164,6 @@ export const Default: Story = {
         [containerClass]="containerClass"
         [onIcon]="onIcon"
         [offIcon]="offIcon"
-        [onText]="onText"
-        [offText]="offText"
       >
         Toggle Label
       </org-checkbox-toggle>
@@ -210,7 +188,7 @@ export const Sizes: Story = {
         title="CheckboxToggle Sizes"
         currentState="Comparing small, base, and large sizes"
       >
-        <org-storybook-example-container-section label="Small">
+        <org-storybook-example-container-section label="Small (Default)">
           <org-checkbox-toggle name="small" value="small" size="sm" [checked]="false">
             Small toggle
           </org-checkbox-toggle>
@@ -219,7 +197,7 @@ export const Sizes: Story = {
           </org-checkbox-toggle>
         </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section label="Base (Default)">
+        <org-storybook-example-container-section label="Base">
           <org-checkbox-toggle name="base" value="base" size="base" [checked]="false">
             Base toggle
           </org-checkbox-toggle>
@@ -238,8 +216,8 @@ export const Sizes: Story = {
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
-          <li><strong>Small</strong>: 28x16px track with 12px thumb - compact toggle for tight spaces</li>
-          <li><strong>Base</strong>: 36x20px track with 16px thumb - standard toggle size (default)</li>
+          <li><strong>Small</strong>: 28x16px track with 12px thumb - compact toggle for tight spaces (default)</li>
+          <li><strong>Base</strong>: 36x20px track with 16px thumb - standard toggle size</li>
           <li><strong>Large</strong>: 44x24px track with 20px thumb - prominent toggle for emphasis</li>
         </ul>
       </org-storybook-example-container>
@@ -327,148 +305,6 @@ export const DisabledStates: Story = {
   }),
 };
 
-export const WithTextDisplayValues: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: 'Toggles showing text values inside the thumb (ON/OFF, YES/NO, etc.).',
-      },
-    },
-  },
-  render: () => ({
-    template: `
-      <org-storybook-example-container
-        title="Toggle with Text Display Values"
-        currentState="Showing text inside the toggle thumb"
-      >
-        <org-storybook-example-container-section label="ON/OFF - Small">
-          <div class="flex flex-col gap-1">
-            <org-checkbox-toggle
-              name="text-off-small"
-              value="text-off-small"
-              size="sm"
-              onText="ON"
-              offText="OFF"
-            >
-              Status (off)
-            </org-checkbox-toggle>
-            <org-checkbox-toggle
-              name="text-on-small"
-              value="text-on-small"
-              size="sm"
-              [checked]="true"
-              onText="ON"
-              offText="OFF"
-            >
-              Status (on)
-            </org-checkbox-toggle>
-          </div>
-        </org-storybook-example-container-section>
-
-        <org-storybook-example-container-section label="ON/OFF - Base">
-          <div class="flex flex-col gap-1">
-            <org-checkbox-toggle
-              name="text-off-base"
-              value="text-off-base"
-              onText="ON"
-              offText="OFF"
-            >
-              Status (off)
-            </org-checkbox-toggle>
-            <org-checkbox-toggle
-              name="text-on-base"
-              value="text-on-base"
-              [checked]="true"
-              onText="ON"
-              offText="OFF"
-            >
-              Status (on)
-            </org-checkbox-toggle>
-          </div>
-        </org-storybook-example-container-section>
-
-        <org-storybook-example-container-section label="ON/OFF - Large">
-          <div class="flex flex-col gap-1">
-            <org-checkbox-toggle
-              name="text-off-large"
-              value="text-off-large"
-              size="lg"
-              onText="ON"
-              offText="OFF"
-            >
-              Status (off)
-            </org-checkbox-toggle>
-            <org-checkbox-toggle
-              name="text-on-large"
-              value="text-on-large"
-              size="lg"
-              [checked]="true"
-              onText="ON"
-              offText="OFF"
-            >
-              Status (on)
-            </org-checkbox-toggle>
-          </div>
-        </org-storybook-example-container-section>
-
-        <org-storybook-example-container-section label="YES/NO">
-          <div class="flex flex-col gap-1">
-            <org-checkbox-toggle
-              name="yesno-off"
-              value="yesno-off"
-              onText="YES"
-              offText="NO"
-            >
-              Accept (no)
-            </org-checkbox-toggle>
-            <org-checkbox-toggle
-              name="yesno-on"
-              value="yesno-on"
-              [checked]="true"
-              onText="YES"
-              offText="NO"
-            >
-              Accept (yes)
-            </org-checkbox-toggle>
-          </div>
-        </org-storybook-example-container-section>
-
-        <org-storybook-example-container-section label="I/O (Input/Output)">
-          <div class="flex flex-col gap-1">
-            <org-checkbox-toggle
-              name="io-off"
-              value="io-off"
-              onText="I"
-              offText="O"
-            >
-              Power (off)
-            </org-checkbox-toggle>
-            <org-checkbox-toggle
-              name="io-on"
-              value="io-on"
-              [checked]="true"
-              onText="I"
-              offText="O"
-            >
-              Power (on)
-            </org-checkbox-toggle>
-          </div>
-        </org-storybook-example-container-section>
-
-        <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
-          <li>Text displays inside the toggle thumb</li>
-          <li>Different text can be shown for on and off states</li>
-          <li>Text scales appropriately for different sizes</li>
-          <li>Common patterns: ON/OFF, YES/NO, I/O</li>
-        </ul>
-      </org-storybook-example-container>
-    `,
-    moduleMetadata: {
-      imports: [CheckboxToggle, StorybookExampleContainer, StorybookExampleContainerSection],
-    },
-  }),
-};
-
 export const WithIconDisplayValues: Story = {
   parameters: {
     docs: {
@@ -483,12 +319,11 @@ export const WithIconDisplayValues: Story = {
         title="Toggle with Icon Display Values"
         currentState="Showing icons inside the toggle thumb"
       >
-        <org-storybook-example-container-section label="Check/X - Small">
+        <org-storybook-example-container-section label="Check/X - Small (not officially supported)">
           <div class="flex flex-col gap-1">
             <org-checkbox-toggle
               name="checkx-off-small"
               value="checkx-off-small"
-              size="sm"
               onIcon="check"
               offIcon="x"
             >
@@ -497,7 +332,6 @@ export const WithIconDisplayValues: Story = {
             <org-checkbox-toggle
               name="checkx-on-small"
               value="checkx-on-small"
-              size="sm"
               [checked]="true"
               onIcon="check"
               offIcon="x"
@@ -514,6 +348,7 @@ export const WithIconDisplayValues: Story = {
               value="checkx-off-base"
               onIcon="check"
               offIcon="x"
+              size="base"
             >
               Approved (no)
             </org-checkbox-toggle>
@@ -523,6 +358,7 @@ export const WithIconDisplayValues: Story = {
               [checked]="true"
               onIcon="check"
               offIcon="x"
+              size="base"
             >
               Approved (yes)
             </org-checkbox-toggle>
@@ -549,50 +385,6 @@ export const WithIconDisplayValues: Story = {
               offIcon="x"
             >
               Approved (yes)
-            </org-checkbox-toggle>
-          </div>
-        </org-storybook-example-container-section>
-
-        <org-storybook-example-container-section label="Eye/Eye-Slash (Visibility)">
-          <div class="flex flex-col gap-1">
-            <org-checkbox-toggle
-              name="eye-off"
-              value="eye-off"
-              onIcon="eye"
-              offIcon="eye-slash"
-            >
-              Visible (no)
-            </org-checkbox-toggle>
-            <org-checkbox-toggle
-              name="eye-on"
-              value="eye-on"
-              [checked]="true"
-              onIcon="eye"
-              offIcon="eye-slash"
-            >
-              Visible (yes)
-            </org-checkbox-toggle>
-          </div>
-        </org-storybook-example-container-section>
-
-        <org-storybook-example-container-section label="Lock/Unlock">
-          <div class="flex flex-col gap-1">
-            <org-checkbox-toggle
-              name="lock-off"
-              value="lock-off"
-              onIcon="lock-key"
-              offIcon="lock-key"
-            >
-              Locked (no)
-            </org-checkbox-toggle>
-            <org-checkbox-toggle
-              name="lock-on"
-              value="lock-on"
-              [checked]="true"
-              onIcon="lock-key"
-              offIcon="lock-key"
-            >
-              Locked (yes)
             </org-checkbox-toggle>
           </div>
         </org-storybook-example-container-section>
@@ -849,7 +641,7 @@ export const ValidationSpaceReservation: Story = {
         currentState="Comparing space reservation behaviors"
       >
         <org-storybook-example-container-section label="Reserve Space = true (default)">
-          <div class="flex flex-col gap-4">
+          <org-form-fields>
             <org-form-field [reserveValidationSpace]="true">
               <org-checkbox-toggle
                 name="reserve-true-toggle-1"
@@ -874,11 +666,11 @@ export const ValidationSpaceReservation: Story = {
                 Toggle 3 (no error)
               </org-checkbox-toggle>
             </org-form-field>
-          </div>
+          </org-form-fields>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Reserve Space = false">
-          <div class="flex flex-col gap-4">
+          <org-form-fields>
             <org-form-field [reserveValidationSpace]="false">
               <org-checkbox-toggle
                 name="reserve-false-toggle-1"
@@ -903,7 +695,7 @@ export const ValidationSpaceReservation: Story = {
                 Toggle 3 (no error)
               </org-checkbox-toggle>
             </org-form-field>
-          </div>
+          </org-form-fields>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
@@ -915,7 +707,7 @@ export const ValidationSpaceReservation: Story = {
       </org-storybook-example-container>
     `,
     moduleMetadata: {
-      imports: [CheckboxToggle, FormField, StorybookExampleContainer, StorybookExampleContainerSection],
+      imports: [CheckboxToggle, FormField, FormFields, StorybookExampleContainer, StorybookExampleContainerSection],
     },
   }),
 };

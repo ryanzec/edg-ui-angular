@@ -14,6 +14,7 @@ import {
 import { Dialog as CdkDialog, DialogRef } from '@angular/cdk/dialog';
 import { ComponentType } from '@angular/cdk/portal';
 import { LogManager } from '../log-manager/log-manager';
+import { BehaviorSubject } from 'rxjs';
 
 export type DialogPosition = 'center' | 'top' | 'bottom' | 'left' | 'right';
 
@@ -33,6 +34,7 @@ export class DialogController<T> {
 
   private _dialogRef: DialogRef<T, T> | undefined = undefined;
   private _escapeKeyEnabled = true;
+  private _closeIconEnabled$ = new BehaviorSubject<boolean>(true);
 
   // Inputs to make the component generic
   public dialogComponent = input.required<ComponentType<T>>();
@@ -50,6 +52,11 @@ export class DialogController<T> {
    */
   public enableEscapeKey = input<boolean>(true);
 
+  /**
+   * This controls whether the close icon is shown in the dialog
+   */
+  public showCloseIcon = input<boolean>(true);
+
   public closed = output<void>();
 
   public openDialog(data?: Record<string, unknown>): DialogRef<T, T> | null {
@@ -63,11 +70,14 @@ export class DialogController<T> {
     }
 
     this._escapeKeyEnabled = this.enableEscapeKey();
+    this._closeIconEnabled$.next(this._escapeKeyEnabled);
 
     this._dialogRef = this._cdkDialog.open(component, {
       data: {
         ...data,
         hasRoundedCorners: this.hasRoundedCorners(),
+        showCloseIcon: this.showCloseIcon(),
+        closeIconEnabled$: this._closeIconEnabled$,
       },
       panelClass: this._getPanelClass(),
       hasBackdrop: this.hasBackdrop(),
@@ -100,6 +110,7 @@ export class DialogController<T> {
    */
   public setEnableEscapeKey(enabled: boolean): void {
     this._escapeKeyEnabled = enabled;
+    this._closeIconEnabled$.next(enabled);
   }
 
   @HostListener('document:keydown.escape', ['$event'])

@@ -77,9 +77,9 @@ export const iconNames: IconName[] = [
   'x-circle',
 ];
 
-export type IconSize = Extract<ComponentSize, 'sm' | 'base' | 'lg'>;
+export type IconSize = Extract<ComponentSize, '2xs' | 'xs' | 'sm' | 'base' | 'lg'>;
 
-export const iconSizes: IconSize[] = ['sm', 'base', 'lg'];
+export const iconSizes: IconSize[] = ['2xs', 'xs', 'sm', 'base', 'lg'];
 
 export type IconWeight = 'regular' | 'bold' | 'fill';
 

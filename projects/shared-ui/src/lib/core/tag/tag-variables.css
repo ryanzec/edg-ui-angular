@@ -68,7 +68,7 @@
 .dark-theme {
   /* Primary variants */
   --color-tag-primary-strong-bg: var(--color-primary-background);
-  --color-tag-primary-strong-text: var(--color-text-inverse);
+  --color-tag-primary-strong-text: var(--color-text);
   --color-tag-primary-strong-border: var(--color-primary-background);
   --color-tag-primary-weak-bg: var(--color-primary-background-subtle);
   --color-tag-primary-weak-text: var(--color-text);
@@ -84,7 +84,7 @@
 
   /* Neutral variants */
   --color-tag-neutral-strong-bg: var(--color-neutral-background);
-  --color-tag-neutral-strong-text: var(--color-text-inverse);
+  --color-tag-neutral-strong-text: var(--color-text);
   --color-tag-neutral-strong-border: var(--color-neutral-background);
   --color-tag-neutral-weak-bg: var(--color-neutral-background-subtle);
   --color-tag-neutral-weak-text: var(--color-text);
@@ -92,7 +92,7 @@
 
   /* Safe variants */
   --color-tag-safe-strong-bg: var(--color-safe-background);
-  --color-tag-safe-strong-text: var(--color-text-inverse);
+  --color-tag-safe-strong-text: var(--color-text);
   --color-tag-safe-strong-border: var(--color-safe-background);
   --color-tag-safe-weak-bg: var(--color-safe-background-subtle);
   --color-tag-safe-weak-text: var(--color-text);
@@ -100,7 +100,7 @@
 
   /* Info variants */
   --color-tag-info-strong-bg: var(--color-info-background);
-  --color-tag-info-strong-text: var(--color-text-inverse);
+  --color-tag-info-strong-text: var(--color-text);
   --color-tag-info-strong-border: var(--color-info-background);
   --color-tag-info-weak-bg: var(--color-info-background-subtle);
   --color-tag-info-weak-text: var(--color-text);
@@ -108,7 +108,7 @@
 
   /* Caution variants */
   --color-tag-caution-strong-bg: var(--color-caution-background);
-  --color-tag-caution-strong-text: var(--color-text-inverse);
+  --color-tag-caution-strong-text: var(--color-text);
   --color-tag-caution-strong-border: var(--color-caution-background);
   --color-tag-caution-weak-bg: var(--color-caution-background-subtle);
   --color-tag-caution-weak-text: var(--color-text);
@@ -116,7 +116,7 @@
 
   /* Warning variants */
   --color-tag-warning-strong-bg: var(--color-warning-background);
-  --color-tag-warning-strong-text: var(--color-text-inverse);
+  --color-tag-warning-strong-text: var(--color-text);
   --color-tag-warning-strong-border: var(--color-warning-background);
   --color-tag-warning-weak-bg: var(--color-warning-background-subtle);
   --color-tag-warning-weak-text: var(--color-text);
@@ -124,7 +124,7 @@
 
   /* Danger variants */
   --color-tag-danger-strong-bg: var(--color-danger-background);
-  --color-tag-danger-strong-text: var(--color-text-inverse);
+  --color-tag-danger-strong-text: var(--color-text);
   --color-tag-danger-strong-border: var(--color-danger-background);
   --color-tag-danger-weak-bg: var(--color-danger-background-subtle);
   --color-tag-danger-weak-text: var(--color-text);

@@ -1,7 +1,10 @@
 <div class="org-tag inline-block">
   <span
     [class]="
-      mergeClasses('inline-flex items-center rounded-xl border text-sm font-medium gap-1.5 px-2 py-1 leading-[14px]', {
+      mergeClasses('inline-flex items-center rounded-xl border font-medium', {
+        'px-1.5 py-0.5 text-xs gap-1 leading-[12px]': size() === 'xs',
+        'px-2 py-1 text-sm gap-1.5 leading-[14px]': size() === 'sm',
+        'px-2.5 py-1 text-base gap-2 leading-[16px]': size() === 'base',
         'bg-tag-primary-strong-bg text-tag-primary-strong-text border-tag-primary-strong-border':
           color() === 'primary' && variant() === 'strong',
         'bg-tag-primary-weak-bg text-tag-primary-weak-text border-tag-primary-weak-border':
@@ -48,7 +51,7 @@
         (click)="onPreIconClick()"
         [attr.aria-label]="'Pre icon'"
       >
-        <org-icon [name]="preIcon()!" size="sm" />
+        <org-icon [name]="preIcon()!" [size]="size()" />
       </button>
     }
     <ng-content />
@@ -63,7 +66,7 @@
         (click)="onPostIconClick()"
         [attr.aria-label]="removable() ? 'Remove tag' : 'Post icon'"
       >
-        <org-icon [name]="currentPostIcon()!" size="sm" />
+        <org-icon [name]="currentPostIcon()!" [size]="size()" />
       </button>
     }
   </span>

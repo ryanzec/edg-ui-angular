@@ -17,7 +17,7 @@ export const LIST_COMPONENT = new InjectionToken<List>('List Component');
 })
 export class List {
   public containerClass = input<string>('');
-  public size = input<ListSize>('base');
+  public size = input<ListSize>('sm');
 
   public mergeClasses = tailwindUtils.merge;
 }

@@ -1,7 +1,7 @@
 /* File Upload component Tailwind theme variables */
 @theme {
   /* Container colors */
-  --color-file-upload-background: var(--color-secondary-background-subtle);
+  --color-file-upload-background: var(--color-neutral-background-subtle);
   --color-file-upload-text: var(--color-text-subtle);
 
   /* Border colors */
@@ -12,7 +12,7 @@
   --color-file-upload-hover-background: var(--color-info-background-subtle);
 
   /* Uploading state colors */
-  --color-file-upload-uploading-background: var(--color-secondary-background);
+  --color-file-upload-uploading-background: var(--color-neutral-background);
   --color-file-upload-uploading-text: var(--color-info-text);
 
   /* Progress bar colors */
@@ -41,7 +41,7 @@
  */
 body.dark-theme {
   /* Container colors */
-  --color-file-upload-background: var(--color-secondary-background-subtle);
+  --color-file-upload-background: var(--color-neutral-background-subtle);
   --color-file-upload-text: var(--color-text-subtle);
 
   /* Border colors */
@@ -52,7 +52,7 @@ body.dark-theme {
   --color-file-upload-hover-background: var(--color-info-background-subtle);
 
   /* Uploading state colors */
-  --color-file-upload-uploading-background: var(--color-secondary-background);
+  --color-file-upload-uploading-background: var(--color-neutral-background);
   --color-file-upload-uploading-text: var(--color-info-text);
 
   /* Progress bar colors */

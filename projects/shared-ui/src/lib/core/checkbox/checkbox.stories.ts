@@ -35,8 +35,8 @@ const meta: Meta<Checkbox> = {
   - **Indeterminate**: Shows minus-square icon (useful for "select all" scenarios)
 
   ### Sizes
-  - **Small**: Compact checkbox for tight spaces
-  - **Base**: Standard checkbox size (default)
+  - **Small**: Default size (default)
+  - **Base**: Larger checkbox size
   - **Large**: Prominent checkbox for emphasis
 
   ### Usage Examples
@@ -102,7 +102,7 @@ export const Default: Story = {
     checked: false,
     indeterminate: false,
     disabled: false,
-    size: 'base',
+    size: 'sm',
     containerClass: '',
   },
   argTypes: {
@@ -178,13 +178,13 @@ export const Sizes: Story = {
         title="Checkbox Sizes"
         currentState="Comparing small, base, and large sizes"
       >
-        <org-storybook-example-container-section label="Small">
+        <org-storybook-example-container-section label="Small (Default)">
           <org-checkbox name="small" value="small" size="sm" [checked]="true">
             Small checkbox
           </org-checkbox>
         </org-storybook-example-container-section>
 
-        <org-storybook-example-container-section label="Base (Default)">
+        <org-storybook-example-container-section label="Base">
           <org-checkbox name="base" value="base" size="base" [checked]="true">
             Base checkbox
           </org-checkbox>
@@ -197,8 +197,8 @@ export const Sizes: Story = {
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">
-          <li><strong>Small</strong>: Compact checkbox for tight spaces</li>
-          <li><strong>Base</strong>: Standard checkbox size (default)</li>
+          <li><strong>Small</strong>: Compact checkbox for tight spaces (default)</li>
+          <li><strong>Base</strong>: Standard checkbox size</li>
           <li><strong>Large</strong>: Prominent checkbox for emphasis</li>
         </ul>
       </org-storybook-example-container>
@@ -648,7 +648,7 @@ export const ValidationSpaceReservation: Story = {
         currentState="Comparing space reservation behaviors"
       >
         <org-storybook-example-container-section label="Reserve Space = true (default)">
-          <div class="flex flex-col gap-4">
+          <org-form-fields>
             <org-form-field [reserveValidationSpace]="true">
               <org-checkbox
                 name="reserve-true-checkbox-1"
@@ -673,11 +673,11 @@ export const ValidationSpaceReservation: Story = {
                 Checkbox 3 (no error)
               </org-checkbox>
             </org-form-field>
-          </div>
+          </org-form-fields>
         </org-storybook-example-container-section>
 
         <org-storybook-example-container-section label="Reserve Space = false">
-          <div class="flex flex-col gap-4">
+          <org-form-fields>
             <org-form-field [reserveValidationSpace]="false">
               <org-checkbox
                 name="reserve-false-checkbox-1"
@@ -702,7 +702,7 @@ export const ValidationSpaceReservation: Story = {
                 Checkbox 3 (no error)
               </org-checkbox>
             </org-form-field>
-          </div>
+          </org-form-fields>
         </org-storybook-example-container-section>
 
         <ul expected-behaviour class="mt-1 list-inside list-disc flex flex-col gap-1">

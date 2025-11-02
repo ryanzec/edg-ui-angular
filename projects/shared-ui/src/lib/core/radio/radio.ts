@@ -34,7 +34,7 @@ export class Radio implements OnInit {
   public name = input<string>('');
 
   // Optional inputs
-  public size = input<RadioSize>('base');
+  public size = input<RadioSize>('sm');
   public containerClass = input<string>('');
 
   // Computed properties
@@ -42,12 +42,12 @@ export class Radio implements OnInit {
   public readonly finalName = computed<string>(() => this._radioGroup?.name() ?? this.name());
   public readonly textSize = computed<TextSize>(() => {
     switch (this.size()) {
-      case 'sm':
-        return 'sm';
+      case 'base':
+        return 'base';
       case 'lg':
         return 'lg';
       default:
-        return 'base';
+        return 'sm';
     }
   });
 

@@ -11,7 +11,7 @@ import {
   inject,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Icon, IconName } from '../icon/icon';
+import { Icon, IconName, IconSize } from '../icon/icon';
 import { tailwindUtils } from '@organization/shared-utils';
 import { TextDirective, TextSize } from '../text-directive/text-directive';
 import { ComponentSize } from '../types/component-types';
@@ -63,12 +63,10 @@ export class CheckboxToggle implements ControlValueAccessor {
   // optional inputs
   public checked = input<boolean>(false);
   public disabled = input<boolean>(false);
-  public size = input<CheckboxToggleSize>('base');
+  public size = input<CheckboxToggleSize>('sm');
   public containerClass = input<string>('');
   public onIcon = input<IconName | null>(null);
   public offIcon = input<IconName | null>(null);
-  public onText = input<string | null>(null);
-  public offText = input<string | null>(null);
 
   // outputs
   public checkedChange = output<boolean>();
@@ -86,10 +84,10 @@ export class CheckboxToggle implements ControlValueAccessor {
   public readonly isDisabled = computed<boolean>(() => this.disabled());
   public readonly textSize = computed<TextSize>(() => {
     switch (this.size()) {
-      case 'sm':
-        return 'xs';
-      case 'lg':
+      case 'base':
         return 'base';
+      case 'lg':
+        return 'lg';
       default:
         return 'sm';
     }
@@ -103,12 +101,15 @@ export class CheckboxToggle implements ControlValueAccessor {
     return this.offIcon();
   });
 
-  public readonly displayText = computed<string | null>(() => {
-    if (this.isChecked()) {
-      return this.onText();
+  public readonly iconSize = computed<IconSize>(() => {
+    switch (this.size()) {
+      case 'base':
+        return '2xs';
+      case 'lg':
+        return 'sm';
+      default:
+        return '2xs';
     }
-
-    return this.offText();
   });
 
   public readonly hasValidationMessage = computed<boolean>(() => {

@@ -49,6 +49,8 @@ export * from './scroll-area-directive/scroll-area-directive';
 export * from './radio/radio';
 export * from './radio/radio-group';
 export * from './skeleton/skeleton';
+export * from './sortable-directive/sortable-directive';
+export * from './sorting-store/sorting-store';
 export * from './tag/tag';
 export * from './tabs/tabs';
 export * from './tabs/tab';

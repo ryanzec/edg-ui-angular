@@ -29,7 +29,7 @@ export abstract class BaseCursorDataStore<T> extends BaseDataStore<T> {
   public readonly hasNext = computed(() => this._cursorState().nextCursor !== null);
   public readonly hasPrevious = computed(() => this._cursorState().previousCursor !== null);
 
-  constructor(idField: keyof T, defaultCursorState: Partial<CursorState> = {}) {
+  constructor(idField: keyof T | undefined, defaultCursorState: Partial<CursorState> = {}) {
     super(idField);
 
     this._cursorState.set({

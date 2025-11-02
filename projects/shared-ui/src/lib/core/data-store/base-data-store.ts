@@ -25,12 +25,13 @@ const generateDefaultDataStoreState = <T>(): BaseDataStoreState<T> => ({
 export abstract class BaseDataStore<T> {
   protected readonly _logManager = inject(LogManager);
 
-  private _idField: keyof T;
+  private _idField: keyof T | undefined;
   private readonly state = signal<BaseDataStoreState<T>>(generateDefaultDataStoreState());
 
   protected readonly idField = () => this._idField;
 
   public readonly data = computed(() => this.state().data);
+  public readonly meta = computed(() => this.state().meta);
   public readonly error = computed(() => this.state().error);
   public readonly hasInitialized = computed(() => this.state().hasInitialized);
   public readonly loadingState = computed<DataStoreLoadingState>(() => {
@@ -49,7 +50,7 @@ export abstract class BaseDataStore<T> {
   });
   public readonly remoteState = computed(() => this.state().remoteState);
 
-  constructor(idField: keyof T) {
+  constructor(idField: keyof T | undefined) {
     this._idField = idField;
   }
 
@@ -105,10 +106,19 @@ export abstract class BaseDataStore<T> {
   }
 
   protected updateLocalData(updateItem: T): void {
+    const idField = this._idField;
+
+    if (!idField) {
+      this._logManager.log({
+        type: 'base-data-store-update-local-data-error',
+        message: 'Cannot update local data without an id field',
+      });
+
+      return;
+    }
+
     this.state.update((currentState) => {
-      const existingUserIndex = currentState.data.findIndex(
-        (item) => item[this._idField] === updateItem[this._idField]
-      );
+      const existingUserIndex = currentState.data.findIndex((item) => item[idField] === updateItem[idField]);
 
       if (existingUserIndex === -1) {
         return currentState;
@@ -128,8 +138,19 @@ export abstract class BaseDataStore<T> {
   }
 
   protected deleteLocalData(id: unknown): void {
+    const idField = this._idField;
+
+    if (!idField) {
+      this._logManager.log({
+        type: 'base-data-store-update-local-data-error',
+        message: 'Cannot update local data without an id field',
+      });
+
+      return;
+    }
+
     this.state.update((currentState) => {
-      const updatedUsers = currentState.data.filter((item) => item[this._idField] !== id);
+      const updatedUsers = currentState.data.filter((item) => item[idField] !== id);
 
       return {
         ...currentState,

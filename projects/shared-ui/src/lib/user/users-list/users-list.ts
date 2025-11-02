@@ -5,7 +5,6 @@ import {
   output,
   effect,
   inject,
-  InjectionToken,
   computed,
   afterNextRender,
   model,
@@ -35,14 +34,9 @@ import { FormFields } from '../../core/form-fields/form-fields';
 import { FormField } from '../../core/form-field/form-field';
 import { DateDisplay } from '@organization/shared-ui';
 import { Pagination } from '../../core/pagination/pagination';
-import { PaginationState, PaginationStore } from '../../core/pagination-store/pagination-store';
+import { PaginationState } from '../../core/pagination-store/pagination-store';
 import { LogManager } from '../../core/log-manager/log-manager';
 import { RemoteRetrievalType } from '../../core/types';
-
-/**
- * injection token for users list pagination store
- */
-export const USERS_LIST_PAGINATION_STORE = new InjectionToken<PaginationStore>('Users List Pagination Store');
 
 /**
  * date field options for filtering

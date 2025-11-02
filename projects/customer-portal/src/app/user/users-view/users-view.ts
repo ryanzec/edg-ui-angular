@@ -25,6 +25,7 @@ import {
   Card,
   CardHeader,
   CardContent,
+  SortingDirection,
 } from '@organization/shared-ui';
 import { GetUsersRequest, type User } from '@organization/shared-types';
 import { debounceTime, distinctUntilChanged, firstValueFrom } from 'rxjs';
@@ -32,7 +33,6 @@ import { DialogRef } from '@angular/cdk/dialog';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { isEqual } from 'es-toolkit';
-import { SortingDirection } from 'projects/shared-ui/src/lib/core/sorting-store/sorting-store';
 @Component({
   selector: 'cp-users-view',
   changeDetection: ChangeDetectionStrategy.OnPush,
